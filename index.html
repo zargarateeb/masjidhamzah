@@ -13,6 +13,8 @@
             --secondary-color: #2e8b57;
             --accent-color: #2ecc71;
             --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
             --background-light: #f8f9fa;
             --background-dark: #121212;
             --card-light: #ffffff;
@@ -26,6 +28,8 @@
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.3);
             --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), #27ae60);
         }
 
         * {
@@ -57,13 +61,13 @@
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             color: white;
             padding: 25px 0 20px;
             text-align: center;
             border-radius: 0 0 30px 30px;
-            box-shadow: 0 4px 20px rgba(10, 92, 54, 0.3);
-            margin-bottom: 25px;
+            box-shadow: 0 6px 25px rgba(10, 92, 54, 0.4);
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
         }
@@ -71,52 +75,57 @@
         .header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230a5c36' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
             opacity: 0.1;
         }
 
         .masjid-name {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin-bottom: 10px;
             position: relative;
-            z-index: 1;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
         }
 
         .location {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
+            font-size: 1.05rem;
+            opacity: 0.95;
+            margin-bottom: 25px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            font-weight: 500;
         }
 
         .date-container {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 22px;
             display: inline-block;
             position: relative;
-            z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
         .current-date {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         .hijri-date {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 3px;
+            font-size: 0.95rem;
+            opacity: 0.95;
+            margin-top: 5px;
+            font-weight: 500;
         }
 
         /* Theme Toggle */
@@ -128,18 +137,14 @@
         }
 
         .theme-toggle {
-            width: 55px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 15px;
             position: relative;
             cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.4);
             transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
         }
 
         .theme-toggle::before {
@@ -147,7 +152,7 @@
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
-            left: 5px;
+            left: 8px;
             top: 50%;
             transform: translateY(-50%);
             color: #ffd700;
@@ -159,44 +164,45 @@
         .theme-toggle::after {
             content: '';
             position: absolute;
-            width: 22px;
-            height: 22px;
+            width: 26px;
+            height: 26px;
             background: white;
             border-radius: 50%;
             top: 50%;
             left: 3px;
             transform: translateY(-50%);
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
         }
 
         body.dark-mode .theme-toggle::before {
             content: '\f186';
             left: auto;
-            right: 5px;
+            right: 8px;
             color: #f0e68c;
         }
 
         body.dark-mode .theme-toggle::after {
-            left: calc(100% - 25px);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 0 5px;
+            left: calc(100% - 29px);
+            background: #f0e68c;
         }
 
         /* Next Prayer Card */
         .next-prayer-card {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             color: white;
-            border-radius: 25px;
-            padding: 30px 25px;
-            margin-bottom: 25px;
+            border-radius: 28px;
+            padding: 35px 30px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow-large);
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .next-prayer-card:hover {
+            transform: translateY(-3px);
         }
 
         .next-prayer-card::before {
@@ -204,68 +210,64 @@
             position: absolute;
             top: -50%;
             right: -50%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-
-        .next-prayer-card::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -30%;
-            width: 150px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.05);
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.12);
             border-radius: 50%;
         }
 
         .card-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             opacity: 0.9;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             position: relative;
             z-index: 1;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .prayer-name {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
             position: relative;
             z-index: 1;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         .prayer-time {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-family: 'Courier New', monospace;
             position: relative;
             z-index: 1;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .time-left {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px 25px;
-            border-radius: 15px;
-            font-size: 1.4rem;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 15px 30px;
+            border-radius: 18px;
+            font-size: 1.5rem;
+            font-weight: 800;
             display: inline-block;
             position: relative;
             z-index: 1;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
         }
 
         .prayer-progress {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            margin-top: 20px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 4px;
+            margin-top: 25px;
             overflow: hidden;
             position: relative;
             z-index: 1;
@@ -275,48 +277,80 @@
             height: 100%;
             background: linear-gradient(90deg, #ffffff, #e6ffe6);
             width: 0%;
-            border-radius: 3px;
+            border-radius: 4px;
             transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
         }
 
         /* Prayer Times Grid */
         .prayer-times-grid {
             background: var(--card-light);
-            border-radius: 25px;
-            padding: 30px 25px;
-            margin-bottom: 25px;
+            border-radius: 28px;
+            padding: 35px 30px;
+            margin-bottom: 30px;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         body.dark-mode .prayer-times-grid {
             background: var(--card-dark);
             box-shadow: var(--shadow-dark);
+            border-color: rgba(255,255,255,0.05);
         }
 
         .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
             color: var(--primary-color);
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
 
         body.dark-mode .section-title {
             color: var(--accent-color);
         }
 
+        body.dark-mode .section-title::after {
+            background: var(--gradient-accent);
+        }
+
         .prayer-row {
             display: grid;
             grid-template-columns: auto 1fr auto;
-            padding: 15px 0;
+            padding: 18px 0;
             border-bottom: 1px solid var(--border-light);
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             transition: all 0.3s ease;
         }
 
@@ -329,48 +363,59 @@
         }
 
         .prayer-row.active {
-            background: rgba(10, 92, 54, 0.08);
-            border-radius: 15px;
-            padding: 15px;
+            background: rgba(10, 92, 54, 0.12);
+            border-radius: 18px;
+            padding: 18px 20px;
             transform: translateX(5px);
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 4px 12px rgba(10, 92, 54, 0.15);
         }
 
         body.dark-mode .prayer-row.active {
-            background: rgba(46, 204, 113, 0.12);
+            background: rgba(46, 204, 113, 0.15);
+            border-left-color: var(--accent-color);
         }
 
         .prayer-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(10, 92, 54, 0.1);
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            background: rgba(10, 92, 54, 0.12);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .prayer-row.active .prayer-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: scale(1.1);
         }
 
         body.dark-mode .prayer-icon {
-            background: rgba(46, 204, 113, 0.15);
+            background: rgba(46, 204, 113, 0.18);
             color: var(--accent-color);
         }
 
         .prayer-info {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
         }
 
         .prayer-label {
-            font-size: 1.15rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         .prayer-subtitle {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary-light);
-            opacity: 0.8;
+            opacity: 0.9;
+            font-weight: 500;
         }
 
         body.dark-mode .prayer-subtitle {
@@ -381,13 +426,14 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 5px;
+            gap: 6px;
         }
 
         .azaan-time {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             color: var(--primary-color);
+            font-family: 'Courier New', monospace;
         }
 
         body.dark-mode .azaan-time {
@@ -395,27 +441,32 @@
         }
 
         .jamaat-time {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-secondary-light);
-            font-weight: 500;
+            font-weight: 600;
+            background: rgba(10, 92, 54, 0.08);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
         }
 
         body.dark-mode .jamaat-time {
             color: var(--text-secondary-dark);
+            background: rgba(46, 204, 113, 0.12);
         }
 
         /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 25px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .feature-card {
             background: var(--card-light);
-            border-radius: 20px;
-            padding: 25px 20px;
+            border-radius: 22px;
+            padding: 28px 22px;
             text-align: center;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
@@ -425,40 +476,47 @@
             overflow: hidden;
         }
 
-        body.dark-mode .feature-card {
-            background: var(--card-dark);
-            box-shadow: var(--shadow-dark);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary-color);
-        }
-
-        body.dark-mode .feature-card:hover {
-            border-color: var(--accent-color);
-        }
-
         .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 4px 4px 0 0;
+            height: 5px;
+            background: var(--gradient-primary);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        body.dark-mode .feature-card {
+            background: var(--card-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        body.dark-mode .feature-card:hover {
+            border-color: var(--accent-color);
         }
 
         .feature-icon {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             color: var(--primary-color);
-            margin-bottom: 15px;
-            height: 60px;
+            margin-bottom: 18px;
+            height: 65px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
         }
 
         body.dark-mode .feature-icon {
@@ -466,15 +524,20 @@
         }
 
         .feature-name {
-            font-size: 1.15rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
         }
 
         .feature-desc {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary-light);
-            margin-top: 5px;
-            opacity: 0.8;
+            opacity: 0.9;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
 
         body.dark-mode .feature-desc {
@@ -490,17 +553,20 @@
             background: var(--card-light);
             display: flex;
             justify-content: space-around;
-            padding: 18px 0 15px;
-            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.1);
+            padding: 20px 0 18px;
+            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             border-radius: 30px 30px 0 0;
             max-width: 500px;
             margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         body.dark-mode .bottom-nav {
-            background: var(--card-dark);
-            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(30, 30, 30, 0.95);
+            box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.4);
+            border-top-color: rgba(255,255,255,0.05);
         }
 
         .nav-item {
@@ -510,9 +576,10 @@
             color: var(--text-secondary-light);
             text-decoration: none;
             transition: all 0.3s ease;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 25px;
+            border-radius: 22px;
             position: relative;
+            min-width: 80px;
         }
 
         body.dark-mode .nav-item {
@@ -521,28 +588,29 @@
 
         .nav-item.active {
             color: var(--primary-color);
-            background: rgba(10, 92, 54, 0.1);
-            transform: translateY(-5px);
+            background: rgba(10, 92, 54, 0.15);
+            transform: translateY(-8px);
         }
 
         body.dark-mode .nav-item.active {
             color: var(--accent-color);
-            background: rgba(46, 204, 113, 0.15);
+            background: rgba(46, 204, 113, 0.2);
         }
 
         .nav-icon {
-            font-size: 1.4rem;
-            margin-bottom: 6px;
-            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
         }
 
         .nav-item.active .nav-icon {
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
 
         .nav-label {
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* Content Panels */
@@ -560,17 +628,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Qibla View */
+        /* Qibla View - Enhanced */
         .qibla-container {
             text-align: center;
-            padding: 20px 0;
+            padding: 25px 0;
         }
 
         .compass-wrapper {
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+            margin: 35px auto;
         }
 
         .compass-circle {
@@ -579,196 +647,345 @@
             border-radius: 50%;
             background: var(--card-light);
             position: relative;
-            box-shadow: var(--shadow), inset 0 0 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                var(--shadow-large),
+                inset 0 0 40px rgba(0, 0, 0, 0.08),
+                0 0 0 2px rgba(10, 92, 54, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         body.dark-mode .compass-circle {
             background: var(--card-dark);
+            box-shadow: 
+                var(--shadow-dark),
+                inset 0 0 40px rgba(0, 0, 0, 0.3),
+                0 0 0 2px rgba(46, 204, 113, 0.1);
         }
 
         .compass-direction {
             position: absolute;
-            font-weight: 800;
-            font-size: 1.6rem;
+            font-weight: 900;
+            font-size: 1.8rem;
             color: var(--primary-color);
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            border: 2px solid rgba(10, 92, 54, 0.2);
         }
 
         body.dark-mode .compass-direction {
             color: var(--accent-color);
+            background: rgba(30,30,30,0.9);
+            border-color: rgba(46, 204, 113, 0.3);
         }
 
-        .direction-n { top: 15px; left: 50%; transform: translateX(-50%); }
-        .direction-e { top: 50%; right: 15px; transform: translateY(-50%); }
-        .direction-s { bottom: 15px; left: 50%; transform: translateX(-50%); }
-        .direction-w { top: 50%; left: 15px; transform: translateY(-50%); }
+        .direction-n { top: 20px; left: 50%; transform: translateX(-50%); }
+        .direction-e { top: 50%; right: 20px; transform: translateY(-50%); }
+        .direction-s { bottom: 20px; left: 50%; transform: translateX(-50%); }
+        .direction-w { top: 50%; left: 20px; transform: translateY(-50%); }
 
         .compass-needle {
             position: absolute;
-            width: 6px;
-            height: 130px;
-            background: linear-gradient(to top, var(--danger-color), #ff6b6b);
+            width: 8px;
+            height: 140px;
+            background: linear-gradient(to top, var(--danger-color), #ff6b6b, var(--danger-color));
             top: 50%;
             left: 50%;
             transform-origin: 50% 0;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+            transform: translateX(-50%) rotate(0deg);
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
             z-index: 10;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.2s ease;
+        }
+
+        .compass-needle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid var(--danger-color);
         }
 
         .compass-center {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             background: var(--danger-color);
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 11;
-            box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.9);
+            border: 3px solid white;
         }
 
+        body.dark-mode .compass-center {
+            border-color: var(--card-dark);
+        }
+
+        /* Kaaba Symbol */
+        .kaaba-symbol {
+            position: absolute;
+            bottom: 80px;
+            left: 45px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .kaaba-symbol::before {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 40px;
+            border-radius: 2px;
+        }
+
+        .kaaba-symbol::after {
+            content: '🕋';
+            font-size: 35px;
+            position: absolute;
+            top: 0px;
+            left: 15%;
+            transform: translateX(-50%);
+        }
+
+        /* Compass Degree Markings */
+        .compass-degree {
+            position: absolute;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary-light);
+            z-index: 1;
+        }
+
+        body.dark-mode .compass-degree {
+            color: var(--text-secondary-dark);
+        }
+
+        .degree-0 { top: 10px; left: 50%; transform: translateX(-50%); }
+        .degree-90 { top: 50%; right: 10px; transform: translateY(-50%); }
+        .degree-180 { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .degree-270 { top: 50%; left: 10px; transform: translateY(-50%); }
+
         .qibla-info {
-            margin-top: 35px;
+            margin-top: 40px;
             background: var(--card-light);
-            padding: 25px;
-            border-radius: 25px;
+            padding: 30px 25px;
+            border-radius: 28px;
             box-shadow: var(--shadow);
+            border: 2px solid rgba(10, 92, 54, 0.1);
         }
 
         body.dark-mode .qibla-info {
             background: var(--card-dark);
+            border-color: rgba(46, 204, 113, 0.1);
         }
 
         .qibla-degree {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 900;
             color: var(--primary-color);
-            margin: 15px 0;
+            margin: 20px 0;
             font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+            position: relative;
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(10, 92, 54, 0.08);
+            border-radius: 15px;
         }
 
         body.dark-mode .qibla-degree {
             color: var(--accent-color);
+            background: rgba(46, 204, 113, 0.12);
         }
 
         .qibla-instruction {
-            font-size: 1.1rem;
-            margin: 15px 0;
-            color: var(--text-secondary-light);
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: var(--text-light);
+            font-weight: 600;
+            line-height: 1.5;
+            padding: 15px;
+            background: rgba(10, 92, 54, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
         }
 
         body.dark-mode .qibla-instruction {
-            color: var(--text-secondary-dark);
+            color: var(--text-dark);
+            background: rgba(46, 204, 113, 0.08);
+            border-left-color: var(--accent-color);
         }
 
         .compass-status {
-            background: rgba(10, 92, 54, 0.1);
-            padding: 12px 20px;
-            border-radius: 15px;
-            margin-top: 20px;
+            background: rgba(10, 92, 54, 0.12);
+            padding: 15px 25px;
+            border-radius: 18px;
+            margin-top: 25px;
             display: inline-block;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--primary-color);
+            border: 2px dashed rgba(10, 92, 54, 0.3);
+            transition: all 0.3s ease;
         }
 
         body.dark-mode .compass-status {
             background: rgba(46, 204, 113, 0.15);
+            color: var(--accent-color);
+            border-color: rgba(46, 204, 113, 0.4);
         }
 
-        /* Prayer Calendar View */
+        .compass-status.active {
+            animation: pulse 2s infinite;
+            background: rgba(46, 204, 113, 0.2);
+        }
+
+        /* Compass Calibration */
+        .calibration-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(10, 92, 54, 0.3);
+        }
+
+        .calibration-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(10, 92, 54, 0.4);
+        }
+
+        body.dark-mode .calibration-btn {
+            background: var(--gradient-accent);
+        }
+
+        /* Prayer Calendar */
         .calendar-container {
-            padding: 20px 0;
+            padding: 25px 0;
         }
 
         .calendar-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             background: var(--card-light);
-            padding: 20px;
-            border-radius: 20px;
+            padding: 22px 25px;
+            border-radius: 22px;
             box-shadow: var(--shadow);
+            border: 2px solid rgba(10, 92, 54, 0.1);
         }
 
         body.dark-mode .calendar-controls {
             background: var(--card-dark);
+            border-color: rgba(46, 204, 113, 0.1);
         }
 
         .calendar-nav {
-            background: var(--primary-color);
+            background: var(--gradient-primary);
             color: white;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(10, 92, 54, 0.3);
         }
 
         .calendar-nav:hover {
             transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(10, 92, 54, 0.3);
+            box-shadow: 0 6px 20px rgba(10, 92, 54, 0.4);
         }
 
         body.dark-mode .calendar-nav {
-            background: var(--accent-color);
+            background: var(--gradient-accent);
         }
 
         .current-month {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 800;
             text-align: center;
             color: var(--primary-color);
+            padding: 10px 25px;
+            background: rgba(10, 92, 54, 0.08);
+            border-radius: 15px;
+            min-width: 200px;
         }
 
         body.dark-mode .current-month {
             color: var(--accent-color);
+            background: rgba(46, 204, 113, 0.12);
         }
 
         .calendar-table {
             width: 100%;
             background: var(--card-light);
-            border-radius: 20px;
+            border-radius: 22px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             border-collapse: separate;
             border-spacing: 0;
+            border: 2px solid rgba(10, 92, 54, 0.1);
         }
 
         body.dark-mode .calendar-table {
             background: var(--card-dark);
+            border-color: rgba(46, 204, 113, 0.1);
         }
 
         .calendar-table th {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             color: white;
-            padding: 16px 8px;
-            font-weight: 600;
+            padding: 18px 10px;
+            font-weight: 700;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
         }
 
         body.dark-mode .calendar-table th {
-            background: linear-gradient(135deg, var(--accent-color), #27ae60);
+            background: var(--gradient-accent);
         }
 
         .calendar-table td {
-            padding: 12px 6px;
+            padding: 15px 8px;
             text-align: center;
             border-bottom: 1px solid var(--border-light);
-            font-size: 0.92rem;
+            font-size: 1rem;
             transition: all 0.2s ease;
+            font-weight: 600;
         }
 
         body.dark-mode .calendar-table td {
@@ -780,106 +997,109 @@
         }
 
         .calendar-table tr:hover td {
-            background: rgba(10, 92, 54, 0.05);
+            background: rgba(10, 92, 54, 0.08);
         }
 
         body.dark-mode .calendar-table tr:hover td {
-            background: rgba(46, 204, 113, 0.08);
+            background: rgba(46, 204, 113, 0.1);
         }
 
         .today-cell {
-            background: rgba(10, 92, 54, 0.1) !important;
-            font-weight: 700;
+            background: rgba(10, 92, 54, 0.15) !important;
+            font-weight: 900;
             color: var(--primary-color);
         }
 
         body.dark-mode .today-cell {
-            background: rgba(46, 204, 113, 0.15) !important;
+            background: rgba(46, 204, 113, 0.2) !important;
             color: var(--accent-color);
         }
 
         /* Tasbeeh Counter */
         .tasbeeh-container {
             text-align: center;
-            padding: 30px 0;
+            padding: 35px 0;
         }
 
         .tasbeeh-counter {
-            font-size: 5.5rem;
+            font-size: 6rem;
             font-weight: 900;
             color: var(--primary-color);
-            margin: 30px 0;
+            margin: 35px 0;
             font-family: 'Courier New', monospace;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
-            min-height: 100px;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(10, 92, 54, 0.08);
+            border-radius: 25px;
+            padding: 20px;
+            border: 3px dashed rgba(10, 92, 54, 0.2);
         }
 
         body.dark-mode .tasbeeh-counter {
             color: var(--accent-color);
+            background: rgba(46, 204, 113, 0.12);
+            border-color: rgba(46, 204, 113, 0.3);
         }
 
         .tasbeeh-btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             color: white;
             border: none;
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(10, 92, 54, 0.4);
+            box-shadow: 0 10px 30px rgba(10, 92, 54, 0.5);
             transition: all 0.3s ease;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
-        }
-
-        .tasbeeh-btn::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .tasbeeh-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(10, 92, 54, 0.5);
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(10, 92, 54, 0.6);
         }
 
         .tasbeeh-btn:active {
             transform: scale(0.95);
+            box-shadow: 0 5px 20px rgba(10, 92, 54, 0.4);
         }
 
         .tasbeeh-controls {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 18px;
+            margin-top: 35px;
             flex-wrap: wrap;
         }
 
         .control-btn {
             background: var(--card-light);
-            border: 2px solid var(--primary-color);
+            border: 3px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 14px 25px;
-            border-radius: 15px;
+            padding: 16px 28px;
+            border-radius: 18px;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 800;
             transition: all 0.3s ease;
-            min-width: 120px;
+            min-width: 130px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         body.dark-mode .control-btn {
@@ -891,7 +1111,8 @@
         .control-btn:hover {
             background: var(--primary-color);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(10, 92, 54, 0.3);
         }
 
         body.dark-mode .control-btn:hover {
@@ -902,7 +1123,7 @@
             transform: translateY(0);
         }
 
-        /* Manual Input Modal */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -927,16 +1148,18 @@
             background: var(--card-light);
             width: 100%;
             max-width: 500px;
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            padding: 35px 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
             max-height: 85vh;
             overflow-y: auto;
-            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideUp 0.4s ease;
+            border: 2px solid rgba(10, 92, 54, 0.2);
         }
 
         body.dark-mode .modal-content {
             background: var(--card-dark);
+            border-color: rgba(46, 204, 113, 0.2);
         }
 
         @keyframes slideUp {
@@ -958,8 +1181,8 @@
         }
 
         .modal-title {
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.7rem;
+            font-weight: 800;
             color: var(--primary-color);
         }
 
@@ -985,6 +1208,10 @@
         .close-modal:hover {
             background: rgba(0, 0, 0, 0.1);
             color: var(--danger-color);
+        }
+
+        body.dark-mode .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .input-group {
@@ -1059,7 +1286,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--gradient-primary);
             color: white;
             box-shadow: 0 4px 15px rgba(10, 92, 54, 0.3);
         }
@@ -1070,7 +1297,7 @@
         }
 
         body.dark-mode .btn-primary {
-            background: linear-gradient(135deg, var(--accent-color), #27ae60);
+            background: var(--gradient-accent);
         }
 
         .btn-secondary {
@@ -1100,7 +1327,7 @@
             box-shadow: var(--shadow-large);
             z-index: 3000;
             transform: translateX(150%);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.4s ease;
             max-width: 350px;
             border-left: 5px solid var(--primary-color);
             display: flex;
@@ -1135,36 +1362,43 @@
         /* Responsive Design */
         @media (max-width: 500px) {
             .container {
-                padding: 0 10px;
+                padding: 0 12px;
             }
             
             .masjid-name {
-                font-size: 1.9rem;
+                font-size: 2rem;
             }
             
             .prayer-time {
-                font-size: 2.7rem;
+                font-size: 3rem;
             }
             
             .time-left {
-                font-size: 1.2rem;
-                padding: 10px 20px;
+                font-size: 1.3rem;
+                padding: 12px 25px;
             }
             
             .compass-wrapper {
-                width: 240px;
-                height: 240px;
+                width: 260px;
+                height: 260px;
+            }
+            
+            .kaaba-symbol {
+                bottom: 70px;
+                left: 20px;
+                width: 45px;
+                height: 45px;
             }
             
             .calendar-table th,
             .calendar-table td {
-                padding: 12px 4px;
-                font-size: 0.85rem;
+                padding: 12px 5px;
+                font-size: 0.95rem;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 18px;
             }
             
             .feature-card {
@@ -1172,53 +1406,59 @@
             }
             
             .tasbeeh-counter {
-                font-size: 4.5rem;
+                font-size: 5rem;
             }
             
             .tasbeeh-btn {
-                width: 120px;
-                height: 120px;
+                width: 130px;
+                height: 130px;
+                font-size: 1.6rem;
             }
             
             .control-btn {
-                min-width: 100px;
-                padding: 12px 20px;
+                min-width: 110px;
+                padding: 14px 22px;
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 350px) {
             .masjid-name {
-                font-size: 1.7rem;
+                font-size: 1.8rem;
             }
             
             .prayer-time {
-                font-size: 2.3rem;
+                font-size: 2.5rem;
             }
             
             .time-left {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .compass-wrapper {
-                width: 200px;
-                height: 200px;
+                width: 220px;
+                height: 220px;
             }
             
-            .calendar-table {
-                font-size: 0.8rem;
+            .kaaba-symbol {
+                bottom: 60px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
             }
             
             .calendar-table th,
             .calendar-table td {
-                padding: 8px 2px;
+                padding: 10px 3px;
+                font-size: 0.9rem;
             }
         }
 
         /* Animations */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .pulse {
@@ -1233,6 +1473,15 @@
 
         .shake {
             animation: shake 0.5s;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spin {
+            animation: spin 2s linear infinite;
         }
     </style>
 </head>
@@ -1300,13 +1549,13 @@
                         <i class="fas fa-compass"></i>
                     </div>
                     <div class="feature-name">Qibla Direction</div>
-                    <div class="feature-desc">Find prayer direction</div>
+                    <div class="feature-desc">Find Kaaba direction</div>
                 </div>
                 <div class="feature-card" data-panel="prayer">
                     <div class="feature-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <div class="feature-name">Prayer Calendar</div>
+                    <div class="feature-name">Meeqat Salat</div>
                     <div class="feature-desc">Monthly schedule</div>
                 </div>
                 <div class="feature-card" id="manualEditBtn">
@@ -1332,14 +1581,30 @@
                         <div class="compass-direction direction-e">E</div>
                         <div class="compass-direction direction-s">S</div>
                         <div class="compass-direction direction-w">W</div>
+                        
+                        <div class="kaaba-symbol"></div>
+                        
+                        <!-- Degree Markings -->
+                        <div class="compass-degree degree-0">0°</div>
+                        <div class="compass-degree degree-90">90°</div>
+                        <div class="compass-degree degree-180">180°</div>
+                        <div class="compass-degree degree-270">270°</div>
+                        
+                        <!-- Compass Needle -->
                         <div class="compass-needle" id="compassNeedle"></div>
                         <div class="compass-center"></div>
                     </div>
                 </div>
                 <div class="qibla-info">
-                    <div class="qibla-degree" id="qiblaDegree">257°</div>
-                    <div class="qibla-instruction">Point the red needle towards Kaaba</div>
-                    <div class="compass-status" id="compassStatus">Using device compass...</div>
+                    <div class="qibla-degree" id="qiblaDegree">قِبْلَۂ</div></div>
+                    <div class="qibla-instruction">Point the red needle towards Kaaba (🕋 symbol on left)</div>
+                    <div class="compass-status" id="compassStatus">Compass Active - Get Exact Qibla Direction</div>
+                    
+                    <!-- Calibration Button -->
+                    <button class="calibration-btn" id="calibrateCompass">
+                        <i class="fas fa-sync-alt"></i>
+                        Calibrate Compass
+                    </button>
                 </div>
             </div>
         </div>
@@ -1403,7 +1668,7 @@
         </a>
         <a href="#" class="nav-item" data-panel="prayer">
             <i class="fas fa-calendar-alt nav-icon"></i>
-            <span class="nav-label">Calendar</span>
+            <span class="nav-label">Meeqat Salat</span>
         </a>
         <a href="#" class="nav-item" data-panel="qibla">
             <i class="fas fa-compass nav-icon"></i>
@@ -1422,7 +1687,7 @@
                 <h3 class="modal-title">Edit Prayer Times</h3>
                 <button class="close-modal" id="closeModal">&times;</button>
             </div>
-            
+              
             <div class="input-group">
                 <label for="editDate">Date (DD/MM/YYYY)</label>
                 <input type="text" id="editDate" placeholder="19/01/2026">
@@ -1466,659 +1731,1020 @@
         </div>
     </div>
 
-    <script>
-        // Enhanced Prayer Times App for Masjid Al Hamzah
-        class PrayerApp {
-            constructor() {
-                this.data = {
-                    darkMode: false,
-                    currentView: 'home',
-                    tasbeehCount: 0,
-                    currentDhikr: 0,
-                    currentMonth: new Date().getMonth(),
-                    currentYear: new Date().getFullYear(),
-                    prayerTimes: {},
-                    settings: {
-                        notifications: true,
-                        calculationMethod: 'Karachi',
-                        iqamaDelays: {
-                            fajr: 15,
-                            dhuhr: 15,
-                            asr: 15,
-                            maghrib: 5,
-                            isha: 15
-                        }
-                    }
-                };
-                
-                this.prayers = [
-                    { name: "Fajr", key: "fajr", icon: "fas fa-sun", order: 0 },
-                    { name: "Dhuhr", key: "dhuhr", icon: "fas fa-sun", order: 1 },
-                    { name: "Asr", key: "asr", icon: "fas fa-cloud-sun", order: 2 },
-                    { name: "Maghrib", key: "maghrib", icon: "fas fa-sun", order: 3 },
-                    { name: "Isha", key: "isha", icon: "fas fa-moon", order: 4 }
-                ];
-                
-                this.dhikrOptions = [
-                    { text: "سبحان الله", count: 33, arabic: "Subhanallah" },
-                    { text: "الحمد لله", count: 33, arabic: "Alhamdulillah" },
-                    { text: "الله أكبر", count: 34, arabic: "Allahu Akbar" },
-                    { text: "لا إله إلا الله", count: 100, arabic: "La ilaha illallah" },
-                    { text: "أستغفر الله", count: 100, arabic: "Astaghfirullah" }
-                ];
-                
-                this.months = ["January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"];
-                
-                this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-                
-                this.init();
-            }
-            
-            init() {
-                this.loadData();
-                this.setupEventListeners();
-                this.updateDateTime();
-                this.generatePrayerTimes();
-                this.updatePrayerDisplay();
-                this.generateCalendar();
-                this.setupCompass();
-                
-                // Start intervals
-                setInterval(() => this.updateDateTime(), 1000);
-                setInterval(() => this.updateNextPrayer(), 1000);
-                setInterval(() => this.checkPrayerNotifications(), 30000);
-                
-                this.applyTheme();
-                this.showToast('Welcome to Masjid Al Hamzah App', 'success');
-            }
-            
-            loadData() {
-                const saved = localStorage.getItem('masjidAlHamzah');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    this.data = { ...this.data, ...parsed };
-                }
-                
-                // Load default prayer times if none exist
-                if (!this.data.prayerTimes || Object.keys(this.data.prayerTimes).length === 0) {
-                    this.generateDefaultPrayerTimes();
-                }
-            }
-            
-            saveData() {
-                localStorage.setItem('masjidAlHamzah', JSON.stringify(this.data));
-            }
-            
-            generateDefaultPrayerTimes() {
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = today.getMonth();
-                
-                // Generate times for current month
-                for (let day = 1; day <= 31; day++) {
-                    const date = new Date(year, month, day);
-                    if (date.getMonth() !== month) break;
-                    
-                    const dateKey = this.formatDate(date);
-                    this.data.prayerTimes[dateKey] = this.calculatePrayerTimes(date);
-                }
-            }
-            
-            calculatePrayerTimes(date) {
-                // Simplified prayer time calculation for Srinagar
-                const month = date.getMonth();
-                const day = date.getDate();
-                
-                // Base times for Srinagar (approximate)
-                let fajrHour = 5, fajrMinute = 30 - Math.floor(month / 2);
-                let dhuhrHour = 12, dhuhrMinute = 45;
-                let asrHour = 15, asrMinute = 30 + Math.floor(month / 3);
-                let maghribHour = 17, maghribMinute = 45 + Math.floor(month / 2);
-                let ishaHour = 19, ishaMinute = 15 + Math.floor(month / 3);
-                
-                // Adjust for day of month (simulate slight variations)
-                fajrMinute += day % 3;
-                maghribMinute -= day % 2;
-                
-                return {
-                    fajr: {
-                        azaan: this.formatTime(fajrHour, fajrMinute),
-                        jamaat: this.formatTime(fajrHour, fajrMinute + this.data.settings.iqamaDelays.fajr)
+<script>
+    // Enhanced Prayer Times App for Masjid Al Hamzah
+    class PrayerApp {
+        constructor() {
+            this.data = {
+                darkMode: false,
+                currentView: 'home',
+                tasbeehCount: 0,
+                currentDhikr: 0,
+                currentMonth: new Date().getMonth(),
+                currentYear: new Date().getFullYear(),
+                prayerTimes: {},
+                qiblaDirection: 257, // Qibla direction for Srinagar in degrees
+                compassCalibrated: false,
+                currentHeading: 0,
+                settings: {
+                    notifications: true,
+                    calculationMethod: 'Karachi',
+                    // YOUR MASJID JAMAAT TIMES (You can edit these manually)
+                    jamaatTimes: {
+                        fajr: "06:55 AM",    // Your masjid Fajr Jamaat
+                        dhuhr: "01:00 PM",   // Your masjid Zuhr Jamaat
+                        asr: "04:30 PM",     // Your masjid Asr Jamaat
+                        maghrib: "05:59 PM", // Your masjid Maghrib Jamaat
+                        isha: "07:35 PM"     // Your masjid Isha Jamaat
                     },
-                    dhuhr: {
-                        azaan: this.formatTime(dhuhrHour, dhuhrMinute),
-                        jamaat: this.formatTime(dhuhrHour, dhuhrMinute + this.data.settings.iqamaDelays.dhuhr)
-                    },
-                    asr: {
-                        azaan: this.formatTime(asrHour, asrMinute),
-                        jamaat: this.formatTime(asrHour, asrMinute + this.data.settings.iqamaDelays.asr)
-                    },
-                    maghrib: {
-                        azaan: this.formatTime(maghribHour, maghribMinute),
-                        jamaat: this.formatTime(maghribHour, maghribMinute + this.data.settings.iqamaDelays.maghrib)
-                    },
-                    isha: {
-                        azaan: this.formatTime(ishaHour, ishaMinute),
-                        jamaat: this.formatTime(ishaHour, ishaMinute + this.data.settings.iqamaDelays.isha)
+                    // AZAAN OFFSETS (minutes BEFORE jamaat)
+                    azaanOffsets: {
+                        fajr: 50,    // 50 minutes before jamaat
+                        dhuhr: 15,   // 15 minutes before jamaat
+                        asr: 15,     // 15 minutes before jamaat
+                        maghrib: 6,  // 6 minutes before jamaat
+                        isha: 15     // 15 minutes before jamaat
                     }
-                };
-            }
-            
-            formatTime(hour, minute) {
-                // Handle overflow
-                if (minute >= 60) {
-                    hour += Math.floor(minute / 60);
-                    minute = minute % 60;
                 }
-                if (hour >= 24) hour -= 24;
-                
-                const period = hour >= 12 ? 'PM' : 'AM';
-                const displayHour = hour % 12 || 12;
-                return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
-            }
+            };
             
-            formatDate(date) {
-                const day = date.getDate().toString().padStart(2, '0');
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const year = date.getFullYear();
-                return `${day}/${month}/${year}`;
-            }
+            this.prayers = [
+                { name: "Fajr", key: "fajr", icon: "fas fa-sun", order: 0 },
+                { name: "Dhuhr", key: "dhuhr", icon: "fas fa-sun", order: 1 },
+                { name: "Asr", key: "asr", icon: "fas fa-cloud-sun", order: 2 },
+                { name: "Maghrib", key: "maghrib", icon: "fas fa-sun", order: 3 },
+                { name: "Isha", key: "isha", icon: "fas fa-moon", order: 4 }
+            ];
             
-            setupEventListeners() {
-                // Theme toggle
-                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
-                
-                // Navigation
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        this.switchView(item.dataset.panel);
-                    });
-                });
-                
-                // Feature cards
-                document.querySelectorAll('.feature-card[data-panel]').forEach(card => {
-                    card.addEventListener('click', () => {
-                        this.switchView(card.dataset.panel);
-                    });
-                });
-                
-                // Manual edit
-                document.getElementById('manualEditBtn').addEventListener('click', () => this.openEditModal());
-                document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
-                document.getElementById('cancelEdit').addEventListener('click', () => this.closeModal());
-                document.getElementById('saveEdit').addEventListener('click', () => this.savePrayerTimes());
-                
-                // Calendar navigation
-                document.getElementById('prevMonthBtn').addEventListener('click', () => this.prevMonth());
-                document.getElementById('nextMonthBtn').addEventListener('click', () => this.nextMonth());
-                
-                // Tasbeeh controls
-                document.getElementById('tasbeehBtn').addEventListener('click', () => this.incrementTasbeeh());
-                document.getElementById('resetTasbeeh').addEventListener('click', () => this.resetTasbeeh());
-                document.getElementById('changeDhikr').addEventListener('click', () => this.changeDhikr());
-                document.getElementById('saveTasbeeh').addEventListener('click', () => this.saveTasbeehCount());
-                
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === ' ' || e.key === 'Enter') {
-                        if (this.data.currentView === 'tasbeeh') {
-                            this.incrementTasbeeh();
-                        }
-                    }
-                    if (e.key === 'Escape') {
-                        this.closeModal();
-                    }
-                });
-            }
+            this.dhikrOptions = [
+                { text: "سبحان الله", count: 33, arabic: "Subhanallah" },
+                { text: "الحمد لله", count: 33, arabic: "Alhamdulillah" },
+                { text: "الله أكبر", count: 34, arabic: "Allahu Akbar" },
+                { text: "لا إله إلا الله", count: 100, arabic: "La ilaha illallah" },
+                { text: "أستغفر الله", count: 100, arabic: "Astaghfirullah" }
+            ];
             
-            updateDateTime() {
-                const now = new Date();
-                
-                // Gregorian date
-                const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-                const dateStr = now.toLocaleDateString('en-GB', options);
-                document.getElementById('currentDate').textContent = dateStr;
-                
-                // Hijri date (simplified)
-                const hijriDate = this.getHijriDate(now);
-                document.getElementById('hijriDate').textContent = hijriDate;
-            }
+            this.months = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
             
-            getHijriDate(gregorianDate) {
-                // Simplified Hijri conversion (for accurate conversion, use a proper library)
-                const day = gregorianDate.getDate();
-                const month = gregorianDate.getMonth() + 1;
-                const year = gregorianDate.getFullYear();
-                
-                const hijriYear = Math.floor((year - 622) * 0.970224);
-                const hijriMonth = ((month + 8) % 12) + 1;
-                const hijriDay = (day % 30) || 30;
-                
-                const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
-                    'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
-                    'Ramadan', 'Shawwal', 'Dhu al-Qidah', 'Dhu al-Hijjah'];
-                
-                return `${hijriDay} ${hijriMonths[hijriMonth - 1]} ${hijriYear} AH`;
-            }
+            this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             
-            generatePrayerTimes() {
-                const today = new Date();
-                const dateKey = this.formatDate(today);
-                
-                if (!this.data.prayerTimes[dateKey]) {
-                    this.data.prayerTimes[dateKey] = this.calculatePrayerTimes(today);
-                    this.saveData();
+            // Prayer times data from your PDFs (These are AZAAN TIMES)
+            this.monthlyPrayerTimes = {
+                // January 2026
+                0: {
+                    1: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:02 PM"},
+                    2: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:03 PM"},
+                    3: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:16 PM", maghrib: "05:34 PM", isha: "07:03 PM"},
+                    4: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:17 PM", maghrib: "05:35 PM", isha: "07:04 PM"},
+                    5: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:36 PM", isha: "07:05 PM"},
+                    6: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:37 PM", isha: "07:06 PM"},
+                    7: {fajr: "06:09 AM", dhuhr: "12:37 PM", asr: "03:19 PM", maghrib: "05:38 PM", isha: "07:06 PM"},
+                    8: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:20 PM", maghrib: "05:38 PM", isha: "07:07 PM"},
+                    9: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:21 PM", maghrib: "05:39 PM", isha: "07:08 PM"},
+                    10: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:40 PM", isha: "07:09 PM"},
+                    11: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:41 PM", isha: "07:10 PM"},
+                    12: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:23 PM", maghrib: "05:42 PM", isha: "07:10 PM"},
+                    13: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:24 PM", maghrib: "05:43 PM", isha: "07:11 PM"},
+                    14: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:25 PM", maghrib: "05:44 PM", isha: "07:12 PM"},
+                    15: {fajr: "06:09 AM", dhuhr: "12:41 PM", asr: "03:26 PM", maghrib: "05:45 PM", isha: "07:13 PM"},
+                    16: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:46 PM", isha: "07:14 PM"},
+                    17: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:47 PM", isha: "07:14 PM"},
+                    18: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:28 PM", maghrib: "05:48 PM", isha: "07:15 PM"},
+                    19: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:29 PM", maghrib: "05:49 PM", isha: "07:16 PM"},
+                    20: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:30 PM", maghrib: "05:50 PM", isha: "07:17 PM"},
+                    21: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:31 PM", maghrib: "05:50 PM", isha: "07:18 PM"},
+                    22: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:32 PM", maghrib: "05:51 PM", isha: "07:19 PM"},
+                    23: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:52 PM", isha: "07:20 PM"},
+                    24: {fajr: "06:06 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:53 PM", isha: "07:20 PM"},
+                    25: {fajr: "06:06 AM", dhuhr: "12:44 PM", asr: "03:34 PM", maghrib: "05:54 PM", isha: "07:21 PM"},
+                    26: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:35 PM", maghrib: "05:55 PM", isha: "07:22 PM"},
+                    27: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:36 PM", maghrib: "05:56 PM", isha: "07:23 PM"},
+                    28: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:37 PM", maghrib: "05:57 PM", isha: "07:24 PM"},
+                    29: {fajr: "06:04 AM", dhuhr: "12:44 PM", asr: "03:38 PM", maghrib: "05:58 PM", isha: "07:25 PM"},
+                    30: {fajr: "06:04 AM", dhuhr: "12:45 PM", asr: "03:38 PM", maghrib: "05:59 PM", isha: "07:26 PM"},
+                    31: {fajr: "06:03 AM", dhuhr: "12:45 PM", asr: "03:39 PM", maghrib: "06:00 PM", isha: "07:26 PM"}
+                },
+                // February 2026
+                1: {
+                    1: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:40 PM", maghrib: "06:01 PM", isha: "07:27 PM"},
+                    2: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:41 PM", maghrib: "06:02 PM", isha: "07:28 PM"},
+                    3: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:42 PM", maghrib: "06:03 PM", isha: "07:29 PM"},
+                    4: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:04 PM", isha: "07:30 PM"},
+                    5: {fajr: "06:00 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:05 PM", isha: "07:31 PM"},
+                    6: {fajr: "05:59 AM", dhuhr: "12:45 PM", asr: "03:44 PM", maghrib: "06:06 PM", isha: "07:32 PM"},
+                    7: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:45 PM", maghrib: "06:07 PM", isha: "07:32 PM"},
+                    8: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:08 PM", isha: "07:33 PM"},
+                    9: {fajr: "05:57 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:09 PM", isha: "07:34 PM"},
+                    10: {fajr: "05:56 AM", dhuhr: "12:45 PM", asr: "03:47 PM", maghrib: "06:10 PM", isha: "07:35 PM"},
+                    11: {fajr: "05:55 AM", dhuhr: "12:45 PM", asr: "03:48 PM", maghrib: "06:11 PM", isha: "07:36 PM"},
+                    12: {fajr: "05:54 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:12 PM", isha: "07:37 PM"},
+                    13: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:13 PM", isha: "07:37 PM"},
+                    14: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:50 PM", maghrib: "06:14 PM", isha: "07:38 PM"},
+                    15: {fajr: "05:52 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:15 PM", isha: "07:39 PM"},
+                    16: {fajr: "05:51 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:16 PM", isha: "07:40 PM"},
+                    17: {fajr: "05:50 AM", dhuhr: "12:45 PM", asr: "03:52 PM", maghrib: "06:17 PM", isha: "07:41 PM"},
+                    18: {fajr: "05:49 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:18 PM", isha: "07:42 PM"},
+                    19: {fajr: "05:48 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:19 PM", isha: "07:42 PM"},
+                    20: {fajr: "05:47 AM", dhuhr: "12:45 PM", asr: "03:54 PM", maghrib: "06:19 PM", isha: "07:43 PM"},
+                    21: {fajr: "05:46 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:20 PM", isha: "07:44 PM"},
+                    22: {fajr: "05:45 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:21 PM", isha: "07:45 PM"},
+                    23: {fajr: "05:43 AM", dhuhr: "12:45 PM", asr: "03:56 PM", maghrib: "06:22 PM", isha: "07:46 PM"},
+                    24: {fajr: "05:42 AM", dhuhr: "12:44 PM", asr: "03:56 PM", maghrib: "06:23 PM", isha: "07:47 PM"},
+                    25: {fajr: "05:41 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:24 PM", isha: "07:47 PM"},
+                    26: {fajr: "05:40 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:25 PM", isha: "07:48 PM"},
+                    27: {fajr: "05:39 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:49 PM"},
+                    28: {fajr: "05:38 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:50 PM"}
+                },
+                // March 2026
+                2: {
+                    1: {fajr: "05:37 AM", dhuhr: "12:44 PM", asr: "03:59 PM", maghrib: "06:27 PM", isha: "07:51 PM"},
+                    2: {fajr: "05:35 AM", dhuhr: "12:43 PM", asr: "03:59 PM", maghrib: "06:28 PM", isha: "07:52 PM"},
+                    3: {fajr: "05:34 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:29 PM", isha: "07:53 PM"},
+                    4: {fajr: "05:33 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:30 PM", isha: "07:54 PM"},
+                    5: {fajr: "05:32 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:31 PM", isha: "07:55 PM"},
+                    6: {fajr: "05:30 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:32 PM", isha: "07:56 PM"},
+                    7: {fajr: "05:29 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:32 PM", isha: "07:57 PM"},
+                    8: {fajr: "05:28 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:33 PM", isha: "07:57 PM"},
+                    9: {fajr: "05:26 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:34 PM", isha: "07:58 PM"},
+                    10: {fajr: "05:25 AM", dhuhr: "12:42 PM", asr: "04:03 PM", maghrib: "06:35 PM", isha: "07:59 PM"},
+                    11: {fajr: "05:24 AM", dhuhr: "12:41 PM", asr: "04:03 PM", maghrib: "06:36 PM", isha: "08:00 PM"},
+                    12: {fajr: "05:22 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:36 PM", isha: "08:01 PM"},
+                    13: {fajr: "05:21 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:37 PM", isha: "08:02 PM"},
+                    14: {fajr: "05:20 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:38 PM", isha: "08:02 PM"},
+                    15: {fajr: "05:18 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:39 PM", isha: "08:03 PM"},
+                    16: {fajr: "05:17 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:04 PM"},
+                    17: {fajr: "05:15 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:05 PM"},
+                    18: {fajr: "05:14 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:41 PM", isha: "08:06 PM"},
+                    19: {fajr: "05:12 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:42 PM", isha: "08:07 PM"},
+                    20: {fajr: "05:11 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:07 PM"},
+                    21: {fajr: "05:10 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:08 PM"},
+                    22: {fajr: "05:08 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:44 PM", isha: "08:09 PM"},
+                    23: {fajr: "05:07 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:45 PM", isha: "08:10 PM"},
+                    24: {fajr: "05:05 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:46 PM", isha: "08:11 PM"},
+                    25: {fajr: "05:04 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:11 PM"},
+                    26: {fajr: "05:02 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:12 PM"},
+                    27: {fajr: "05:01 AM", dhuhr: "12:37 PM", asr: "04:08 PM", maghrib: "06:48 PM", isha: "08:13 PM"},
+                    28: {fajr: "04:59 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:49 PM", isha: "08:14 PM"},
+                    29: {fajr: "04:58 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
+                    30: {fajr: "04:56 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
+                    31: {fajr: "04:55 AM", dhuhr: "12:35 PM", asr: "04:08 PM", maghrib: "06:51 PM", isha: "08:16 PM"}
                 }
-            }
+            };
             
-            updatePrayerDisplay() {
-                const today = new Date();
-                const dateKey = this.formatDate(today);
-                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-                
-                const container = document.getElementById('prayerTimesList');
-                container.innerHTML = '';
-                
-                this.prayers.forEach(prayer => {
-                    const prayerTime = times[prayer.key];
-                    const row = document.createElement('div');
-                    row.className = 'prayer-row';
-                    row.id = `prayer-${prayer.key}`;
-                    
-                    row.innerHTML = `
-                        <div class="prayer-icon">
-                            <i class="${prayer.icon}"></i>
-                        </div>
-                        <div class="prayer-info">
-                            <div class="prayer-label">${prayer.name}</div>
-                            <div class="prayer-subtitle">Azaan - Jamaat</div>
-                        </div>
-                        <div class="prayer-times">
-                            <div class="azaan-time">${prayerTime.azaan}</div>
-                            <div class="jamaat-time">${prayerTime.jamaat}</div>
-                        </div>
-                    `;
-                    
-                    container.appendChild(row);
-                });
-                
-                this.updateCurrentPrayer();
-            }
+            // Compass variables
+            this.compassActive = false;
+            this.compassInterval = null;
+            this.lastHeading = 0;
+            this.headingSmooth = 0;
             
-            updateCurrentPrayer() {
-                const now = new Date();
-                const currentHour = now.getHours();
-                const currentMinute = now.getMinutes();
-                
-                // Remove active class from all
-                document.querySelectorAll('.prayer-row').forEach(row => {
-                    row.classList.remove('active');
-                });
-                
-                // Determine current prayer based on time
-                let activePrayer = 'isha'; // Default to Isha
-                
-                if (currentHour < 4) activePrayer = 'isha';
-                else if (currentHour < 6) activePrayer = 'fajr';
-                else if (currentHour < 12) activePrayer = 'dhuhr';
-                else if (currentHour < 15) activePrayer = 'asr';
-                else if (currentHour < 18) activePrayer = 'maghrib';
-                
-                const activeRow = document.getElementById(`prayer-${activePrayer}`);
-                if (activeRow) {
-                    activeRow.classList.add('active');
-                }
-            }
+            this.init();
+        }
+        
+        init() {
+            this.loadData();
+            this.setupEventListeners();
+            this.updateDateTime();
+            this.generatePrayerTimes();
+            this.updatePrayerDisplay();
+            this.generateCalendar();
+            this.setupCompass();
             
-            updateNextPrayer() {
-                const now = new Date();
-                const today = new Date();
-                const dateKey = this.formatDate(today);
-                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-                
-                // Convert prayer times to Date objects for comparison
-                const prayerTimes = this.prayers.map(prayer => {
-                    const timeStr = times[prayer.key].jamaat;
-                    const [time, period] = timeStr.split(' ');
-                    let [hours, minutes] = time.split(':').map(Number);
-                    
-                    if (period === 'PM' && hours < 12) hours += 12;
-                    if (period === 'AM' && hours === 12) hours = 0;
-                    
-                    const prayerDate = new Date(today);
-                    prayerDate.setHours(hours, minutes, 0, 0);
-                    
-                    return {
-                        name: prayer.name,
-                        time: prayerDate,
-                        key: prayer.key
-                    };
-                });
-                
-                // Sort by time
-                prayerTimes.sort((a, b) => a.time - b.time);
-                
-                // Find next prayer
-                let nextPrayer = prayerTimes.find(p => p.time > now);
-                if (!nextPrayer) {
-                    // If no prayer left today, use first prayer of tomorrow
-                    nextPrayer = prayerTimes[0];
-                    nextPrayer.time.setDate(nextPrayer.time.getDate() + 1);
-                }
-                
-                // Update display
-                document.getElementById('nextPrayerName').textContent = nextPrayer.name.toUpperCase();
-                document.getElementById('nextPrayerTime').textContent = 
-                    nextPrayer.time.toLocaleTimeString('en-US', { 
-                        hour: '2-digit', 
-                        minute: '2-digit',
-                        hour12: true 
-                    });
-                
-                // Calculate time left
-                const timeDiff = nextPrayer.time - now;
-                const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                
-                document.getElementById('timeLeft').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Update progress bar
-                const totalDay = 24 * 60 * 60 * 1000;
-                const progress = 100 - (timeDiff / totalDay) * 100;
-                document.getElementById('prayerProgress').style.width = `${Math.min(100, Math.max(0, progress))}%`;
-            }
+            // Start intervals
+            setInterval(() => this.updateDateTime(), 1000);
+            setInterval(() => this.updateNextPrayer(), 1000);
+            setInterval(() => this.checkPrayerNotifications(), 30000);
             
-            switchView(view) {
-                this.data.currentView = view;
-                
-                // Update navigation
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.remove('active');
-                    if (item.dataset.panel === view) {
-                        item.classList.add('active');
-                    }
-                });
-                
-                // Update content panels
-                document.querySelectorAll('.content-panel').forEach(panel => {
-                    panel.classList.remove('active');
-                });
-                document.getElementById(`${view}Panel`).classList.add('active');
-                
-                // Update URL hash
-                window.location.hash = view;
-            }
-            
-            toggleTheme() {
-                this.data.darkMode = !this.data.darkMode;
-                this.applyTheme();
-                this.saveData();
-                this.showToast(this.data.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
-            }
-            
-            applyTheme() {
-                if (this.data.darkMode) {
-                    document.body.classList.add('dark-mode');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                }
-            }
-            
-            // Calendar Methods
-            generateCalendar() {
-                const monthName = this.months[this.data.currentMonth];
-                const year = this.data.currentYear;
-                
-                document.getElementById('currentMonth').textContent = `${monthName} ${year}`;
-                
-                const firstDay = new Date(year, this.data.currentMonth, 1);
-                const lastDay = new Date(year, this.data.currentMonth + 1, 0);
-                const daysInMonth = lastDay.getDate();
-                const today = new Date();
-                
-                let tableHTML = `
-                    <table class="calendar-table">
-                        <thead>
-                            <tr>
-                                ${this.weekdays.map(day => `<th>${day}</th>`).join('')}
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-                
-                let dayCounter = 1;
-                let firstDayOfWeek = firstDay.getDay();
-                
-                for (let week = 0; week < 6; week++) {
-                    tableHTML += '<tr>';
-                    
-                    for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-                        if (week === 0 && dayOfWeek < firstDayOfWeek) {
-                            tableHTML += '<td></td>';
-                        } else if (dayCounter > daysInMonth) {
-                            tableHTML += '<td></td>';
-                        } else {
-                            const currentDate = new Date(year, this.data.currentMonth, dayCounter);
-                            const isToday = currentDate.toDateString() === today.toDateString();
-                            const cellClass = isToday ? 'today-cell' : '';
-                            
-                            tableHTML += `<td class="${cellClass}">${dayCounter}</td>`;
-                            dayCounter++;
-                        }
-                    }
-                    
-                    tableHTML += '</tr>';
-                    
-                    if (dayCounter > daysInMonth) break;
-                }
-                
-                tableHTML += `
-                        </tbody>
-                    </table>
-                `;
-                
-                document.getElementById('calendarTableContainer').innerHTML = tableHTML;
-            }
-            
-            prevMonth() {
-                this.data.currentMonth--;
-                if (this.data.currentMonth < 0) {
-                    this.data.currentMonth = 11;
-                    this.data.currentYear--;
-                }
-                this.generateCalendar();
-            }
-            
-            nextMonth() {
-                this.data.currentMonth++;
-                if (this.data.currentMonth > 11) {
-                    this.data.currentMonth = 0;
-                    this.data.currentYear++;
-                }
-                this.generateCalendar();
-            }
-            
-            // Qibla Methods
-            setupCompass() {
-                if (window.DeviceOrientationEvent) {
-                    window.addEventListener('deviceorientation', (event) => {
-                        if (event.alpha !== null) {
-                            const heading = event.alpha;
-                            const qiblaDirection = 257; // Qibla direction for Srinagar
-                            const rotation = (360 - heading + qiblaDirection) % 360;
-                            document.getElementById('compassNeedle').style.transform = 
-                                `translateX(-50%) rotate(${rotation}deg)`;
-                            document.getElementById('compassStatus').textContent = 
-                                'Compass active - Point red needle towards Kaaba';
-                        }
-                    });
-                } else {
-                    // Simulate compass for desktop
-                    let angle = 0;
-                    setInterval(() => {
-                        angle = (angle + 1) % 360;
-                        const rotation = (360 - angle + 257) % 360;
-                        document.getElementById('compassNeedle').style.transform = 
-                            `translateX(-50%) rotate(${rotation}deg)`;
-                        document.getElementById('compassStatus').textContent = 
-                            'Simulated compass - Use on mobile for real compass';
-                    }, 50);
-                }
-            }
-            
-            // Tasbeeh Methods
-            incrementTasbeeh() {
-                this.data.tasbeehCount++;
-                document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
-                document.getElementById('tasbeehBtn').classList.add('shake');
-                setTimeout(() => {
-                    document.getElementById('tasbeehBtn').classList.remove('shake');
-                }, 500);
-                
-                // Check if target reached
-                const target = this.dhikrOptions[this.data.currentDhikr].count;
-                if (this.data.tasbeehCount >= target) {
-                    this.showToast(`Completed ${target} dhikr!`, 'success');
-                    setTimeout(() => this.resetTasbeeh(), 1000);
-                }
-                
-                this.saveData();
-            }
-            
-            resetTasbeeh() {
-                this.data.tasbeehCount = 0;
-                document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
-                this.saveData();
-                this.showToast('Tasbeeh counter reset', 'info');
-            }
-            
-            changeDhikr() {
-                this.data.currentDhikr = (this.data.currentDhikr + 1) % this.dhikrOptions.length;
-                const dhikr = this.dhikrOptions[this.data.currentDhikr];
-                document.getElementById('tasbeehBtn').textContent = dhikr.text;
-                this.resetTasbeeh();
-                this.showToast(`Changed to: ${dhikr.arabic}`, 'info');
-            }
-            
-            saveTasbeehCount() {
-                this.saveData();
-                this.showToast('Tasbeeh count saved', 'success');
-            }
-            
-            // Modal Methods
-            openEditModal() {
-                const today = new Date();
-                const dateKey = this.formatDate(today);
-                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-                
-                document.getElementById('editDate').value = dateKey;
-                document.getElementById('editFajr').value = `${times.fajr.azaan} - ${times.fajr.jamaat}`;
-                document.getElementById('editDhuhr').value = `${times.dhuhr.azaan} - ${times.dhuhr.jamaat}`;
-                document.getElementById('editAsr').value = `${times.asr.azaan} - ${times.asr.jamaat}`;
-                document.getElementById('editMaghrib').value = `${times.maghrib.azaan} - ${times.maghrib.jamaat}`;
-                document.getElementById('editIsha').value = `${times.isha.azaan} - ${times.isha.jamaat}`;
-                
-                document.getElementById('manualInputModal').classList.add('active');
-            }
-            
-            closeModal() {
-                document.getElementById('manualInputModal').classList.remove('active');
-            }
-            
-            savePrayerTimes() {
-                const date = document.getElementById('editDate').value;
-                
-                const parseTime = (input) => {
-                    const parts = input.split('-').map(p => p.trim());
-                    return {
-                        azaan: parts[0] || '',
-                        jamaat: parts[1] || parts[0] || ''
-                    };
-                };
-                
-                this.data.prayerTimes[date] = {
-                    fajr: parseTime(document.getElementById('editFajr').value),
-                    dhuhr: parseTime(document.getElementById('editDhuhr').value),
-                    asr: parseTime(document.getElementById('editAsr').value),
-                    maghrib: parseTime(document.getElementById('editMaghrib').value),
-                    isha: parseTime(document.getElementById('editIsha').value)
-                };
-                
-                this.saveData();
-                this.updatePrayerDisplay();
-                this.closeModal();
-                this.showToast('Prayer times updated successfully', 'success');
-            }
-            
-            // Notification Methods
-            checkPrayerNotifications() {
-                if (!this.data.settings.notifications) return;
-                
-                const now = new Date();
-                const today = new Date();
-                const dateKey = this.formatDate(today);
-                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-                
-                // Check each prayer for upcoming Jamaat
-                this.prayers.forEach(prayer => {
-                    const jamaatTime = times[prayer.key].jamaat;
-                    const [time, period] = jamaatTime.split(' ');
-                    let [hours, minutes] = time.split(':').map(Number);
-                    
-                    if (period === 'PM' && hours < 12) hours += 12;
-                    if (period === 'AM' && hours === 12) hours = 0;
-                    
-                    const prayerDate = new Date(today);
-                    prayerDate.setHours(hours, minutes, 0, 0);
-                    
-                    const timeDiff = prayerDate - now;
-                    const minutesLeft = Math.floor(timeDiff / (1000 * 60));
-                    
-                    // Notify 5 minutes before Jamaat
-                    if (minutesLeft === 5) {
-                        this.showToast(`${prayer.name} Jamaat in 5 minutes`, 'warning');
-                    }
-                });
-            }
-            
-            showToast(message, type = 'info') {
-                const toast = document.getElementById('toast');
-                const toastMessage = document.getElementById('toastMessage');
-                
-                toastMessage.textContent = message;
-                
-                // Set icon based on type
-                const icon = toast.querySelector('.toast-icon');
-                switch(type) {
-                    case 'success':
-                        icon.className = 'fas fa-check-circle toast-icon';
-                        break;
-                    case 'warning':
-                        icon.className = 'fas fa-exclamation-triangle toast-icon';
-                        break;
-                    case 'error':
-                        icon.className = 'fas fa-times-circle toast-icon';
-                        break;
-                    default:
-                        icon.className = 'fas fa-info-circle toast-icon';
-                }
-                
-                toast.classList.add('show');
-                
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
+            this.applyTheme();
+            this.showToast('Welcome to Masjid Al Hamzah App', 'success');
+        }
+        
+        loadData() {
+            const saved = localStorage.getItem('masjidAlHamzah');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                this.data = { ...this.data, ...parsed };
             }
         }
         
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', () => {
-            window.app = new PrayerApp();
-        });
-    </script>
+        saveData() {
+            localStorage.setItem('masjidAlHamzah', JSON.stringify(this.data));
+        }
+        
+        calculatePrayerTimes(date) {
+            const month = date.getMonth(); // 0 = January, 1 = February, 2 = March
+            const day = date.getDate();
+            
+            // Get azaan times from PDF data
+            let azaanTimes = {};
+            if (this.monthlyPrayerTimes[month] && this.monthlyPrayerTimes[month][day]) {
+                azaanTimes = this.monthlyPrayerTimes[month][day];
+            } else {
+                // Fallback if no data for this day
+                return this.calculateApproximateTimes(date);
+            }
+            
+            // Calculate azaan times by subtracting offsets from your masjid jamaat times
+            // IMPORTANT: Your jamaat times are fixed, azaan is calculated from them
+            return {
+                fajr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
+                    jamaat: this.data.settings.jamaatTimes.fajr
+                },
+                dhuhr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
+                    jamaat: this.data.settings.jamaatTimes.dhuhr
+                },
+                asr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
+                    jamaat: this.data.settings.jamaatTimes.asr
+                },
+                maghrib: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
+                    jamaat: this.data.settings.jamaatTimes.maghrib
+                },
+                isha: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha),
+                    jamaat: this.data.settings.jamaatTimes.isha
+                }
+            };
+        }
+        
+        subtractMinutes(timeString, minutes) {
+            // Subtract minutes from a time string (for calculating azaan BEFORE jamaat)
+            const [time, period] = timeString.split(' ');
+            let [hours, min] = time.split(':').map(Number);
+            
+            if (period === 'PM' && hours < 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            
+            const date = new Date();
+            date.setHours(hours, min - minutes, 0, 0); // Subtract minutes
+            
+            const newHours = date.getHours();
+            const newMinutes = date.getMinutes();
+            const newPeriod = newHours >= 12 ? 'PM' : 'AM';
+            const displayHours = newHours % 12 || 12;
+            
+            return `${displayHours}:${newMinutes.toString().padStart(2, '0')} ${newPeriod}`;
+        }
+        
+        calculateApproximateTimes(date) {
+            // Fallback calculation if no PDF data
+            const month = date.getMonth();
+            const day = date.getDate();
+            
+            // Base times for Srinagar (approximate)
+            let fajrHour = 5, fajrMinute = 30 - Math.floor(month / 2);
+            let dhuhrHour = 12, dhuhrMinute = 45;
+            let asrHour = 15, asrMinute = 30 + Math.floor(month / 3);
+            let maghribHour = 17, maghribMinute = 45 + Math.floor(month / 2);
+            let ishaHour = 19, ishaMinute = 15 + Math.floor(month / 3);
+            
+            // Adjust for day of month
+            fajrMinute += day % 3;
+            maghribMinute -= day % 2;
+            
+            return {
+                fajr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
+                    jamaat: this.data.settings.jamaatTimes.fajr
+                },
+                dhuhr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
+                    jamaat: this.data.settings.jamaatTimes.dhuhr
+                },
+                asr: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
+                    jamaat: this.data.settings.jamaatTimes.asr
+                },
+                maghrib: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
+                    jamaat: this.data.settings.jamaatTimes.maghrib
+                },
+                isha: {
+                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha),
+                    jamaat: this.data.settings.jamaatTimes.isha
+                }
+            };
+        }
+        
+        formatTime(hour, minute) {
+            // Handle overflow
+            if (minute >= 60) {
+                hour += Math.floor(minute / 60);
+                minute = minute % 60;
+            }
+            if (hour >= 24) hour -= 24;
+            
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
+        }
+        
+        formatDate(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        setupEventListeners() {
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.switchView(item.dataset.panel);
+                    
+                    // Start/stop compass based on view
+                    if (item.dataset.panel === 'qibla') {
+                        this.startCompass();
+                    } else {
+                        this.stopCompass();
+                    }
+                });
+            });
+            
+            // Feature cards
+            document.querySelectorAll('.feature-card[data-panel]').forEach(card => {
+                card.addEventListener('click', () => {
+                    this.switchView(card.dataset.panel);
+                    
+                    // Start/stop compass based on view
+                    if (card.dataset.panel === 'qibla') {
+                        this.startCompass();
+                    } else {
+                        this.stopCompass();
+                    }
+                });
+            });
+            
+            // Manual edit - Now edits JAMAAT TIMES
+            document.getElementById('manualEditBtn').addEventListener('click', () => this.openEditModal());
+            document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
+            document.getElementById('cancelEdit').addEventListener('click', () => this.closeModal());
+            document.getElementById('saveEdit').addEventListener('click', () => this.saveJamaatTimes());
+            
+            // Calendar navigation
+            document.getElementById('prevMonthBtn').addEventListener('click', () => this.prevMonth());
+            document.getElementById('nextMonthBtn').addEventListener('click', () => this.nextMonth());
+            
+            // Tasbeeh controls
+            document.getElementById('tasbeehBtn').addEventListener('click', () => this.incrementTasbeeh());
+            document.getElementById('resetTasbeeh').addEventListener('click', () => this.resetTasbeeh());
+            document.getElementById('changeDhikr').addEventListener('click', () => this.changeDhikr());
+            document.getElementById('saveTasbeeh').addEventListener('click', () => this.saveTasbeehCount());
+            
+            // Compass calibration
+            document.getElementById('calibrateCompass').addEventListener('click', () => this.calibrateCompass());
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                    if (this.data.currentView === 'tasbeeh') {
+                        this.incrementTasbeeh();
+                    }
+                }
+                if (e.key === 'Escape') {
+                    this.closeModal();
+                }
+            });
+            
+            // Handle device orientation permission
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+ devices
+                this.showToast('Tap "Calibrate Compass" to enable orientation sensor', 'info');
+            }
+        }
+        
+        updateDateTime() {
+            const now = new Date();
+            
+            // Gregorian date
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            const dateStr = now.toLocaleDateString('en-GB', options);
+            document.getElementById('currentDate').textContent = dateStr;
+            
+            // Hijri date (simplified)
+            const hijriDate = this.getHijriDate(now);
+            document.getElementById('hijriDate').textContent = hijriDate;
+        }
+        
+        getHijriDate(gregorianDate) {
+            // Simplified Hijri conversion
+            const day = gregorianDate.getDate();
+            const month = gregorianDate.getMonth() + 1;
+            const year = gregorianDate.getFullYear();
+            
+            const hijriYear = Math.floor((year - 622) * 0.970224);
+            const hijriMonth = ((month + 8) % 12) + 1;
+            const hijriDay = (day % 30) || 30;
+            
+            const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
+                'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
+                'Ramadan', 'Shawwal', 'Dhu al-Qidah', 'Dhu al-Hijjah'];
+            
+            return `${hijriDay} ${hijriMonths[hijriMonth - 1]} ${hijriYear} AH`;
+        }
+        
+        generatePrayerTimes() {
+            const today = new Date();
+            const dateKey = this.formatDate(today);
+            
+            if (!this.data.prayerTimes[dateKey]) {
+                this.data.prayerTimes[dateKey] = this.calculatePrayerTimes(today);
+                this.saveData();
+            }
+        }
+        
+        updatePrayerDisplay() {
+            const today = new Date();
+            const dateKey = this.formatDate(today);
+            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+            
+            const container = document.getElementById('prayerTimesList');
+            container.innerHTML = '';
+            
+            this.prayers.forEach(prayer => {
+                const prayerTime = times[prayer.key];
+                const row = document.createElement('div');
+                row.className = 'prayer-row';
+                row.id = `prayer-${prayer.key}`;
+                
+                row.innerHTML = `
+                    <div class="prayer-icon">
+                        <i class="${prayer.icon}"></i>
+                    </div>
+                    <div class="prayer-info">
+                        <div class="prayer-label">${prayer.name}</div>
+                        <div class="prayer-subtitle">Azaan - Jamaat</div>
+                    </div>
+                    <div class="prayer-times">
+                        <div class="azaan-time">${prayerTime.azaan}</div>
+                        <div class="jamaat-time">${prayerTime.jamaat}</div>
+                    </div>
+                `;
+                
+                container.appendChild(row);
+            });
+            
+            this.updateCurrentPrayer();
+        }
+        
+        updateCurrentPrayer() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            
+            // Remove active class from all
+            document.querySelectorAll('.prayer-row').forEach(row => {
+                row.classList.remove('active');
+            });
+            
+            // Determine current prayer based on time
+            let activePrayer = 'isha'; // Default to Isha
+            
+            if (currentHour < 4) activePrayer = 'isha';
+            else if (currentHour < 6) activePrayer = 'fajr';
+            else if (currentHour < 12) activePrayer = 'dhuhr';
+            else if (currentHour < 15) activePrayer = 'asr';
+            else if (currentHour < 18) activePrayer = 'maghrib';
+            
+            const activeRow = document.getElementById(`prayer-${activePrayer}`);
+            if (activeRow) {
+                activeRow.classList.add('active');
+            }
+        }
+        
+        updateNextPrayer() {
+            const now = new Date();
+            const today = new Date();
+            const dateKey = this.formatDate(today);
+            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+            
+            // Convert prayer times to Date objects for comparison
+            const prayerTimes = this.prayers.map(prayer => {
+                const timeStr = times[prayer.key].jamaat; // Use JAMAAT times for next prayer calculation
+                const [time, period] = timeStr.split(' ');
+                let [hours, minutes] = time.split(':').map(Number);
+                
+                if (period === 'PM' && hours < 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                
+                const prayerDate = new Date(today);
+                prayerDate.setHours(hours, minutes, 0, 0);
+                
+                return {
+                    name: prayer.name,
+                    time: prayerDate,
+                    key: prayer.key
+                };
+            });
+            
+            // Sort by time
+            prayerTimes.sort((a, b) => a.time - b.time);
+            
+            // Find next prayer
+            let nextPrayer = prayerTimes.find(p => p.time > now);
+            if (!nextPrayer) {
+                // If no prayer left today, use first prayer of tomorrow
+                nextPrayer = prayerTimes[0];
+                nextPrayer.time.setDate(nextPrayer.time.getDate() + 1);
+            }
+            
+            // Update display
+            document.getElementById('nextPrayerName').textContent = nextPrayer.name.toUpperCase();
+            document.getElementById('nextPrayerTime').textContent = 
+                nextPrayer.time.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                });
+            
+            // Calculate time left
+            const timeDiff = nextPrayer.time - now;
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            
+            document.getElementById('timeLeft').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update progress bar
+            const totalDay = 24 * 60 * 60 * 1000;
+            const progress = 100 - (timeDiff / totalDay) * 100;
+            document.getElementById('prayerProgress').style.width = `${Math.min(100, Math.max(0, progress))}%`;
+        }
+        
+        switchView(view) {
+            this.data.currentView = view;
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.panel === view) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update content panels
+            document.querySelectorAll('.content-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(`${view}Panel`).classList.add('active');
+            
+            // Update URL hash
+            window.location.hash = view;
+        }
+        
+        toggleTheme() {
+            this.data.darkMode = !this.data.darkMode;
+            this.applyTheme();
+            this.saveData();
+            this.showToast(this.data.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
+        }
+        
+        applyTheme() {
+            if (this.data.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+        
+        // Calendar Methods
+        generateCalendar() {
+            const monthName = this.months[this.data.currentMonth];
+            const year = this.data.currentYear;
+            
+            document.getElementById('currentMonth').textContent = `${monthName} ${year}`;
+            
+            const firstDay = new Date(year, this.data.currentMonth, 1);
+            const lastDay = new Date(year, this.data.currentMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const today = new Date();
+            
+            let tableHTML = `
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            ${this.weekdays.map(day => `<th>${day}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            let dayCounter = 1;
+            let firstDayOfWeek = firstDay.getDay();
+            
+            for (let week = 0; week < 6; week++) {
+                tableHTML += '<tr>';
+                
+                for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+                    if (week === 0 && dayOfWeek < firstDayOfWeek) {
+                        tableHTML += '<td></td>';
+                    } else if (dayCounter > daysInMonth) {
+                        tableHTML += '<td></td>';
+                    } else {
+                        const currentDate = new Date(year, this.data.currentMonth, dayCounter);
+                        const isToday = currentDate.toDateString() === today.toDateString();
+                        const cellClass = isToday ? 'today-cell' : '';
+                        
+                        // Add data attribute for prayer times
+                        const monthData = this.data.currentMonth;
+                        const dayData = dayCounter;
+                        
+                        tableHTML += `<td class="${cellClass}" data-month="${monthData}" data-day="${dayData}">${dayCounter}</td>`;
+                        dayCounter++;
+                    }
+                }
+                
+                tableHTML += '</tr>';
+                
+                if (dayCounter > daysInMonth) break;
+            }
+            
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            
+            document.getElementById('calendarTableContainer').innerHTML = tableHTML;
+            
+            // Add click event to show prayer times for that day
+            document.querySelectorAll('.calendar-table td[data-month]').forEach(cell => {
+                cell.addEventListener('click', () => {
+                    const month = parseInt(cell.dataset.month);
+                    const day = parseInt(cell.dataset.day);
+                    this.showDayPrayerTimes(month, day);
+                });
+            });
+        }
+        
+        showDayPrayerTimes(month, day) {
+            if (this.monthlyPrayerTimes[month] && this.monthlyPrayerTimes[month][day]) {
+                const times = this.monthlyPrayerTimes[month][day];
+                const azaanTimes = {
+                    fajr: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
+                    dhuhr: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
+                    asr: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
+                    maghrib: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
+                    isha: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha)
+                };
+                
+                const message = `
+                    <strong>${day} ${this.months[month]} Prayer Times:</strong><br><br>
+                    <strong>From PDF (Azaan):</strong><br>
+                    Fajr: ${times.fajr}<br>
+                    Zuhr: ${times.dhuhr}<br>
+                    Asr: ${times.asr}<br>
+                    Maghrib: ${times.maghrib}<br>
+                    Isha: ${times.isha}<br><br>
+                    <strong>Your Masjid Times:</strong><br>
+                    Fajr: ${azaanTimes.fajr} - ${this.data.settings.jamaatTimes.fajr}<br>
+                    Zuhr: ${azaanTimes.dhuhr} - ${this.data.settings.jamaatTimes.dhuhr}<br>
+                    Asr: ${azaanTimes.asr} - ${this.data.settings.jamaatTimes.asr}<br>
+                    Maghrib: ${azaanTimes.maghrib} - ${this.data.settings.jamaatTimes.maghrib}<br>
+                    Isha: ${azaanTimes.isha} - ${this.data.settings.jamaatTimes.isha}
+                `;
+                
+                this.showToast(message, 'info');
+            } else {
+                this.showToast(`No prayer times available for ${day} ${this.months[month]}`, 'warning');
+            }
+        }
+        
+        prevMonth() {
+            this.data.currentMonth--;
+            if (this.data.currentMonth < 0) {
+                this.data.currentMonth = 11;
+                this.data.currentYear--;
+            }
+            this.generateCalendar();
+        }
+        
+        nextMonth() {
+            this.data.currentMonth++;
+            if (this.data.currentMonth > 11) {
+                this.data.currentMonth = 0;
+                this.data.currentYear++;
+            }
+            this.generateCalendar();
+        }
+        
+        // Qibla/Compass Methods
+        setupCompass() {
+            // Initial setup
+            document.getElementById('qiblaDegree').textContent = `${this.data.qiblaDirection}°`;
+            
+            // Check if device has compass/orientation support
+            if (window.DeviceOrientationEvent) {
+                // Modern browsers support
+                this.compassActive = true;
+                document.getElementById('compassStatus').textContent = 
+                    'Compass ready - Move your device to find Qibla';
+                document.getElementById('compassStatus').classList.add('active');
+            } else {
+                // Fallback for desktop
+                this.compassActive = false;
+                document.getElementById('compassStatus').textContent = 
+                    'Use on mobile device for real compass. Simulated mode active.';
+                this.startSimulatedCompass();
+            }
+        }
+        
+        startCompass() {
+            if (this.compassActive && !this.compassInterval) {
+                if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+ - request permission
+                    DeviceOrientationEvent.requestPermission()
+                        .then(permissionState => {
+                            if (permissionState === 'granted') {
+                                window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+                                document.getElementById('compassStatus').textContent = 
+                                    'Compass active - Point red needle towards Kaaba 🕋';
+                            } else {
+                                this.startSimulatedCompass();
+                            }
+                        })
+                        .catch(() => {
+                            this.startSimulatedCompass();
+                        });
+                } else {
+                    // Android and other browsers
+                    window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+                    document.getElementById('compassStatus').textContent = 
+                        'Compass active - Point red needle towards Kaaba 🕋';
+                }
+            }
+        }
+        
+        stopCompass() {
+            window.removeEventListener('deviceorientation', this.handleOrientation);
+            if (this.compassInterval) {
+                clearInterval(this.compassInterval);
+                this.compassInterval = null;
+            }
+        }
+        
+        handleOrientation(event) {
+            if (event.alpha !== null) {
+                // alpha: rotation around z-axis (0-360)
+                const heading = event.alpha;
+                
+                // Smooth the heading value
+                this.headingSmooth = 0.3 * heading + 0.7 * this.headingSmooth;
+                
+                // Calculate rotation to point to Qibla
+                // When phone points to Qibla, needle should point to Kaaba symbol (left side)
+                const rotation = (360 - this.headingSmooth + this.data.qiblaDirection) % 360;
+                
+                // Update needle
+                document.getElementById('compassNeedle').style.transform = 
+                    `translateX(-50%) rotate(${rotation}deg)`;
+                
+                // Update degree display
+                document.getElementById('qiblaDegree').textContent = `${Math.round(this.data.qiblaDirection)}°`;
+                
+                // Update status with current heading
+                this.data.currentHeading = Math.round(this.headingSmooth);
+                
+                // Show helpful message based on direction
+                const kaabaDirection = (rotation + 180) % 360;
+                let directionMsg = '';
+                
+                if (kaabaDirection < 45 || kaabaDirection >= 315) directionMsg = 'Kaaba is North';
+                else if (kaabaDirection < 135) directionMsg = 'Kaaba is East';
+                else if (kaabaDirection < 225) directionMsg = 'Kaaba is South';
+                else directionMsg = 'Kaaba is West';
+                
+                document.getElementById('compassStatus').innerHTML = 
+                    `Heading: ${this.data.currentHeading}° | ${directionMsg}`;
+            }
+            
+            // Use beta (tilt front/back) and gamma (tilt left/right) for advanced features
+            if (event.beta !== null && event.gamma !== null) {
+                const tiltX = Math.round(event.beta); // Front/Back tilt (-180 to 180)
+                const tiltY = Math.round(event.gamma); // Left/Right tilt (-90 to 90)
+                
+                // Add tilt effect to compass circle
+                const compassCircle = document.querySelector('.compass-circle');
+                if (compassCircle) {
+                    const tiltEffect = Math.min(10, Math.abs(tiltY) * 0.1);
+                    compassCircle.style.transform = `perspective(1000px) rotateX(${tiltX * 0.1}deg) rotateY(${tiltY * 0.1}deg)`;
+                }
+            }
+        }
+        
+        startSimulatedCompass() {
+            // For desktop or devices without compass
+            let simulatedHeading = 0;
+            
+            this.compassInterval = setInterval(() => {
+                simulatedHeading = (simulatedHeading + 1) % 360;
+                
+                // Calculate rotation to point to Qibla
+                const rotation = (360 - simulatedHeading + this.data.qiblaDirection) % 360;
+                
+                // Update needle
+                document.getElementById('compassNeedle').style.transform = 
+                    `translateX(-50%) rotate(${rotation}deg)`;
+                
+                // Update status
+                document.getElementById('compassStatus').innerHTML = 
+                    `Simulated compass - Use on mobile for real sensor<br>Heading: ${simulatedHeading}°`;
+                
+                // Update Qibla degree
+                document.getElementById('qiblaDegree').textContent = `${this.data.qiblaDirection}°`;
+                
+                // Add slight shake to make it look more "real"
+                if (Math.random() > 0.9) {
+                    document.getElementById('compassNeedle').classList.add('shake');
+                    setTimeout(() => {
+                        document.getElementById('compassNeedle').classList.remove('shake');
+                    }, 500);
+                }
+            }, 100);
+            
+            document.getElementById('compassStatus').textContent = 
+                'Simulated compass active - Use on mobile device for real compass';
+        }
+        
+        calibrateCompass() {
+            // Simple calibration - reset to north
+            this.showToast('Calibrating compass... Rotate your device in a figure-8 motion', 'info');
+            
+            document.getElementById('compassStatus').classList.add('pulse');
+            document.getElementById('compassStatus').textContent = 
+                'Calibrating... Move device in a figure-8 pattern';
+            
+            setTimeout(() => {
+                document.getElementById('compassStatus').classList.remove('pulse');
+                document.getElementById('compassStatus').textContent = 
+                    'Calibration complete! Compass ready';
+                this.data.compassCalibrated = true;
+                this.showToast('Compass calibrated successfully', 'success');
+            }, 3000);
+        }
+        
+        // Tasbeeh Methods
+        incrementTasbeeh() {
+            this.data.tasbeehCount++;
+            document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
+            document.getElementById('tasbeehBtn').classList.add('shake');
+            setTimeout(() => {
+                document.getElementById('tasbeehBtn').classList.remove('shake');
+            }, 500);
+            
+            // Check if target reached
+            const target = this.dhikrOptions[this.data.currentDhikr].count;
+            if (this.data.tasbeehCount >= target) {
+                this.showToast(`Completed ${target} dhikr!`, 'success');
+                setTimeout(() => this.resetTasbeeh(), 1000);
+            }
+            
+            this.saveData();
+        }
+        
+        resetTasbeeh() {
+            this.data.tasbeehCount = 0;
+            document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
+            this.saveData();
+            this.showToast('Tasbeeh counter reset', 'info');
+        }
+        
+        changeDhikr() {
+            this.data.currentDhikr = (this.data.currentDhikr + 1) % this.dhikrOptions.length;
+            const dhikr = this.dhikrOptions[this.data.currentDhikr];
+            document.getElementById('tasbeehBtn').textContent = dhikr.text;
+            this.resetTasbeeh();
+            this.showToast(`Changed to: ${dhikr.arabic}`, 'info');
+        }
+        
+        saveTasbeehCount() {
+            this.saveData();
+            this.showToast('Tasbeeh count saved', 'success');
+        }
+        
+        // Modal Methods - Now for editing JAMAAT TIMES
+        openEditModal() {
+            const jamaat = this.data.settings.jamaatTimes;
+            const offsets = this.data.settings.azaanOffsets;
+            
+            document.getElementById('editDate').value = 'Jamaat Times';
+            document.getElementById('editFajr').value = `${jamaat.fajr} (${offsets.fajr} min before)`;
+            document.getElementById('editDhuhr').value = `${jamaat.dhuhr} (${offsets.dhuhr} min before)`;
+            document.getElementById('editAsr').value = `${jamaat.asr} (${offsets.asr} min before)`;
+            document.getElementById('editMaghrib').value = `${jamaat.maghrib} (${offsets.maghrib} min before)`;
+            document.getElementById('editIsha').value = `${jamaat.isha} (${offsets.isha} min before)`;
+            
+            document.getElementById('manualInputModal').classList.add('active');
+        }
+        
+        closeModal() {
+            document.getElementById('manualInputModal').classList.remove('active');
+        }
+        
+        saveJamaatTimes() {
+            // Parse new jamaat times from input
+            // Format: "06:55 AM (50 min before)"
+            const parseJamaatTime = (input) => {
+                const parts = input.split('(');
+                return parts[0].trim();
+            };
+            
+            this.data.settings.jamaatTimes.fajr = parseJamaatTime(document.getElementById('editFajr').value);
+            this.data.settings.jamaatTimes.dhuhr = parseJamaatTime(document.getElementById('editDhuhr').value);
+            this.data.settings.jamaatTimes.asr = parseJamaatTime(document.getElementById('editAsr').value);
+            this.data.settings.jamaatTimes.maghrib = parseJamaatTime(document.getElementById('editMaghrib').value);
+            this.data.settings.jamaatTimes.isha = parseJamaatTime(document.getElementById('editIsha').value);
+            
+            this.saveData();
+            this.updatePrayerDisplay();
+            this.closeModal();
+            this.showToast('Masjid Jamaat times updated successfully', 'success');
+        }
+        
+        // Notification Methods
+        checkPrayerNotifications() {
+            if (!this.data.settings.notifications) return;
+            
+            const now = new Date();
+            const today = new Date();
+            const dateKey = this.formatDate(today);
+            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+            
+            // Check each prayer for upcoming Jamaat
+            this.prayers.forEach(prayer => {
+                const jamaatTime = times[prayer.key].jamaat;
+                const [time, period] = jamaatTime.split(' ');
+                let [hours, minutes] = time.split(':').map(Number);
+                
+                if (period === 'PM' && hours < 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                
+                const prayerDate = new Date(today);
+                prayerDate.setHours(hours, minutes, 0, 0);
+                
+                const timeDiff = prayerDate - now;
+                const minutesLeft = Math.floor(timeDiff / (1000 * 60));
+                
+                // Notify 5 minutes before Jamaat
+                if (minutesLeft === 5) {
+                    this.showToast(`${prayer.name} Jamaat in 5 minutes`, 'warning');
+                }
+            });
+        }
+        
+        showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.innerHTML = message;
+            
+            // Set icon based on type
+            const icon = toast.querySelector('.toast-icon');
+            switch(type) {
+                case 'success':
+                    icon.className = 'fas fa-check-circle toast-icon';
+                    toast.style.borderLeftColor = '#2ecc71';
+                    break;
+                case 'warning':
+                    icon.className = 'fas fa-exclamation-triangle toast-icon';
+                    toast.style.borderLeftColor = '#f39c12';
+                    break;
+                case 'error':
+                    icon.className = 'fas fa-times-circle toast-icon';
+                    toast.style.borderLeftColor = '#e74c3c';
+                    break;
+                default:
+                    icon.className = 'fas fa-info-circle toast-icon';
+                    toast.style.borderLeftColor = '#3498db';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+    }
+    
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app = new PrayerApp();
+        
+        // Start compass if Qibla view is active from URL hash
+        if (window.location.hash === '#qibla' || window.location.hash === '#compass') {
+            setTimeout(() => {
+                window.app.switchView('qibla');
+                window.app.startCompass();
+            }, 500);
+        }
+    });
+</script>
 </body>
 </html>
