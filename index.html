@@ -293,7 +293,7 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
         }
 
-        /* Prayer Times Grid */
+        /* Prayer Times Grid - UPDATED */
         .prayer-times-grid {
             background: var(--card-light);
             border-radius: 28px;
@@ -422,37 +422,68 @@
             color: var(--text-secondary-dark);
         }
 
+        /* UPDATED: Prayer Times Display - Jamaat BIG, Azaan small below */
         .prayer-times {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 6px;
+            gap: 4px;
+            text-align: right;
         }
 
-        .azaan-time {
-            font-size: 1.4rem;
-            font-weight: 800;
+        /* Jamaat Time - BIG and HIGHLIGHTED */
+        .jamaat-time {
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--primary-color);
             font-family: 'Courier New', monospace;
-        }
-
-        body.dark-mode .azaan-time {
-            color: var(--accent-color);
-        }
-
-        .jamaat-time {
-            font-size: 1rem;
-            color: var(--text-secondary-light);
-            font-weight: 600;
-            background: rgba(10, 92, 54, 0.08);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
+            background: rgba(10, 92, 54, 0.1);
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 2px solid rgba(10, 92, 54, 0.2);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            min-width: 110px;
+            text-align: center;
         }
 
         body.dark-mode .jamaat-time {
+            color: var(--accent-color);
+            background: rgba(46, 204, 113, 0.15);
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .prayer-row.active .jamaat-time {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Azaan Time - SMALL and SUBTLE below Jamaat */
+        .azaan-time {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary-light);
+            font-family: 'Courier New', monospace;
+            opacity: 0.8;
+            padding: 2px 8px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 6px;
+            border: 1px dashed rgba(0, 0, 0, 0.1);
+            min-width: 110px;
+            text-align: center;
+        }
+
+        body.dark-mode .azaan-time {
             color: var(--text-secondary-dark);
-            background: rgba(46, 204, 113, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .prayer-row.active .azaan-time {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Features Grid */
@@ -744,29 +775,34 @@
         .kaaba-symbol {
             position: absolute;
             bottom: 80px;
-            left: 45px;
+            left: 25px;
             width: 50px;
             height: 50px;
+            background: #8B4513;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.4);
             z-index: 3;
+            border: 2px solid #D2691E;
         }
 
         .kaaba-symbol::before {
             content: '';
             position: absolute;
             width: 70%;
-            height: 40px;
+            height: 4px;
+            background: gold;
             border-radius: 2px;
         }
 
         .kaaba-symbol::after {
             content: '🕋';
-            font-size: 35px;
+            font-size: 24px;
             position: absolute;
-            top: 0px;
-            left: 15%;
+            top: -30px;
+            left: 50%;
             transform: translateX(-50%);
         }
 
@@ -885,7 +921,7 @@
             background: var(--gradient-accent);
         }
 
-        /* Prayer Calendar */
+        /* Calendar Container */
         .calendar-container {
             padding: 25px 0;
         }
@@ -1378,6 +1414,19 @@
                 padding: 12px 25px;
             }
             
+            /* Updated prayer times for mobile */
+            .jamaat-time {
+                font-size: 1.6rem;
+                min-width: 100px;
+                padding: 5px 10px;
+            }
+            
+            .azaan-time {
+                font-size: 0.85rem;
+                min-width: 100px;
+                padding: 2px 6px;
+            }
+            
             .compass-wrapper {
                 width: 260px;
                 height: 260px;
@@ -1433,6 +1482,19 @@
             
             .time-left {
                 font-size: 1.2rem;
+            }
+            
+            /* Further reduce prayer times for very small screens */
+            .jamaat-time {
+                font-size: 1.4rem;
+                min-width: 90px;
+                padding: 4px 8px;
+            }
+            
+            .azaan-time {
+                font-size: 0.8rem;
+                min-width: 90px;
+                padding: 1px 4px;
             }
             
             .compass-wrapper {
@@ -1549,13 +1611,13 @@
                         <i class="fas fa-compass"></i>
                     </div>
                     <div class="feature-name">Qibla Direction</div>
-                    <div class="feature-desc">Find Kaaba direction</div>
+                    <div class="feature-desc">Find prayer direction</div>
                 </div>
                 <div class="feature-card" data-panel="prayer">
                     <div class="feature-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <div class="feature-name">Meeqat Salat</div>
+                    <div class="feature-name">Prayer Calendar</div>
                     <div class="feature-desc">Monthly schedule</div>
                 </div>
                 <div class="feature-card" id="manualEditBtn">
@@ -1582,6 +1644,7 @@
                         <div class="compass-direction direction-s">S</div>
                         <div class="compass-direction direction-w">W</div>
                         
+                        <!-- Kaaba Symbol -->
                         <div class="kaaba-symbol"></div>
                         
                         <!-- Degree Markings -->
@@ -1596,7 +1659,7 @@
                     </div>
                 </div>
                 <div class="qibla-info">
-                    <div class="qibla-degree" id="qiblaDegree">قِبْلَۂ</div></div>
+                    <div class="qibla-degree" id="qiblaDegree">257°</div>
                     <div class="qibla-instruction">Point the red needle towards Kaaba (🕋 symbol on left)</div>
                     <div class="compass-status" id="compassStatus">Compass Active - Get Exact Qibla Direction</div>
                     
@@ -1668,7 +1731,7 @@
         </a>
         <a href="#" class="nav-item" data-panel="prayer">
             <i class="fas fa-calendar-alt nav-icon"></i>
-            <span class="nav-label">Meeqat Salat</span>
+            <span class="nav-label">Calendar</span>
         </a>
         <a href="#" class="nav-item" data-panel="qibla">
             <i class="fas fa-compass nav-icon"></i>
@@ -1684,38 +1747,38 @@
     <div class="modal" id="manualInputModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Edit Prayer Times</h3>
+                <h3 class="modal-title">Edit Jamaat Times</h3>
                 <button class="close-modal" id="closeModal">&times;</button>
             </div>
-              
+            
             <div class="input-group">
-                <label for="editDate">Date (DD/MM/YYYY)</label>
-                <input type="text" id="editDate" placeholder="19/01/2026">
+                <label for="editDate">Note: Azaan times are calculated automatically from Jamaat times</label>
+                <input type="text" id="editDate" placeholder="Jamaat Times (Azaan auto-calculated)" disabled>
             </div>
 
             <div class="input-group">
-                <label for="editFajr">Fajr (Azaan - Jamaat)</label>
-                <input type="text" id="editFajr" placeholder="5:45 AM - 6:00 AM">
+                <label for="editFajr">Fajr Jamaat (Azaan: -50 min)</label>
+                <input type="text" id="editFajr" placeholder="06:55 AM">
             </div>
 
             <div class="input-group">
-                <label for="editDhuhr">Dhuhr (Azaan - Jamaat)</label>
-                <input type="text" id="editDhuhr" placeholder="12:30 PM - 1:00 PM">
+                <label for="editDhuhr">Dhuhr Jamaat (Azaan: -15 min)</label>
+                <input type="text" id="editDhuhr" placeholder="01:00 PM">
             </div>
 
             <div class="input-group">
-                <label for="editAsr">Asr (Azaan - Jamaat)</label>
-                <input type="text" id="editAsr" placeholder="3:45 PM - 4:15 PM">
+                <label for="editAsr">Asr Jamaat (Azaan: -15 min)</label>
+                <input type="text" id="editAsr" placeholder="04:30 PM">
             </div>
 
             <div class="input-group">
-                <label for="editMaghrib">Maghrib (Azaan - Jamaat)</label>
-                <input type="text" id="editMaghrib" placeholder="5:30 PM - 5:35 PM">
+                <label for="editMaghrib">Maghrib Jamaat (Azaan: -6 min)</label>
+                <input type="text" id="editMaghrib" placeholder="05:59 PM">
             </div>
 
             <div class="input-group">
-                <label for="editIsha">Isha (Azaan - Jamaat)</label>
-                <input type="text" id="editIsha" placeholder="7:15 PM - 7:45 PM">
+                <label for="editIsha">Isha Jamaat (Azaan: -15 min)</label>
+                <input type="text" id="editIsha" placeholder="07:35 PM">
             </div>
 
             <div class="modal-actions">
@@ -1725,1026 +1788,974 @@
                 </button>
                 <button class="btn btn-primary" id="saveEdit">
                     <i class="fas fa-save"></i>
-                    Save Changes
+                    Save Jamaat Times
                 </button>
             </div>
         </div>
     </div>
 
-<script>
-    // Enhanced Prayer Times App for Masjid Al Hamzah
-    class PrayerApp {
-        constructor() {
-            this.data = {
-                darkMode: false,
-                currentView: 'home',
-                tasbeehCount: 0,
-                currentDhikr: 0,
-                currentMonth: new Date().getMonth(),
-                currentYear: new Date().getFullYear(),
-                prayerTimes: {},
-                qiblaDirection: 257, // Qibla direction for Srinagar in degrees
-                compassCalibrated: false,
-                currentHeading: 0,
-                settings: {
-                    notifications: true,
-                    calculationMethod: 'Karachi',
-                    // YOUR MASJID JAMAAT TIMES (You can edit these manually)
-                    jamaatTimes: {
-                        fajr: "06:55 AM",    // Your masjid Fajr Jamaat
-                        dhuhr: "01:00 PM",   // Your masjid Zuhr Jamaat
-                        asr: "04:30 PM",     // Your masjid Asr Jamaat
-                        maghrib: "05:59 PM", // Your masjid Maghrib Jamaat
-                        isha: "07:35 PM"     // Your masjid Isha Jamaat
+    <script>
+        // Enhanced Prayer Times App for Masjid Al Hamzah
+        class PrayerApp {
+            constructor() {
+                this.data = {
+                    darkMode: false,
+                    currentView: 'home',
+                    tasbeehCount: 0,
+                    currentDhikr: 0,
+                    currentMonth: new Date().getMonth(),
+                    currentYear: new Date().getFullYear(),
+                    prayerTimes: {},
+                    qiblaDirection: 257, // Qibla direction for Srinagar in degrees
+                    compassCalibrated: false,
+                    currentHeading: 0,
+                    settings: {
+                        notifications: true,
+                        calculationMethod: 'Karachi',
+                        // YOUR MASJID JAMAAT TIMES (You can edit these manually)
+                        jamaatTimes: {
+                            fajr: "06:55 AM",    // Your masjid Fajr Jamaat
+                            dhuhr: "01:00 PM",   // Your masjid Zuhr Jamaat
+                            asr: "04:30 PM",     // Your masjid Asr Jamaat
+                            maghrib: "05:59 PM", // Your masjid Maghrib Jamaat
+                            isha: "07:35 PM"     // Your masjid Isha Jamaat
+                        },
+                        // AZAAN OFFSETS (minutes BEFORE jamaat)
+                        azaanOffsets: {
+                            fajr: 50,    // 50 minutes before jamaat
+                            dhuhr: 15,   // 15 minutes before jamaat
+                            asr: 15,     // 15 minutes before jamaat
+                            maghrib: 6,  // 6 minutes before jamaat
+                            isha: 15     // 15 minutes before jamaat
+                        }
+                    }
+                };
+                
+                this.prayers = [
+                    { name: "Fajr", key: "fajr", icon: "fas fa-sun", order: 0 },
+                    { name: "Dhuhr", key: "dhuhr", icon: "fas fa-sun", order: 1 },
+                    { name: "Asr", key: "asr", icon: "fas fa-cloud-sun", order: 2 },
+                    { name: "Maghrib", key: "maghrib", icon: "fas fa-sun", order: 3 },
+                    { name: "Isha", key: "isha", icon: "fas fa-moon", order: 4 }
+                ];
+                
+                this.dhikrOptions = [
+                    { text: "سبحان الله", count: 33, arabic: "Subhanallah" },
+                    { text: "الحمد لله", count: 33, arabic: "Alhamdulillah" },
+                    { text: "الله أكبر", count: 34, arabic: "Allahu Akbar" },
+                    { text: "لا إله إلا الله", count: 100, arabic: "La ilaha illallah" },
+                    { text: "أستغفر الله", count: 100, arabic: "Astaghfirullah" }
+                ];
+                
+                this.months = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+                
+                this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                
+                // Prayer times data from your PDFs (These are AZAAN TIMES)
+                this.monthlyPrayerTimes = {
+                    // January 2026
+                    0: {
+                        1: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:02 PM"},
+                        2: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:03 PM"},
+                        3: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:16 PM", maghrib: "05:34 PM", isha: "07:03 PM"},
+                        4: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:17 PM", maghrib: "05:35 PM", isha: "07:04 PM"},
+                        5: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:36 PM", isha: "07:05 PM"},
+                        6: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:37 PM", isha: "07:06 PM"},
+                        7: {fajr: "06:09 AM", dhuhr: "12:37 PM", asr: "03:19 PM", maghrib: "05:38 PM", isha: "07:06 PM"},
+                        8: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:20 PM", maghrib: "05:38 PM", isha: "07:07 PM"},
+                        9: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:21 PM", maghrib: "05:39 PM", isha: "07:08 PM"},
+                        10: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:40 PM", isha: "07:09 PM"},
+                        11: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:41 PM", isha: "07:10 PM"},
+                        12: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:23 PM", maghrib: "05:42 PM", isha: "07:10 PM"},
+                        13: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:24 PM", maghrib: "05:43 PM", isha: "07:11 PM"},
+                        14: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:25 PM", maghrib: "05:44 PM", isha: "07:12 PM"},
+                        15: {fajr: "06:09 AM", dhuhr: "12:41 PM", asr: "03:26 PM", maghrib: "05:45 PM", isha: "07:13 PM"},
+                        16: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:46 PM", isha: "07:14 PM"},
+                        17: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:47 PM", isha: "07:14 PM"},
+                        18: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:28 PM", maghrib: "05:48 PM", isha: "07:15 PM"},
+                        19: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:29 PM", maghrib: "05:49 PM", isha: "07:16 PM"},
+                        20: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:30 PM", maghrib: "05:50 PM", isha: "07:17 PM"},
+                        21: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:31 PM", maghrib: "05:50 PM", isha: "07:18 PM"},
+                        22: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:32 PM", maghrib: "05:51 PM", isha: "07:19 PM"},
+                        23: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:52 PM", isha: "07:20 PM"},
+                        24: {fajr: "06:06 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:53 PM", isha: "07:20 PM"},
+                        25: {fajr: "06:06 AM", dhuhr: "12:44 PM", asr: "03:34 PM", maghrib: "05:54 PM", isha: "07:21 PM"},
+                        26: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:35 PM", maghrib: "05:55 PM", isha: "07:22 PM"},
+                        27: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:36 PM", maghrib: "05:56 PM", isha: "07:23 PM"},
+                        28: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:37 PM", maghrib: "05:57 PM", isha: "07:24 PM"},
+                        29: {fajr: "06:04 AM", dhuhr: "12:44 PM", asr: "03:38 PM", maghrib: "05:58 PM", isha: "07:25 PM"},
+                        30: {fajr: "06:04 AM", dhuhr: "12:45 PM", asr: "03:38 PM", maghrib: "05:59 PM", isha: "07:26 PM"},
+                        31: {fajr: "06:03 AM", dhuhr: "12:45 PM", asr: "03:39 PM", maghrib: "06:00 PM", isha: "07:26 PM"}
                     },
-                    // AZAAN OFFSETS (minutes BEFORE jamaat)
-                    azaanOffsets: {
-                        fajr: 50,    // 50 minutes before jamaat
-                        dhuhr: 15,   // 15 minutes before jamaat
-                        asr: 15,     // 15 minutes before jamaat
-                        maghrib: 6,  // 6 minutes before jamaat
-                        isha: 15     // 15 minutes before jamaat
+                    // February 2026
+                    1: {
+                        1: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:40 PM", maghrib: "06:01 PM", isha: "07:27 PM"},
+                        2: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:41 PM", maghrib: "06:02 PM", isha: "07:28 PM"},
+                        3: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:42 PM", maghrib: "06:03 PM", isha: "07:29 PM"},
+                        4: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:04 PM", isha: "07:30 PM"},
+                        5: {fajr: "06:00 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:05 PM", isha: "07:31 PM"},
+                        6: {fajr: "05:59 AM", dhuhr: "12:45 PM", asr: "03:44 PM", maghrib: "06:06 PM", isha: "07:32 PM"},
+                        7: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:45 PM", maghrib: "06:07 PM", isha: "07:32 PM"},
+                        8: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:08 PM", isha: "07:33 PM"},
+                        9: {fajr: "05:57 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:09 PM", isha: "07:34 PM"},
+                        10: {fajr: "05:56 AM", dhuhr: "12:45 PM", asr: "03:47 PM", maghrib: "06:10 PM", isha: "07:35 PM"},
+                        11: {fajr: "05:55 AM", dhuhr: "12:45 PM", asr: "03:48 PM", maghrib: "06:11 PM", isha: "07:36 PM"},
+                        12: {fajr: "05:54 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:12 PM", isha: "07:37 PM"},
+                        13: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:13 PM", isha: "07:37 PM"},
+                        14: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:50 PM", maghrib: "06:14 PM", isha: "07:38 PM"},
+                        15: {fajr: "05:52 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:15 PM", isha: "07:39 PM"},
+                        16: {fajr: "05:51 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:16 PM", isha: "07:40 PM"},
+                        17: {fajr: "05:50 AM", dhuhr: "12:45 PM", asr: "03:52 PM", maghrib: "06:17 PM", isha: "07:41 PM"},
+                        18: {fajr: "05:49 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:18 PM", isha: "07:42 PM"},
+                        19: {fajr: "05:48 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:19 PM", isha: "07:42 PM"},
+                        20: {fajr: "05:47 AM", dhuhr: "12:45 PM", asr: "03:54 PM", maghrib: "06:19 PM", isha: "07:43 PM"},
+                        21: {fajr: "05:46 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:20 PM", isha: "07:44 PM"},
+                        22: {fajr: "05:45 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:21 PM", isha: "07:45 PM"},
+                        23: {fajr: "05:43 AM", dhuhr: "12:45 PM", asr: "03:56 PM", maghrib: "06:22 PM", isha: "07:46 PM"},
+                        24: {fajr: "05:42 AM", dhuhr: "12:44 PM", asr: "03:56 PM", maghrib: "06:23 PM", isha: "07:47 PM"},
+                        25: {fajr: "05:41 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:24 PM", isha: "07:47 PM"},
+                        26: {fajr: "05:40 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:25 PM", isha: "07:48 PM"},
+                        27: {fajr: "05:39 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:49 PM"},
+                        28: {fajr: "05:38 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:50 PM"}
+                    },
+                    // March 2026
+                    2: {
+                        1: {fajr: "05:37 AM", dhuhr: "12:44 PM", asr: "03:59 PM", maghrib: "06:27 PM", isha: "07:51 PM"},
+                        2: {fajr: "05:35 AM", dhuhr: "12:43 PM", asr: "03:59 PM", maghrib: "06:28 PM", isha: "07:52 PM"},
+                        3: {fajr: "05:34 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:29 PM", isha: "07:53 PM"},
+                        4: {fajr: "05:33 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:30 PM", isha: "07:54 PM"},
+                        5: {fajr: "05:32 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:31 PM", isha: "07:55 PM"},
+                        6: {fajr: "05:30 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:32 PM", isha: "07:56 PM"},
+                        7: {fajr: "05:29 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:32 PM", isha: "07:57 PM"},
+                        8: {fajr: "05:28 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:33 PM", isha: "07:57 PM"},
+                        9: {fajr: "05:26 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:34 PM", isha: "07:58 PM"},
+                        10: {fajr: "05:25 AM", dhuhr: "12:42 PM", asr: "04:03 PM", maghrib: "06:35 PM", isha: "07:59 PM"},
+                        11: {fajr: "05:24 AM", dhuhr: "12:41 PM", asr: "04:03 PM", maghrib: "06:36 PM", isha: "08:00 PM"},
+                        12: {fajr: "05:22 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:36 PM", isha: "08:01 PM"},
+                        13: {fajr: "05:21 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:37 PM", isha: "08:02 PM"},
+                        14: {fajr: "05:20 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:38 PM", isha: "08:02 PM"},
+                        15: {fajr: "05:18 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:39 PM", isha: "08:03 PM"},
+                        16: {fajr: "05:17 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:04 PM"},
+                        17: {fajr: "05:15 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:05 PM"},
+                        18: {fajr: "05:14 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:41 PM", isha: "08:06 PM"},
+                        19: {fajr: "05:12 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:42 PM", isha: "08:07 PM"},
+                        20: {fajr: "05:11 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:07 PM"},
+                        21: {fajr: "05:10 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:08 PM"},
+                        22: {fajr: "05:08 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:44 PM", isha: "08:09 PM"},
+                        23: {fajr: "05:07 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:45 PM", isha: "08:10 PM"},
+                        24: {fajr: "05:05 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:46 PM", isha: "08:11 PM"},
+                        25: {fajr: "05:04 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:11 PM"},
+                        26: {fajr: "05:02 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:12 PM"},
+                        27: {fajr: "05:01 AM", dhuhr: "12:37 PM", asr: "04:08 PM", maghrib: "06:48 PM", isha: "08:13 PM"},
+                        28: {fajr: "04:59 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:49 PM", isha: "08:14 PM"},
+                        29: {fajr: "04:58 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
+                        30: {fajr: "04:56 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
+                        31: {fajr: "04:55 AM", dhuhr: "12:35 PM", asr: "04:08 PM", maghrib: "06:51 PM", isha: "08:16 PM"}
                     }
-                }
-            };
-            
-            this.prayers = [
-                { name: "Fajr", key: "fajr", icon: "fas fa-sun", order: 0 },
-                { name: "Dhuhr", key: "dhuhr", icon: "fas fa-sun", order: 1 },
-                { name: "Asr", key: "asr", icon: "fas fa-cloud-sun", order: 2 },
-                { name: "Maghrib", key: "maghrib", icon: "fas fa-sun", order: 3 },
-                { name: "Isha", key: "isha", icon: "fas fa-moon", order: 4 }
-            ];
-            
-            this.dhikrOptions = [
-                { text: "سبحان الله", count: 33, arabic: "Subhanallah" },
-                { text: "الحمد لله", count: 33, arabic: "Alhamdulillah" },
-                { text: "الله أكبر", count: 34, arabic: "Allahu Akbar" },
-                { text: "لا إله إلا الله", count: 100, arabic: "La ilaha illallah" },
-                { text: "أستغفر الله", count: 100, arabic: "Astaghfirullah" }
-            ];
-            
-            this.months = ["January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"];
-            
-            this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            
-            // Prayer times data from your PDFs (These are AZAAN TIMES)
-            this.monthlyPrayerTimes = {
-                // January 2026
-                0: {
-                    1: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:02 PM"},
-                    2: {fajr: "06:08 AM", dhuhr: "12:35 PM", asr: "03:15 PM", maghrib: "05:33 PM", isha: "07:03 PM"},
-                    3: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:16 PM", maghrib: "05:34 PM", isha: "07:03 PM"},
-                    4: {fajr: "06:08 AM", dhuhr: "12:36 PM", asr: "03:17 PM", maghrib: "05:35 PM", isha: "07:04 PM"},
-                    5: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:36 PM", isha: "07:05 PM"},
-                    6: {fajr: "06:08 AM", dhuhr: "12:37 PM", asr: "03:18 PM", maghrib: "05:37 PM", isha: "07:06 PM"},
-                    7: {fajr: "06:09 AM", dhuhr: "12:37 PM", asr: "03:19 PM", maghrib: "05:38 PM", isha: "07:06 PM"},
-                    8: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:20 PM", maghrib: "05:38 PM", isha: "07:07 PM"},
-                    9: {fajr: "06:09 AM", dhuhr: "12:38 PM", asr: "03:21 PM", maghrib: "05:39 PM", isha: "07:08 PM"},
-                    10: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:40 PM", isha: "07:09 PM"},
-                    11: {fajr: "06:09 AM", dhuhr: "12:39 PM", asr: "03:22 PM", maghrib: "05:41 PM", isha: "07:10 PM"},
-                    12: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:23 PM", maghrib: "05:42 PM", isha: "07:10 PM"},
-                    13: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:24 PM", maghrib: "05:43 PM", isha: "07:11 PM"},
-                    14: {fajr: "06:09 AM", dhuhr: "12:40 PM", asr: "03:25 PM", maghrib: "05:44 PM", isha: "07:12 PM"},
-                    15: {fajr: "06:09 AM", dhuhr: "12:41 PM", asr: "03:26 PM", maghrib: "05:45 PM", isha: "07:13 PM"},
-                    16: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:46 PM", isha: "07:14 PM"},
-                    17: {fajr: "06:08 AM", dhuhr: "12:41 PM", asr: "03:27 PM", maghrib: "05:47 PM", isha: "07:14 PM"},
-                    18: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:28 PM", maghrib: "05:48 PM", isha: "07:15 PM"},
-                    19: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:29 PM", maghrib: "05:49 PM", isha: "07:16 PM"},
-                    20: {fajr: "06:08 AM", dhuhr: "12:42 PM", asr: "03:30 PM", maghrib: "05:50 PM", isha: "07:17 PM"},
-                    21: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:31 PM", maghrib: "05:50 PM", isha: "07:18 PM"},
-                    22: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:32 PM", maghrib: "05:51 PM", isha: "07:19 PM"},
-                    23: {fajr: "06:07 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:52 PM", isha: "07:20 PM"},
-                    24: {fajr: "06:06 AM", dhuhr: "12:43 PM", asr: "03:33 PM", maghrib: "05:53 PM", isha: "07:20 PM"},
-                    25: {fajr: "06:06 AM", dhuhr: "12:44 PM", asr: "03:34 PM", maghrib: "05:54 PM", isha: "07:21 PM"},
-                    26: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:35 PM", maghrib: "05:55 PM", isha: "07:22 PM"},
-                    27: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:36 PM", maghrib: "05:56 PM", isha: "07:23 PM"},
-                    28: {fajr: "06:05 AM", dhuhr: "12:44 PM", asr: "03:37 PM", maghrib: "05:57 PM", isha: "07:24 PM"},
-                    29: {fajr: "06:04 AM", dhuhr: "12:44 PM", asr: "03:38 PM", maghrib: "05:58 PM", isha: "07:25 PM"},
-                    30: {fajr: "06:04 AM", dhuhr: "12:45 PM", asr: "03:38 PM", maghrib: "05:59 PM", isha: "07:26 PM"},
-                    31: {fajr: "06:03 AM", dhuhr: "12:45 PM", asr: "03:39 PM", maghrib: "06:00 PM", isha: "07:26 PM"}
-                },
-                // February 2026
-                1: {
-                    1: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:40 PM", maghrib: "06:01 PM", isha: "07:27 PM"},
-                    2: {fajr: "06:02 AM", dhuhr: "12:45 PM", asr: "03:41 PM", maghrib: "06:02 PM", isha: "07:28 PM"},
-                    3: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:42 PM", maghrib: "06:03 PM", isha: "07:29 PM"},
-                    4: {fajr: "06:01 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:04 PM", isha: "07:30 PM"},
-                    5: {fajr: "06:00 AM", dhuhr: "12:45 PM", asr: "03:43 PM", maghrib: "06:05 PM", isha: "07:31 PM"},
-                    6: {fajr: "05:59 AM", dhuhr: "12:45 PM", asr: "03:44 PM", maghrib: "06:06 PM", isha: "07:32 PM"},
-                    7: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:45 PM", maghrib: "06:07 PM", isha: "07:32 PM"},
-                    8: {fajr: "05:58 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:08 PM", isha: "07:33 PM"},
-                    9: {fajr: "05:57 AM", dhuhr: "12:45 PM", asr: "03:46 PM", maghrib: "06:09 PM", isha: "07:34 PM"},
-                    10: {fajr: "05:56 AM", dhuhr: "12:45 PM", asr: "03:47 PM", maghrib: "06:10 PM", isha: "07:35 PM"},
-                    11: {fajr: "05:55 AM", dhuhr: "12:45 PM", asr: "03:48 PM", maghrib: "06:11 PM", isha: "07:36 PM"},
-                    12: {fajr: "05:54 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:12 PM", isha: "07:37 PM"},
-                    13: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:49 PM", maghrib: "06:13 PM", isha: "07:37 PM"},
-                    14: {fajr: "05:53 AM", dhuhr: "12:45 PM", asr: "03:50 PM", maghrib: "06:14 PM", isha: "07:38 PM"},
-                    15: {fajr: "05:52 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:15 PM", isha: "07:39 PM"},
-                    16: {fajr: "05:51 AM", dhuhr: "12:45 PM", asr: "03:51 PM", maghrib: "06:16 PM", isha: "07:40 PM"},
-                    17: {fajr: "05:50 AM", dhuhr: "12:45 PM", asr: "03:52 PM", maghrib: "06:17 PM", isha: "07:41 PM"},
-                    18: {fajr: "05:49 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:18 PM", isha: "07:42 PM"},
-                    19: {fajr: "05:48 AM", dhuhr: "12:45 PM", asr: "03:53 PM", maghrib: "06:19 PM", isha: "07:42 PM"},
-                    20: {fajr: "05:47 AM", dhuhr: "12:45 PM", asr: "03:54 PM", maghrib: "06:19 PM", isha: "07:43 PM"},
-                    21: {fajr: "05:46 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:20 PM", isha: "07:44 PM"},
-                    22: {fajr: "05:45 AM", dhuhr: "12:45 PM", asr: "03:55 PM", maghrib: "06:21 PM", isha: "07:45 PM"},
-                    23: {fajr: "05:43 AM", dhuhr: "12:45 PM", asr: "03:56 PM", maghrib: "06:22 PM", isha: "07:46 PM"},
-                    24: {fajr: "05:42 AM", dhuhr: "12:44 PM", asr: "03:56 PM", maghrib: "06:23 PM", isha: "07:47 PM"},
-                    25: {fajr: "05:41 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:24 PM", isha: "07:47 PM"},
-                    26: {fajr: "05:40 AM", dhuhr: "12:44 PM", asr: "03:57 PM", maghrib: "06:25 PM", isha: "07:48 PM"},
-                    27: {fajr: "05:39 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:49 PM"},
-                    28: {fajr: "05:38 AM", dhuhr: "12:44 PM", asr: "03:58 PM", maghrib: "06:26 PM", isha: "07:50 PM"}
-                },
-                // March 2026
-                2: {
-                    1: {fajr: "05:37 AM", dhuhr: "12:44 PM", asr: "03:59 PM", maghrib: "06:27 PM", isha: "07:51 PM"},
-                    2: {fajr: "05:35 AM", dhuhr: "12:43 PM", asr: "03:59 PM", maghrib: "06:28 PM", isha: "07:52 PM"},
-                    3: {fajr: "05:34 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:29 PM", isha: "07:53 PM"},
-                    4: {fajr: "05:33 AM", dhuhr: "12:43 PM", asr: "04:00 PM", maghrib: "06:30 PM", isha: "07:54 PM"},
-                    5: {fajr: "05:32 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:31 PM", isha: "07:55 PM"},
-                    6: {fajr: "05:30 AM", dhuhr: "12:43 PM", asr: "04:01 PM", maghrib: "06:32 PM", isha: "07:56 PM"},
-                    7: {fajr: "05:29 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:32 PM", isha: "07:57 PM"},
-                    8: {fajr: "05:28 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:33 PM", isha: "07:57 PM"},
-                    9: {fajr: "05:26 AM", dhuhr: "12:42 PM", asr: "04:02 PM", maghrib: "06:34 PM", isha: "07:58 PM"},
-                    10: {fajr: "05:25 AM", dhuhr: "12:42 PM", asr: "04:03 PM", maghrib: "06:35 PM", isha: "07:59 PM"},
-                    11: {fajr: "05:24 AM", dhuhr: "12:41 PM", asr: "04:03 PM", maghrib: "06:36 PM", isha: "08:00 PM"},
-                    12: {fajr: "05:22 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:36 PM", isha: "08:01 PM"},
-                    13: {fajr: "05:21 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:37 PM", isha: "08:02 PM"},
-                    14: {fajr: "05:20 AM", dhuhr: "12:41 PM", asr: "04:04 PM", maghrib: "06:38 PM", isha: "08:02 PM"},
-                    15: {fajr: "05:18 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:39 PM", isha: "08:03 PM"},
-                    16: {fajr: "05:17 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:04 PM"},
-                    17: {fajr: "05:15 AM", dhuhr: "12:40 PM", asr: "04:05 PM", maghrib: "06:40 PM", isha: "08:05 PM"},
-                    18: {fajr: "05:14 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:41 PM", isha: "08:06 PM"},
-                    19: {fajr: "05:12 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:42 PM", isha: "08:07 PM"},
-                    20: {fajr: "05:11 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:07 PM"},
-                    21: {fajr: "05:10 AM", dhuhr: "12:39 PM", asr: "04:06 PM", maghrib: "06:43 PM", isha: "08:08 PM"},
-                    22: {fajr: "05:08 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:44 PM", isha: "08:09 PM"},
-                    23: {fajr: "05:07 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:45 PM", isha: "08:10 PM"},
-                    24: {fajr: "05:05 AM", dhuhr: "12:38 PM", asr: "04:07 PM", maghrib: "06:46 PM", isha: "08:11 PM"},
-                    25: {fajr: "05:04 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:11 PM"},
-                    26: {fajr: "05:02 AM", dhuhr: "12:37 PM", asr: "04:07 PM", maghrib: "06:47 PM", isha: "08:12 PM"},
-                    27: {fajr: "05:01 AM", dhuhr: "12:37 PM", asr: "04:08 PM", maghrib: "06:48 PM", isha: "08:13 PM"},
-                    28: {fajr: "04:59 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:49 PM", isha: "08:14 PM"},
-                    29: {fajr: "04:58 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
-                    30: {fajr: "04:56 AM", dhuhr: "12:36 PM", asr: "04:08 PM", maghrib: "06:50 PM", isha: "08:15 PM"},
-                    31: {fajr: "04:55 AM", dhuhr: "12:35 PM", asr: "04:08 PM", maghrib: "06:51 PM", isha: "08:16 PM"}
-                }
-            };
-            
-            // Compass variables
-            this.compassActive = false;
-            this.compassInterval = null;
-            this.lastHeading = 0;
-            this.headingSmooth = 0;
-            
-            this.init();
-        }
-        
-        init() {
-            this.loadData();
-            this.setupEventListeners();
-            this.updateDateTime();
-            this.generatePrayerTimes();
-            this.updatePrayerDisplay();
-            this.generateCalendar();
-            this.setupCompass();
-            
-            // Start intervals
-            setInterval(() => this.updateDateTime(), 1000);
-            setInterval(() => this.updateNextPrayer(), 1000);
-            setInterval(() => this.checkPrayerNotifications(), 30000);
-            
-            this.applyTheme();
-            this.showToast('Welcome to Masjid Al Hamzah App', 'success');
-        }
-        
-        loadData() {
-            const saved = localStorage.getItem('masjidAlHamzah');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                this.data = { ...this.data, ...parsed };
-            }
-        }
-        
-        saveData() {
-            localStorage.setItem('masjidAlHamzah', JSON.stringify(this.data));
-        }
-        
-        calculatePrayerTimes(date) {
-            const month = date.getMonth(); // 0 = January, 1 = February, 2 = March
-            const day = date.getDate();
-            
-            // Get azaan times from PDF data
-            let azaanTimes = {};
-            if (this.monthlyPrayerTimes[month] && this.monthlyPrayerTimes[month][day]) {
-                azaanTimes = this.monthlyPrayerTimes[month][day];
-            } else {
-                // Fallback if no data for this day
-                return this.calculateApproximateTimes(date);
-            }
-            
-            // Calculate azaan times by subtracting offsets from your masjid jamaat times
-            // IMPORTANT: Your jamaat times are fixed, azaan is calculated from them
-            return {
-                fajr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
-                    jamaat: this.data.settings.jamaatTimes.fajr
-                },
-                dhuhr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
-                    jamaat: this.data.settings.jamaatTimes.dhuhr
-                },
-                asr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
-                    jamaat: this.data.settings.jamaatTimes.asr
-                },
-                maghrib: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
-                    jamaat: this.data.settings.jamaatTimes.maghrib
-                },
-                isha: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha),
-                    jamaat: this.data.settings.jamaatTimes.isha
-                }
-            };
-        }
-        
-        subtractMinutes(timeString, minutes) {
-            // Subtract minutes from a time string (for calculating azaan BEFORE jamaat)
-            const [time, period] = timeString.split(' ');
-            let [hours, min] = time.split(':').map(Number);
-            
-            if (period === 'PM' && hours < 12) hours += 12;
-            if (period === 'AM' && hours === 12) hours = 0;
-            
-            const date = new Date();
-            date.setHours(hours, min - minutes, 0, 0); // Subtract minutes
-            
-            const newHours = date.getHours();
-            const newMinutes = date.getMinutes();
-            const newPeriod = newHours >= 12 ? 'PM' : 'AM';
-            const displayHours = newHours % 12 || 12;
-            
-            return `${displayHours}:${newMinutes.toString().padStart(2, '0')} ${newPeriod}`;
-        }
-        
-        calculateApproximateTimes(date) {
-            // Fallback calculation if no PDF data
-            const month = date.getMonth();
-            const day = date.getDate();
-            
-            // Base times for Srinagar (approximate)
-            let fajrHour = 5, fajrMinute = 30 - Math.floor(month / 2);
-            let dhuhrHour = 12, dhuhrMinute = 45;
-            let asrHour = 15, asrMinute = 30 + Math.floor(month / 3);
-            let maghribHour = 17, maghribMinute = 45 + Math.floor(month / 2);
-            let ishaHour = 19, ishaMinute = 15 + Math.floor(month / 3);
-            
-            // Adjust for day of month
-            fajrMinute += day % 3;
-            maghribMinute -= day % 2;
-            
-            return {
-                fajr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
-                    jamaat: this.data.settings.jamaatTimes.fajr
-                },
-                dhuhr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
-                    jamaat: this.data.settings.jamaatTimes.dhuhr
-                },
-                asr: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
-                    jamaat: this.data.settings.jamaatTimes.asr
-                },
-                maghrib: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
-                    jamaat: this.data.settings.jamaatTimes.maghrib
-                },
-                isha: {
-                    azaan: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha),
-                    jamaat: this.data.settings.jamaatTimes.isha
-                }
-            };
-        }
-        
-        formatTime(hour, minute) {
-            // Handle overflow
-            if (minute >= 60) {
-                hour += Math.floor(minute / 60);
-                minute = minute % 60;
-            }
-            if (hour >= 24) hour -= 24;
-            
-            const period = hour >= 12 ? 'PM' : 'AM';
-            const displayHour = hour % 12 || 12;
-            return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
-        }
-        
-        formatDate(date) {
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
-        }
-        
-        setupEventListeners() {
-            // Theme toggle
-            document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
-            
-            // Navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.switchView(item.dataset.panel);
-                    
-                    // Start/stop compass based on view
-                    if (item.dataset.panel === 'qibla') {
-                        this.startCompass();
-                    } else {
-                        this.stopCompass();
-                    }
-                });
-            });
-            
-            // Feature cards
-            document.querySelectorAll('.feature-card[data-panel]').forEach(card => {
-                card.addEventListener('click', () => {
-                    this.switchView(card.dataset.panel);
-                    
-                    // Start/stop compass based on view
-                    if (card.dataset.panel === 'qibla') {
-                        this.startCompass();
-                    } else {
-                        this.stopCompass();
-                    }
-                });
-            });
-            
-            // Manual edit - Now edits JAMAAT TIMES
-            document.getElementById('manualEditBtn').addEventListener('click', () => this.openEditModal());
-            document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
-            document.getElementById('cancelEdit').addEventListener('click', () => this.closeModal());
-            document.getElementById('saveEdit').addEventListener('click', () => this.saveJamaatTimes());
-            
-            // Calendar navigation
-            document.getElementById('prevMonthBtn').addEventListener('click', () => this.prevMonth());
-            document.getElementById('nextMonthBtn').addEventListener('click', () => this.nextMonth());
-            
-            // Tasbeeh controls
-            document.getElementById('tasbeehBtn').addEventListener('click', () => this.incrementTasbeeh());
-            document.getElementById('resetTasbeeh').addEventListener('click', () => this.resetTasbeeh());
-            document.getElementById('changeDhikr').addEventListener('click', () => this.changeDhikr());
-            document.getElementById('saveTasbeeh').addEventListener('click', () => this.saveTasbeehCount());
-            
-            // Compass calibration
-            document.getElementById('calibrateCompass').addEventListener('click', () => this.calibrateCompass());
-            
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                if (e.key === ' ' || e.key === 'Enter') {
-                    if (this.data.currentView === 'tasbeeh') {
-                        this.incrementTasbeeh();
-                    }
-                }
-                if (e.key === 'Escape') {
-                    this.closeModal();
-                }
-            });
-            
-            // Handle device orientation permission
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // iOS 13+ devices
-                this.showToast('Tap "Calibrate Compass" to enable orientation sensor', 'info');
-            }
-        }
-        
-        updateDateTime() {
-            const now = new Date();
-            
-            // Gregorian date
-            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-            const dateStr = now.toLocaleDateString('en-GB', options);
-            document.getElementById('currentDate').textContent = dateStr;
-            
-            // Hijri date (simplified)
-            const hijriDate = this.getHijriDate(now);
-            document.getElementById('hijriDate').textContent = hijriDate;
-        }
-        
-        getHijriDate(gregorianDate) {
-            // Simplified Hijri conversion
-            const day = gregorianDate.getDate();
-            const month = gregorianDate.getMonth() + 1;
-            const year = gregorianDate.getFullYear();
-            
-            const hijriYear = Math.floor((year - 622) * 0.970224);
-            const hijriMonth = ((month + 8) % 12) + 1;
-            const hijriDay = (day % 30) || 30;
-            
-            const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
-                'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
-                'Ramadan', 'Shawwal', 'Dhu al-Qidah', 'Dhu al-Hijjah'];
-            
-            return `${hijriDay} ${hijriMonths[hijriMonth - 1]} ${hijriYear} AH`;
-        }
-        
-        generatePrayerTimes() {
-            const today = new Date();
-            const dateKey = this.formatDate(today);
-            
-            if (!this.data.prayerTimes[dateKey]) {
-                this.data.prayerTimes[dateKey] = this.calculatePrayerTimes(today);
-                this.saveData();
-            }
-        }
-        
-        updatePrayerDisplay() {
-            const today = new Date();
-            const dateKey = this.formatDate(today);
-            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-            
-            const container = document.getElementById('prayerTimesList');
-            container.innerHTML = '';
-            
-            this.prayers.forEach(prayer => {
-                const prayerTime = times[prayer.key];
-                const row = document.createElement('div');
-                row.className = 'prayer-row';
-                row.id = `prayer-${prayer.key}`;
+                };
                 
-                row.innerHTML = `
-                    <div class="prayer-icon">
-                        <i class="${prayer.icon}"></i>
-                    </div>
-                    <div class="prayer-info">
-                        <div class="prayer-label">${prayer.name}</div>
-                        <div class="prayer-subtitle">Azaan - Jamaat</div>
-                    </div>
-                    <div class="prayer-times">
-                        <div class="azaan-time">${prayerTime.azaan}</div>
-                        <div class="jamaat-time">${prayerTime.jamaat}</div>
-                    </div>
-                `;
+                // Compass variables
+                this.compassActive = false;
+                this.compassInterval = null;
+                this.lastHeading = 0;
+                this.headingSmooth = 0;
                 
-                container.appendChild(row);
-            });
-            
-            this.updateCurrentPrayer();
-        }
-        
-        updateCurrentPrayer() {
-            const now = new Date();
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            
-            // Remove active class from all
-            document.querySelectorAll('.prayer-row').forEach(row => {
-                row.classList.remove('active');
-            });
-            
-            // Determine current prayer based on time
-            let activePrayer = 'isha'; // Default to Isha
-            
-            if (currentHour < 4) activePrayer = 'isha';
-            else if (currentHour < 6) activePrayer = 'fajr';
-            else if (currentHour < 12) activePrayer = 'dhuhr';
-            else if (currentHour < 15) activePrayer = 'asr';
-            else if (currentHour < 18) activePrayer = 'maghrib';
-            
-            const activeRow = document.getElementById(`prayer-${activePrayer}`);
-            if (activeRow) {
-                activeRow.classList.add('active');
+                this.init();
             }
-        }
-        
-        updateNextPrayer() {
-            const now = new Date();
-            const today = new Date();
-            const dateKey = this.formatDate(today);
-            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
             
-            // Convert prayer times to Date objects for comparison
-            const prayerTimes = this.prayers.map(prayer => {
-                const timeStr = times[prayer.key].jamaat; // Use JAMAAT times for next prayer calculation
-                const [time, period] = timeStr.split(' ');
-                let [hours, minutes] = time.split(':').map(Number);
+            init() {
+                this.loadData();
+                this.setupEventListeners();
+                this.updateDateTime();
+                this.generatePrayerTimes();
+                this.updatePrayerDisplay();
+                this.generateCalendar();
+                this.setupCompass();
+                
+                // Start intervals
+                setInterval(() => this.updateDateTime(), 1000);
+                setInterval(() => this.updateNextPrayer(), 1000);
+                setInterval(() => this.checkPrayerNotifications(), 30000);
+                
+                this.applyTheme();
+                this.showToast('Welcome to Masjid Al Hamzah App', 'success');
+            }
+            
+            loadData() {
+                const saved = localStorage.getItem('masjidAlHamzah');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    this.data = { ...this.data, ...parsed };
+                }
+            }
+            
+            saveData() {
+                localStorage.setItem('masjidAlHamzah', JSON.stringify(this.data));
+            }
+            
+            calculatePrayerTimes(date) {
+                const month = date.getMonth(); // 0 = January, 1 = February, 2 = March
+                const day = date.getDate();
+                
+                // Calculate azaan times by subtracting offsets from your masjid jamaat times
+                // Your jamaat times are fixed, azaan is calculated from them
+                return {
+                    fajr: {
+                        azaan: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
+                        jamaat: this.data.settings.jamaatTimes.fajr
+                    },
+                    dhuhr: {
+                        azaan: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
+                        jamaat: this.data.settings.jamaatTimes.dhuhr
+                    },
+                    asr: {
+                        azaan: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
+                        jamaat: this.data.settings.jamaatTimes.asr
+                    },
+                    maghrib: {
+                        azaan: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
+                        jamaat: this.data.settings.jamaatTimes.maghrib
+                    },
+                    isha: {
+                        azaan: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha),
+                        jamaat: this.data.settings.jamaatTimes.isha
+                    }
+                };
+            }
+            
+            subtractMinutes(timeString, minutes) {
+                // Subtract minutes from a time string (for calculating azaan BEFORE jamaat)
+                const [time, period] = timeString.split(' ');
+                let [hours, min] = time.split(':').map(Number);
                 
                 if (period === 'PM' && hours < 12) hours += 12;
                 if (period === 'AM' && hours === 12) hours = 0;
                 
-                const prayerDate = new Date(today);
-                prayerDate.setHours(hours, minutes, 0, 0);
+                const date = new Date();
+                date.setHours(hours, min - minutes, 0, 0); // Subtract minutes
                 
-                return {
-                    name: prayer.name,
-                    time: prayerDate,
-                    key: prayer.key
-                };
-            });
-            
-            // Sort by time
-            prayerTimes.sort((a, b) => a.time - b.time);
-            
-            // Find next prayer
-            let nextPrayer = prayerTimes.find(p => p.time > now);
-            if (!nextPrayer) {
-                // If no prayer left today, use first prayer of tomorrow
-                nextPrayer = prayerTimes[0];
-                nextPrayer.time.setDate(nextPrayer.time.getDate() + 1);
+                const newHours = date.getHours();
+                const newMinutes = date.getMinutes();
+                const newPeriod = newHours >= 12 ? 'PM' : 'AM';
+                const displayHours = newHours % 12 || 12;
+                
+                return `${displayHours}:${newMinutes.toString().padStart(2, '0')} ${newPeriod}`;
             }
             
-            // Update display
-            document.getElementById('nextPrayerName').textContent = nextPrayer.name.toUpperCase();
-            document.getElementById('nextPrayerTime').textContent = 
-                nextPrayer.time.toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: true 
+            formatDate(date) {
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+            
+            setupEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
+                
+                // Navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.switchView(item.dataset.panel);
+                        
+                        // Start/stop compass based on view
+                        if (item.dataset.panel === 'qibla') {
+                            this.startCompass();
+                        } else {
+                            this.stopCompass();
+                        }
+                    });
                 });
-            
-            // Calculate time left
-            const timeDiff = nextPrayer.time - now;
-            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-            
-            document.getElementById('timeLeft').textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // Update progress bar
-            const totalDay = 24 * 60 * 60 * 1000;
-            const progress = 100 - (timeDiff / totalDay) * 100;
-            document.getElementById('prayerProgress').style.width = `${Math.min(100, Math.max(0, progress))}%`;
-        }
-        
-        switchView(view) {
-            this.data.currentView = view;
-            
-            // Update navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.dataset.panel === view) {
-                    item.classList.add('active');
-                }
-            });
-            
-            // Update content panels
-            document.querySelectorAll('.content-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            document.getElementById(`${view}Panel`).classList.add('active');
-            
-            // Update URL hash
-            window.location.hash = view;
-        }
-        
-        toggleTheme() {
-            this.data.darkMode = !this.data.darkMode;
-            this.applyTheme();
-            this.saveData();
-            this.showToast(this.data.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
-        }
-        
-        applyTheme() {
-            if (this.data.darkMode) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-        }
-        
-        // Calendar Methods
-        generateCalendar() {
-            const monthName = this.months[this.data.currentMonth];
-            const year = this.data.currentYear;
-            
-            document.getElementById('currentMonth').textContent = `${monthName} ${year}`;
-            
-            const firstDay = new Date(year, this.data.currentMonth, 1);
-            const lastDay = new Date(year, this.data.currentMonth + 1, 0);
-            const daysInMonth = lastDay.getDate();
-            const today = new Date();
-            
-            let tableHTML = `
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            ${this.weekdays.map(day => `<th>${day}</th>`).join('')}
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-            
-            let dayCounter = 1;
-            let firstDayOfWeek = firstDay.getDay();
-            
-            for (let week = 0; week < 6; week++) {
-                tableHTML += '<tr>';
                 
-                for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-                    if (week === 0 && dayOfWeek < firstDayOfWeek) {
-                        tableHTML += '<td></td>';
-                    } else if (dayCounter > daysInMonth) {
-                        tableHTML += '<td></td>';
-                    } else {
-                        const currentDate = new Date(year, this.data.currentMonth, dayCounter);
-                        const isToday = currentDate.toDateString() === today.toDateString();
-                        const cellClass = isToday ? 'today-cell' : '';
+                // Feature cards
+                document.querySelectorAll('.feature-card[data-panel]').forEach(card => {
+                    card.addEventListener('click', () => {
+                        this.switchView(card.dataset.panel);
                         
-                        // Add data attribute for prayer times
-                        const monthData = this.data.currentMonth;
-                        const dayData = dayCounter;
-                        
-                        tableHTML += `<td class="${cellClass}" data-month="${monthData}" data-day="${dayData}">${dayCounter}</td>`;
-                        dayCounter++;
+                        // Start/stop compass based on view
+                        if (card.dataset.panel === 'qibla') {
+                            this.startCompass();
+                        } else {
+                            this.stopCompass();
+                        }
+                    });
+                });
+                
+                // Manual edit - Edits JAMAAT TIMES
+                document.getElementById('manualEditBtn').addEventListener('click', () => this.openEditModal());
+                document.getElementById('closeModal').addEventListener('click', () => this.closeModal());
+                document.getElementById('cancelEdit').addEventListener('click', () => this.closeModal());
+                document.getElementById('saveEdit').addEventListener('click', () => this.saveJamaatTimes());
+                
+                // Calendar navigation
+                document.getElementById('prevMonthBtn').addEventListener('click', () => this.prevMonth());
+                document.getElementById('nextMonthBtn').addEventListener('click', () => this.nextMonth());
+                
+                // Tasbeeh controls
+                document.getElementById('tasbeehBtn').addEventListener('click', () => this.incrementTasbeeh());
+                document.getElementById('resetTasbeeh').addEventListener('click', () => this.resetTasbeeh());
+                document.getElementById('changeDhikr').addEventListener('click', () => this.changeDhikr());
+                document.getElementById('saveTasbeeh').addEventListener('click', () => this.saveTasbeehCount());
+                
+                // Compass calibration
+                document.getElementById('calibrateCompass').addEventListener('click', () => this.calibrateCompass());
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        if (this.data.currentView === 'tasbeeh') {
+                            this.incrementTasbeeh();
+                        }
                     }
+                    if (e.key === 'Escape') {
+                        this.closeModal();
+                    }
+                });
+                
+                // Handle device orientation permission
+                if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    // iOS 13+ devices
+                    this.showToast('Tap "Calibrate Compass" to enable orientation sensor', 'info');
                 }
-                
-                tableHTML += '</tr>';
-                
-                if (dayCounter > daysInMonth) break;
             }
             
-            tableHTML += `
-                    </tbody>
-                </table>
-            `;
-            
-            document.getElementById('calendarTableContainer').innerHTML = tableHTML;
-            
-            // Add click event to show prayer times for that day
-            document.querySelectorAll('.calendar-table td[data-month]').forEach(cell => {
-                cell.addEventListener('click', () => {
-                    const month = parseInt(cell.dataset.month);
-                    const day = parseInt(cell.dataset.day);
-                    this.showDayPrayerTimes(month, day);
-                });
-            });
-        }
-        
-        showDayPrayerTimes(month, day) {
-            if (this.monthlyPrayerTimes[month] && this.monthlyPrayerTimes[month][day]) {
-                const times = this.monthlyPrayerTimes[month][day];
-                const azaanTimes = {
-                    fajr: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
-                    dhuhr: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
-                    asr: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
-                    maghrib: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
-                    isha: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha)
-                };
+            updateDateTime() {
+                const now = new Date();
                 
-                const message = `
-                    <strong>${day} ${this.months[month]} Prayer Times:</strong><br><br>
-                    <strong>From PDF (Azaan):</strong><br>
-                    Fajr: ${times.fajr}<br>
-                    Zuhr: ${times.dhuhr}<br>
-                    Asr: ${times.asr}<br>
-                    Maghrib: ${times.maghrib}<br>
-                    Isha: ${times.isha}<br><br>
-                    <strong>Your Masjid Times:</strong><br>
-                    Fajr: ${azaanTimes.fajr} - ${this.data.settings.jamaatTimes.fajr}<br>
-                    Zuhr: ${azaanTimes.dhuhr} - ${this.data.settings.jamaatTimes.dhuhr}<br>
-                    Asr: ${azaanTimes.asr} - ${this.data.settings.jamaatTimes.asr}<br>
-                    Maghrib: ${azaanTimes.maghrib} - ${this.data.settings.jamaatTimes.maghrib}<br>
-                    Isha: ${azaanTimes.isha} - ${this.data.settings.jamaatTimes.isha}
+                // Gregorian date
+                const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+                const dateStr = now.toLocaleDateString('en-GB', options);
+                document.getElementById('currentDate').textContent = dateStr;
+                
+                // Hijri date (simplified)
+                const hijriDate = this.getHijriDate(now);
+                document.getElementById('hijriDate').textContent = hijriDate;
+            }
+            
+            getHijriDate(gregorianDate) {
+                // Simplified Hijri conversion
+                const day = gregorianDate.getDate();
+                const month = gregorianDate.getMonth() + 1;
+                const year = gregorianDate.getFullYear();
+                
+                const hijriYear = Math.floor((year - 622) * 0.970224);
+                const hijriMonth = ((month + 8) % 12) + 1;
+                const hijriDay = (day % 30) || 30;
+                
+                const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
+                    'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
+                    'Ramadan', 'Shawwal', 'Dhu al-Qidah', 'Dhu al-Hijjah'];
+                
+                return `${hijriDay} ${hijriMonths[hijriMonth - 1]} ${hijriYear} AH`;
+            }
+            
+            generatePrayerTimes() {
+                const today = new Date();
+                const dateKey = this.formatDate(today);
+                
+                if (!this.data.prayerTimes[dateKey]) {
+                    this.data.prayerTimes[dateKey] = this.calculatePrayerTimes(today);
+                    this.saveData();
+                }
+            }
+            
+            updatePrayerDisplay() {
+                const today = new Date();
+                const dateKey = this.formatDate(today);
+                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+                
+                const container = document.getElementById('prayerTimesList');
+                container.innerHTML = '';
+                
+                this.prayers.forEach(prayer => {
+                    const prayerTime = times[prayer.key];
+                    const row = document.createElement('div');
+                    row.className = 'prayer-row';
+                    row.id = `prayer-${prayer.key}`;
+                    
+                    row.innerHTML = `
+                        <div class="prayer-icon">
+                            <i class="${prayer.icon}"></i>
+                        </div>
+                        <div class="prayer-info">
+                            <div class="prayer-label">${prayer.name}</div>
+                            <div class="prayer-subtitle">Azaan → Jamaat</div>
+                        </div>
+                        <div class="prayer-times">
+                            <div class="jamaat-time">${prayerTime.jamaat}</div>
+                            <div class="azaan-time">${prayerTime.azaan}</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(row);
+                });
+                
+                this.updateCurrentPrayer();
+            }
+            
+            updateCurrentPrayer() {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+                
+                // Remove active class from all
+                document.querySelectorAll('.prayer-row').forEach(row => {
+                    row.classList.remove('active');
+                });
+                
+                // Determine current prayer based on time
+                let activePrayer = 'isha'; // Default to Isha
+                
+                if (currentHour < 4) activePrayer = 'isha';
+                else if (currentHour < 6) activePrayer = 'fajr';
+                else if (currentHour < 12) activePrayer = 'dhuhr';
+                else if (currentHour < 15) activePrayer = 'asr';
+                else if (currentHour < 18) activePrayer = 'maghrib';
+                
+                const activeRow = document.getElementById(`prayer-${activePrayer}`);
+                if (activeRow) {
+                    activeRow.classList.add('active');
+                }
+            }
+            
+            updateNextPrayer() {
+                const now = new Date();
+                const today = new Date();
+                const dateKey = this.formatDate(today);
+                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+                
+                // Convert prayer times to Date objects for comparison
+                const prayerTimes = this.prayers.map(prayer => {
+                    const timeStr = times[prayer.key].jamaat; // Use JAMAAT times for next prayer calculation
+                    const [time, period] = timeStr.split(' ');
+                    let [hours, minutes] = time.split(':').map(Number);
+                    
+                    if (period === 'PM' && hours < 12) hours += 12;
+                    if (period === 'AM' && hours === 12) hours = 0;
+                    
+                    const prayerDate = new Date(today);
+                    prayerDate.setHours(hours, minutes, 0, 0);
+                    
+                    return {
+                        name: prayer.name,
+                        time: prayerDate,
+                        key: prayer.key
+                    };
+                });
+                
+                // Sort by time
+                prayerTimes.sort((a, b) => a.time - b.time);
+                
+                // Find next prayer
+                let nextPrayer = prayerTimes.find(p => p.time > now);
+                if (!nextPrayer) {
+                    // If no prayer left today, use first prayer of tomorrow
+                    nextPrayer = prayerTimes[0];
+                    nextPrayer.time.setDate(nextPrayer.time.getDate() + 1);
+                }
+                
+                // Update display
+                document.getElementById('nextPrayerName').textContent = nextPrayer.name.toUpperCase();
+                document.getElementById('nextPrayerTime').textContent = 
+                    nextPrayer.time.toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: true 
+                    });
+                
+                // Calculate time left
+                const timeDiff = nextPrayer.time - now;
+                const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+                
+                document.getElementById('timeLeft').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Update progress bar
+                const totalDay = 24 * 60 * 60 * 1000;
+                const progress = 100 - (timeDiff / totalDay) * 100;
+                document.getElementById('prayerProgress').style.width = `${Math.min(100, Math.max(0, progress))}%`;
+            }
+            
+            switchView(view) {
+                this.data.currentView = view;
+                
+                // Update navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.panel === view) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Update content panels
+                document.querySelectorAll('.content-panel').forEach(panel => {
+                    panel.classList.remove('active');
+                });
+                document.getElementById(`${view}Panel`).classList.add('active');
+                
+                // Update URL hash
+                window.location.hash = view;
+            }
+            
+            toggleTheme() {
+                this.data.darkMode = !this.data.darkMode;
+                this.applyTheme();
+                this.saveData();
+                this.showToast(this.data.darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'info');
+            }
+            
+            applyTheme() {
+                if (this.data.darkMode) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }
+            
+            // Calendar Methods
+            generateCalendar() {
+                const monthName = this.months[this.data.currentMonth];
+                const year = this.data.currentYear;
+                
+                document.getElementById('currentMonth').textContent = `${monthName} ${year}`;
+                
+                const firstDay = new Date(year, this.data.currentMonth, 1);
+                const lastDay = new Date(year, this.data.currentMonth + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const today = new Date();
+                
+                let tableHTML = `
+                    <table class="calendar-table">
+                        <thead>
+                            <tr>
+                                ${this.weekdays.map(day => `<th>${day}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
                 `;
                 
-                this.showToast(message, 'info');
-            } else {
-                this.showToast(`No prayer times available for ${day} ${this.months[month]}`, 'warning');
+                let dayCounter = 1;
+                let firstDayOfWeek = firstDay.getDay();
+                
+                for (let week = 0; week < 6; week++) {
+                    tableHTML += '<tr>';
+                    
+                    for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+                        if (week === 0 && dayOfWeek < firstDayOfWeek) {
+                            tableHTML += '<td></td>';
+                        } else if (dayCounter > daysInMonth) {
+                            tableHTML += '<td></td>';
+                        } else {
+                            const currentDate = new Date(year, this.data.currentMonth, dayCounter);
+                            const isToday = currentDate.toDateString() === today.toDateString();
+                            const cellClass = isToday ? 'today-cell' : '';
+                            
+                            // Add data attribute for prayer times
+                            const monthData = this.data.currentMonth;
+                            const dayData = dayCounter;
+                            
+                            tableHTML += `<td class="${cellClass}" data-month="${monthData}" data-day="${dayData}">${dayCounter}</td>`;
+                            dayCounter++;
+                        }
+                    }
+                    
+                    tableHTML += '</tr>';
+                    
+                    if (dayCounter > daysInMonth) break;
+                }
+                
+                tableHTML += `
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('calendarTableContainer').innerHTML = tableHTML;
+                
+                // Add click event to show prayer times for that day
+                document.querySelectorAll('.calendar-table td[data-month]').forEach(cell => {
+                    cell.addEventListener('click', () => {
+                        const month = parseInt(cell.dataset.month);
+                        const day = parseInt(cell.dataset.day);
+                        this.showDayPrayerTimes(month, day);
+                    });
+                });
             }
-        }
-        
-        prevMonth() {
-            this.data.currentMonth--;
-            if (this.data.currentMonth < 0) {
-                this.data.currentMonth = 11;
-                this.data.currentYear--;
-            }
-            this.generateCalendar();
-        }
-        
-        nextMonth() {
-            this.data.currentMonth++;
-            if (this.data.currentMonth > 11) {
-                this.data.currentMonth = 0;
-                this.data.currentYear++;
-            }
-            this.generateCalendar();
-        }
-        
-        // Qibla/Compass Methods
-        setupCompass() {
-            // Initial setup
-            document.getElementById('qiblaDegree').textContent = `${this.data.qiblaDirection}°`;
             
-            // Check if device has compass/orientation support
-            if (window.DeviceOrientationEvent) {
-                // Modern browsers support
-                this.compassActive = true;
-                document.getElementById('compassStatus').textContent = 
-                    'Compass ready - Move your device to find Qibla';
-                document.getElementById('compassStatus').classList.add('active');
-            } else {
-                // Fallback for desktop
-                this.compassActive = false;
-                document.getElementById('compassStatus').textContent = 
-                    'Use on mobile device for real compass. Simulated mode active.';
-                this.startSimulatedCompass();
-            }
-        }
-        
-        startCompass() {
-            if (this.compassActive && !this.compassInterval) {
-                if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                    // iOS 13+ - request permission
-                    DeviceOrientationEvent.requestPermission()
-                        .then(permissionState => {
-                            if (permissionState === 'granted') {
-                                window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
-                                document.getElementById('compassStatus').textContent = 
-                                    'Compass active - Point red needle towards Kaaba 🕋';
-                            } else {
-                                this.startSimulatedCompass();
-                            }
-                        })
-                        .catch(() => {
-                            this.startSimulatedCompass();
-                        });
+            showDayPrayerTimes(month, day) {
+                if (this.monthlyPrayerTimes[month] && this.monthlyPrayerTimes[month][day]) {
+                    const times = this.monthlyPrayerTimes[month][day];
+                    const azaanTimes = {
+                        fajr: this.subtractMinutes(this.data.settings.jamaatTimes.fajr, this.data.settings.azaanOffsets.fajr),
+                        dhuhr: this.subtractMinutes(this.data.settings.jamaatTimes.dhuhr, this.data.settings.azaanOffsets.dhuhr),
+                        asr: this.subtractMinutes(this.data.settings.jamaatTimes.asr, this.data.settings.azaanOffsets.asr),
+                        maghrib: this.subtractMinutes(this.data.settings.jamaatTimes.maghrib, this.data.settings.azaanOffsets.maghrib),
+                        isha: this.subtractMinutes(this.data.settings.jamaatTimes.isha, this.data.settings.azaanOffsets.isha)
+                    };
+                    
+                    const message = `
+                        <strong>${day} ${this.months[month]} 2026:</strong><br><br>
+                        <strong>PDF Azaan Times:</strong><br>
+                        Fajr: ${times.fajr}<br>
+                        Zuhr: ${times.dhuhr}<br>
+                        Asr: ${times.asr}<br>
+                        Maghrib: ${times.maghrib}<br>
+                        Isha: ${times.isha}<br><br>
+                        <strong>Your Masjid Times:</strong><br>
+                        Fajr: ${azaanTimes.fajr} → ${this.data.settings.jamaatTimes.fajr}<br>
+                        Zuhr: ${azaanTimes.dhuhr} → ${this.data.settings.jamaatTimes.dhuhr}<br>
+                        Asr: ${azaanTimes.asr} → ${this.data.settings.jamaatTimes.asr}<br>
+                        Maghrib: ${azaanTimes.maghrib} → ${this.data.settings.jamaatTimes.maghrib}<br>
+                        Isha: ${azaanTimes.isha} → ${this.data.settings.jamaatTimes.isha}
+                    `;
+                    
+                    this.showToast(message, 'info');
                 } else {
-                    // Android and other browsers
-                    window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
-                    document.getElementById('compassStatus').textContent = 
-                        'Compass active - Point red needle towards Kaaba 🕋';
+                    this.showToast(`No prayer times available for ${day} ${this.months[month]}`, 'warning');
                 }
             }
-        }
-        
-        stopCompass() {
-            window.removeEventListener('deviceorientation', this.handleOrientation);
-            if (this.compassInterval) {
-                clearInterval(this.compassInterval);
-                this.compassInterval = null;
-            }
-        }
-        
-        handleOrientation(event) {
-            if (event.alpha !== null) {
-                // alpha: rotation around z-axis (0-360)
-                const heading = event.alpha;
-                
-                // Smooth the heading value
-                this.headingSmooth = 0.3 * heading + 0.7 * this.headingSmooth;
-                
-                // Calculate rotation to point to Qibla
-                // When phone points to Qibla, needle should point to Kaaba symbol (left side)
-                const rotation = (360 - this.headingSmooth + this.data.qiblaDirection) % 360;
-                
-                // Update needle
-                document.getElementById('compassNeedle').style.transform = 
-                    `translateX(-50%) rotate(${rotation}deg)`;
-                
-                // Update degree display
-                document.getElementById('qiblaDegree').textContent = `${Math.round(this.data.qiblaDirection)}°`;
-                
-                // Update status with current heading
-                this.data.currentHeading = Math.round(this.headingSmooth);
-                
-                // Show helpful message based on direction
-                const kaabaDirection = (rotation + 180) % 360;
-                let directionMsg = '';
-                
-                if (kaabaDirection < 45 || kaabaDirection >= 315) directionMsg = 'Kaaba is North';
-                else if (kaabaDirection < 135) directionMsg = 'Kaaba is East';
-                else if (kaabaDirection < 225) directionMsg = 'Kaaba is South';
-                else directionMsg = 'Kaaba is West';
-                
-                document.getElementById('compassStatus').innerHTML = 
-                    `Heading: ${this.data.currentHeading}° | ${directionMsg}`;
-            }
             
-            // Use beta (tilt front/back) and gamma (tilt left/right) for advanced features
-            if (event.beta !== null && event.gamma !== null) {
-                const tiltX = Math.round(event.beta); // Front/Back tilt (-180 to 180)
-                const tiltY = Math.round(event.gamma); // Left/Right tilt (-90 to 90)
-                
-                // Add tilt effect to compass circle
-                const compassCircle = document.querySelector('.compass-circle');
-                if (compassCircle) {
-                    const tiltEffect = Math.min(10, Math.abs(tiltY) * 0.1);
-                    compassCircle.style.transform = `perspective(1000px) rotateX(${tiltX * 0.1}deg) rotateY(${tiltY * 0.1}deg)`;
+            prevMonth() {
+                this.data.currentMonth--;
+                if (this.data.currentMonth < 0) {
+                    this.data.currentMonth = 11;
+                    this.data.currentYear--;
                 }
+                this.generateCalendar();
             }
-        }
-        
-        startSimulatedCompass() {
-            // For desktop or devices without compass
-            let simulatedHeading = 0;
             
-            this.compassInterval = setInterval(() => {
-                simulatedHeading = (simulatedHeading + 1) % 360;
-                
-                // Calculate rotation to point to Qibla
-                const rotation = (360 - simulatedHeading + this.data.qiblaDirection) % 360;
-                
-                // Update needle
-                document.getElementById('compassNeedle').style.transform = 
-                    `translateX(-50%) rotate(${rotation}deg)`;
-                
-                // Update status
-                document.getElementById('compassStatus').innerHTML = 
-                    `Simulated compass - Use on mobile for real sensor<br>Heading: ${simulatedHeading}°`;
-                
-                // Update Qibla degree
+            nextMonth() {
+                this.data.currentMonth++;
+                if (this.data.currentMonth > 11) {
+                    this.data.currentMonth = 0;
+                    this.data.currentYear++;
+                }
+                this.generateCalendar();
+            }
+            
+            // Qibla/Compass Methods
+            setupCompass() {
+                // Initial setup
                 document.getElementById('qiblaDegree').textContent = `${this.data.qiblaDirection}°`;
                 
-                // Add slight shake to make it look more "real"
-                if (Math.random() > 0.9) {
-                    document.getElementById('compassNeedle').classList.add('shake');
-                    setTimeout(() => {
-                        document.getElementById('compassNeedle').classList.remove('shake');
-                    }, 500);
+                // Check if device has compass/orientation support
+                if (window.DeviceOrientationEvent) {
+                    // Modern browsers support
+                    this.compassActive = true;
+                    document.getElementById('compassStatus').textContent = 
+                        'Compass ready - Move your device to find Qibla';
+                    document.getElementById('compassStatus').classList.add('active');
+                } else {
+                    // Fallback for desktop
+                    this.compassActive = false;
+                    document.getElementById('compassStatus').textContent = 
+                        'Use on mobile device for real compass. Simulated mode active.';
+                    this.startSimulatedCompass();
                 }
-            }, 100);
+            }
             
-            document.getElementById('compassStatus').textContent = 
-                'Simulated compass active - Use on mobile device for real compass';
-        }
-        
-        calibrateCompass() {
-            // Simple calibration - reset to north
-            this.showToast('Calibrating compass... Rotate your device in a figure-8 motion', 'info');
+            startCompass() {
+                if (this.compassActive && !this.compassInterval) {
+                    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        // iOS 13+ - request permission
+                        DeviceOrientationEvent.requestPermission()
+                            .then(permissionState => {
+                                if (permissionState === 'granted') {
+                                    window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+                                    document.getElementById('compassStatus').textContent = 
+                                        'Compass active - Point red needle towards Kaaba 🕋';
+                                } else {
+                                    this.startSimulatedCompass();
+                                }
+                            })
+                            .catch(() => {
+                                this.startSimulatedCompass();
+                            });
+                    } else {
+                        // Android and other browsers
+                        window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+                        document.getElementById('compassStatus').textContent = 
+                            'Compass active - Point red needle towards Kaaba 🕋';
+                    }
+                }
+            }
             
-            document.getElementById('compassStatus').classList.add('pulse');
-            document.getElementById('compassStatus').textContent = 
-                'Calibrating... Move device in a figure-8 pattern';
+            stopCompass() {
+                window.removeEventListener('deviceorientation', this.handleOrientation);
+                if (this.compassInterval) {
+                    clearInterval(this.compassInterval);
+                    this.compassInterval = null;
+                }
+            }
             
-            setTimeout(() => {
-                document.getElementById('compassStatus').classList.remove('pulse');
+            handleOrientation(event) {
+                if (event.alpha !== null) {
+                    // alpha: rotation around z-axis (0-360)
+                    const heading = event.alpha;
+                    
+                    // Smooth the heading value
+                    this.headingSmooth = 0.3 * heading + 0.7 * this.headingSmooth;
+                    
+                    // Calculate rotation to point to Qibla
+                    // When phone points to Qibla, needle should point to Kaaba symbol (left side)
+                    const rotation = (360 - this.headingSmooth + this.data.qiblaDirection) % 360;
+                    
+                    // Update needle
+                    document.getElementById('compassNeedle').style.transform = 
+                        `translateX(-50%) rotate(${rotation}deg)`;
+                    
+                    // Update degree display
+                    document.getElementById('qiblaDegree').textContent = `${Math.round(this.data.qiblaDirection)}°`;
+                    
+                    // Update status with current heading
+                    this.data.currentHeading = Math.round(this.headingSmooth);
+                    
+                    // Show helpful message based on direction
+                    const kaabaDirection = (rotation + 180) % 360;
+                    let directionMsg = '';
+                    
+                    if (kaabaDirection < 45 || kaabaDirection >= 315) directionMsg = 'Kaaba is North';
+                    else if (kaabaDirection < 135) directionMsg = 'Kaaba is East';
+                    else if (kaabaDirection < 225) directionMsg = 'Kaaba is South';
+                    else directionMsg = 'Kaaba is West';
+                    
+                    document.getElementById('compassStatus').innerHTML = 
+                        `Heading: ${this.data.currentHeading}° | ${directionMsg}`;
+                }
+                
+                // Use beta (tilt front/back) and gamma (tilt left/right) for advanced features
+                if (event.beta !== null && event.gamma !== null) {
+                    const tiltX = Math.round(event.beta); // Front/Back tilt (-180 to 180)
+                    const tiltY = Math.round(event.gamma); // Left/Right tilt (-90 to 90)
+                    
+                    // Add tilt effect to compass circle
+                    const compassCircle = document.querySelector('.compass-circle');
+                    if (compassCircle) {
+                        const tiltEffect = Math.min(10, Math.abs(tiltY) * 0.1);
+                        compassCircle.style.transform = `perspective(1000px) rotateX(${tiltX * 0.1}deg) rotateY(${tiltY * 0.1}deg)`;
+                    }
+                }
+            }
+            
+            startSimulatedCompass() {
+                // For desktop or devices without compass
+                let simulatedHeading = 0;
+                
+                this.compassInterval = setInterval(() => {
+                    simulatedHeading = (simulatedHeading + 1) % 360;
+                    
+                    // Calculate rotation to point to Qibla
+                    const rotation = (360 - simulatedHeading + this.data.qiblaDirection) % 360;
+                    
+                    // Update needle
+                    document.getElementById('compassNeedle').style.transform = 
+                        `translateX(-50%) rotate(${rotation}deg)`;
+                    
+                    // Update status
+                    document.getElementById('compassStatus').innerHTML = 
+                        `Simulated compass - Use on mobile for real sensor<br>Heading: ${simulatedHeading}°`;
+                    
+                    // Update Qibla degree
+                    document.getElementById('qiblaDegree').textContent = `${this.data.qiblaDirection}°`;
+                    
+                    // Add slight shake to make it look more "real"
+                    if (Math.random() > 0.9) {
+                        document.getElementById('compassNeedle').classList.add('shake');
+                        setTimeout(() => {
+                            document.getElementById('compassNeedle').classList.remove('shake');
+                        }, 500);
+                    }
+                }, 100);
+                
                 document.getElementById('compassStatus').textContent = 
-                    'Calibration complete! Compass ready';
-                this.data.compassCalibrated = true;
-                this.showToast('Compass calibrated successfully', 'success');
-            }, 3000);
-        }
-        
-        // Tasbeeh Methods
-        incrementTasbeeh() {
-            this.data.tasbeehCount++;
-            document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
-            document.getElementById('tasbeehBtn').classList.add('shake');
-            setTimeout(() => {
-                document.getElementById('tasbeehBtn').classList.remove('shake');
-            }, 500);
-            
-            // Check if target reached
-            const target = this.dhikrOptions[this.data.currentDhikr].count;
-            if (this.data.tasbeehCount >= target) {
-                this.showToast(`Completed ${target} dhikr!`, 'success');
-                setTimeout(() => this.resetTasbeeh(), 1000);
+                    'Simulated compass active - Use on mobile device for real compass';
             }
             
-            this.saveData();
-        }
-        
-        resetTasbeeh() {
-            this.data.tasbeehCount = 0;
-            document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
-            this.saveData();
-            this.showToast('Tasbeeh counter reset', 'info');
-        }
-        
-        changeDhikr() {
-            this.data.currentDhikr = (this.data.currentDhikr + 1) % this.dhikrOptions.length;
-            const dhikr = this.dhikrOptions[this.data.currentDhikr];
-            document.getElementById('tasbeehBtn').textContent = dhikr.text;
-            this.resetTasbeeh();
-            this.showToast(`Changed to: ${dhikr.arabic}`, 'info');
-        }
-        
-        saveTasbeehCount() {
-            this.saveData();
-            this.showToast('Tasbeeh count saved', 'success');
-        }
-        
-        // Modal Methods - Now for editing JAMAAT TIMES
-        openEditModal() {
-            const jamaat = this.data.settings.jamaatTimes;
-            const offsets = this.data.settings.azaanOffsets;
-            
-            document.getElementById('editDate').value = 'Jamaat Times';
-            document.getElementById('editFajr').value = `${jamaat.fajr} (${offsets.fajr} min before)`;
-            document.getElementById('editDhuhr').value = `${jamaat.dhuhr} (${offsets.dhuhr} min before)`;
-            document.getElementById('editAsr').value = `${jamaat.asr} (${offsets.asr} min before)`;
-            document.getElementById('editMaghrib').value = `${jamaat.maghrib} (${offsets.maghrib} min before)`;
-            document.getElementById('editIsha').value = `${jamaat.isha} (${offsets.isha} min before)`;
-            
-            document.getElementById('manualInputModal').classList.add('active');
-        }
-        
-        closeModal() {
-            document.getElementById('manualInputModal').classList.remove('active');
-        }
-        
-        saveJamaatTimes() {
-            // Parse new jamaat times from input
-            // Format: "06:55 AM (50 min before)"
-            const parseJamaatTime = (input) => {
-                const parts = input.split('(');
-                return parts[0].trim();
-            };
-            
-            this.data.settings.jamaatTimes.fajr = parseJamaatTime(document.getElementById('editFajr').value);
-            this.data.settings.jamaatTimes.dhuhr = parseJamaatTime(document.getElementById('editDhuhr').value);
-            this.data.settings.jamaatTimes.asr = parseJamaatTime(document.getElementById('editAsr').value);
-            this.data.settings.jamaatTimes.maghrib = parseJamaatTime(document.getElementById('editMaghrib').value);
-            this.data.settings.jamaatTimes.isha = parseJamaatTime(document.getElementById('editIsha').value);
-            
-            this.saveData();
-            this.updatePrayerDisplay();
-            this.closeModal();
-            this.showToast('Masjid Jamaat times updated successfully', 'success');
-        }
-        
-        // Notification Methods
-        checkPrayerNotifications() {
-            if (!this.data.settings.notifications) return;
-            
-            const now = new Date();
-            const today = new Date();
-            const dateKey = this.formatDate(today);
-            const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
-            
-            // Check each prayer for upcoming Jamaat
-            this.prayers.forEach(prayer => {
-                const jamaatTime = times[prayer.key].jamaat;
-                const [time, period] = jamaatTime.split(' ');
-                let [hours, minutes] = time.split(':').map(Number);
+            calibrateCompass() {
+                // Simple calibration - reset to north
+                this.showToast('Calibrating compass... Rotate your device in a figure-8 motion', 'info');
                 
-                if (period === 'PM' && hours < 12) hours += 12;
-                if (period === 'AM' && hours === 12) hours = 0;
+                document.getElementById('compassStatus').classList.add('pulse');
+                document.getElementById('compassStatus').textContent = 
+                    'Calibrating... Move device in a figure-8 pattern';
                 
-                const prayerDate = new Date(today);
-                prayerDate.setHours(hours, minutes, 0, 0);
+                setTimeout(() => {
+                    document.getElementById('compassStatus').classList.remove('pulse');
+                    document.getElementById('compassStatus').textContent = 
+                        'Calibration complete! Compass ready';
+                    this.data.compassCalibrated = true;
+                    this.showToast('Compass calibrated successfully', 'success');
+                }, 3000);
+            }
+            
+            // Tasbeeh Methods
+            incrementTasbeeh() {
+                this.data.tasbeehCount++;
+                document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
+                document.getElementById('tasbeehBtn').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('tasbeehBtn').classList.remove('shake');
+                }, 500);
                 
-                const timeDiff = prayerDate - now;
-                const minutesLeft = Math.floor(timeDiff / (1000 * 60));
-                
-                // Notify 5 minutes before Jamaat
-                if (minutesLeft === 5) {
-                    this.showToast(`${prayer.name} Jamaat in 5 minutes`, 'warning');
+                // Check if target reached
+                const target = this.dhikrOptions[this.data.currentDhikr].count;
+                if (this.data.tasbeehCount >= target) {
+                    this.showToast(`Completed ${target} dhikr!`, 'success');
+                    setTimeout(() => this.resetTasbeeh(), 1000);
                 }
-            });
-        }
-        
-        showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.innerHTML = message;
-            
-            // Set icon based on type
-            const icon = toast.querySelector('.toast-icon');
-            switch(type) {
-                case 'success':
-                    icon.className = 'fas fa-check-circle toast-icon';
-                    toast.style.borderLeftColor = '#2ecc71';
-                    break;
-                case 'warning':
-                    icon.className = 'fas fa-exclamation-triangle toast-icon';
-                    toast.style.borderLeftColor = '#f39c12';
-                    break;
-                case 'error':
-                    icon.className = 'fas fa-times-circle toast-icon';
-                    toast.style.borderLeftColor = '#e74c3c';
-                    break;
-                default:
-                    icon.className = 'fas fa-info-circle toast-icon';
-                    toast.style.borderLeftColor = '#3498db';
+                
+                this.saveData();
             }
             
-            toast.classList.add('show');
+            resetTasbeeh() {
+                this.data.tasbeehCount = 0;
+                document.getElementById('tasbeehCount').textContent = this.data.tasbeehCount;
+                this.saveData();
+                this.showToast('Tasbeeh counter reset', 'info');
+            }
             
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 5000);
+            changeDhikr() {
+                this.data.currentDhikr = (this.data.currentDhikr + 1) % this.dhikrOptions.length;
+                const dhikr = this.dhikrOptions[this.data.currentDhikr];
+                document.getElementById('tasbeehBtn').textContent = dhikr.text;
+                this.resetTasbeeh();
+                this.showToast(`Changed to: ${dhikr.arabic}`, 'info');
+            }
+            
+            saveTasbeehCount() {
+                this.saveData();
+                this.showToast('Tasbeeh count saved', 'success');
+            }
+            
+            // Modal Methods - For editing JAMAAT TIMES
+            openEditModal() {
+                const jamaat = this.data.settings.jamaatTimes;
+                const offsets = this.data.settings.azaanOffsets;
+                
+                // Show current azaan times (calculated)
+                const azaanTimes = {
+                    fajr: this.subtractMinutes(jamaat.fajr, offsets.fajr),
+                    dhuhr: this.subtractMinutes(jamaat.dhuhr, offsets.dhuhr),
+                    asr: this.subtractMinutes(jamaat.asr, offsets.asr),
+                    maghrib: this.subtractMinutes(jamaat.maghrib, offsets.maghrib),
+                    isha: this.subtractMinutes(jamaat.isha, offsets.isha)
+                };
+                
+                document.getElementById('editDate').value = 'Jamaat Times (Azaan auto-calculated)';
+                document.getElementById('editFajr').value = jamaat.fajr;
+                document.getElementById('editDhuhr').value = jamaat.dhuhr;
+                document.getElementById('editAsr').value = jamaat.asr;
+                document.getElementById('editMaghrib').value = jamaat.maghrib;
+                document.getElementById('editIsha').value = jamaat.isha;
+                
+                // Update labels to show azaan times
+                document.querySelector('label[for="editFajr"]').innerHTML = `Fajr Jamaat <small>(Azaan: ${azaanTimes.fajr})</small>`;
+                document.querySelector('label[for="editDhuhr"]').innerHTML = `Dhuhr Jamaat <small>(Azaan: ${azaanTimes.dhuhr})</small>`;
+                document.querySelector('label[for="editAsr"]').innerHTML = `Asr Jamaat <small>(Azaan: ${azaanTimes.asr})</small>`;
+                document.querySelector('label[for="editMaghrib"]').innerHTML = `Maghrib Jamaat <small>(Azaan: ${azaanTimes.maghrib})</small>`;
+                document.querySelector('label[for="editIsha"]').innerHTML = `Isha Jamaat <small>(Azaan: ${azaanTimes.isha})</small>`;
+                
+                document.getElementById('manualInputModal').classList.add('active');
+            }
+            
+            closeModal() {
+                document.getElementById('manualInputModal').classList.remove('active');
+            }
+            
+            saveJamaatTimes() {
+                // Parse new jamaat times from input
+                this.data.settings.jamaatTimes.fajr = document.getElementById('editFajr').value.trim();
+                this.data.settings.jamaatTimes.dhuhr = document.getElementById('editDhuhr').value.trim();
+                this.data.settings.jamaatTimes.asr = document.getElementById('editAsr').value.trim();
+                this.data.settings.jamaatTimes.maghrib = document.getElementById('editMaghrib').value.trim();
+                this.data.settings.jamaatTimes.isha = document.getElementById('editIsha').value.trim();
+                
+                this.saveData();
+                this.updatePrayerDisplay();
+                this.closeModal();
+                this.showToast('Masjid Jamaat times updated successfully', 'success');
+            }
+            
+            // Notification Methods
+            checkPrayerNotifications() {
+                if (!this.data.settings.notifications) return;
+                
+                const now = new Date();
+                const today = new Date();
+                const dateKey = this.formatDate(today);
+                const times = this.data.prayerTimes[dateKey] || this.calculatePrayerTimes(today);
+                
+                // Check each prayer for upcoming Jamaat
+                this.prayers.forEach(prayer => {
+                    const jamaatTime = times[prayer.key].jamaat;
+                    const [time, period] = jamaatTime.split(' ');
+                    let [hours, minutes] = time.split(':').map(Number);
+                    
+                    if (period === 'PM' && hours < 12) hours += 12;
+                    if (period === 'AM' && hours === 12) hours = 0;
+                    
+                    const prayerDate = new Date(today);
+                    prayerDate.setHours(hours, minutes, 0, 0);
+                    
+                    const timeDiff = prayerDate - now;
+                    const minutesLeft = Math.floor(timeDiff / (1000 * 60));
+                    
+                    // Notify 5 minutes before Jamaat
+                    if (minutesLeft === 5) {
+                        this.showToast(`${prayer.name} Jamaat in 5 minutes`, 'warning');
+                    }
+                });
+            }
+            
+            showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toastMessage');
+                
+                toastMessage.innerHTML = message;
+                
+                // Set icon based on type
+                const icon = toast.querySelector('.toast-icon');
+                switch(type) {
+                    case 'success':
+                        icon.className = 'fas fa-check-circle toast-icon';
+                        toast.style.borderLeftColor = '#2ecc71';
+                        break;
+                    case 'warning':
+                        icon.className = 'fas fa-exclamation-triangle toast-icon';
+                        toast.style.borderLeftColor = '#f39c12';
+                        break;
+                    case 'error':
+                        icon.className = 'fas fa-times-circle toast-icon';
+                        toast.style.borderLeftColor = '#e74c3c';
+                        break;
+                    default:
+                        icon.className = 'fas fa-info-circle toast-icon';
+                        toast.style.borderLeftColor = '#3498db';
+                }
+                
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 5000);
+            }
         }
-    }
-    
-    // Initialize the app
-    document.addEventListener('DOMContentLoaded', () => {
-        window.app = new PrayerApp();
         
-        // Start compass if Qibla view is active from URL hash
-        if (window.location.hash === '#qibla' || window.location.hash === '#compass') {
-            setTimeout(() => {
-                window.app.switchView('qibla');
-                window.app.startCompass();
-            }, 500);
-        }
-    });
-</script>
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.app = new PrayerApp();
+            
+            // Start compass if Qibla view is active from URL hash
+            if (window.location.hash === '#qibla' || window.location.hash === '#compass') {
+                setTimeout(() => {
+                    window.app.switchView('qibla');
+                    window.app.startCompass();
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>
