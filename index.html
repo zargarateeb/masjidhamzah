@@ -3,33 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masjid Al Hamzah - Prayer Times App</title>
+    <title>Masjid Al Hamzah - Prayer Times</title>
     <meta name="description" content="Masjid Al Hamzah Prayer Times App for Hajibagh, Buchpora, Srinagar">
-    <meta name="theme-color" content="#1b5e20">
+    <meta name="theme-color" content="#2D5C7F">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
     <!-- iOS Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Al Hamzah">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-green: #1b5e20;
-            --light-green: #2e7d32;
-            --accent-green: #43a047;
-            --bg-cream: #f5f5dc;
-            --bg-light: #fafaf5;
-            --card-bg: #ffffff;
-            --text-dark: #1b5e20;
-            --text-gray: #666666;
-            --border-green: #4caf50;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --radius: 20px;
+            /* Light Theme Variables */
+            --primary-color: #2D5C7F;
+            --secondary-color: #57A4B1;
+            --accent-color: #FFC145;
+            --text-primary: #1A2B3C;
+            --text-secondary: #4A5B6C;
+            --bg-primary: #F8F9FA;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --border-color: #E1E8ED;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --gradient-primary: linear-gradient(135deg, #2D5C7F 0%, #57A4B1 100%);
+            --gradient-accent: linear-gradient(135deg, #FFC145 0%, #FFD166 100%);
+        }
+        
+        .dark-mode {
+            /* Dark Theme Variables */
+            --primary-color: #4A7BA6;
+            --secondary-color: #6BC5D2;
+            --accent-color: #FFC145;
+            --text-primary: #E8F1F8;
+            --text-secondary: #A0B4C8;
+            --bg-primary: #0F1A2A;
+            --bg-secondary: #1A2B3C;
+            --bg-card: #1E3047;
+            --border-color: #2D4259;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --gradient-primary: linear-gradient(135deg, #1A2B3C 0%, #2D5C7F 100%);
         }
         
         * {
@@ -37,15 +59,14 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
@@ -54,100 +75,140 @@
             margin: 0 auto;
             width: 100%;
             min-height: 100vh;
-            background: var(--bg-light);
             display: flex;
             flex-direction: column;
+            background: var(--bg-primary);
         }
         
-        /* Header Section */
-        .header-section {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+        /* Header */
+        .app-header {
+            background: var(--gradient-primary);
+            padding: 24px 20px 20px;
             border-radius: 0 0 30px 30px;
-            padding: 30px 20px 20px;
-            color: white;
-            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
         
-        .mosque-header {
+        .header-top {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            margin-bottom: 25px;
         }
         
-        .mosque-icon {
-            font-size: 2.5rem;
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
         
-        .mosque-title {
-            flex: 1;
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(30deg);
         }
         
-        .mosque-title h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 4px;
+        .mosque-info {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .mosque-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 6px;
             letter-spacing: 0.5px;
         }
         
-        .mosque-subtitle {
+        .mosque-location {
             font-size: 0.95rem;
-            opacity: 0.95;
+            opacity: 0.9;
+            font-weight: 500;
         }
         
-        .time-date-section {
+        /* Time Display */
+        .time-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
         
-        .current-time-display {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .time-large {
-            font-size: 2.5rem;
+        .current-time {
+            font-size: 2.8rem;
             font-weight: 700;
-            line-height: 1;
             font-variant-numeric: tabular-nums;
+            color: white;
         }
         
-        .date-display {
-            font-size: 0.95rem;
-            margin-top: 4px;
-            opacity: 0.95;
-        }
-        
-        .next-prayer-badge {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px dashed white;
-            border-radius: 12px;
-            padding: 12px 16px;
-            text-align: center;
-            min-width: 150px;
-        }
-        
-        .next-prayer-label {
-            font-size: 0.85rem;
+        .current-date {
+            font-size: 1rem;
             opacity: 0.9;
-            margin-bottom: 4px;
+            color: white;
+        }
+        
+        /* Next Prayer */
+        .next-prayer-card {
+            background: var(--gradient-accent);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 193, 69, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 193, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 193, 69, 0); }
+        }
+        
+        .next-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .next-prayer-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 4px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 5px;
         }
         
         .next-prayer-time {
-            font-size: 0.95rem;
-            font-weight: 600;
-            font-style: italic;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 5px;
         }
         
-        /* Main Content */
+        .next-prayer-countdown {
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.7);
+            font-weight: 600;
+        }
+        
+        /* Prayer Cards */
         .main-content {
             flex: 1;
             padding: 20px;
@@ -155,98 +216,186 @@
             -webkit-overflow-scrolling: touch;
         }
         
-        .prayer-list {
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
         }
         
         .prayer-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
             padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--border-green);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .prayer-card.current {
-            border-left-width: 8px;
-            box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
-            transform: scale(1.02);
+            border: 2px solid var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 193, 69, 0.2);
         }
         
-        .prayer-left {
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        .prayer-card.current::before {
+            background: var(--accent-color);
+        }
+        
+        .prayer-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            flex: 1;
+            gap: 12px;
+            margin-bottom: 15px;
         }
         
-        .prayer-icon-box {
-            font-size: 2.5rem;
-            width: 60px;
-            height: 60px;
+        .prayer-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 1.2rem;
         }
         
-        .prayer-details {
+        .prayer-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .prayer-arabic {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-top: 2px;
+        }
+        
+        .prayer-times {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 8px;
         }
         
-        .prayer-name-en {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-dark);
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .azaan-time-display {
-            font-size: 0.95rem;
-            color: var(--text-gray);
+        .time-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
         
-        .jamaat-time-display {
-            background: var(--primary-green);
-            color: white;
+        .time-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .jamaat-time {
             font-size: 1.3rem;
             font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-variant-numeric: tabular-nums;
-            min-width: 110px;
-            text-align: center;
+            color: var(--primary-color);
         }
         
-        /* Footer */
-        .footer-section {
-            background: var(--card-bg);
-            padding: 16px 20px;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-            margin-top: auto;
+        /* Calendar View */
+        .calendar-view {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
         }
         
-        .footer-text {
+        .calendar-view.active {
+            display: block;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
             font-size: 0.85rem;
-            color: var(--text-gray);
-            font-style: italic;
+        }
+        
+        .calendar-table td.current {
+            background: rgba(255, 193, 69, 0.1);
+            color: var(--accent-color);
+            font-weight: 700;
         }
         
         /* Bottom Navigation */
         .bottom-nav {
-            background: var(--card-bg);
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            background: var(--bg-card);
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
-            border-top: 1px solid #e0e0e0;
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
         }
         
         .nav-item {
@@ -254,18 +403,16 @@
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            color: var(--text-gray);
+            color: var(--text-secondary);
             text-decoration: none;
             padding: 8px 20px;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             transition: all 0.3s ease;
-            opacity: 0.7;
         }
         
         .nav-item.active {
-            color: var(--primary-green);
-            opacity: 1;
-            background: rgba(76, 175, 80, 0.1);
+            color: var(--primary-color);
+            background: rgba(45, 92, 127, 0.1);
         }
         
         .nav-icon {
@@ -277,269 +424,109 @@
             font-weight: 600;
         }
         
-        /* Calendar View */
-        .calendar-view {
-            display: none;
-        }
-        
-        .calendar-view.active {
-            display: block;
-        }
-        
-        .today-view.active {
-            display: block;
-        }
-        
-        .today-view {
-            display: none;
-        }
-        
-        .month-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
-        
-        .month-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-green);
-        }
-        
-        .month-nav {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .nav-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--primary-green);
-            border: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-        
-        .calendar-table {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            max-width: 100%;
-            overflow-x: auto;
-        }
-        
-        .calendar-row {
-            display: flex;
-            border-bottom: 1px solid #e0e0e0;
-            min-width: 700px;
-        }
-        
-        .calendar-row:last-child {
-            border-bottom: none;
-        }
-        
-        .calendar-row.header {
-            background: var(--primary-green);
-            color: white;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-        
-        .calendar-cell {
-            flex: 1;
-            padding: 12px 8px;
+        /* Footer */
+        .footer {
             text-align: center;
+            padding: 20px;
             font-size: 0.85rem;
-            min-width: 100px;
-        }
-        
-        .calendar-cell.date {
-            font-weight: 600;
-            color: var(--text-dark);
-            min-width: 50px;
-            flex: 0.5;
-        }
-        
-        .calendar-cell.current {
-            background: rgba(76, 175, 80, 0.15);
-            color: var(--primary-green);
-            font-weight: 700;
-        }
-        
-        /* Hide scrollbar */
-        .main-content::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .main-content {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        /* Offline Notice */
-        .offline-notice {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #dc2626;
-            color: white;
-            text-align: center;
-            padding: 8px;
-            font-size: 0.9rem;
-            z-index: 1001;
-            display: none;
-        }
-        
-        .offline-notice.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
         }
         
         /* Responsive */
         @media (max-width: 480px) {
-            .time-large {
-                font-size: 2rem;
+            .prayer-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
             
-            .mosque-title h1 {
-                font-size: 1.4rem;
+            .current-time {
+                font-size: 2.2rem;
             }
             
-            .next-prayer-badge {
-                min-width: 130px;
-                padding: 10px 12px;
+            .mosque-name {
+                font-size: 1.5rem;
             }
             
-            .next-prayer-name {
-                font-size: 1rem;
-            }
-            
-            .prayer-icon-box {
-                font-size: 2rem;
-                width: 50px;
-                height: 50px;
-            }
-            
-            .prayer-name-en {
-                font-size: 1.2rem;
-            }
-            
-            .jamaat-time-display {
-                font-size: 1.1rem;
-                padding: 10px 16px;
-                min-width: 95px;
-            }
-            
-            .calendar-cell {
-                font-size: 0.75rem;
+            .calendar-table th,
+            .calendar-table td {
                 padding: 8px 4px;
-                min-width: 85px;
+                font-size: 0.8rem;
             }
         }
         
-        @media (max-width: 400px) {
-            .time-large {
-                font-size: 1.8rem;
+        @media (max-width: 360px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
             }
             
-            .next-prayer-badge {
-                min-width: 120px;
-                padding: 8px 10px;
-            }
-            
-            .next-prayer-label {
-                font-size: 0.8rem;
-            }
-            
-            .next-prayer-name {
-                font-size: 0.9rem;
-            }
-            
-            .next-prayer-time {
-                font-size: 0.85rem;
+            .time-section {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Offline Notice -->
-    <div class="offline-notice" id="offlineNotice">
-        <i class="fas fa-wifi-slash"></i> You are currently offline
-    </div>
-    
     <div class="app-container">
-        <!-- Header Section -->
-        <div class="header-section">
-            <div class="mosque-header">
-                <div class="mosque-icon">🕌</div>
-                <div class="mosque-title">
-                    <h1>MASJID AL HAMZAH</h1>
-                    <div class="mosque-subtitle">HajiBagh, Buchpora, Srinagar</div>
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="mosque-info">
+                    <h1 class="mosque-name">Masjid Al Hamzah</h1>
+                    <div class="mosque-location">HajiBagh, Buchpora, Srinagar</div>
                 </div>
+                <div style="width: 44px;"></div> <!-- Spacer for symmetry -->
             </div>
             
-            <div class="time-date-section">
-                <div class="current-time-display">
-                    <div class="time-large" id="currentTime">12:00 PM</div>
-                    <div class="date-display" id="currentDate">15 / JANUARY / 2026</div>
+            <div class="time-section">
+                <div>
+                    <div class="current-time" id="currentTime">12:00 PM</div>
+                    <div class="current-date" id="currentDate">15 / JANUARY / 2026</div>
                 </div>
-                <div class="next-prayer-badge" id="nextPrayerBadge">
-                    <div class="next-prayer-label">NEXT NAMAZ</div>
+                <div class="next-prayer-card">
+                    <div class="next-label">Next Prayer</div>
                     <div class="next-prayer-name" id="nextPrayerName">Fajr</div>
                     <div class="next-prayer-time" id="nextPrayerTime">6:55 AM</div>
-                    <div class="next-prayer-time" id="nextPrayerCountdown">In 2h 15m</div>
+                    <div class="next-prayer-countdown" id="nextPrayerCountdown">In 2h 15m</div>
                 </div>
             </div>
-        </div>
+        </header>
         
         <!-- Main Content -->
         <main class="main-content" id="mainContent">
             <!-- Today View -->
             <div class="today-view active" id="todayView">
-                <div class="prayer-list" id="prayerList">
+                <h2 class="section-title"><i class="fas fa-clock"></i> Today's Prayer Times</h2>
+                <div class="prayer-grid" id="prayerList">
                     <!-- Prayer cards will be dynamically generated -->
                 </div>
             </div>
             
             <!-- Calendar View -->
             <div class="calendar-view" id="calendarView">
-                <div class="month-header">
-                    <div class="month-title" id="monthTitle">January 2026</div>
-                    <div class="month-nav">
-                        <button class="nav-btn" id="prevMonthBtn">
+                <div class="calendar-header">
+                    <div class="calendar-title" id="monthTitle">January 2026</div>
+                    <div class="calendar-nav">
+                        <button class="theme-toggle" id="prevMonthBtn">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="nav-btn" id="nextMonthBtn">
+                        <button class="theme-toggle" id="nextMonthBtn">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
                 </div>
-                
-                <div class="calendar-table" id="calendarTable">
+                <div id="calendarTable">
                     <!-- Calendar will be dynamically generated -->
                 </div>
             </div>
         </main>
-        
-        <!-- Footer -->
-        <div class="footer-section">
-            <div class="footer-text">Designed & Maintained by ZARGAR ATEEB</div>
-        </div>
         
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
@@ -552,26 +539,47 @@
                 <span class="nav-label">Calendar</span>
             </a>
         </nav>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div>Designed & Maintained by ZARGAR ATEEB</div>
+        </footer>
     </div>
     
     <script>
-        // Register Service Worker for PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => console.log('Service Worker registered:', registration))
-                    .catch(error => console.log('Service Worker registration failed:', error));
-            });
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
         }
         
-        // Prayer Data
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun';
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // Prayer Data (same as before)
         const prayerData = {
             daily: {
-                fajr: { name: "Fajr", arabic: "فجر", icon: "🌄", jamaat: "6:50 AM", offset: 47 },
-                zuhr: { name: "Zuhr", arabic: "ظهر", icon: "☀️", jamaat: "1:00 PM", offset: 15 },
-                asr: { name: "Asr", arabic: "عصر", icon: "🌅", jamaat: "4:30 PM", offset: 15 },
-                maghrib: { name: "Maghrib", arabic: "مغرب", icon: "🌙", jamaat: "6:05 PM", offset: 6 },
-                isha: { name: "Isha", arabic: "عشاء", icon: "🌕", jamaat: "7:40 PM", offset: 15 }
+                fajr: { name: "Fajr", arabic: "فجر", icon: "fas fa-sun", jamaat: "6:50 AM", offset: 47 },
+                zuhr: { name: "Zuhr", arabic: "ظهر", icon: "fas fa-sun", jamaat: "1:00 PM", offset: 15 },
+                asr: { name: "Asr", arabic: "عصر", icon: "fas fa-cloud-sun", jamaat: "4:30 PM", offset: 15 },
+                maghrib: { name: "Maghrib", arabic: "مغرب", icon: "fas fa-sun", jamaat: "6:07 PM", offset: 6 },
+                isha: { name: "Isha", arabic: "عشاء", icon: "fas fa-moon", jamaat: "7:40 PM", offset: 15 }
             },
             monthly: {
                 "2026-01": {
@@ -609,8 +617,8 @@
                 }
             }
         };
-
-        // Utility Functions
+        
+        // Utility Functions (same as before)
         function timeToMinutes(timeStr) {
             const [time, modifier] = timeStr.split(' ');
             let [hours, minutes] = time.split(':').map(Number);
@@ -620,7 +628,7 @@
             
             return hours * 60 + minutes;
         }
-
+        
         function minutesToTime(minutes) {
             let hours = Math.floor(minutes / 60);
             const mins = minutes % 60;
@@ -631,13 +639,13 @@
             
             return `${hours}:${mins.toString().padStart(2, '0')} ${modifier}`;
         }
-
+        
         function calculateAzaanTime(jamaatTime, offset) {
             const jamaatMinutes = timeToMinutes(jamaatTime);
             const azaanMinutes = jamaatMinutes - offset;
             return minutesToTime(azaanMinutes >= 0 ? azaanMinutes : azaanMinutes + 1440);
         }
-
+        
         function formatTimeDifference(minutes) {
             if (minutes <= 0) return "Now";
             
@@ -650,24 +658,22 @@
                 return `In ${mins}m`;
             }
         }
-
+        
         // DOM Functions
         function updateDateTime() {
             const now = new Date();
             
-            // Update date in header format
             const day = now.getDate();
             const month = now.toLocaleString('en-US', { month: 'long' }).toUpperCase();
             const year = now.getFullYear();
             document.getElementById('currentDate').textContent = `${day} / ${month} / ${year}`;
             
-            // Update time
             const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
             document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
             
             return now;
         }
-
+        
         function updateNextPrayer(now) {
             const currentMinutes = now.getHours() * 60 + now.getMinutes();
             const prayerOrder = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
@@ -675,7 +681,6 @@
             let nextPrayerTime = null;
             let timeDifference = Infinity;
             
-            // Find the next prayer
             for (const prayerKey of prayerOrder) {
                 const prayer = prayerData.daily[prayerKey];
                 const prayerMinutes = timeToMinutes(prayer.jamaat);
@@ -690,21 +695,19 @@
                 }
             }
             
-            // If no prayer found for today, use Fajr of tomorrow
             if (!nextPrayer) {
                 nextPrayer = prayerData.daily.fajr;
                 nextPrayerTime = prayerData.daily.fajr.jamaat;
                 timeDifference = (24 * 60 - currentMinutes) + timeToMinutes(nextPrayerTime);
             }
             
-            // Update the next prayer badge
             if (nextPrayer) {
                 document.getElementById('nextPrayerName').textContent = nextPrayer.name;
                 document.getElementById('nextPrayerTime').textContent = nextPrayerTime;
                 document.getElementById('nextPrayerCountdown').textContent = formatTimeDifference(timeDifference);
             }
         }
-
+        
         function renderPrayerList() {
             const prayerList = document.getElementById('prayerList');
             prayerList.innerHTML = '';
@@ -716,28 +719,37 @@
                 prayerCard.className = 'prayer-card';
                 prayerCard.id = `${key}Item`;
                 prayerCard.innerHTML = `
-                    <div class="prayer-left">
-                        <div class="prayer-icon-box">${prayer.icon}</div>
-                        <div class="prayer-details">
-                            <div class="prayer-name-en">${prayer.name}</div>
-                            <div class="azaan-time-display">Azaan - ${azaanTime}</div>
+                    <div class="prayer-header">
+                        <div class="prayer-icon">
+                            <i class="${prayer.icon}"></i>
+                        </div>
+                        <div>
+                            <div class="prayer-name">${prayer.name}</div>
+                            <div class="prayer-arabic">${prayer.arabic}</div>
                         </div>
                     </div>
-                    <div class="jamaat-time-display">${prayer.jamaat}</div>
+                    <div class="prayer-times">
+                        <div class="time-row">
+                            <span class="time-label">Azaan</span>
+                            <span class="time-value">${azaanTime}</span>
+                        </div>
+                        <div class="time-row">
+                            <span class="time-label">Jamaat</span>
+                            <span class="jamaat-time">${prayer.jamaat}</span>
+                        </div>
+                    </div>
                 `;
                 prayerList.appendChild(prayerCard);
             }
         }
-
+        
         function updateCurrentPrayer(now) {
             const currentMinutes = now.getHours() * 60 + now.getMinutes();
             
-            // Reset current prayer highlights
             document.querySelectorAll('.prayer-card').forEach(item => {
                 item.classList.remove('current');
             });
             
-            // Find and highlight current prayer
             const prayerOrder = ['fajr', 'zuhr', 'asr', 'maghrib', 'isha'];
             let currentPrayerIndex = -1;
             
@@ -759,10 +771,10 @@
                 }
             }
         }
-
+        
         function setupNavigation() {
             const navItems = document.querySelectorAll('.nav-item');
-            const todayView = document.getElementById('todayView');
+            const todayView = document.querySelector('.today-view');
             const calendarView = document.getElementById('calendarView');
             
             navItems.forEach(item => {
@@ -771,53 +783,48 @@
                     
                     const view = item.dataset.view;
                     
-                    // Update active nav item
                     navItems.forEach(nav => nav.classList.remove('active'));
                     item.classList.add('active');
                     
-                    // Show selected view (swapping them)
                     if (view === 'today') {
-                        todayView.classList.remove('active');
-                        todayView.style.display = 'none';
-                        calendarView.classList.remove('active');
-                        calendarView.style.display = 'none';
-                        
-                        todayView.classList.add('active');
                         todayView.style.display = 'block';
-                    } else {
-                        todayView.classList.remove('active');
-                        todayView.style.display = 'none';
                         calendarView.classList.remove('active');
-                        calendarView.style.display = 'none';
-                        
+                    } else {
+                        todayView.style.display = 'none';
                         calendarView.classList.add('active');
-                        calendarView.style.display = 'block';
                         renderCalendar();
                     }
                 });
             });
         }
-
+        
         function renderCalendar() {
             const monthData = prayerData.monthly['2026-01'];
             const calendarTable = document.getElementById('calendarTable');
             calendarTable.innerHTML = '';
             
-            // Create header
-            const headerRow = document.createElement('div');
-            headerRow.className = 'calendar-row header';
-            headerRow.innerHTML = `
-                <div class="calendar-cell">Date</div>
-                <div class="calendar-cell">Fajr</div>
-                <div class="calendar-cell">Sunrise</div>
-                <div class="calendar-cell">Zuhr</div>
-                <div class="calendar-cell">Asr</div>
-                <div class="calendar-cell">Maghrib</div>
-                <div class="calendar-cell">Isha</div>
-            `;
-            calendarTable.appendChild(headerRow);
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'calendar-table';
             
-            // Create rows for each day
+            // Create header
+            const thead = document.createElement('thead');
+            thead.innerHTML = `
+                <tr>
+                    <th>Date</th>
+                    <th>Fajr</th>
+                    <th>Sunrise</th>
+                    <th>Zuhr</th>
+                    <th>Asr</th>
+                    <th>Maghrib</th>
+                    <th>Isha</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+            
+            // Create body
+            const tbody = document.createElement('tbody');
+            
             const now = new Date();
             const currentDay = now.getDate();
             const currentMonth = now.getMonth();
@@ -830,42 +837,34 @@
                 const prayerTimes = monthData[dayKey];
                 const isCurrentDay = (currentDay === day && currentMonth === 0 && currentYear === 2026);
                 
-                const row = document.createElement('div');
-                row.className = 'calendar-row';
-                
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    <div class="calendar-cell date ${isCurrentDay ? 'current' : ''}">${day}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.fajr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.sunrise}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.zuhr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.asr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.maghrib}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.isha}</div>
+                    <td class="${isCurrentDay ? 'current' : ''}">${day}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.fajr}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.sunrise}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.zuhr}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.asr}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.maghrib}</td>
+                    <td class="${isCurrentDay ? 'current' : ''}">${prayerTimes.isha}</td>
                 `;
-                calendarTable.appendChild(row);
+                tbody.appendChild(row);
             }
+            
+            table.appendChild(tbody);
+            calendarTable.appendChild(table);
         }
-
-        // Offline Detection
-        function setupOfflineDetection() {
-            const offlineNotice = document.getElementById('offlineNotice');
-            
-            window.addEventListener('online', () => {
-                offlineNotice.classList.remove('show');
-            });
-            
-            window.addEventListener('offline', () => {
-                offlineNotice.classList.add('show');
-            });
-            
-            // Initial check
-            if (!navigator.onLine) {
-                offlineNotice.classList.add('show');
-            }
-        }
-
+        
         // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
+            // Register Service Worker for PWA
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js')
+                        .then(registration => console.log('Service Worker registered:', registration))
+                        .catch(error => console.log('Service Worker registration failed:', error));
+                });
+            }
+            
             // Initial render
             renderPrayerList();
             const now = updateDateTime();
@@ -874,9 +873,6 @@
             
             // Setup navigation
             setupNavigation();
-            
-            // Setup offline detection
-            setupOfflineDetection();
             
             // Update time every second
             setInterval(() => {
@@ -888,11 +884,11 @@
             // Add touch feedback
             document.querySelectorAll('.prayer-card, .nav-item').forEach(item => {
                 item.addEventListener('touchstart', function() {
-                    this.style.opacity = '0.7';
+                    this.style.transform = 'scale(0.98)';
                 });
                 
                 item.addEventListener('touchend', function() {
-                    this.style.opacity = '1';
+                    this.style.transform = 'scale(1)';
                 });
             });
         });
