@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masjid Al Hamzah - Prayer Times</title>
     <meta name="description" content="Masjid Al Hamzah Prayer Times App for Hajibagh, Buchpora, Srinagar">
-    <meta name="theme-color" content="#16a34a">
+    <meta name="theme-color" content="#10b981">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -18,46 +18,50 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap');
         
         :root {
-            /* Light Theme - Green Color Scheme */
-            --primary-green: #16a34a;
-            --dark-green: #15803d;
-            --light-green: #22c55e;
-            --accent-green: #4ade80;
-            --soft-green: #dcfce7;
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
+            /* Light Theme - Modern Green Palette */
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #34d399;
+            --accent: #22c55e;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --surface-dark: #f1f5f9;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
-            --card-bg: #ffffff;
-            --card-shadow: 0 10px 40px rgba(22, 163, 74, 0.1);
-            --card-shadow-hover: 0 15px 50px rgba(22, 163, 74, 0.15);
-            --border-color: #e2e8f0;
-            --gradient-green: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
-            --gradient-light: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 100%);
-            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            --text-tertiary: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-green: 0 10px 20px -5px rgba(16, 185, 129, 0.2);
+            --radius-sm: 8px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            --gradient-primary: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
+            --gradient-surface: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --gradient-dark: linear-gradient(135deg, #0f766e 0%, #065f46 100%);
         }
         
         .dark-mode {
-            /* Dark Theme - Green Color Scheme */
-            --primary-green: #22c55e;
-            --dark-green: #16a34a;
-            --light-green: #4ade80;
-            --accent-green: #86efac;
-            --soft-green: #14532d;
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
+            --primary: #34d399;
+            --primary-dark: #10b981;
+            --primary-light: #6ee7b7;
+            --accent: #22c55e;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-dark: #334155;
             --text-primary: #f1f5f9;
             --text-secondary: #cbd5e1;
-            --card-bg: #1e293b;
-            --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            --card-shadow-hover: 0 15px 50px rgba(22, 163, 74, 0.25);
-            --border-color: #334155;
-            --gradient-green: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
-            --gradient-light: linear-gradient(135deg, #14532d 0%, #1e293b 100%);
-            --gradient-card: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --text-tertiary: #94a3b8;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --shadow-green: 0 10px 20px -5px rgba(52, 211, 153, 0.3);
+            --gradient-surface: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
         
         * {
@@ -65,339 +69,362 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
         
         body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
             color: var(--text-primary);
             min-height: 100vh;
-            line-height: 1.6;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            line-height: 1.5;
+            overflow-x: hidden;
         }
         
-        .arabic-font {
-            font-family: 'Amiri', serif;
+        .arabic {
+            font-family: 'Noto Naskh Arabic', serif;
         }
         
-        .app-container {
-            max-width: 500px;
+        /* App Container */
+        .app-wrapper {
+            max-width: 480px;
             margin: 0 auto;
-            width: 100%;
             min-height: 100vh;
             position: relative;
+            background: var(--background);
+        }
+        
+        /* Header */
+        .app-header {
+            position: relative;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 0 0 40px 40px;
+            box-shadow: var(--shadow);
             overflow: hidden;
         }
         
-        /* Background Pattern */
-        .bg-pattern {
+        .header-bg {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(22, 163, 74, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(22, 163, 74, 0.05) 0%, transparent 50%);
-            z-index: -1;
+            opacity: 0.05;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--primary) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--primary) 0%, transparent 50%);
         }
         
-        .dark-mode .bg-pattern {
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(22, 163, 74, 0.1) 0%, transparent 50%);
-        }
-        
-        /* Header */
-        .top-bar {
+        /* Top Controls */
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 20px 0;
+            margin-bottom: 24px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
         
-        .theme-toggle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            color: var(--primary-green);
-            font-size: 1.3rem;
+        .theme-switch {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            background: var(--surface-dark);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
         
-        .theme-toggle:hover {
-            transform: rotate(15deg) scale(1.05);
-            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.15);
+        .theme-switch:hover {
+            transform: rotate(30deg);
+            box-shadow: var(--shadow-green);
         }
         
-        .location-indicator {
+        .location-badge {
+            background: var(--surface-dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 8px;
-            background: var(--bg-secondary);
-            padding: 10px 18px;
-            border-radius: 50px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 2px solid var(--border-color);
         }
         
-        .location-icon {
-            color: var(--primary-green);
-        }
-        
-        .location-text {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-        
-        /* Main Header Content */
-        .main-header {
-            padding: 30px 20px 20px;
+        /* Mosque Info */
+        .mosque-info {
             text-align: center;
+            margin-bottom: 24px;
             position: relative;
             z-index: 1;
         }
         
         .mosque-name {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: var(--gradient-green);
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
         
-        .mosque-subtitle {
-            font-size: 1rem;
+        .mosque-tagline {
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-weight: 400;
+            font-weight: 500;
         }
         
-        /* Current Time Card */
-        .current-time-card {
-            background: var(--gradient-card);
-            border-radius: 24px;
-            padding: 25px;
-            margin: 0 20px 25px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
+        /* Time Display */
+        .time-section {
+            background: var(--gradient-surface);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            margin: 0 20px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
-        }
-        
-        .current-time-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-green);
         }
         
         .time-display {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            margin-bottom: 16px;
         }
         
-        .time-large {
-            font-size: 3rem;
-            font-weight: 700;
+        .current-time {
+            font-size: 2.8rem;
+            font-weight: 800;
             font-variant-numeric: tabular-nums;
             color: var(--text-primary);
+            line-height: 1;
         }
         
-        .date-display {
+        .date-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .current-date {
             font-size: 1rem;
             color: var(--text-secondary);
-            text-align: center;
             font-weight: 500;
         }
         
-        /* Next Prayer Indicator */
-        .next-prayer-indicator {
-            background: var(--gradient-green);
-            border-radius: 18px;
-            padding: 20px;
-            margin: 0 20px 30px;
+        .current-day {
+            background: var(--gradient-primary);
             color: white;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.2);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .next-prayer-indicator::before {
+        /* Next Prayer Card */
+        .next-prayer-card {
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            margin: 0 20px 30px;
+            color: white;
+            box-shadow: var(--shadow-green);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .next-prayer-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2316a34a' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0l-1.414 1.414L49.8 0l-1.415 1.415L46.97 0l-1.414 1.414L44.142 0l-1.415 1.415L41.313 0l-1.414 1.414L38.485 0l-1.414 1.414L35.657 0l-1.414 1.414L32.828 0 31.414 1.414 30 0l-1.414 1.414L27.172 0l-1.414 1.414L24.343 0l-1.414 1.414L21.515 0l-1.414 1.414L18.687 0l-1.414 1.414L15.858 0l-1.414 1.414L13.03 0l-1.414 1.414L10.2 0 8.788 1.414 7.374 0 5.96 1.414 4.546 0 3.132 1.414 1.718 0 .304 1.414-1.11.83L0 3.132l1.414-1.414L0 5.96l1.414-1.414L0 8.788l1.414-1.414L0 11.616l1.414-1.414L0 14.444l1.414-1.414L0 17.272l1.414-1.414L0 20.1l1.414-1.414L0 22.93l1.414-1.415L0 25.758l1.414-1.414L0 28.586l1.414-1.414L0 31.414l1.414-1.414L0 34.243l1.414-1.414L0 37.07l1.414-1.414L0 39.9l1.414-1.414L0 42.728l1.414-1.414L0 45.556l1.414-1.414L0 48.384l1.414-1.414L0 51.212l1.414-1.414L0 54.04l1.414-1.414L0 56.868l1.414-1.414L0 59.696l.83-1.11L1.414 60 0 58.586l1.414-1.414L0 55.758l1.414-1.414L0 52.93l1.414-1.414L0 50.1l1.414-1.414L0 47.272l1.414-1.414L0 44.444l1.414-1.414L0 41.616l1.414-1.414L0 38.788l1.414-1.414L0 35.96l1.414-1.414L0 33.132l1.414-1.414L0 30.304l1.414-1.414L0 27.476l1.414-1.414L0 24.648l1.414-1.414L0 21.82l1.414-1.414L0 18.992l1.414-1.414L0 16.164l1.414-1.414L0 13.336l1.414-1.414L0 10.508l1.414-1.414L0 7.68l1.414-1.414L0 4.852l1.414-1.414L0 2.024l.83-1.11L1.414 0 0 1.414l1.414-1.414L0 4.242l1.414-1.414L0 7.07l1.414-1.414L0 9.9l1.414-1.414L0 12.728l1.414-1.414L0 15.556l1.414-1.414L0 18.384l1.414-1.414L0 21.212l1.414-1.414L0 24.04l1.414-1.414L0 26.868l1.414-1.414L0 29.696l1.414-1.414L0 32.524l1.414-1.414L0 35.352l1.414-1.414L0 38.18l1.414-1.414L0 41.008l1.414-1.414L0 43.836l1.414-1.414L0 46.664l1.414-1.414L0 49.492l1.414-1.414L0 52.32l1.414-1.414L0 55.148l1.414-1.414L0 57.976l.83-1.11L1.414 60 0 58.586l1.414-1.414L0 55.758l1.414-1.414L0 52.93l1.414-1.414L0 50.1l1.414-1.414L0 47.272l1.414-1.414L0 44.444l1.414-1.414L0 41.616l1.414-1.414L0 38.788l1.414-1.414L0 35.96l1.414-1.414L0 33.132l1.414-1.414L0 30.304l1.414-1.414L0 27.476l1.414-1.414L0 24.648l1.414-1.414L0 21.82l1.414-1.414L0 18.992l1.414-1.414L0 16.164l1.414-1.414L0 13.336l1.414-1.414L0 10.508l1.414-1.414L0 7.68l1.414-1.414L0 4.852l1.414-1.414L0 2.024l.83-1.11L1.414 0 0 1.414l1.414-1.414L0 4.242l1.414-1.414L0 7.07l1.414-1.414L0 9.9l1.414-1.414L0 12.728l1.414-1.414L0 15.556l1.414-1.414L0 18.384l1.414-1.414L0 21.212l1.414-1.414L0 24.04l1.414-1.414L0 26.868l1.414-1.414L0 29.696l1.414-1.414L0 32.524l1.414-1.414L0 35.352l1.414-1.414L0 38.18l1.414-1.414L0 41.008l1.414-1.414L0 43.836l1.414-1.414L0 46.664l1.414-1.414L0 49.492l1.414-1.414L0 52.32l1.414-1.414L0 55.148l1.414-1.414L0 57.976l.83-1.11L1.414 60 0 58.586l1.414-1.414L0 55.758l1.414-1.414L0 52.93l1.414-1.414L0 50.1l1.414-1.414L0 47.272l1.414-1.414L0 44.444l1.414-1.414L0 41.616l1.414-1.414L0 38.788l1.414-1.414L0 35.96l1.414-1.414L0 33.132l1.414-1.414L0 30.304l1.414-1.414L0 27.476l1.414-1.414L0 24.648l1.414-1.414L0 21.82l1.414-1.414L0 18.992l1.414-1.414L0 16.164l1.414-1.414L0 13.336l1.414-1.414L0 10.508l1.414-1.414L0 7.68l1.414-1.414L0 4.852l1.414-1.414L0 2.024l.83-1.11L1.414 0 0 1.414z' fill='%2300ff00' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .next-prayer-content {
+            position: relative;
+            z-index: 1;
         }
         
         .next-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.875rem;
+            font-weight: 600;
             opacity: 0.9;
-            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .next-prayer-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
         }
         
         .next-prayer-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 5px;
         }
         
         .next-prayer-time {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 1.75rem;
+            font-weight: 700;
         }
         
         .next-prayer-countdown {
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             opacity: 0.9;
             font-weight: 500;
         }
         
-        /* Prayer Times Grid */
-        .prayer-times-section {
-            padding: 0 20px 30px;
+        /* Prayer List */
+        .prayer-list-container {
+            padding: 0 20px 100px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
         
         .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 25px;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .section-title i {
-            color: var(--primary-green);
-            font-size: 1.2rem;
+            color: var(--primary);
         }
         
-        .prayer-times-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* Prayer Timeline */
+        .prayer-timeline {
+            display: flex;
+            flex-direction: column;
             gap: 16px;
-            margin-bottom: 30px;
         }
         
-        @media (max-width: 380px) {
-            .prayer-times-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .prayer-card {
-            background: var(--card-bg);
-            border-radius: 20px;
+        .prayer-item {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
             padding: 20px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         
-        .prayer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
+        .prayer-item.current {
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-green);
+            transform: translateX(8px);
         }
         
-        .prayer-card.current {
-            border: 2px solid var(--primary-green);
-            background: var(--gradient-light);
-        }
-        
-        .prayer-card-header {
+        .prayer-item-content {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            justify-content: space-between;
         }
         
-        .prayer-icon-circle {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-green);
-            border-radius: 50%;
+        .prayer-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .prayer-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
         }
         
-        .prayer-names {
-            flex: 1;
+        .prayer-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
         
         .prayer-name-en {
-            font-size: 1.3rem;
+            font-size: 1.125rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 2px;
         }
         
         .prayer-name-ar {
-            font-size: 1.1rem;
-            color: var(--primary-green);
-            font-family: 'Amiri', serif;
+            font-size: 1rem;
+            color: var(--primary);
+            font-family: 'Noto Naskh Arabic', serif;
         }
         
-        .prayer-times-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        
-        .time-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+        .prayer-times {
+            text-align: right;
         }
         
         .azaan-time {
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
         
         .jamaat-time {
-            font-size: 1.5rem;
+            font-size: 1.375rem;
             font-weight: 700;
-            color: var(--primary-green);
+            color: var(--primary);
+        }
+        
+        /* Progress Bar */
+        .prayer-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .prayer-item.current .prayer-progress {
+            animation: progressPulse 2s infinite;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
         /* Calendar View */
         .calendar-container {
             display: none;
-            padding: 0 20px 30px;
+            padding: 0 20px 100px;
         }
         
         .calendar-container.active {
@@ -405,104 +432,91 @@
         }
         
         .calendar-header {
+            background: var(--gradient-surface);
+            border-radius: var(--radius-xl);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .calendar-nav {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            justify-content: space-between;
+            margin-bottom: 16px;
         }
         
         .calendar-title {
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--text-primary);
         }
         
-        .calendar-controls {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .calendar-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            color: var(--primary-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .calendar-btn:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: scale(1.05);
-        }
-        
-        .calendar-table {
-            background: var(--card-bg);
-            border-radius: 20px;
+        .calendar-grid {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
         
-        .calendar-row {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .calendar-row:last-child {
-            border-bottom: none;
-        }
-        
-        .calendar-row.header {
-            background: var(--gradient-green);
+        .calendar-header-row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--gradient-primary);
             color: white;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-size: 0.875rem;
         }
         
-        .calendar-cell {
-            flex: 1;
-            padding: 15px 10px;
+        .calendar-day {
+            padding: 12px;
             text-align: center;
-            font-size: 0.9rem;
-            min-width: 70px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .calendar-cell.date {
-            flex: 0.5;
-            min-width: 50px;
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        
+        .calendar-day-cell {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-day-cell:hover {
+            background: var(--surface-dark);
+        }
+        
+        .calendar-day-cell.current {
+            background: var(--gradient-primary);
+            color: white;
             font-weight: 600;
-            background: var(--soft-green);
         }
         
-        .calendar-cell.current {
-            background: rgba(22, 163, 74, 0.15);
-            color: var(--primary-green);
-            font-weight: 700;
-        }
-        
-        /* Navigation */
-        .bottom-navigation {
+        /* Bottom Navigation */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
+            background: var(--surface);
+            border-top: 1px solid var(--border);
             padding: 12px 20px;
             display: flex;
             justify-content: space-around;
-            z-index: 10;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
         }
         
         .nav-item {
@@ -512,15 +526,15 @@
             gap: 6px;
             color: var(--text-secondary);
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 16px;
+            padding: 10px 20px;
+            border-radius: var(--radius);
             transition: all 0.3s ease;
             position: relative;
         }
         
         .nav-item.active {
-            color: var(--primary-green);
-            background: var(--soft-green);
+            color: var(--primary);
+            background: var(--surface-dark);
         }
         
         .nav-item.active .nav-icon {
@@ -530,115 +544,164 @@
         .nav-item.active::after {
             content: '';
             position: absolute;
-            bottom: -12px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
-            background: var(--primary-green);
-            border-radius: 50%;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: var(--radius-full);
         }
         
         .nav-icon {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             transition: transform 0.3s ease;
         }
         
         .nav-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         /* Footer */
         .app-footer {
             text-align: center;
-            padding: 30px 20px 80px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            padding: 30px 20px;
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
         }
         
         .footer-text {
-            opacity: 0.8;
             font-style: italic;
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Responsive */
+        @media (max-width: 400px) {
+            .mosque-name {
+                font-size: 1.75rem;
+            }
+            
+            .current-time {
+                font-size: 2.2rem;
+            }
+            
+            .next-prayer-name {
+                font-size: 1.25rem;
+            }
+            
+            .next-prayer-time {
+                font-size: 1.5rem;
+            }
+            
+            .prayer-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
+            
+            .prayer-name-en {
+                font-size: 1rem;
+            }
+            
+            .jamaat-time {
+                font-size: 1.25rem;
+            }
         }
-        
-        .prayer-card {
-            animation: fadeIn 0.5s ease forwards;
-        }
-        
-        .prayer-card:nth-child(1) { animation-delay: 0.1s; }
-        .prayer-card:nth-child(2) { animation-delay: 0.2s; }
-        .prayer-card:nth-child(3) { animation-delay: 0.3s; }
-        .prayer-card:nth-child(4) { animation-delay: 0.4s; }
-        .prayer-card:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
-    <div class="bg-pattern"></div>
-    <div class="app-container">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-        
-        <!-- Main Header -->
-        <header class="main-header">
-            <h1 class="mosque-name">Masjid Al Hamzah</h1>
-            <p class="mosque-subtitle">HajiBagh, Buchpora, Sgr.</p>
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-bg"></div>
             
-            <!-- Current Time Card -->
-            <div class="current-time-card">
-                <div class="time-display">
-                    <div class="time-large" id="currentTime">12:00 PM</div>
+            <div class="header-top">
+                <button class="theme-switch" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="location-badge">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>HajiBagh, Buchpora</span>
                 </div>
-                <div class="date-display" id="currentDate">15 / JANUARY / 2026</div>
             </div>
             
-            <!-- Next Prayer Indicator -->
-            <div class="next-prayer-indicator">
-                <div class="next-label">Next Prayer</div>
-                <div class="next-prayer-name" id="nextPrayerName">Fajr</div>
-                <div class="next-prayer-time" id="nextPrayerTime">6:55 AM</div>
-                <div class="next-prayer-countdown" id="nextPrayerCountdown">In 2h 15m</div>
+            <div class="mosque-info">
+                <h1 class="mosque-name">Masjid Al Hamzah</h1>
+                <div class="mosque-tagline">Prayer Times & Jamaat Schedule</div>
+            </div>
+            
+            <!-- Time Section -->
+            <div class="time-section">
+                <div class="time-display">
+                    <div class="current-time" id="currentTime">12:00 PM</div>
+                </div>
+                <div class="date-section">
+                    <div class="current-date" id="currentDate">15 / JANUARY / 2026</div>
+                    <div class="current-day" id="currentDay">Sunday</div>
+                </div>
+            </div>
+            
+            <!-- Next Prayer Card -->
+            <div class="next-prayer-card">
+                <div class="next-prayer-content">
+                    <div class="next-label">Next Prayer</div>
+                    <div class="next-prayer-info">
+                        <div class="next-prayer-name" id="nextPrayerName">Fajr</div>
+                        <div class="next-prayer-time" id="nextPrayerTime">6:55 AM</div>
+                    </div>
+                    <div class="next-prayer-countdown" id="nextPrayerCountdown">In 2h 15m</div>
+                </div>
             </div>
         </header>
         
         <!-- Main Content -->
         <main>
-            <!-- Today's Prayer Times -->
-            <section class="prayer-times-section" id="todayView">
-                <h2 class="section-title">
-                    <i class="fas fa-clock"></i> Today's Prayer Times
-                </h2>
-                <div class="prayer-times-grid" id="prayerList">
-                    <!-- Prayer cards will be dynamically generated -->
+            <!-- Today's Prayers -->
+            <section class="prayer-list-container" id="todayView">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-pray"></i> Today's Prayers
+                    </h2>
+                </div>
+                
+                <div class="prayer-timeline" id="prayerList">
+                    <!-- Prayer items will be dynamically generated -->
                 </div>
             </section>
             
             <!-- Calendar View -->
             <section class="calendar-container" id="calendarView">
                 <div class="calendar-header">
-                    <div class="calendar-title" id="monthTitle">January 2026</div>
-                    <div class="calendar-controls">
-                        <button class="calendar-btn" id="prevMonthBtn">
+                    <div class="calendar-nav">
+                        <button class="theme-switch" id="prevMonthBtn">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="calendar-btn" id="nextMonthBtn">
+                        <div class="calendar-title" id="monthTitle">January 2026</div>
+                        <button class="theme-switch" id="nextMonthBtn">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-header-row">
+                            <div class="calendar-day">Sun</div>
+                            <div class="calendar-day">Mon</div>
+                            <div class="calendar-day">Tue</div>
+                            <div class="calendar-day">Wed</div>
+                            <div class="calendar-day">Thu</div>
+                            <div class="calendar-day">Fri</div>
+                            <div class="calendar-day">Sat</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays">
+                            <!-- Calendar days will be generated here -->
+                        </div>
+                    </div>
                 </div>
-                <div class="calendar-table" id="calendarTable">
-                    <!-- Calendar will be dynamically generated -->
+                
+                <div id="calendarTable">
+                    <!-- Calendar table will be generated here -->
                 </div>
             </section>
         </main>
@@ -649,7 +712,7 @@
         </footer>
         
         <!-- Bottom Navigation -->
-        <nav class="bottom-navigation">
+        <nav class="bottom-nav">
             <a href="#" class="nav-item active" data-view="today">
                 <i class="fas fa-clock nav-icon"></i>
                 <span class="nav-label">Today</span>
@@ -676,7 +739,7 @@
             } else {
                 themeIcon.className = 'fas fa-moon';
                 localStorage.setItem('theme', 'light');
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#16a34a');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10b981');
             }
         }
         
@@ -690,7 +753,7 @@
         
         themeToggle.addEventListener('click', toggleTheme);
         
-        // Prayer Data (same structure as before)
+        // Prayer Data
         const prayerData = {
             daily: {
                 fajr: { name: "Fajr", arabic: "الفجر", icon: "fas fa-sun", jamaat: "6:50 AM", offset: 47 },
@@ -781,13 +844,20 @@
         function updateDateTime() {
             const now = new Date();
             
+            // Update time
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+            
+            // Update date
             const day = now.getDate();
             const month = now.toLocaleString('en-US', { month: 'long' }).toUpperCase();
             const year = now.getFullYear();
             document.getElementById('currentDate').textContent = `${day} / ${month} / ${year}`;
             
-            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-            document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+            // Update day
+            const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const currentDay = dayNames[now.getDay()];
+            document.getElementById('currentDay').textContent = currentDay;
             
             return now;
         }
@@ -833,38 +903,35 @@
             for (const [key, prayer] of Object.entries(prayerData.daily)) {
                 const azaanTime = calculateAzaanTime(prayer.jamaat, prayer.offset);
                 
-                const prayerCard = document.createElement('div');
-                prayerCard.className = 'prayer-card';
-                prayerCard.id = `${key}Item`;
-                prayerCard.innerHTML = `
-                    <div class="prayer-card-header">
-                        <div class="prayer-icon-circle">
-                            <i class="${prayer.icon}"></i>
+                const prayerItem = document.createElement('div');
+                prayerItem.className = 'prayer-item';
+                prayerItem.id = `${key}Item`;
+                prayerItem.innerHTML = `
+                    <div class="prayer-item-content">
+                        <div class="prayer-left">
+                            <div class="prayer-icon">
+                                <i class="${prayer.icon}"></i>
+                            </div>
+                            <div class="prayer-details">
+                                <div class="prayer-name-en">${prayer.name}</div>
+                                <div class="prayer-name-ar arabic">${prayer.arabic}</div>
+                            </div>
                         </div>
-                        <div class="prayer-names">
-                            <div class="prayer-name-en">${prayer.name}</div>
-                            <div class="prayer-name-ar arabic-font">${prayer.arabic}</div>
-                        </div>
-                    </div>
-                    <div class="prayer-times-container">
-                        <div>
-                            <div class="time-label">Azaan</div>
-                            <div class="azaan-time">${azaanTime}</div>
-                        </div>
-                        <div>
-                            <div class="time-label">Jamaat</div>
+                        <div class="prayer-times">
+                            <div class="azaan-time">Azaan: ${azaanTime}</div>
                             <div class="jamaat-time">${prayer.jamaat}</div>
                         </div>
                     </div>
+                    <div class="prayer-progress"></div>
                 `;
-                prayerList.appendChild(prayerCard);
+                prayerList.appendChild(prayerItem);
             }
         }
 
         function updateCurrentPrayer(now) {
             const currentMinutes = now.getHours() * 60 + now.getMinutes();
             
-            document.querySelectorAll('.prayer-card').forEach(item => {
+            document.querySelectorAll('.prayer-item').forEach(item => {
                 item.classList.remove('current');
             });
             
@@ -990,17 +1057,6 @@
                 updateCurrentPrayer(now);
                 updateNextPrayer(now);
             }, 1000);
-            
-            // Add touch feedback
-            document.querySelectorAll('.prayer-card, .nav-item, .calendar-btn').forEach(item => {
-                item.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.95)';
-                });
-                
-                item.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
         });
     </script>
 </body>
