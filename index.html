@@ -47,6 +47,7 @@
         }
         
         .dark-mode {
+            /* Dark Theme - Green Color Scheme */
             --primary: #34d399;
             --primary-dark: #10b981;
             --primary-light: #6ee7b7;
@@ -125,24 +126,63 @@
             z-index: 1;
         }
         
-        .theme-switch {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-full);
-            background: var(--surface-dark);
-            border: 1px solid var(--border);
-            color: var(--primary);
-            font-size: 1.2rem;
-            cursor: pointer;
+        .theme-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
+        }
+        
+        .theme-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .theme-switch {
+            width: 60px;
+            height: 32px;
+            background: var(--surface-dark);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            position: relative;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .theme-switch:hover {
-            transform: rotate(30deg);
-            box-shadow: var(--shadow-green);
+        .theme-switch.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .theme-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .theme-switch.active .theme-slider {
+            transform: translateX(28px);
+            background: white;
+        }
+        
+        .theme-icon {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .theme-switch.active .theme-icon {
+            color: var(--primary);
         }
         
         .location-badge {
@@ -444,7 +484,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
         .calendar-title {
@@ -453,53 +493,87 @@
             color: var(--text-primary);
         }
         
-        .calendar-grid {
+        .calendar-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--surface-dark);
+            border: 2px solid var(--border);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* FIXED CALENDAR TABLE */
+        .calendar-table-container {
             background: var(--surface);
             border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            max-width: 100%;
+            overflow-x: auto;
         }
         
-        .calendar-header-row {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
+        .calendar-table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table th {
             background: var(--gradient-primary);
             color: white;
+            padding: 14px 8px;
+            text-align: center;
             font-weight: 600;
             font-size: 0.875rem;
-        }
-        
-        .calendar-day {
-            padding: 12px;
-            text-align: center;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
+        .calendar-table th:last-child {
+            border-right: none;
         }
         
-        .calendar-day-cell {
-            padding: 12px;
+        .calendar-table td {
+            padding: 12px 8px;
             text-align: center;
             border: 1px solid var(--border);
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
         
-        .calendar-day-cell:hover {
+        .calendar-table tr:nth-child(even) {
             background: var(--surface-dark);
         }
         
-        .calendar-day-cell.current {
-            background: var(--gradient-primary);
-            color: white;
+        .calendar-table td.date-cell {
             font-weight: 600;
+            color: var(--text-primary);
+            background: var(--surface);
+            width: 50px;
+        }
+        
+        .calendar-table td.current-day {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .calendar-table td.prayer-time {
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
         }
         
         /* Bottom Navigation */
@@ -608,6 +682,32 @@
             .jamaat-time {
                 font-size: 1.25rem;
             }
+            
+            .theme-label {
+                font-size: 0.75rem;
+            }
+            
+            .theme-switch {
+                width: 50px;
+                height: 28px;
+            }
+            
+            .theme-switch.active .theme-slider {
+                transform: translateX(20px);
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .theme-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            
+            .location-badge {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -618,9 +718,14 @@
             <div class="header-bg"></div>
             
             <div class="header-top">
-                <button class="theme-switch" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
+                <div class="theme-container">
+                    <div class="theme-label">DARK/LIGHT MODE</div>
+                    <div class="theme-switch" id="themeSwitch">
+                        <div class="theme-slider">
+                            <i class="fas fa-moon theme-icon"></i>
+                        </div>
+                    </div>
+                </div>
                 <div class="location-badge">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>HajiBagh, Buchpora</span>
@@ -675,33 +780,21 @@
             <section class="calendar-container" id="calendarView">
                 <div class="calendar-header">
                     <div class="calendar-nav">
-                        <button class="theme-switch" id="prevMonthBtn">
+                        <button class="calendar-btn" id="prevMonthBtn">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <div class="calendar-title" id="monthTitle">January 2026</div>
-                        <button class="theme-switch" id="nextMonthBtn">
+                        <button class="calendar-btn" id="nextMonthBtn">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
                     
-                    <div class="calendar-grid">
-                        <div class="calendar-header-row">
-                            <div class="calendar-day">Sun</div>
-                            <div class="calendar-day">Mon</div>
-                            <div class="calendar-day">Tue</div>
-                            <div class="calendar-day">Wed</div>
-                            <div class="calendar-day">Thu</div>
-                            <div class="calendar-day">Fri</div>
-                            <div class="calendar-day">Sat</div>
-                        </div>
-                        <div class="calendar-days" id="calendarDays">
-                            <!-- Calendar days will be generated here -->
-                        </div>
+                    <!-- FIXED CALENDAR TABLE -->
+                    <div class="calendar-table-container">
+                        <table class="calendar-table" id="calendarTable">
+                            <!-- Calendar will be dynamically generated -->
+                        </table>
                     </div>
-                </div>
-                
-                <div id="calendarTable">
-                    <!-- Calendar table will be generated here -->
                 </div>
             </section>
         </main>
@@ -726,18 +819,19 @@
     
     <script>
         // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
+        const themeSwitch = document.getElementById('themeSwitch');
+        const themeIcon = themeSwitch.querySelector('.theme-icon');
         
         function toggleTheme() {
+            themeSwitch.classList.toggle('active');
             document.body.classList.toggle('dark-mode');
             
             if (document.body.classList.contains('dark-mode')) {
-                themeIcon.className = 'fas fa-sun';
+                themeIcon.className = 'fas fa-sun theme-icon';
                 localStorage.setItem('theme', 'dark');
                 document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a');
             } else {
-                themeIcon.className = 'fas fa-moon';
+                themeIcon.className = 'fas fa-moon theme-icon';
                 localStorage.setItem('theme', 'light');
                 document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10b981');
             }
@@ -746,20 +840,21 @@
         // Load saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
+            themeSwitch.classList.add('active');
             document.body.classList.add('dark-mode');
-            themeIcon.className = 'fas fa-sun';
+            themeIcon.className = 'fas fa-sun theme-icon';
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a');
         }
         
-        themeToggle.addEventListener('click', toggleTheme);
+        themeSwitch.addEventListener('click', toggleTheme);
         
         // Prayer Data
         const prayerData = {
             daily: {
                 fajr: { name: "Fajr", arabic: "الفجر", icon: "fas fa-sun", jamaat: "6:50 AM", offset: 47 },
                 zuhr: { name: "Zuhr", arabic: "الظهر", icon: "fas fa-sun", jamaat: "1:00 PM", offset: 15 },
-                asr: { name: "Asr", arabic: "العصر", icon: "fas fa-cloud-sun", jamaat: "4:40 PM", offset: 15 },
-                maghrib: { name: "Maghrib", arabic: "المغرب", icon: "fas fa-sun", jamaat: "6:08 PM", offset: 6 },
+                asr: { name: "Asr", arabic: "العصر", icon: "fas fa-cloud-sun", jamaat: "4:30 PM", offset: 15 },
+                maghrib: { name: "Maghrib", arabic: "المغرب", icon: "fas fa-sun", jamaat: "6:05 PM", offset: 6 },
                 isha: { name: "Isha", arabic: "العشاء", icon: "fas fa-moon", jamaat: "7:40 PM", offset: 15 }
             },
             monthly: {
@@ -986,46 +1081,42 @@
         function renderCalendar() {
             const monthData = prayerData.monthly['2026-01'];
             const calendarTable = document.getElementById('calendarTable');
+            const now = new Date();
+            const currentDay = now.getDate();
+            
+            // Clear table
             calendarTable.innerHTML = '';
             
-            // Create header
-            const headerRow = document.createElement('div');
-            headerRow.className = 'calendar-row header';
+            // Create header row
+            const headerRow = document.createElement('tr');
             headerRow.innerHTML = `
-                <div class="calendar-cell">Date</div>
-                <div class="calendar-cell">Fajr</div>
-                <div class="calendar-cell">Sunrise</div>
-                <div class="calendar-cell">Zuhr</div>
-                <div class="calendar-cell">Asr</div>
-                <div class="calendar-cell">Maghrib</div>
-                <div class="calendar-cell">Isha</div>
+                <th>Date</th>
+                <th>Fajr</th>
+                <th>Sunrise</th>
+                <th>Zuhr</th>
+                <th>Asr</th>
+                <th>Maghrib</th>
+                <th>Isha</th>
             `;
             calendarTable.appendChild(headerRow);
             
-            // Create rows for each day
-            const now = new Date();
-            const currentDay = now.getDate();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-            
+            // Create data rows for each day (1-31)
             for (let day = 1; day <= 31; day++) {
                 const dayKey = day.toString().padStart(2, '0');
                 if (!monthData[dayKey]) break;
                 
                 const prayerTimes = monthData[dayKey];
-                const isCurrentDay = (currentDay === day && currentMonth === 0 && currentYear === 2026);
+                const isCurrentDay = (currentDay === day);
                 
-                const row = document.createElement('div');
-                row.className = 'calendar-row';
-                
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    <div class="calendar-cell date ${isCurrentDay ? 'current' : ''}">${day}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.fajr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.sunrise}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.zuhr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.asr}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.maghrib}</div>
-                    <div class="calendar-cell ${isCurrentDay ? 'current' : ''}">${prayerTimes.isha}</div>
+                    <td class="date-cell ${isCurrentDay ? 'current-day' : ''}">${day}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.fajr}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.sunrise}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.zuhr}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.asr}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.maghrib}</td>
+                    <td class="prayer-time ${isCurrentDay ? 'current-day' : ''}">${prayerTimes.isha}</td>
                 `;
                 calendarTable.appendChild(row);
             }
@@ -1057,6 +1148,15 @@
                 updateCurrentPrayer(now);
                 updateNextPrayer(now);
             }, 1000);
+            
+            // Calendar month navigation (placeholder functionality)
+            document.getElementById('prevMonthBtn').addEventListener('click', () => {
+                alert('Previous month navigation will be implemented with full calendar data');
+            });
+            
+            document.getElementById('nextMonthBtn').addEventListener('click', () => {
+                alert('Next month navigation will be implemented with full calendar data');
+            });
         });
     </script>
 </body>
