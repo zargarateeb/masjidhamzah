@@ -856,7 +856,6 @@
             white-space: nowrap;
         }
         
-        /* Column width adjustments - RAMADHAN DAY and DATE now fit text */
         .calendar-table th:nth-child(1),
         .calendar-table td:nth-child(1) {
             width: auto;
@@ -1034,128 +1033,350 @@
             .jamaat-time { font-size: 1.1rem; }
         }
         
-        /* Loading Screen */
+        /* ===== NEW GEOMETRIC LOADING SCREEN ===== */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: #ffffff;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f3fa 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
         }
-        
+
         .loading-screen.fade-out {
             opacity: 0;
             visibility: hidden;
         }
-        
-        .loading-content {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .loading-logo {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .loading-logo .crescent {
+
+        .loader {
             position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .geo-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-image: 
+                linear-gradient(45deg, #2a5f8a 1px, transparent 1px),
+                linear-gradient(-45deg, #2a5f8a 1px, transparent 1px),
+                linear-gradient(90deg, #2a5f8a 1px, transparent 1px),
+                linear-gradient(0deg, #2a5f8a 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: patternShift 20s linear infinite;
+        }
+
+        .geo-structure {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            z-index: 5;
+        }
+
+        .geo-ring {
+            position: absolute;
             top: 0;
-            right: 0;
-            font-size: 5rem;
-            opacity: 1;
-            animation: glow 2s ease-in-out infinite;
-            color: #a855f7;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 0;
+            transform-origin: center;
         }
-        
-        .loading-title {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-            font-family: 'Amiri', serif;
+
+        .square-ring-1 {
+            border: 2px solid rgba(42, 95, 138, 0.2);
+            transform: rotate(0deg);
+            animation: rotateSquare 15s linear infinite;
         }
-        
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            border: 4px solid #f3e8ff;
-            border-top: 4px solid #a855f7;
-            border-right: 4px solid #fbbf24;
-            border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+
+        .square-ring-1::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px dashed rgba(42, 95, 138, 0.3);
+            animation: rotateSquareReverse 20s linear infinite;
         }
-        
-        .loading-text {
-            color: #5b4b6b;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            margin-top: 20px;
-            animation: pulse 1.5s ease-in-out infinite;
-            font-weight: 500;
+
+        .diamond-ring {
+            border: 2px solid rgba(42, 95, 138, 0.25);
+            transform: rotate(45deg) scale(0.85);
+            animation: pulseGlow 3s ease-in-out infinite;
         }
-        
-        .loading-progress {
+
+        .octa-mask {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: transparent;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border: 2px solid rgba(42, 95, 138, 0.4);
+            animation: rotateSlow 25s linear infinite;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 0;
+            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+            box-shadow: 
+                0 0 0 2px rgba(42, 95, 138, 0.1),
+                0 10px 30px -10px rgba(42, 95, 138, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(2px);
+        }
+
+        .logo-container img {
+            width: 140px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(42, 95, 138, 0.15));
+        }
+
+        .geo-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .geo-particle {
+            position: absolute;
+            background: rgba(42, 95, 138, 0.1);
+            border: 1px solid rgba(42, 95, 138, 0.2);
+            width: 12px;
+            height: 12px;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            animation: floatParticle 8s infinite ease-in-out;
+        }
+
+        .geo-particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .geo-particle:nth-child(2) { top: 70%; left: 85%; animation-delay: 2s; width: 18px; height: 18px; }
+        .geo-particle:nth-child(3) { top: 80%; left: 15%; animation-delay: 4s; }
+        .geo-particle:nth-child(4) { top: 30%; left: 80%; animation-delay: 1s; width: 8px; height: 8px; }
+        .geo-particle:nth-child(5) { top: 50%; left: 45%; animation-delay: 3s; width: 20px; height: 20px; opacity: 0.15; }
+        .geo-particle:nth-child(6) { top: 15%; left: 70%; animation-delay: 5s; }
+        .geo-particle:nth-child(7) { top: 60%; left: 10%; animation-delay: 2.5s; width: 14px; height: 14px; }
+        .geo-particle:nth-child(8) { top: 40%; left: 30%; animation-delay: 0.5s; }
+
+        .progress-container {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 200px;
-            height: 4px;
-            background: #f3e8ff;
-            border-radius: 10px;
-            margin: 20px auto;
-            overflow: hidden;
+            text-align: center;
         }
-        
-        .loading-progress-bar {
+
+        .geo-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(42, 95, 138, 0.1);
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+
+        .geo-bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #fbbf24, #a855f7);
-            border-radius: 10px;
-            animation: progress 2s ease-in-out forwards;
+            background: linear-gradient(90deg, #2a5f8a, #4a8fc9);
+            animation: fillProgress 3s ease-in-out infinite;
+            clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
         }
-        
-        @keyframes spin {
+
+        .loading-text {
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: #2a5f8a;
+            font-weight: 300;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .loading-text span {
+            display: inline-block;
+            animation: textPop 2s infinite;
+        }
+
+        .loading-text span:nth-child(1) { animation-delay: 0s; }
+        .loading-text span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-text span:nth-child(3) { animation-delay: 0.4s; }
+        .loading-text span:nth-child(4) { animation-delay: 0.6s; }
+        .loading-text span:nth-child(5) { animation-delay: 0.8s; }
+        .loading-text span:nth-child(6) { animation-delay: 1s; }
+        .loading-text span:nth-child(7) { animation-delay: 1.2s; }
+
+        .arabic-text {
+            position: absolute;
+            bottom: -140px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 1rem;
+            color: #2a5f8a;
+            opacity: 0.6;
+            white-space: nowrap;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed rgba(42, 95, 138, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(42, 95, 138, 0.15);
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @keyframes rotateSquare {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        @keyframes rotateSquareReverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+
+        @keyframes rotateSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
+
+        @keyframes pulseGlow {
+            0%, 100% { border-color: rgba(42, 95, 138, 0.25); transform: rotate(45deg) scale(0.85); }
+            50% { border-color: rgba(42, 95, 138, 0.5); transform: rotate(45deg) scale(0.9); box-shadow: 0 0 20px rgba(42, 95, 138, 0.1); }
+        }
+
+        @keyframes patternShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; left: 0; }
+            50% { width: 100%; left: 0; }
+            100% { width: 0%; left: 100%; }
+        }
+
+        @keyframes textPop {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; color: #4a8fc9; }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- New Geometric Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="loading-logo">
-                <span class="crescent" style="position: relative; animation: glow 2s ease-in-out infinite;">🌙</span>
+        <!-- Corner accents -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Geometric background pattern -->
+        <div class="geo-bg"></div>
+
+        <div class="loader">
+            <!-- Rotating geometric rings -->
+            <div class="geo-ring square-ring-1"></div>
+            <div class="geo-ring diamond-ring"></div>
+            <div class="octa-mask"></div>
+
+            <!-- Floating geometric particles -->
+            <div class="geo-particles">
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
+                <div class="geo-particle"></div>
             </div>
-            <div class="loading-title">Masjid Al Hamzah</div>
-            <div class="loading-spinner"></div>
-            <div class="loading-progress">
-                <div class="loading-progress-bar"></div>
+
+            <!-- Logo in geometric container -->
+            <div class="logo-container">
+                <img src="https://ik.imagekit.io/ironclad/masjidlogo.png" alt="Masjid Al-Hamzah" 
+                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22100%22%20height%3D%22100%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cpolygon%20points%3D%2250%2C15%2085%2C35%2085%2C65%2050%2C85%2015%2C65%2015%2C35%22%20fill%3D%22%232a5f8a%22%20opacity%3D%220.9%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2265%22%20font-size%3D%2212%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffffff%22%3E%D9%85%3C%2Ftext%3E%3C%2Fsvg%3E';">
             </div>
-            <div class="loading-text">Loading Ramadan Times...</div>
+
+            <!-- Progress bar and loading text -->
+            <div class="progress-container">
+                <div class="geo-bar">
+                    <div class="geo-bar-fill"></div>
+                </div>
+                <div class="loading-text">
+                    <span>L</span><span>O</span><span>A</span><span>D</span><span>I</span><span>N</span><span>G</span>
+                </div>
+            </div>
+
+            <!-- Arabic phrase -->
+            <div class="arabic-text">
+                اَلسَلامُ عَلَيْكُم وَرَحْمَةُ اللهِ وَبَرَكاتُهُ
+            </div>
         </div>
     </div>
 
@@ -1301,7 +1522,6 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer"></div>
     
-    <!-- Service Worker Registration -->
     <script>
         // Register service worker for offline support
         if ('serviceWorker' in navigator) {
@@ -1361,7 +1581,7 @@
             }
         }
         
-        // Loading screen
+        // Loading screen - Updated to hide after 3 seconds
         window.addEventListener('load', function() {
             setTimeout(function() {
                 const loadingScreen = document.getElementById('loadingScreen');
@@ -1371,9 +1591,9 @@
                         if (loadingScreen.parentNode) {
                             loadingScreen.style.display = 'none';
                         }
-                    }, 500);
+                    }, 600);
                 }
-            }, 2000);
+            }, 3000);
         });
         
         const savedTheme = localStorage.getItem('theme');
