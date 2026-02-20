@@ -161,6 +161,15 @@
             z-index: 1;
             background: transparent;
         }
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
         
         /* Ramadan Header */
         .ramadan-header {
@@ -734,20 +743,20 @@
         
         /* Bottom Navigation */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 480px;
-            margin: 0 auto;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-around;
-            z-index: 100;
-            box-shadow: 0 -4px 20px var(--shadow);
-        }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 1000;  /* Higher z-index */
+    box-shadow: 0 -4px 20px var(--shadow);
+}
         
         .nav-item {
             display: flex;
@@ -776,24 +785,30 @@
         }
         
         /* Footer */
-        .app-footer {
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.875rem;
-            color: var(--text-tertiary);
-            border-top: 1px solid var(--border);
-        }
-        
-        .footer-text {
-            font-weight: 500;
-        }
-        
-        .ramadan-message {
-            font-family: 'Amiri', serif;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin-top: 10px;
-        }
+.app-footer {
+    text-align: center;
+    padding: 20px 20px 80px;  /* Increased bottom padding to clear nav */
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+    width: 100%;
+    background: var(--surface);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-text {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.ramadan-message {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-top: 10px;
+}
         
         @media (max-width: 400px) {
             .current-time { font-size: 2.2rem; }
@@ -802,9 +817,151 @@
             .prayer-icon { width: 40px; height: 40px; }
             .jamaat-time { font-size: 1.1rem; }
         }
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;  /* Pure white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.loading-logo {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.loading-logo .crescent {
+    position: relative;
+    top: 0;
+    right: 0;
+    font-size: 5rem;
+    opacity: 1;
+    animation: glow 2s ease-in-out infinite;
+    color: #a855f7;  /* Purple crescent */
+}
+
+.loading-title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);  /* Purple gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+    font-family: 'Amiri', serif;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border: 4px solid #f3e8ff;  /* Light purple border */
+    border-top: 4px solid #a855f7;  /* Purple top */
+    border-right: 4px solid #fbbf24;  /* Gold right */
+    border-radius: 50%;
+    animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.loading-text {
+    color: #5b4b6b;  /* Dark purple-gray text */
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    animation: pulse 1.5s ease-in-out infinite;
+    font-weight: 500;
+}
+
+.loading-progress {
+    width: 200px;
+    height: 4px;
+    background: #f3e8ff;  /* Light purple background */
+    border-radius: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.loading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #fbbf24, #a855f7);  /* Gold to purple gradient */
+    border-radius: 10px;
+    animation: progress 2s ease-in-out forwards;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
     </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+        <div class="loading-logo">
+            <span class="crescent" style="position: relative; animation: glow 2s ease-in-out infinite;">🌙</span>
+        </div>
+        <div class="loading-title">Masjid Al Hamzah</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+        <div class="loading-text">Loading Ramadan Times...</div>
+    </div>
+</div>
+
     <!-- Ramadan Decorative Elements -->
     <div class="ramadan-decoration">
         <div class="stars"></div>
@@ -926,10 +1083,10 @@
         </main>
         
         <!-- Footer -->
-        <footer class="app-footer">
-            <div class="footer-text">App Developed & Maintained by ATEEB ZARGAR</div>
-            <div class="ramadan-message">رمضان مبارک</div>
-        </footer>
+<footer class="app-footer">
+    <div class="footer-text">App Developed & Maintained by ATEEB ZARGAR</div>
+    <div class="ramadan-message">رمضان مبارک</div>
+</footer>
         
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
@@ -964,6 +1121,22 @@
             themeColorMeta.setAttribute('content', '#a855f7');
         }
     }
+    
+    // Loading screen
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            // Remove from DOM after animation
+            setTimeout(function() {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.style.display = 'none';
+                }
+            }, 500);
+        }
+    }, 2000); // Shows for 2 seconds
+});
     
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
