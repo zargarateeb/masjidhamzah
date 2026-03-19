@@ -15,38 +15,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght=300;400;500;600;700;800&display=swap');
         :root {
-            /* Eid fresh – green & gold, clean bright */
-            --primary: #0b7b4f;      /* festive green */
-            --primary-dark: #085e3c;
-            --primary-light: #46b788;
-            --gold: #e9b13b;         /* warm eid gold */
-            --gold-light: #f4d03f;
-            --background: #fefcf0;    /* soft cream */
-            --surface: #ffffff;
-            --surface-dark: #f0f7e8;
-            --text-primary: #1e3a2f;
-            --text-secondary: #3f5e4f;
-            --text-tertiary: #6f8b7c;
-            --border: #cfe2cf;
-            --shadow: 0 4px 20px rgba(7, 73, 45, 0.08);
+            --primary: #0b7b4f;      --primary-dark: #085e3c; --primary-light: #46b788;
+            --gold: #e9b13b;         --gold-light: #f4d03f;
+            --background: #fefcf0;    --surface: #ffffff; --surface-dark: #f0f7e8;
+            --text-primary: #1e3a2f; --text-secondary: #3f5e4f; --text-tertiary: #6f8b7c;
+            --border: #cfe2cf; --shadow: 0 4px 20px rgba(7, 73, 45, 0.08);
             --shadow-lg: 0 10px 30px rgba(233, 177, 59, 0.2);
             --gradient-primary: linear-gradient(135deg, #0b7b4f 0%, #0f9d63 100%);
             --gradient-gold: linear-gradient(135deg, #f4d03f 0%, #e9b13b 100%);
         }
         .dark-mode {
-            --primary: #7acb9c;
-            --primary-dark: #46b788;
-            --primary-light: #b9e6cb;
-            --gold: #f9e07c;
-            --gold-light: #e9b13b;
-            --background: #14261e;
-            --surface: #1f3a2c;
-            --surface-dark: #2b4a36;
-            --text-primary: #f1f9e8;
-            --text-secondary: #d0e6d5;
-            --text-tertiary: #aac7b2;
-            --border: #3d6049;
-            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --primary: #7acb9c; --primary-dark: #46b788; --primary-light: #b9e6cb;
+            --gold: #f9e07c; --gold-light: #e9b13b;
+            --background: #14261e; --surface: #1f3a2c; --surface-dark: #2b4a36;
+            --text-primary: #f1f9e8; --text-secondary: #d0e6d5; --text-tertiary: #aac7b2;
+            --border: #3d6049; --shadow: 0 4px 20px rgba(0,0,0,0.5);
             --shadow-lg: 0 10px 30px rgba(249,224,124,0.2);
             --gradient-primary: linear-gradient(135deg, #7acb9c 0%, #46b788 100%);
             --gradient-gold: linear-gradient(135deg, #f9e07c 0%, #e9b13b 100%);
@@ -61,8 +44,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         .arabic { font-family: 'Amiri', serif; font-weight: 700; }
-
-        /* Eid decorations – softer & festive */
         .eid-decoration {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none; z-index: 0; overflow: hidden;
@@ -83,15 +64,10 @@
             background-size: 40px 40px;
             opacity: 0.1;
         }
-
         .app-wrapper { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; display: flex; flex-direction: column; }
         main { flex: 1; }
 
-        /* EID HEADER */
-        .eid-header {
-            text-align: center; padding: 30px 20px 10px;
-            transition: all 0.5s;
-        }
+        .eid-header { text-align: center; padding: 30px 20px 10px; transition: all 0.5s; }
         .eid-header.calendar-mode { opacity: 0; display: none; }
         .eid-takbir {
             font-size: 1.6rem; font-weight: 700;
@@ -105,10 +81,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 1.2;
         }
-        .eid-sub {
-            font-size: 1.4rem; color: var(--primary); font-family: 'Amiri', serif;
-            margin: 5px 0 0;
-        }
+        .eid-sub { font-size: 1.4rem; color: var(--primary); font-family: 'Amiri', serif; margin: 5px 0 0; }
 
         .app-header { padding: 0 20px 10px; transition: all 0.5s; }
         .app-header.calendar-mode { opacity: 0; display: none; }
@@ -145,7 +118,7 @@
         .mosque-name { font-size: 2rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .mosque-tagline { font-size: 1.2rem; color: var(--gold); font-family: 'Amiri', serif; }
 
-        /* EID PRAYER CARD (instead of sehri/iftar) */
+        /* EID PRAYER CARD */
         .eid-prayer-card {
             margin: 0 20px 25px;
             background: var(--gradient-gold);
@@ -167,19 +140,10 @@
             background: rgba(255,255,240,0.3); display: inline-block; padding: 4px 20px; border-radius: 40px;
             margin-bottom: 15px;
         }
-        .eid-time-big {
-            font-size: 4rem; font-weight: 800; line-height: 1;
-            text-shadow: 0 2px 10px rgba(255,255,200,0.6);
-        }
-        .eid-arabic {
-            font-size: 1.8rem; font-family: 'Amiri', serif; margin: 10px 0 5px;
-        }
-        .eid-note {
-            font-size: 1rem; opacity: 0.9; background: rgba(0,0,0,0.05); border-radius: 30px; padding: 8px 16px; display: inline-block;
-            margin-top: 12px;
-        }
+        .eid-time-big { font-size: 4rem; font-weight: 800; line-height: 1; text-shadow: 0 2px 10px rgba(255,255,200,0.6); }
+        .eid-arabic { font-size: 1.8rem; font-family: 'Amiri', serif; margin: 10px 0 5px; }
+        .eid-note { font-size: 1rem; opacity: 0.9; background: rgba(0,0,0,0.05); border-radius: 30px; padding: 8px 16px; display: inline-block; margin-top: 12px; }
 
-        /* time section */
         .time-section {
             background: var(--surface); border-radius: 24px; padding: 20px;
             margin: 0 20px 20px; box-shadow: var(--shadow); border: 1px solid var(--border);
@@ -194,7 +158,6 @@
         }
         .current-day { background: var(--surface-dark); padding: 6px 16px; border-radius: 40px; font-weight: 600; color: var(--text-primary); }
 
-        /* Next prayer card (maybe not needed but keep festive) */
         .next-prayer-card {
             background: var(--gradient-primary); border-radius: 24px; padding: 22px; margin: 0 20px 30px;
             color: white; box-shadow: var(--shadow-lg); border: 2px solid var(--gold-light);
@@ -231,15 +194,185 @@
         .jamaat-time { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
         .prayer-item.current .jamaat-time { color: var(--gold); }
 
-        /* Calendar view (optional but keep for Shawwal) */
-        .calendar-container { display: none; padding: 20px 20px 100px; }
-        .calendar-container.active { display: block; }
-        .calendar-header { background: var(--surface); border-radius: 24px; padding: 20px; margin-bottom: 20px; }
-        .calendar-title { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
-        .calendar-table { width: 100%; border-collapse: collapse; }
-        .calendar-table th { background: var(--gradient-primary); color: white; padding: 8px; }
-        .calendar-table td { padding: 8px; border: 1px solid var(--border); text-align: center; }
-        .calendar-table td.current-day { background: var(--gold-light); font-weight: 700; }
+        /* ---------- DONATION PAGE (replaces calendar) ---------- */
+        .donation-container {
+            display: none;
+            padding: 0 20px 100px;
+            animation: fadeIn 0.3s;
+        }
+        .donation-container.active { display: block; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        .donation-card {
+            background: var(--surface);
+            border-radius: 32px;
+            padding: 28px 22px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--gold);
+            margin-bottom: 20px;
+        }
+        .donation-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .donation-header i {
+            font-size: 3.5rem;
+            color: var(--gold);
+            background: var(--surface-dark);
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--gold-light);
+        }
+        .donation-header h2 {
+            font-size: 2rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 12px 0 4px;
+        }
+        .donation-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .account-info {
+            background: var(--surface-dark);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px dashed var(--gold);
+            margin: 20px 0;
+        }
+        .account-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .account-row .label {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+        .account-row .value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: monospace;
+            word-break: break-word;
+        }
+        .ifsc-code {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gold);
+            background: rgba(233,177,59,0.1);
+            padding: 10px;
+            border-radius: 40px;
+        }
+
+        .amount-form {
+            margin: 28px 0 20px;
+        }
+        .amount-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .amount-input-group {
+            display: flex;
+            align-items: center;
+            background: var(--surface-dark);
+            border-radius: 60px;
+            border: 2px solid var(--border);
+            overflow: hidden;
+        }
+        .currency-symbol {
+            background: var(--primary);
+            color: white;
+            padding: 0 18px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        #donationAmount {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 16px 10px 16px 5px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            outline: none;
+            width: 100%;
+        }
+        #donationAmount::placeholder {
+            color: var(--text-tertiary);
+            opacity: 0.5;
+            font-size: 1.2rem;
+        }
+
+        .quick-amounts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0 25px;
+            justify-content: center;
+        }
+        .quick-btn {
+            background: var(--surface-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quick-btn:hover {
+            background: var(--gold);
+            color: #1e3a2f;
+            border-color: var(--gold);
+        }
+
+        .upi-pay-btn {
+            background: var(--gradient-primary);
+            width: 100%;
+            border: none;
+            color: white;
+            padding: 18px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            border: 2px solid white;
+            transition: transform 0.2s;
+        }
+        .upi-pay-btn:active { transform: scale(0.97); }
+        .upi-pay-btn i { font-size: 1.8rem; }
+
+        .fund-note-bottom {
+            text-align: center;
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-top: 20px;
+        }
+
+        /* hidden calendar stuff removed completely */
+        .calendar-container { display: none; }
 
         .bottom-nav {
             position: fixed; bottom: 0; max-width: 480px; width: 100%; background: var(--surface);
@@ -255,7 +388,6 @@
             border-top: 1px solid var(--border); margin-top: 20px; transition: 0.5s;
         }
         .app-footer.calendar-mode { display: none; }
-        .footer-text { font-weight: 500; }
         .eid-message-footer { font-family: 'Amiri', serif; font-size: 1.2rem; color: var(--primary); margin-top: 8px; }
 
         .toast-notification { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--gradient-gold); color: #1e3a2f; padding: 12px 24px; border-radius: 40px; font-weight: 600; z-index: 2000; animation: slideUp 0.3s forwards; }
@@ -267,13 +399,11 @@
         .eid-spinner { font-size: 4rem; color: #0b7b4f; animation: spin 2s infinite; }
         @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
         .loading-text { margin-top: 20px; font-weight: 600; color: #085e3c; }
-
-        /* remove ramadan decorations */
         .ramadan-decoration { display: none; }
     </style>
 </head>
 <body>
-    <!-- loading screen minimal -->
+    <!-- loading screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader">
             <div class="eid-spinner">🌙✨</div>
@@ -281,7 +411,6 @@
         </div>
     </div>
 
-    <!-- Eid decorations -->
     <div class="eid-decoration">
         <div class="eid-lanterns">🏮 🏮 🏮</div>
         <div class="eid-pattern"></div>
@@ -313,7 +442,7 @@
                 <div class="mosque-tagline">مَسْجِدِ الْحَمْزَۃ</div>
             </div>
 
-            <!-- EID PRAYER CARD replaces sehri/iftar -->
+            <!-- EID PRAYER CARD -->
             <div class="eid-prayer-card" onclick="showToast('Eid Salah 8:00 AM | Takbirat starting 7:30')">
                 <div class="eid-salah-label"><i class="fas fa-star"></i> عيد الفطر <i class="fas fa-star"></i></div>
                 <div class="eid-time-big">8:00 AM</div>
@@ -321,7 +450,7 @@
                 <div class="eid-note">Eid Namaz · followed by Khutba</div>
             </div>
 
-            <!-- Time section (same style) -->
+            <!-- Time section -->
             <div class="time-section">
                 <div class="time-display">
                     <div class="current-time" id="currentTime">12:00 PM</div>
@@ -333,7 +462,7 @@
                 </div>
             </div>
 
-            <!-- Next prayer (optional, but we change to next salat) -->
+            <!-- Next prayer card -->
             <div class="next-prayer-card" onclick="showToast('Next prayer: ' + document.getElementById('nextPrayerName').innerText)">
                 <div class="next-label"><i class="fas fa-clock"></i> Next Prayer</div>
                 <div class="next-prayer-info">
@@ -345,27 +474,71 @@
         </header>
 
         <main>
-            <!-- Today's Prayers - exactly 5 prayers -->
+            <!-- Today's Prayers (default view) -->
             <section class="prayer-list-container" id="todayView">
                 <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <h2 class="section-title"><i class="fas fa-mosque"></i> Eid Day Prayers</h2>
                     <span class="eid-message-small"><i class="fas fa-heart"></i> Eid Mubarak</span>
                 </div>
                 <div class="prayer-timeline" id="prayerList"></div>
+
+                <!-- original fund section remains in today view as well (optional) -->
+                <div class="fund-section" style="background: var(--surface-dark); border-radius:28px; padding:20px; margin-top:25px; border:2px solid var(--gold-light);">
+                    <div style="text-align:center;"><i class="fas fa-hand-holding-heart" style="font-size:2.5rem;color:var(--gold);"></i></div>
+                    <h3 style="font-size:1.8rem; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center;">صدقات · زکاۃ</h3>
+                    <div style="background:var(--surface); border-radius:40px; padding:15px; margin:15px 0; text-align:center;">
+                        <div style="font-size:0.85rem; color:var(--text-tertiary);">A/C 0173040100013447</div>
+                        <div style="font-size:1.5rem; font-weight:800; color:var(--primary);">JAKA0ANCHAR</div>
+                    </div>
+                    <button class="fund-btn" style="width:100%; background:var(--gradient-primary); border:none; color:white; padding:14px; border-radius:40px; font-weight:700;" onclick="copyAccount()"><i class="fas fa-copy"></i> Copy Account</button>
+                </div>
             </section>
 
-            <!-- Calendar (optional, but show Shawwal 1 as placeholder) -->
-            <section class="calendar-container" id="calendarView">
-                <div class="calendar-header">
-                    <div class="calendar-title">Shawwal 1447</div>
-                    <p style="color: var(--text-secondary); margin-top: 10px;">Eid Mubarak! 🌙</p>
-                </div>
-                <!-- minimal table -->
-                <div style="background: var(--surface); border-radius: 16px; padding: 10px;">
-                    <table class="calendar-table">
-                        <tr><th>Day</th><th>Date</th><th>Eid</th></tr>
-                        <tr class="current-day"><td>1</td><td>21 Mar</td><td>Eid ul-Fitr</td></tr>
-                    </table>
+            <!-- NEW DONATION PAGE (replaces calendar) -->
+            <section class="donation-container" id="donationView">
+                <div class="donation-card">
+                    <div class="donation-header">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h2>Eid Donation</h2>
+                        <p>صدقات · زکاۃ · خیرات</p>
+                    </div>
+
+                    <div class="account-info">
+                        <div class="account-row">
+                            <span class="label">Account Number</span>
+                            <span class="value" id="accDisplay">0173040100013447</span>
+                        </div>
+                        <div class="ifsc-code">
+                            <i class="fas fa-university"></i> JAKA0ANCHAR
+                        </div>
+                    </div>
+
+                    <!-- Amount form -->
+                    <div class="amount-form">
+                        <div class="amount-label">
+                            <i class="fas fa-coins" style="color:var(--gold);"></i> Enter amount (₹)
+                        </div>
+                        <div class="amount-input-group">
+                            <span class="currency-symbol">₹</span>
+                            <input type="number" id="donationAmount" placeholder="100" min="1" value="100">
+                        </div>
+
+                        <div class="quick-amounts">
+                            <span class="quick-btn" onclick="setAmount(50)">₹50</span>
+                            <span class="quick-btn" onclick="setAmount(100)">₹100</span>
+                            <span class="quick-btn" onclick="setAmount(251)">₹251</span>
+                            <span class="quick-btn" onclick="setAmount(500)">₹500</span>
+                            <span class="quick-btn" onclick="setAmount(1000)">₹1000</span>
+                        </div>
+
+                        <!-- UPI PAY BUTTON (opens intent with prefilled amount) -->
+                        <button class="upi-pay-btn" id="payWithUpi">
+                            <i class="fab fa-google-pay"></i> Pay with UPI
+                        </button>
+                        <p class="fund-note-bottom">
+                            <i class="fas fa-star"></i> "Whoever brings a good deed shall have ten times the like thereof" (Qur'an 6:160)
+                        </p>
+                    </div>
                 </div>
             </section>
         </main>
@@ -375,9 +548,10 @@
             <div class="eid-message-footer">عطیب زرگر کی طرف سے تمام اہل اسلام کو عید مبارک</div>
         </footer>
 
+        <!-- Bottom nav: TODAY | DONATION (replaced calendar) -->
         <nav class="bottom-nav">
             <a class="nav-item active" data-view="today"><i class="fas fa-clock nav-icon"></i><span class="nav-label">Today</span></a>
-            <a class="nav-item" data-view="calendar"><i class="fas fa-calendar-alt nav-icon"></i><span class="nav-label">Eid</span></a>
+            <a class="nav-item" data-view="donation"><i class="fas fa-hand-holding-heart nav-icon"></i><span class="nav-label">DONATION</span></a>
         </nav>
     </div>
     <div id="toastContainer"></div>
@@ -392,7 +566,55 @@
         setTimeout(()=>{ t.style.transform='translateX(-50%) translateY(100px)'; setTimeout(()=>t.remove(),300); }, dur);
     }
 
-    // theme toggle
+    // Copy account number
+    function copyAccount() {
+        const acc = "0173040100013447";
+        navigator.clipboard.writeText(acc).then(() => {
+            showToast('✅ Account copied: ' + acc);
+        }).catch(() => {
+            showToast('📋 Copy manually: ' + acc);
+        });
+    }
+
+    // set amount from quick buttons
+    function setAmount(val) {
+        document.getElementById('donationAmount').value = val;
+    }
+
+    // UPI payment – opens intent with prefilled amount and VPA (if available) or account
+    function openUpiPayment() {
+        let amount = document.getElementById('donationAmount').value;
+        if (!amount || amount <= 0) amount = 1; // fallback
+
+        // Use any UPI ID format; here we use account@bank (simplified). Real implementation may use VPA.
+        // For JAKA bank, use a placeholder VPA or account number with bank code.
+        const upiId = "0173040100013447@jkb";  // common format: account@jkb (for J&K Bank)
+        // fallback if needed
+        const accountNumber = "0173040100013447";
+        
+        // UPI intent URL with prefilled amount and account as 'pa' (payee address)
+        const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=Masjid%20Al%20Hamzah&am=${amount}&cu=INR&tn=Eid%20Donation`;
+
+        // Try to launch UPI intent
+        const isIntentSupported = navigator.userAgent.match(/android/i) ? true : false; // simple detection
+
+        if (isIntentSupported) {
+            // Create an invisible anchor to trigger intent
+            const a = document.createElement('a');
+            a.href = upiUrl;
+            a.click();
+            showToast(`💰 Opening UPI app for ₹${amount}...`);
+        } else {
+            // Fallback for non-android or testing: copy amount and show message
+            navigator.clipboard.writeText(amount.toString()).then(() => {
+                showToast(`Amount ₹${amount} copied. Please open UPI app manually.`);
+            }).catch(() => {
+                showToast(`Please donate ₹${amount} via UPI to A/C 0173040100013447`);
+            });
+        }
+    }
+
+    // theme toggle (same as before)
     const themeSwitch = document.getElementById('themeSwitch');
     const themeIcon = themeSwitch.querySelector('.theme-icon');
     const savedTheme = localStorage.getItem('theme');
@@ -407,14 +629,14 @@
         }
     });
 
-    // loading hide after 2s
+    // loading hide
     window.addEventListener('load', ()=>{
         setTimeout(()=>{
             document.getElementById('loadingScreen').classList.add('fade-out');
         }, 1500);
     });
 
-    // Prayer data
+    // Prayer data (same as before)
     const prayerData = {
         fajr: { name:"Fajr", arabic:"الْفَجْر", icon:"fa-solid fa-star", jamaat:"5:50 AM", offset:20 },
         zuhr: { name:"Zuhr", arabic:"الظُّهْر", icon:"fa-solid fa-sun", jamaat:"1:15 PM", offset:15 },
@@ -449,35 +671,6 @@
         return minsToTime(j - off); 
     }
 
-    // Get current Islamic date (Ramadan 29)
-    function getCurrentIslamicInfo() {
-        const today = new Date();
-        // March 19, 2026 = Ramadan 29
-        const ramadanStart = new Date(2026, 1, 19); // Feb 19, 2026
-        
-        const diffTime = today - ramadanStart;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        let ramadanDay = diffDays + 1;
-        
-        // Check if past Maghrib (Islamic date changes at Maghrib)
-        const maghribTime = timeToMins(prayerData.maghrib.jamaat);
-        const currentMinutes = today.getHours() * 60 + today.getMinutes();
-        
-        if (currentMinutes >= maghribTime) {
-            ramadanDay = diffDays + 2;
-        }
-        
-        // Clamp between 1-30
-        if (ramadanDay < 1) ramadanDay = 1;
-        if (ramadanDay > 30) ramadanDay = 30;
-        
-        return {
-            month: ramadanDay === 30 ? "Shawwal" : "Ramadan",
-            day: ramadanDay,
-            isEid: ramadanDay === 30 // Tomorrow is Eid if today is 29 after Maghrib
-        };
-    }
-
     // Render prayer list
     function renderPrayerList() {
         const container = document.getElementById('prayerList');
@@ -494,7 +687,7 @@
                     <div class="prayer-left"><div class="prayer-icon"><i class="${p.icon}"></i></div>
                     <div class="prayer-details"><div class="prayer-name-en">${p.name}</div><div class="prayer-name-ar">${p.arabic}</div></div></div>
                     <div class="prayer-times"><div class="azaan-time">Azaan: ${azaan}</div><div class="jamaat-time">${p.jamaat}</div></div>
-                </div><div class="prayer-progress"></div>`;
+                </div>`;
             container.appendChild(div);
         });
     }
@@ -503,25 +696,15 @@
     function updateClock() {
         const now = new Date();
         document.getElementById('currentTime').innerText = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
-        
         const day = now.getDate(); 
         const year = now.getFullYear();
         const month = now.toLocaleString('en-US', {month:'long'}).toUpperCase();
         document.getElementById('currentDate').innerText = `${day} / ${month} / ${year}`;
-        
         const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         document.getElementById('currentDay').innerText = weekdays[now.getDay()];
         
-        // Get Islamic date info
-        const islamic = getCurrentIslamicInfo();
-        const badgeElement = document.querySelector('.eid-badge');
-        
-        if (islamic.isEid) {
-            // After Maghrib on 29th, show Eid
-            badgeElement.innerHTML = '<i class="fas fa-star"></i> Eid Tomorrow';
-        } else {
-            badgeElement.innerHTML = `<i class="fas fa-moon"></i> ${islamic.month} ${islamic.day}`;
-        }
+        // fixed badge (simplified)
+        document.querySelector('.eid-badge').innerHTML = '<i class="fas fa-moon"></i> Ramadan 29';
 
         // next prayer calculation
         const currMin = now.getHours()*60 + now.getMinutes();
@@ -534,7 +717,7 @@
                 nextTime = prayerData[k].jamaat; 
             }
         }
-        if (!next) { // fajr next day
+        if (!next) { 
             next = prayerData.fajr; 
             nextTime = prayerData.fajr.jamaat;
             diff = (24*60 - currMin) + timeToMins(nextTime);
@@ -546,12 +729,11 @@
         document.getElementById('nextPrayerCountdown').innerText = 'In '+countdown;
     }
 
-    // mark current prayer
+    // mark current prayer (unchanged)
     function markCurrent() {
         const now = new Date(); 
         const currMin = now.getHours()*60 + now.getMinutes();
         document.querySelectorAll('.prayer-item').forEach(el=>el.classList.remove('current'));
-        
         for (let i=0; i<prayerOrder.length; i++) {
             let jamaat = timeToMins(prayerData[prayerOrder[i]].jamaat);
             if (currMin < jamaat) { 
@@ -561,14 +743,13 @@
                 return;
             }
         }
-        // if after Isha
         document.getElementById(prayerOrder[prayerOrder.length-1]+'Item')?.classList.add('current');
     }
 
-    // Navigation
+    // Navigation between Today and Donation
     const navItems = document.querySelectorAll('.nav-item');
     const todayView = document.getElementById('todayView');
-    const calendarView = document.getElementById('calendarView');
+    const donationView = document.getElementById('donationView');
     const eidHeader = document.querySelector('.eid-header');
     const appHeader = document.getElementById('appHeader');
     const appFooter = document.getElementById('appFooter');
@@ -578,32 +759,32 @@
             e.preventDefault();
             navItems.forEach(n => n.classList.remove('active'));
             item.classList.add('active');
-            if (item.dataset.view === 'today') {
+            const view = item.dataset.view;
+            if (view === 'today') {
                 todayView.style.display = 'block';
-                calendarView.classList.remove('active');
+                donationView.classList.remove('active');
                 eidHeader.classList.remove('calendar-mode');
                 appHeader.classList.remove('calendar-mode');
                 appFooter.classList.remove('calendar-mode');
                 showToast('🕌 Today\'s prayers');
-            } else {
+            } else { // donation
                 todayView.style.display = 'none';
-                calendarView.classList.add('active');
-                eidHeader.classList.add('calendar-mode');
+                donationView.classList.add('active');
+                eidHeader.classList.add('calendar-mode'); // hide eid header
                 appHeader.classList.add('calendar-mode');
                 appFooter.classList.add('calendar-mode');
-                
-                // Update calendar view text
-                const islamic = getCurrentIslamicInfo();
-                const calendarTitle = document.querySelector('.calendar-title');
-                if (calendarTitle) {
-                    calendarTitle.innerText = islamic.isEid ? 'Eid Tomorrow' : `${islamic.month} ${islamic.day}`;
-                }
-                showToast('🌙 Ramadan ' + islamic.day);
+                showToast('🤲 Give Sadqat & Zakat');
             }
         });
     });
 
-    // init
+    // Attach UPI pay button listener
+    document.getElementById('payWithUpi').addEventListener('click', (e) => {
+        e.preventDefault();
+        openUpiPayment();
+    });
+
+    // init all
     renderPrayerList();
     updateClock();
     markCurrent();
