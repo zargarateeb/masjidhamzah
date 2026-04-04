@@ -4,519 +4,936 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Masjid Al Hamzah – Prayer Times</title>
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <!-- iOS Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Al Hamzah">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
-        /* DARK THEME DEFAULT (base) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Fresh Light Design System */
         :root {
-            --primary: #7acb9c; --primary-dark: #46b788; --primary-light: #b9e6cb;
-            --gold: #f9e07c; --gold-light: #e9b13b;
-            --background: #14261e; --surface: #1f3a2c; --surface-dark: #2b4a36;
-            --text-primary: #f1f9e8; --text-secondary: #d0e6d5; --text-tertiary: #aac7b2;
-            --border: #3d6049; --shadow: 0 4px 20px rgba(0,0,0,0.5);
-            --shadow-lg: 0 10px 30px rgba(249,224,124,0.2);
-            --gradient-primary: linear-gradient(135deg, #7acb9c 0%, #46b788 100%);
-            --gradient-gold: linear-gradient(135deg, #f9e07c 0%, #e9b13b 100%);
+            --bg-body: #F5F3F0;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-elevated: #F8F6F4;
+            --text-primary: #1C2A2F;
+            --text-secondary: #5D6E6F;
+            --text-muted: #8B9A8E;
+            --accent-emerald: #1F8A4C;
+            --accent-emerald-light: #E3F5E9;
+            --accent-gold: #D4A13E;
+            --accent-gold-soft: #FEF5E6;
+            --accent-coral: #E06D4A;
+            --border-light: #EAE5DF;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+            --radius-xl: 32px;
+            --radius-2xl: 40px;
+            --radius-full: 9999px;
         }
-        /* Light theme variables */
-        body.light-mode {
-            --primary: #0b7b4f; --primary-dark: #085e3c; --primary-light: #46b788;
-            --gold: #e9b13b; --gold-light: #f4d03f;
-            --background: #fefcf0; --surface: #ffffff; --surface-dark: #f0f7e8;
-            --text-primary: #1e3a2f; --text-secondary: #3f5e4f; --text-tertiary: #6f8b7c;
-            --border: #cfe2cf; --shadow: 0 4px 20px rgba(7, 73, 45, 0.08);
-            --shadow-lg: 0 10px 30px rgba(233, 177, 59, 0.2);
-            --gradient-primary: linear-gradient(135deg, #0b7b4f 0%, #0f9d63 100%);
-            --gradient-gold: linear-gradient(135deg, #f4d03f 0%, #e9b13b 100%);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background-color: var(--bg-body);
             color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.5;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .arabic { font-family: 'Amiri', serif; font-weight: 700; }
-
-        /* Fixed decorations - refined elegance */
-        .eid-decoration {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none; z-index: 0; overflow: hidden;
-        }
-        .eid-lanterns {
-            position: absolute; top: 20px; left: 0; right: 0;
-            display: flex; justify-content: space-around; opacity: 0.12;
-            font-size: 3.8rem; color: var(--gold);
-        }
-        .eid-moon {
-            position: absolute; bottom: 30px; right: 20px;
-            font-size: 5rem; opacity: 0.08; transform: rotate(10deg);
-            color: var(--primary);
-        }
-        .eid-pattern {
-            position: absolute; inset: 0;
-            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.08;
+            line-height: 1.4;
+            padding-bottom: 80px;
         }
 
-        .app-wrapper { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; z-index: 1; display: flex; flex-direction: column; }
-        main { flex: 1; }
+        /* Container */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 18px 100px 18px;
+            position: relative;
+        }
 
         /* Header */
-        .app-header { padding: 0 20px 10px; }
-        .header-top {
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--surface); backdrop-filter: blur(10px);
-            padding: 10px 18px; border-radius: 40px; border: 1px solid var(--border);
-            box-shadow: var(--shadow); margin-bottom: 20px;
+        .header-section {
+            margin-bottom: 28px;
         }
-        .theme-container { display: flex; align-items: center; gap: 10px; }
-        .theme-label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); }
-        .theme-switch {
-            width: 56px; height: 30px; background: var(--surface-dark);
-            border: 2px solid var(--border); border-radius: 999px; position: relative;
-            cursor: pointer; transition: 0.3s;
+        .greeting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
         }
-        .theme-switch.active { background: var(--gradient-gold); border-color: var(--gold); }
-        .theme-slider {
-            position: absolute; top: 2px; left: 2px; width: 22px; height: 22px;
-            background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.3s; box-shadow: var(--shadow);
+        .greeting h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
         }
-        .theme-switch.active .theme-slider { transform: translateX(26px); }
-        .theme-icon { font-size: 0.7rem; color: var(--text-secondary); transition: 0.5s; }
-        .theme-switch.active .theme-icon { color: var(--primary-dark); transform: rotate(360deg); }
-
-        .location-badge {
-            background: var(--surface-dark); border: 1px solid var(--border); border-radius: 40px;
-            padding: 6px 16px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);
-            display: flex; align-items: center; gap: 6px; cursor: pointer;
+        .greeting p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .theme-toggle {
+            background: var(--bg-surface);
+            width: 44px;
+            height: 44px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            cursor: pointer;
             transition: all 0.2s;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
         }
-        .location-badge:active { transform: scale(0.96); }
-        .mosque-info { text-align: center; margin-bottom: 20px; }
-        .mosque-name { font-size: 2rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-        .mosque-tagline { font-size: 1.2rem; color: var(--gold); font-family: 'Amiri', serif; opacity: 0.9; }
-
-        /* Jumu'ah / Special Card - refined from Eid card (non-Eid) */
-        .feature-card {
-            margin: 0 20px 25px;
-            background: var(--gradient-gold);
-            border-radius: 36px;
-            padding: 24px 20px;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid rgba(255,255,240,0.5);
+        .theme-toggle:active { transform: scale(0.94); }
+        .location-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-surface);
+            padding: 8px 16px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+            width: fit-content;
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+        }
+        .masjid-name {
+            margin-top: 20px;
             text-align: center;
-            color: #1e3a2f;
+        }
+        .masjid-name h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, var(--accent-emerald), var(--accent-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .masjid-name span {
+            font-family: 'Amiri', serif;
+            font-size: 1rem;
+            color: var(--accent-gold);
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* Time & Date Card */
+        .datetime-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            padding: 20px 24px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(2px);
+        }
+        .clock-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .current-time {
+            font-size: 2.9rem;
+            font-weight: 800;
+            font-feature-settings: 'tnum';
+            letter-spacing: 1px;
+            color: var(--accent-emerald);
+        }
+        .date-stack {
+            text-align: right;
+        }
+        .gregorian-date {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .hijri-date {
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            background: var(--accent-gold-soft);
+            padding: 4px 12px;
+            border-radius: 60px;
+            margin-top: 6px;
+        }
+
+        /* Next Prayer Hero */
+        .next-prayer-hero {
+            background: linear-gradient(145deg, var(--accent-emerald) 0%, #116A3F 100%);
+            border-radius: var(--radius-2xl);
+            padding: 24px 28px;
+            margin: 20px 0 28px;
+            color: white;
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
         }
-        .feature-card::after {
-            content: "🕌";
-            position: absolute; bottom: -10px; right: -5px; font-size: 4.5rem; opacity: 0.2; transform: rotate(10deg);
+        .next-prayer-hero::before {
+            content: "☪";
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+            pointer-events: none;
         }
-        .feature-label {
-            font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            background: rgba(255,255,240,0.35); display: inline-block; padding: 4px 20px; border-radius: 40px;
-            margin-bottom: 12px;
+        .next-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .feature-title-big { font-size: 2.4rem; font-weight: 800; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .feature-arabic { font-size: 1.6rem; font-family: 'Amiri', serif; margin: 8px 0 4px; }
-        .feature-note { font-size: 0.9rem; opacity: 0.85; background: rgba(0,0,0,0.05); border-radius: 30px; padding: 6px 16px; display: inline-block; margin-top: 10px; }
-
-        .time-section {
-            background: var(--surface); border-radius: 28px; padding: 20px;
-            margin: 0 20px 20px; box-shadow: var(--shadow); border: 1px solid var(--border);
+        .next-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 12px 0 6px;
+            flex-wrap: wrap;
         }
-        .time-display { display: flex; align-items: center; justify-content: space-between; }
-        .current-time { font-size: 2.8rem; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
-        .date-section { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
-        .current-date { font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
-        .hijri-badge {
-            background: var(--gradient-primary); color: white; padding: 4px 14px; border-radius: 40px;
-            font-weight: 600; display: flex; align-items: center; gap: 5px; font-size: 0.8rem;
+        .next-name {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
         }
-        .current-day { background: var(--surface-dark); padding: 6px 16px; border-radius: 40px; font-weight: 600; color: var(--text-primary); }
-
-        .next-prayer-card {
-            background: var(--gradient-primary); border-radius: 28px; padding: 22px; margin: 0 20px 30px;
-            color: white; box-shadow: var(--shadow-lg); border: 2px solid var(--gold-light);
+        .next-time {
+            font-size: 2rem;
+            font-weight: 700;
+            background: rgba(255,255,210,0.25);
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-feature-settings: 'tnum';
         }
-        .next-label { font-size: 0.9rem; opacity: 0.9; display: flex; gap: 8px; align-items: center; }
-        .next-prayer-info { display: flex; justify-content: space-between; margin: 8px 0 4px; }
-        .next-prayer-name { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
-        .next-prayer-time { font-size: 1.8rem; font-weight: 800; color: var(--gold); }
-        .next-prayer-countdown { font-size: 0.95rem; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 40px; margin-top: 8px; }
-
-        /* Prayer list */
-        .prayer-list-container { padding: 0 20px 100px; }
-        .section-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); display: flex; gap: 10px; align-items: center; }
-        .dua-badge { background: var(--gold-light); color: #1e3a2f; padding: 4px 14px; border-radius: 40px; font-weight: 600; font-size: 0.75rem; }
-
-        .prayer-timeline { display: flex; flex-direction: column; gap: 12px; }
-        .prayer-item {
-            background: var(--surface); border-radius: 24px; padding: 14px 18px;
-            border: 1px solid var(--border); box-shadow: var(--shadow); transition: all 0.2s ease; cursor: pointer;
-        }
-        .prayer-item:active { transform: scale(0.99); }
-        .prayer-item.current { border: 2px solid var(--gold); background: linear-gradient(135deg, var(--surface) 0%, var(--surface-dark) 100%); box-shadow: 0 4px 12px rgba(249,224,124,0.2); }
-        .prayer-item-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-        .prayer-left { display: flex; align-items: center; gap: 14px; }
-        .prayer-icon {
-            width: 52px; height: 52px; background: var(--gradient-primary); border-radius: 20px;
-            display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem;
-        }
-        .prayer-name-en { font-size: 1.15rem; font-weight: 700; }
-        .prayer-name-ar { font-size: 1rem; color: var(--gold); font-family: 'Amiri', serif; margin-top: 2px; }
-        .prayer-times { text-align: right; }
-        .azaan-time { font-size: 0.75rem; color: var(--text-tertiary); }
-        .jamaat-time { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-
-        /* ===== PAGE CONTAINERS ===== */
-        .page {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
-
-        /* DONATION PAGE - refined */
-        .donation-card {
-            background: var(--surface);
-            border-radius: 36px;
-            padding: 28px 22px;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid var(--gold);
-            margin-bottom: 20px;
-        }
-        .donation-header { text-align: center; margin-bottom: 24px; }
-        .donation-header i {
-            font-size: 3.2rem;
-            color: var(--gold);
-            background: var(--surface-dark);
-            width: 80px; height: 80px;
-            border-radius: 50%;
+        .countdown-badge {
+            background: rgba(0,0,0,0.2);
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            border: 3px solid var(--gold-light);
-        }
-        .donation-header h2 { font-size: 1.9rem; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 12px 0 4px; }
-        .bank-details {
-            background: var(--surface-dark);
-            border-radius: 28px;
-            padding: 22px;
-            border: 1px solid var(--gold-light);
-            margin: 20px 0;
-        }
-        .detail-row { display: flex; align-items: flex-start; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
-        .detail-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .detail-icon { width: 44px; color: var(--gold); font-size: 1.3rem; }
-        .detail-content { flex: 1; }
-        .detail-label { font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; }
-        .detail-value { font-size: 1.3rem; font-weight: 700; color: var(--primary); font-family: monospace; word-break: break-word; }
-        .copy-btn {
-            background: var(--gradient-primary);
-            border: none;
-            color: white;
-            padding: 16px;
+            gap: 8px;
+            padding: 6px 16px;
             border-radius: 60px;
-            font-size: 1.1rem;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        /* Prayer Table (Minimal) */
+        .prayer-section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 16px;
+        }
+        .prayer-section-title h3 {
             font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+        .iqamah-badge {
+            background: var(--accent-emerald-light);
+            padding: 5px 14px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent-emerald);
+        }
+        .prayer-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .prayer-row {
+            background: var(--bg-surface);
+            border-radius: 28px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+        .prayer-row.active-prayer {
+            border-left: 6px solid var(--accent-gold);
+            background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
+            transform: scale(1.01);
+            box-shadow: var(--shadow-md);
+        }
+        .prayer-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-elevated);
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            cursor: pointer;
-            border: 2px solid white;
-            width: 100%;
-            margin: 12px 0;
-            transition: transform 0.1s;
+            color: var(--accent-emerald);
+            font-size: 1.3rem;
         }
-        .copy-btn:active { transform: scale(0.97); }
-
-        /* CALENDAR PAGE (Georgian) */
-        .calendar-georgian {
-            background: var(--surface);
-            border-radius: 36px;
-            padding: 24px 20px;
-            border: 2px solid var(--gold);
+        .prayer-info {
+            flex: 1;
+            margin-left: 16px;
         }
-        .cal-header { text-align: center; margin-bottom: 20px; }
-        .cal-header h2 { font-size: 2rem; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .cal-header h3 { color: var(--text-secondary); font-size: 1rem; margin-top: 4px; }
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
+        .prayer-name {
             font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 12px;
-            gap: 4px;
+            font-size: 1rem;
         }
-        .days-grid {
+        .prayer-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+        }
+        .prayer-timings {
+            text-align: right;
+        }
+        .jamaat-time {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent-emerald);
+        }
+        .azaan-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .jummah-badge {
+            background: var(--accent-gold-soft);
+            color: var(--accent-gold);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 30px;
+            margin-left: 8px;
+        }
+
+        /* Bottom Navigation (modern) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            max-width: 500px;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 20px 22px;
+            border-top: 1px solid var(--border-light);
+            z-index: 100;
+        }
+        .nav-icon-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            transition: 0.2s;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 40px;
+        }
+        .nav-icon-btn i {
+            font-size: 1.4rem;
+        }
+        .nav-icon-btn.active {
+            background: var(--accent-emerald-light);
+            color: var(--accent-emerald);
+            font-weight: 500;
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeSlide 0.3s ease-out;
+        }
+        .page.active-page {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Donation / Tasbeeh / Calendar (refreshed) */
+        .glass-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            padding: 28px 22px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+        }
+        .donation-header {
+            text-align: center;
+        }
+        .donation-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gold-soft);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin: 0 auto 16px;
+        }
+        .bank-row {
+            background: var(--bg-elevated);
+            border-radius: 24px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+        .copy-btn {
+            width: 100%;
+            background: var(--accent-emerald);
+            border: none;
+            padding: 14px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.1s;
+        }
+        .tasbeeh-counter {
+            text-align: center;
+        }
+        .tasbeeh-number {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--accent-emerald);
+            line-height: 1;
+        }
+        .grid-calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
+            gap: 8px;
+            text-align: center;
+            margin-top: 16px;
         }
         .cal-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--surface-dark);
-            border-radius: 16px;
+            background: var(--bg-elevated);
+            padding: 10px 0;
+            border-radius: 20px;
             font-weight: 500;
-            color: var(--text-primary);
             font-size: 0.9rem;
         }
         .cal-day.today {
-            background: var(--gradient-gold);
-            color: #1e3a2f;
-            font-weight: 800;
-            border: 2px solid white;
-        }
-        .cal-day.empty { background: transparent; }
-
-        /* TASBEEH PAGE */
-        .tasbeeh-card {
-            background: var(--surface);
-            border-radius: 48px;
-            padding: 28px 20px;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid var(--gold);
-            text-align: center;
-        }
-        .tasbeeh-display {
-            background: var(--surface-dark);
-            border-radius: 100px;
-            padding: 28px 20px;
-            margin: 20px 0;
-            border: 2px solid var(--gold-light);
-        }
-        .tasbeeh-count { font-size: 5.2rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: 2px; }
-        .tasbeeh-dhikr { font-size: 1.8rem; font-family: 'Amiri', serif; color: var(--gold); margin: 12px 0 4px; }
-        .progress-bar { background: var(--surface); height: 10px; border-radius: 20px; margin: 20px 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--gradient-gold); width: 0%; transition: width 0.2s; }
-        .tasbeeh-actions { display: flex; gap: 12px; justify-content: center; margin: 25px 0; }
-        .tasbeeh-btn {
-            background: var(--gradient-primary);
-            border: none;
+            background: var(--accent-gold);
             color: white;
-            padding: 16px 20px;
+        }
+        .cal-day.empty {
+            background: transparent;
+            box-shadow: none;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1C2A2F;
+            color: white;
+            padding: 10px 24px;
             border-radius: 60px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: inline-flex;
+            font-size: 0.8rem;
+            z-index: 200;
+            animation: fadeUp 0.2s;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px);}
+            to { opacity: 1; transform: translateX(-50%) translateY(0);}
+        }
+
+        /* Loading Screen Extended */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #F5F3F0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: 2px solid white;
-            flex: 1;
             justify-content: center;
+            transition: opacity 0.6s ease;
+            backdrop-filter: blur(2px);
         }
-        .tasbeeh-btn.reset { background: var(--surface-dark); color: var(--text-primary); border: 2px solid var(--border); }
-        .preset-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
-        .preset-btn {
-            background: var(--surface-dark);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 20px;
+            animation: gentlePop 0.5s ease-out;
         }
-        .preset-btn.active { background: var(--gold); color: #1e3a2f; border-color: var(--gold); }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed; bottom: 0; max-width: 480px; width: 100%; background: var(--surface);
-            border-top: 1px solid var(--border); padding: 10px 12px; display: flex; justify-content: space-around;
-            z-index: 1000; backdrop-filter: blur(12px);
+        .logo-circle img {
+            width: 108px;
+            height: 108px;
+            object-fit: contain;
+            border-radius: 50%;
         }
-        .nav-item { 
-            display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-secondary); 
-            cursor: pointer; padding: 6px 12px; border-radius: 32px; transition: 0.2s;
+        @keyframes gentlePop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .nav-item.active { color: var(--gold); background: var(--surface-dark); }
-        .nav-icon { font-size: 1.3rem; }
-
-        .app-footer {
-            text-align: center; padding: 20px 20px 85px; color: var(--text-tertiary);
-            border-top: 1px solid var(--border); margin-top: 20px; font-size: 0.85rem;
+        .loading-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1F8A4C, #D4A13E);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s 0.3s forwards;
         }
-        .footer-message { font-family: 'Amiri', serif; font-size: 1rem; color: var(--primary); }
-
-        .toast-notification { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--gradient-gold); color: #1e3a2f; padding: 12px 24px; border-radius: 60px; font-weight: 600; z-index: 2000; animation: slideUp 0.2s forwards; box-shadow: var(--shadow); }
-        @keyframes slideUp { from { opacity:0; transform: translateX(-50%) translateY(20px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
-
-        .loading-screen {
-            position: fixed; inset: 0; background: #14261e; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s;
+        .loading-sub {
+            font-size: 0.9rem;
+            color: #8B9A8E;
+            margin-top: 8px;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s 0.6s forwards;
         }
-        .loading-screen.fade-out { opacity: 0; visibility: hidden; }
-        .loader { text-align: center; }
-        .eid-spinner { font-size: 4rem; color: #7acb9c; animation: spin 2s infinite; }
-        @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
-        .loading-text { margin-top: 20px; font-weight: 600; color: #f9e07c; }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <!-- Loading -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader">
-            <div class="eid-spinner">🌙</div>
-            <div class="loading-text">اَلسَّلاَمُ عَلَيْكُم وَرَحْمَةُ اللّٰهِ</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="logo-circle">
+        <img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Masjid Al Hamzah Logo">
+    </div>
+    <div class="loading-title">MASJID AL-HAMZAH</div>
+    <div class="loading-sub">DEVELOPED BY ATEEB ZARGAR</div>
+</div>
+
+<div class="app-container" id="appRoot">
+    <!-- Header & Greeting -->
+    <div class="header-section">
+        <div class="greeting-row">
+            <div class="greeting">
+                <h2>السلام عليكم</h2>
+                <p>Blessed prayer times</p>
+            </div>
+            <div class="theme-toggle" id="themeToggler">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+        <div class="location-chip" onclick="showToastMessage('Masjid Al Hamzah, HajiBagh, Srinagar')">
+            <i class="fas fa-map-pin"></i> HajiBagh, Buchpora
+        </div>
+        <div class="masjid-name">
+            <h1>Masjid Al Hamzah</h1>
+            <span>مَسْجِدِ الْحَمْزَۃ</span>
         </div>
     </div>
 
-    <!-- Decorations (refined subtle) -->
-    <div class="eid-decoration">
-        <div class="eid-lanterns">🏮 🏮 🏮</div>
-        <div class="eid-pattern"></div>
-        <div class="eid-moon">☪️</div>
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active-page">
+        <!-- Date & Time Card -->
+        <div class="datetime-card">
+            <div class="clock-row">
+                <div class="current-time" id="liveClock">--:--</div>
+                <div class="date-stack">
+                    <div class="gregorian-date" id="gregDate">Loading...</div>
+                    <div class="hijri-date" id="hijriDate">Shawwal 1447</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Prayer Hero -->
+        <div class="next-prayer-hero" onclick="showToastMessage('Next congregational prayer')">
+            <div class="next-label"><i class="fas fa-bell"></i> NEXT JAMA'AH</div>
+            <div class="next-main">
+                <span class="next-name" id="nextPrayerName">Zuhr</span>
+                <span class="next-time" id="nextPrayerTime">1:00 PM</span>
+            </div>
+            <div class="countdown-badge"><i class="fas fa-hourglass-half"></i> <span id="nextCountdown">--</span></div>
+        </div>
+
+        <div class="prayer-section-title">
+            <h3><i class="fas fa-mosque"></i> Daily Salah</h3>
+            <span class="iqamah-badge"><i class="fas fa-clock"></i> Iqaamah</span>
+        </div>
+        <div class="prayer-grid" id="prayerListContainer"></div>
     </div>
 
-    <div class="app-wrapper">
-        <header class="app-header">
-            <div class="header-top">
-                <div class="theme-container">
-                    <span class="theme-label">Theme</span>
-                    <div class="theme-switch" id="themeSwitch">
-                        <div class="theme-slider"><i class="fas fa-sun theme-icon"></i></div>
-                    </div>
-                </div>
-                <div class="location-badge" onclick="showToast('Masjid Al Hamzah, HajiBagh 🕌')">
-                    <i class="fas fa-map-marker-alt"></i> <span>HajiBagh</span>
-                </div>
+    <!-- DONATION PAGE -->
+    <div id="donationPage" class="page">
+        <div class="glass-card">
+            <div class="donation-header">
+                <div class="donation-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h2 style="margin: 10px 0 4px;">Support the Masjid</h2>
+                <p style="color: var(--text-muted);">Zakat · Sadaqah · Lillah</p>
             </div>
-            <div class="mosque-info">
-                <h1 class="mosque-name">Masjid Al Hamzah</h1>
-                <div class="mosque-tagline">مَسْجِدِ الْحَمْزَۃ</div>
+            <div class="bank-row">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;"><span>Account Holder:</span><strong>Masjid Al Hamzah</strong></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;"><span>Account Number:</span><strong>0173040100013447</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>IFSC Code:</span><strong>JAKA0ANCHAR</strong></div>
             </div>
-        </header>
-
-        <main>
-            <!-- HOME PAGE (no Eid-specific) -->
-            <div class="page active" id="homePage">
-                <div class="time-section">
-                    <div class="time-display">
-                      <h1>Current Time</h1>
-                        <div class="current-time" id="currentTime">12:00 PM</div>
-                    </div>
-                    <div class="date-section">
-                        <div class="current-date" id="currentDate">22 / MARCH / 2026</div>
-                        <span class="hijri-badge"><i class="fas fa-moon"></i> Shawwal 1447</span>
-                        <div class="current-day" id="currentDay">Sunday</div>
-                    </div>
-                </div>
-
-                <!-- Next prayer card -->
-                <div class="next-prayer-card" onclick="showToast('Next congregational prayer timing')">
-                    <div class="next-label"><i class="fas fa-clock"></i> Next Jama'ah</div>
-                    <div class="next-prayer-info">
-                        <span class="next-prayer-name" id="nextPrayerName">Zuhr</span>
-                        <span class="next-prayer-time" id="nextPrayerTime">1:15 PM</span>
-                    </div>
-                    <div class="next-prayer-countdown" id="nextPrayerCountdown">In 2h 30m</div>
-                </div>
-
-                <div class="prayer-list-container">
-                    <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h2 class="section-title"><i class="fas fa-mosque"></i> Daily Salah Times</h2>
-                        <span class="dua-badge"><i class="fas fa-pray"></i> Iqaamah</span>
-                    </div>
-                    <div class="prayer-timeline" id="prayerList"></div>
-                </div>
-            </div>
-
-            <!-- DONATION PAGE (unchanged logic, refined UI) -->
-            <div class="page" id="donationPage">
-                <div class="donation-card">
-                    <div class="donation-header">
-                        <i class="fas fa-hand-holding-heart"></i>
-                        <h2>Bank Transfer</h2>
-                        <p>صدقات · زکاۃ · خیرات</p>
-                    </div>
-                    <div class="bank-details">
-                        <div class="detail-row"><div class="detail-icon"><i class="fas fa-user"></i></div><div class="detail-content"><div class="detail-label">Account Holder</div><div class="detail-value">Masjid Al Hamzah</div></div></div>
-                        <div class="detail-row"><div class="detail-icon"><i class="fas fa-hashtag"></i></div><div class="detail-content"><div class="detail-label">Account Number</div><div class="detail-value">0173040100013447</div></div></div>
-                        <div class="detail-row"><div class="detail-icon"><i class="fas fa-bank"></i></div><div class="detail-content"><div class="detail-label">IFSC Code</div><div class="ifsc-value" style="font-size:1.2rem;">JAKA0ANCHAR</div></div></div>
-                    </div>
-                    <button class="copy-btn" onclick="copyAccount()"><i class="fas fa-copy"></i> Copy Account Number</button>
-                    <button class="copy-btn" onclick="copyAllDetails()" style="background: var(--gradient-gold); color:#1e3a2f;"><i class="fas fa-copy"></i> Copy All Details</button>
-                </div>
-            </div>
-
-            <!-- CALENDAR PAGE (Georgian) -->
-            <div class="page" id="calendarPage">
-                <div class="calendar-georgian">
-                    <div class="cal-header"><h2>March 2026</h2><h3>Georgian Calendar</h3></div>
-                    <div class="weekdays"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-                    <div class="days-grid" id="georgianDays"></div>
-                </div>
-            </div>
-
-            <!-- TASBEEH PAGE -->
-            <div class="page" id="tasbeehPage">
-                <div class="tasbeeh-card">
-                    <div class="tasbeeh-display"><div class="tasbeeh-count" id="tasbeehCount">0</div><div class="tasbeeh-dhikr" id="currentDhikr">سُبْحَانَ اللَّهِ</div></div>
-                    <div class="progress-bar"><div class="progress-fill" id="tasbeehProgress"></div></div>
-                    <div class="tasbeeh-actions"><button class="tasbeeh-btn" id="incrementBtn"><i class="fas fa-plus-circle"></i> Count</button><button class="tasbeeh-btn reset" id="resetBtn"><i class="fas fa-undo"></i> Reset</button></div>
-                    <div class="preset-buttons"><span class="preset-btn active" data-dhikr="subhanallah" data-target="33">33</span><span class="preset-btn" data-dhikr="alhamdulillah" data-target="33">33</span><span class="preset-btn" data-dhikr="allahuakbar" data-target="34">34</span><span class="preset-btn" data-dhikr="100" data-target="100">100</span></div>
-                </div>
-            </div>
-        </main>
-
-        <footer class="app-footer">
-            <div class="footer-message">Masjid Al Hamzah | HajiBagh, Buchpora</div>
-            <div style="font-size: 0.7rem; margin-top: 6px;">Developed by Ateeb Zargar</div>
-        </footer>
-
-        <nav class="bottom-nav">
-            <a class="nav-item active" data-page="home"><i class="fas fa-home nav-icon"></i><span>Home</span></a>
-            <a class="nav-item" data-page="donation"><i class="fas fa-hand-holding-heart nav-icon"></i><span>Donation</span></a>
-            <a class="nav-item" data-page="calendar"><i class="fas fa-calendar-alt nav-icon"></i><span>Calendar</span></a>
-            <a class="nav-item" data-page="tasbeeh"><i class="fas fa-praying-hands nav-icon"></i><span>Tasbeeh</span></a>
-        </nav>
+            <button class="copy-btn" id="copyAccBtn"><i class="fas fa-copy"></i> Copy Account Number</button>
+            <button class="copy-btn" id="copyAllBtn" style="background: var(--accent-gold);"><i class="fas fa-copy"></i> Copy All Details</button>
+        </div>
     </div>
-    <div id="toastContainer"></div>
 
-    <script>
-        // same exact logic as original, only removed Eid references, updated hijri text & feature card
-        function showToast(msg, dur=2000) { const c = document.getElementById('toastContainer'); const t = document.createElement('div'); t.className='toast-notification'; t.innerText=msg; c.innerHTML=''; c.appendChild(t); if (navigator.vibrate) navigator.vibrate(30); setTimeout(()=>{ t.style.transform='translateX(-50%) translateY(100px)'; setTimeout(()=>t.remove(),300); }, dur); }
-        function copyAccount() { navigator.clipboard.writeText("0173040100013447").then(()=>showToast('✅ Account copied')).catch(()=>showToast('📋 Copy manually')); }
-        function copyAllDetails() { navigator.clipboard.writeText("Masjid Al Hamzah\nA/C: 0173040100013447\nIFSC: JAKA0ANCHAR\nJAZAKALLAH KHAIR").then(()=>showToast('✅ All details copied')); }
-        const themeSwitch = document.getElementById('themeSwitch'); const themeIcon = themeSwitch.querySelector('.theme-icon'); themeSwitch.classList.remove('active'); themeIcon.className = 'fas fa-sun theme-icon';
-        themeSwitch.addEventListener('click', ()=>{ themeSwitch.classList.toggle('active'); document.body.classList.toggle('light-mode'); if (document.body.classList.contains('light-mode')) { themeIcon.className = 'fas fa-moon theme-icon'; showToast('☀️ Light mode'); } else { themeIcon.className = 'fas fa-sun theme-icon'; showToast('🌙 Dark mode'); } });
-        window.addEventListener('load', ()=>{ setTimeout(()=>{ document.getElementById('loadingScreen').classList.add('fade-out'); }, 1200); });
-        const prayerData = { fajr: { name:"Fajr", arabic:"الْفَجْر", icon:"fa-solid fa-star", jamaat:"5:35 AM", offset:40 }, zuhr: { name:"Zuhr", arabic:"الظُّهْر", icon:"fa-solid fa-sun", jamaat:"1:00 PM", offset:15 }, asr: { name:"Asr", arabic:"الْعَصْر", icon:"fa-solid fa-cloud-sun", jamaat:"5:25 PM", offset:15 }, maghrib: { name:"Maghrib", arabic:"الْمَغْرِب", icon:"fa-solid fa-sun", jamaat:"7:05 PM", offset:5 }, isha: { name:"Isha", arabic:"الْعِشَاء", icon:"fa-solid fa-moon", jamaat:"8:40 PM", offset:15 } };
-        const prayerOrder = ['fajr','zuhr','asr','maghrib','isha']
-        function timeToMins(t) { let parts = t.split(' '); let timePart = parts[0]; let modifier = parts[1]; let [h, m] = timePart.split(':').map(Number); if (modifier==='PM' && h!==12) h+=12; if (modifier==='AM' && h===12) h=0; return h*60+m; }
-        function calcAzaan(jamaat, off) { let j = timeToMins(jamaat); let mins = j - off; let h = Math.floor(mins/60); let min = mins%60; let mod = h>=12 ? 'PM' : 'AM'; if (h>12) h-=12; if (h===0) h=12; return `${h}:${min.toString().padStart(2,'0')} ${mod}`; }
-        function renderPrayerList() { const container = document.getElementById('prayerList'); if(!container) return; container.innerHTML = ''; prayerOrder.forEach(key => { const p = prayerData[key]; const azaan = calcAzaan(p.jamaat, p.offset); const div = document.createElement('div'); div.className = 'prayer-item'; div.id = key+'Item'; div.setAttribute('onclick', `showToast('${p.name}: Azaan ${azaan}, Jamaat ${p.jamaat}')`); div.innerHTML = `<div class="prayer-item-content"><div class="prayer-left"><div class="prayer-icon"><i class="${p.icon}"></i></div><div class="prayer-details"><div class="prayer-name-en">${p.name}</div><div class="prayer-name-ar">${p.arabic}</div></div></div><div class="prayer-times"><div class="azaan-time">Azaan: ${azaan}</div><div class="jamaat-time">${p.jamaat}</div></div></div>`; container.appendChild(div); }); }
-        function updateClock() { const now = new Date(); document.getElementById('currentTime').innerText = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}); const day = now.getDate(); const year = now.getFullYear(); const month = now.toLocaleString('en-US', {month:'long'}).toUpperCase(); document.getElementById('currentDate').innerText = `${day} / ${month} / ${year}`; const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]; document.getElementById('currentDay').innerText = weekdays[now.getDay()]; const currMin = now.getHours()*60 + now.getMinutes(); let next = null, nextTime = null, diff = Infinity; for (let k of prayerOrder) { let t = timeToMins(prayerData[k].jamaat); if (t > currMin && t-currMin < diff) { diff = t-currMin; next = prayerData[k]; nextTime = prayerData[k].jamaat; } } if (!next) { next = prayerData.fajr; nextTime = prayerData.fajr.jamaat; diff = (24*60 - currMin) + timeToMins(nextTime); } document.getElementById('nextPrayerName').innerText = next.name; document.getElementById('nextPrayerTime').innerText = nextTime; let hours = Math.floor(diff/60), mins = diff%60; document.getElementById('nextPrayerCountdown').innerText = 'In ' + (hours>0 ? `${hours}h ${mins}m` : `${mins}m`); }
-        function markCurrent() { const now = new Date(); const currMin = now.getHours()*60 + now.getMinutes(); document.querySelectorAll('.prayer-item').forEach(el=>el.classList.remove('current')); for (let i=0; i<prayerOrder.length; i++) { let jamaat = timeToMins(prayerData[prayerOrder[i]].jamaat); if (currMin < jamaat) { let prev = i-1; if (prev>=0) document.getElementById(prayerOrder[prev]+'Item')?.classList.add('current'); else document.getElementById(prayerOrder[prayerOrder.length-1]+'Item')?.classList.add('current'); return; } } document.getElementById(prayerOrder[prayerOrder.length-1]+'Item')?.classList.add('current'); }
-        function generateGeorgianCalendar() { const daysGrid = document.getElementById('georgianDays'); if(!daysGrid) return; let html = ''; const today = new Date(); const currentDate = today.getDate(); for(let i=0;i<6;i++) html += '<div class="cal-day empty"></div>'; for(let d=1;d<=31;d++){ let cls='cal-day'; if(d===currentDate && today.getMonth()===2 && today.getFullYear()===2026) cls+=' today'; html+=`<div class="${cls}">${d}</div>`; } daysGrid.innerHTML=html; }
-        let tasbeehCount=0, tasbeehTarget=33, currentDhikr='subhanallah'; const dhikrMap={ subhanallah:'سُبْحَانَ اللَّهِ', alhamdulillah:'الْحَمْدُ لِلَّهِ', allahuakbar:'الله أَكْبَر', 100:'سُبْحَانَ اللَّهِ' };
-        function updateTasbeehDisplay(){ document.getElementById('tasbeehCount').innerText=tasbeehCount; document.getElementById('tasbeehProgress').style.width = Math.min((tasbeehCount/tasbeehTarget)*100,100)+'%'; document.getElementById('currentDhikr').innerText=dhikrMap[currentDhikr]||'سُبْحَانَ اللَّهِ'; }
-        const pages={ home:document.getElementById('homePage'), donation:document.getElementById('donationPage'), calendar:document.getElementById('calendarPage'), tasbeeh:document.getElementById('tasbeehPage') }; const navItems=document.querySelectorAll('.nav-item');
-        function showPage(pageId){ Object.values(pages).forEach(p=>p.classList.remove('active')); pages[pageId].classList.add('active'); navItems.forEach(item=>{ item.classList.remove('active'); if(item.dataset.page===pageId) item.classList.add('active'); }); }
-        navItems.forEach(item=>{ item.addEventListener('click',(e)=>{ e.preventDefault(); const pageId=item.dataset.page; showPage(pageId); showToast(pageId.charAt(0).toUpperCase()+pageId.slice(1)); }); });
-        renderPrayerList(); updateClock(); markCurrent(); setInterval(()=>{ updateClock(); markCurrent(); },1000); generateGeorgianCalendar();
-        document.getElementById('incrementBtn').addEventListener('click',()=>{ tasbeehCount++; updateTasbeehDisplay(); });
-        document.getElementById('resetBtn').addEventListener('click',()=>{ tasbeehCount=0; updateTasbeehDisplay(); });
-        document.querySelectorAll('.preset-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentDhikr=btn.dataset.dhikr; tasbeehTarget=parseInt(btn.dataset.target); tasbeehCount=0; updateTasbeehDisplay(); }); });y
-    </script>
+    <!-- CALENDAR PAGE - APRIL 2026 -->
+    <div id="calendarPage" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.9rem; color: var(--accent-emerald);">April 2026</h2>
+                <p style="color: var(--text-muted);">Gregorian Calendar</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; margin-bottom: 12px; font-weight: 700; color: var(--accent-gold);">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+            </div>
+            <div class="grid-calendar" id="aprilCalendarGrid"></div>
+        </div>
+    </div>
+
+    <!-- TASBEEH PAGE -->
+    <div id="tasbeehPage" class="page">
+        <div class="glass-card">
+            <div class="tasbeeh-counter">
+                <div class="tasbeeh-number" id="tasbeehCountDisplay">0</div>
+                <div style="font-size: 1.5rem; font-family: 'Amiri', serif; margin: 8px 0;" id="dhikrText">سُبْحَانَ اللَّهِ</div>
+                <div class="progress-bar" style="height: 8px; background: var(--border-light); border-radius: 10px; margin: 20px 0; overflow: hidden;">
+                    <div id="tasbeehProgressFill" style="height: 100%; width: 0%; background: var(--accent-gold); transition: width 0.2s;"></div>
+                </div>
+                <div style="display: flex; gap: 14px; margin: 20px 0;">
+                    <button id="incrementTasbeeh" style="flex:1; background: var(--accent-emerald); border: none; padding: 14px; border-radius: 60px; color: white; font-weight: 700;"><i class="fas fa-plus-circle"></i> Count</button>
+                    <button id="resetTasbeeh" style="flex:1; background: var(--bg-elevated); border: 1px solid var(--border-light); padding: 14px; border-radius: 60px; font-weight: 700;"><i class="fas fa-undo-alt"></i> Reset</button>
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <span class="preset-dhikr active" data-dhikr="subhanallah" data-target="33" style="background: var(--accent-emerald-light); padding: 8px 20px; border-radius: 60px; font-weight: 600; cursor: pointer;">33</span>
+                    <span class="preset-dhikr" data-dhikr="alhamdulillah" data-target="33" style="background: var(--bg-elevated); padding: 8px 20px; border-radius: 60px; font-weight: 600; cursor: pointer;">33</span>
+                    <span class="preset-dhikr" data-dhikr="allahuakbar" data-target="34" style="background: var(--bg-elevated); padding: 8px 20px; border-radius: 60px; font-weight: 600; cursor: pointer;">34</span>
+                    <span class="preset-dhikr" data-dhikr="100" data-target="100" style="background: var(--bg-elevated); padding: 8px 20px; border-radius: 60px; font-weight: 600; cursor: pointer;">100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-icon-btn active" data-nav="home"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-icon-btn" data-nav="donation"><i class="fas fa-hand-holding-heart"></i><span>Donate</span></div>
+        <div class="nav-icon-btn" data-nav="calendar"><i class="fas fa-calendar-alt"></i><span>Calendar</span></div>
+        <div class="nav-icon-btn" data-nav="tasbeeh"><i class="fas fa-praying-hands"></i><span>Tasbeeh</span></div>
+    </div>
+</div>
+
+<script>
+    // --- LOADING SCREEN: 2 extra seconds (total display ~2.5s)
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loadingOverlay');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 600);
+            }
+        }, 2200); // logo + title visible for extra reading time
+    });
+
+    // --- Prayer Logic with Friday Jummah (Zuhr changes to Jummah at 1:15 PM)
+    const basePrayers = {
+        fajr: { name: "Fajr", arabic: "الْفَجْر", icon: "fas fa-star", azaanOffset: 40, jamaat: "5:35 AM" },
+        zuhr: { name: "Zuhr", arabic: "الظُّهْر", icon: "fas fa-sun", azaanOffset: 15, jamaat: "1:00 PM" },
+        jummah: { name: "Jummah", arabic: "صَلَاة الْجُمُعَة", icon: "fas fa-mosque", azaanOffset: 20, jamaat: "1:15 PM" },
+        asr: { name: "Asr", arabic: "الْعَصْر", icon: "fas fa-cloud-sun", azaanOffset: 15, jamaat: "5:25 PM" },
+        maghrib: { name: "Maghrib", arabic: "الْمَغْرِب", icon: "fas fa-sun", azaanOffset: 5, jamaat: "7:05 PM" },
+        isha: { name: "Isha", arabic: "الْعِشَاء", icon: "fas fa-moon", azaanOffset: 15, jamaat: "8:40 PM" }
+    };
+
+    function getTodaysPrayers() {
+        const today = new Date();
+        const isFriday = today.getDay() === 5; // Friday
+        let prayersList = [];
+        if (isFriday) {
+            prayersList = [
+                { ...basePrayers.fajr, key: 'fajr' },
+                { ...basePrayers.jummah, key: 'jummah' },
+                { ...basePrayers.asr, key: 'asr' },
+                { ...basePrayers.maghrib, key: 'maghrib' },
+                { ...basePrayers.isha, key: 'isha' }
+            ];
+        } else {
+            prayersList = [
+                { ...basePrayers.fajr, key: 'fajr' },
+                { ...basePrayers.zuhr, key: 'zuhr' },
+                { ...basePrayers.asr, key: 'asr' },
+                { ...basePrayers.maghrib, key: 'maghrib' },
+                { ...basePrayers.isha, key: 'isha' }
+            ];
+        }
+        return prayersList;
+    }
+
+    function timeToMinutes(timeStr) {
+        let parts = timeStr.split(' ');
+        let timePart = parts[0];
+        let modifier = parts[1];
+        let [h, m] = timePart.split(':').map(Number);
+        if (modifier === 'PM' && h !== 12) h += 12;
+        if (modifier === 'AM' && h === 12) h = 0;
+        return h * 60 + m;
+    }
+
+    function formatMinutesToTime(minutes) {
+        let h = Math.floor(minutes / 60);
+        let m = minutes % 60;
+        let mod = h >= 12 ? 'PM' : 'AM';
+        let hour12 = h % 12;
+        if (hour12 === 0) hour12 = 12;
+        return `${hour12}:${m.toString().padStart(2, '0')} ${mod}`;
+    }
+
+    function computeAzaan(jamaatTime, offsetMins) {
+        let jamaatMins = timeToMinutes(jamaatTime);
+        let azaanMins = jamaatMins - offsetMins;
+        return formatMinutesToTime(azaanMins);
+    }
+
+    function renderPrayers() {
+        const container = document.getElementById('prayerListContainer');
+        if (!container) return;
+        const prayers = getTodaysPrayers();
+        container.innerHTML = '';
+        prayers.forEach(prayer => {
+            const azaanTime = computeAzaan(prayer.jamaat, prayer.azaanOffset);
+            const row = document.createElement('div');
+            row.className = 'prayer-row';
+            row.setAttribute('onclick', `showToastMessage('${prayer.name}: Azaan ${azaanTime} | Jamaat ${prayer.jamaat}')`);
+            row.innerHTML = `
+                <div class="prayer-icon"><i class="${prayer.icon}"></i></div>
+                <div class="prayer-info">
+                    <div class="prayer-name">${prayer.name} ${prayer.key === 'jummah' ? '<span class="jummah-badge">Friday Sermon</span>' : ''}</div>
+                    <div class="prayer-arabic">${prayer.arabic}</div>
+                </div>
+                <div class="prayer-timings">
+                    <div class="jamaat-time">${prayer.jamaat}</div>
+                    <div class="azaan-time">Azaan: ${azaanTime}</div>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+        updateActivePrayer();
+    }
+
+    function updateActivePrayer() {
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const prayers = getTodaysPrayers();
+        const prayerRows = document.querySelectorAll('.prayer-row');
+        let activeIndex = -1;
+        for (let i = 0; i < prayers.length; i++) {
+            const jamaatMins = timeToMinutes(prayers[i].jamaat);
+            if (currentMinutes < jamaatMins) {
+                activeIndex = i - 1;
+                break;
+            }
+        }
+        if (activeIndex === -1 && prayers.length) activeIndex = prayers.length - 1;
+        prayerRows.forEach((row, idx) => {
+            row.classList.remove('active-prayer');
+            if (idx === activeIndex) row.classList.add('active-prayer');
+        });
+    }
+
+    function updateNextPrayerAndClock() {
+        const now = new Date();
+        document.getElementById('liveClock').innerText = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('gregDate').innerText = now.toLocaleDateString('en-US', options);
+        const hijriOptions = { year: 'numeric', month: 'long' };
+        document.getElementById('hijriDate').innerHTML = `<i class="fas fa-moon"></i> Shawwal 1447`;
+        
+        const prayers = getTodaysPrayers();
+        const currentMins = now.getHours() * 60 + now.getMinutes();
+        let nextPrayer = null;
+        let diffMins = Infinity;
+        for (let p of prayers) {
+            let pMins = timeToMinutes(p.jamaat);
+            if (pMins > currentMins && (pMins - currentMins) < diffMins) {
+                diffMins = pMins - currentMins;
+                nextPrayer = p;
+            }
+        }
+        if (!nextPrayer && prayers.length) {
+            nextPrayer = prayers[0];
+            let firstMins = timeToMinutes(nextPrayer.jamaat);
+            diffMins = (24*60 - currentMins) + firstMins;
+        }
+        if (nextPrayer) {
+            document.getElementById('nextPrayerName').innerHTML = nextPrayer.name;
+            document.getElementById('nextPrayerTime').innerText = nextPrayer.jamaat;
+            let hours = Math.floor(diffMins / 60);
+            let mins = diffMins % 60;
+            document.getElementById('nextCountdown').innerText = hours ? `${hours}h ${mins}m` : `${mins}m`;
+        }
+    }
+
+    // --- Calendar for April 2026
+    function buildAprilCalendar() {
+        const container = document.getElementById('aprilCalendarGrid');
+        if (!container) return;
+        // April 1, 2026 is Wednesday => index 3 (0=Monday? We'll start Monday properly)
+        // Monday based: 0=Mon ... 6=Sun. April 1 2026 = Wednesday => day index 2 if Mon=0? Actually new Date(2026,3,1).getDay() => 3 (Wed)
+        // To align Mon-Sun, we shift.
+        const firstDayOfApril = new Date(2026, 3, 1); // month 3 = April
+        let startWeekday = firstDayOfApril.getDay(); // 0=Sunday -> we need Monday first. Let's convert to Mon-based: Monday=0
+        let startOffset = (startWeekday === 0 ? 6 : startWeekday - 1);
+        const daysInApril = 30;
+        let gridHTML = '';
+        for (let i = 0; i < startOffset; i++) {
+            gridHTML += '<div class="cal-day empty"></div>';
+        }
+        const today = new Date();
+        const currentDate = today.getDate();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+        for (let d = 1; d <= daysInApril; d++) {
+            let isToday = (d === currentDate && currentMonth === 3 && currentYear === 2026);
+            let cls = 'cal-day';
+            if (isToday) cls += ' today';
+            gridHTML += `<div class="${cls}">${d}</div>`;
+        }
+        container.innerHTML = gridHTML;
+    }
+
+    // --- Tasbeeh Logic
+    let tasbeehCount = 0;
+    let currentTarget = 33;
+    let currentDhikrKey = 'subhanallah';
+    const dhikrMap = { subhanallah: 'سُبْحَانَ اللَّهِ', alhamdulillah: 'الْحَمْدُ لِلَّهِ', allahuakbar: 'الله أَكْبَر', 100: 'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ ' };
+    function updateTasbeehUI() {
+        document.getElementById('tasbeehCountDisplay').innerText = tasbeehCount;
+        const progressPercent = Math.min((tasbeehCount / currentTarget) * 100, 100);
+        document.getElementById('tasbeehProgressFill').style.width = `${progressPercent}%`;
+        document.getElementById('dhikrText').innerText = dhikrMap[currentDhikrKey] || 'سُبْحَانَ اللَّهِ';
+    }
+    
+    // --- Navigation
+    const pages = {
+        home: document.getElementById('homePage'),
+        donation: document.getElementById('donationPage'),
+        calendar: document.getElementById('calendarPage'),
+        tasbeeh: document.getElementById('tasbeehPage')
+    };
+    const navBtns = document.querySelectorAll('.nav-icon-btn');
+    function switchPage(pageId) {
+        Object.values(pages).forEach(p => p.classList.remove('active-page'));
+        pages[pageId].classList.add('active-page');
+        navBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.nav === pageId) btn.classList.add('active');
+        });
+        if (pageId === 'calendar') buildAprilCalendar();
+    }
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchPage(btn.dataset.nav);
+            showToastMessage(btn.dataset.nav.charAt(0).toUpperCase() + btn.dataset.nav.slice(1));
+        });
+    });
+
+    // Toast & helpers
+    function showToastMessage(msg) {
+        let toastDiv = document.createElement('div');
+        toastDiv.className = 'toast-msg';
+        toastDiv.innerText = msg;
+        document.body.appendChild(toastDiv);
+        setTimeout(() => toastDiv.remove(), 2000);
+        if (navigator.vibrate) navigator.vibrate(20);
+    }
+    window.showToastMessage = showToastMessage;
+    document.getElementById('copyAccBtn')?.addEventListener('click', () => {
+        navigator.clipboard.writeText("0173040100013447");
+        showToastMessage("✅ Account number copied");
+    });
+    document.getElementById('copyAllBtn')?.addEventListener('click', () => {
+        navigator.clipboard.writeText("Masjid Al Hamzah\nA/C: 0173040100013447\nIFSC: JAKA0ANCHAR");
+        showToastMessage("✅ All donation details copied");
+    });
+    
+    // Tasbeeh Events
+    document.getElementById('incrementTasbeeh')?.addEventListener('click', () => { tasbeehCount++; updateTasbeehUI(); });
+    document.getElementById('resetTasbeeh')?.addEventListener('click', () => { tasbeehCount = 0; updateTasbeehUI(); });
+    document.querySelectorAll('.preset-dhikr').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.preset-dhikr').forEach(b => b.style.background = 'var(--bg-elevated)');
+            btn.style.background = 'var(--accent-emerald-light)';
+            currentTarget = parseInt(btn.dataset.target);
+            currentDhikrKey = btn.dataset.dhikr;
+            tasbeehCount = 0;
+            updateTasbeehUI();
+        });
+    });
+
+    // Theme Toggle
+    const themeBtn = document.getElementById('themeToggler');
+    let isDark = false;
+    themeBtn.addEventListener('click', () => {
+        if (!isDark) {
+            document.body.style.setProperty('--bg-body', '#121212');
+            document.body.style.setProperty('--bg-surface', '#1E2A2A');
+            document.body.style.setProperty('--bg-elevated', '#2A3838');
+            document.body.style.setProperty('--text-primary', '#F0EFE6');
+            document.body.style.setProperty('--text-secondary', '#BEC5B5');
+            document.body.style.setProperty('--border-light', '#3A4A48');
+            themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            isDark = true;
+        } else {
+            document.body.style.removeProperty('--bg-body');
+            document.body.style.removeProperty('--bg-surface');
+            document.body.style.removeProperty('--bg-elevated');
+            document.body.style.removeProperty('--text-primary');
+            document.body.style.removeProperty('--text-secondary');
+            document.body.style.removeProperty('--border-light');
+            themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            isDark = false;
+        }
+    });
+
+    // Initializers
+    renderPrayers();
+    updateNextPrayerAndClock();
+    setInterval(() => {
+        updateNextPrayerAndClock();
+        updateActivePrayer();
+        renderPrayers(); // re-render to catch Friday change at midnight
+    }, 1000);
+    buildAprilCalendar();
+    updateTasbeehUI();
+</script>
 </body>
 </html>
