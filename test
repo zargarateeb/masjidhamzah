@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Masjid Al-Hamzah v2.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #1B5E20;
+            --light-green: #E8F5E9;
+            --accent-gold: #D4A13E;
+            --bg-gray: #F8F9FA;
+            --text-dark: #333;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-gray); color: var(--text-dark); overflow-x: hidden; }
+        
+        /* Navigation & Pages */
+        .page { display: none; padding: 20px; padding-bottom: 100px; min-height: 100vh; animation: fadeIn 0.3s ease; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Auth Overlay */
+        #authOverlay { position: fixed; inset: 0; background: white; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+        .google-btn { display: flex; align-items: center; gap: 12px; background: white; border: 1px solid #ddd; padding: 12px 24px; border-radius: 30px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+        /* Design Elements from your Images */
+        .header-section { background: var(--primary-green); color: white; padding: 30px 20px; border-radius: 0 0 30px 30px; margin-bottom: 20px; }
+        .next-prayer-card { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; text-align: center; margin: 10px 0; }
+        .timer { font-size: 1.5rem; font-weight: bold; background: rgba(0,0,0,0.2); display: inline-block; padding: 5px 15px; border-radius: 10px; margin-top: 10px; }
+        
+        .grid-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .action-item { background: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
+        .action-item i { font-size: 1.5rem; color: var(--primary-green); margin-bottom: 8px; display: block; }
+        
+        .prayer-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .prayer-info { display: flex; align-items: center; gap: 15px; }
+        .prayer-icon { width: 40px; height: 40px; background: var(--primary-green); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        /* Chat UI */
+        #chatList { height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .msg { max-width: 80%; padding: 12px; border-radius: 15px; font-size: 0.9rem; position: relative; }
+        .msg-me { align-self: flex-end; background: var(--primary-green); color: white; }
+        .msg-them { align-self: flex-start; background: white; border: 1px solid #ddd; }
+        .msg-user { font-size: 0.7rem; font-weight: bold; margin-bottom: 4px; display: block; opacity: 0.8; }
+
+        /* Donation Section */
+        .bank-card { background: white; padding: 20px; border-radius: 20px; border-left: 5px solid var(--primary-green); margin: 20px 0; }
+        
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-item { color: #999; text-align: center; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--primary-green); font-weight: bold; }
+        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 10px; }
+        .btn-primary { background: var(--primary-green); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 600; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="authOverlay">
+        <img src="https://ik.imagekit.io/ironclad/masjidlogo.png" width="120" style="margin-bottom: 20px;">
+        <h2 style="color: var(--primary-green);">Masjid Al-Hamzah</h2>
+        [span_1](start_span)<p>Connect with your community and track your prayers[span_1](end_span).</p>
+        <button class="google-btn" id="loginBtn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+            Continue with Google
+        </button>
+    </div>
+
+    <div id="home" class="page active-page">
+        <div class="header-section">
+            <div style="font-size: 0.8rem; opacity: 0.9;">Haji-Bagh, Buchpora, Srinagar</div>
+            <h1 style="margin: 5px 0;">Masjid Al-Hamzah</h1>
+            <div class="next-prayer-card">
+                <div>Next Prayer</div>
+                [span_2](start_span)<h2 id="nextPrayerName" style="margin: 10px 0;">Maghrib[span_2](end_span)</h2>
+                [span_3](start_span)<div style="font-size: 1.8rem; font-weight: 700;">7:04 PM[span_3](end_span)</div>
+                <div class="timer"><i class="far fa-clock"></i> <span id="countDown">01:13:13</span></div>
+            </div>
+        </div>
+        
+        <h3>Quick Actions</h3>
+        <div class="grid-actions">
+            <div class="action-item" onclick="nav('prayers')"><i class="fas fa-book-open"></i>Azkar</div>
+            <div class="action-item"><i class="fas fa-pray"></i>Tasbih</div>
+            <div class="action-item" onclick="nav('debates')"><i class="fas fa-users"></i>Debates</div>
+            <div class="action-item"><i class="fas fa-calendar-alt"></i>Events</div>
+            <div class="action-item" onclick="nav('donate')"><i class="fas fa-hand-holding-heart"></i>Donate</div>
+            <div class="action-item" onclick="nav('me')"><i class="fas fa-cog"></i>Settings</div>
+        </div>
+    </div>
+
+    <div id="prayers" class="page">
+        [span_4](start_span)<h2>Prayer Times[span_4](end_span)</h2>
+        [span_5](start_span)<p id="todayDate" style="color: gray;">Thu, Apr 9, 2026[span_5](end_span)</p>
+        <div id="prayerList">Loading times...</div>
+    </div>
+
+    <div id="messages" class="page">
+        [span_6](start_span)<h2>Community Chat[span_6](end_span)</h2>
+        <div id="chatList"></div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button class="btn-primary" id="sendMsg" style="width: 60px;"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div id="debates" class="page">
+        [span_7](start_span)<h2>Debates & Challenges[span_7](end_span)</h2>
+        <div style="background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+            [span_8](start_span)<h4>Start a Debate[span_8](end_span)</h4>
+            [span_9](start_span)<input type="text" id="debateTopic" placeholder="Topic / Question[span_9](end_span)">
+            [span_10](start_span)<textarea id="debateStatement" placeholder="Your Opening Statement[span_10](end_span)"></textarea>
+            [span_11](start_span)<button class="btn-primary" id="postDebate">Post Debate[span_11](end_span)</button>
+        </div>
+        <div id="debateList"></div>
+    </div>
+
+    <div id="donate" class="page">
+        [span_12](start_span)<h2>Support Our Masjid[span_12](end_span)</h2>
+        <div class="bank-card">
+            [span_13](start_span)<div style="font-size: 0.8rem; color: gray;">Bank Details[span_13](end_span)</div>
+            [span_14](start_span)<div style="font-size: 1.2rem; font-weight: bold; letter-spacing: 1px;">0173040100013447[span_14](end_span)</div>
+            [span_15](start_span)<div style="margin-top: 10px;">IFSC: <strong>JAKAOANCHAR[span_15](end_span)</strong></div>
+        </div>
+        [span_16](start_span)<h3>Donation Types[span_16](end_span)</h3>
+        [span_17](start_span)<p>• Zakat & Sadqat[span_17](end_span)[span_18](start_span)<br>• Mosque Maintenance[span_18](end_span)</p>
+    </div>
+
+    <div id="me" class="page">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <img id="userPhoto" src="" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <h2 id="userName" style="margin: 10px 0;">User Name</h2>
+            <div id="userEmail" style="color: gray; font-size: 0.9rem;">email@gmail.com</div>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 20px;">
+            [span_19](start_span)<h3>Your Prayer Stats[span_19](end_span)</h3>
+            <div style="display: flex; justify-content: space-around; text-align: center;">
+                [span_20](start_span)<div><div style="font-weight: bold; font-size: 1.2rem;">0</div><div style="font-size: 0.7rem; color: gray;">Completed[span_20](end_span)</div></div>
+                [span_21](start_span)<div><div style="font-weight: bold; font-size: 1.2rem; color: var(--accent-gold);">0%</div><div style="font-size: 0.7rem; color: gray;">Rate[span_21](end_span)</div></div>
+            </div>
+        </div>
+
+        <button class="btn-primary" id="logoutBtn" style="background: #f44336; margin-top: 30px;">Logout</button>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="nav('home')"><i class="fas fa-home"></i>Home</div>
+        <div class="nav-item" onclick="nav('prayers')"><i class="fas fa-kaaba"></i>Prayers</div>
+        <div class="nav-item" onclick="nav('messages')"><i class="fas fa-comments"></i>Messages</div>
+        <div class="nav-item" onclick="nav('me')"><i class="fas fa-user"></i>Me</div>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, onSnapshot, collection, addDoc, query, orderBy, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // YOUR CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyBerRmWoXYP1eiP_zqzRU_8LhvWDH4e_iY",
+            authDomain: "masjid-al-hamzah-bbfb6.firebaseapp.com",
+            projectId: "masjid-al-hamzah-bbfb6",
+            storageBucket: "masjid-al-hamzah-bbfb6.firebasestorage.app",
+            messagingSenderId: "1067466330734",
+            appId: "1:1067466330734:web:271047b6377b2883e18c7f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        let user = null;
+
+        // AUTH
+        document.getElementById('loginBtn').onclick = () => signInWithPopup(auth, provider);
+        document.getElementById('logoutBtn').onclick = () => signOut(auth);
+
+        onAuthStateChanged(auth, (u) => {
+            user = u;
+            document.getElementById('authOverlay').style.display = u ? 'none' : 'flex';
+            if (u) {
+                document.getElementById('userName').innerText = u.displayName;
+                document.getElementById('userEmail').innerText = u.email;
+                document.getElementById('userPhoto').src = u.photoURL;
+            }
+        });
+
+        [span_22](start_span)// PRAYER TIMES LIVE[span_22](end_span)
+        onSnapshot(doc(db, "settings", "prayer_times"), (snap) => {
+            if (!snap.exists()) return;
+            const t = snap.data();
+            const names = ['Fajr', 'Zuhr', 'Asr', 'Maghrib', 'Isha'];
+            let html = '';
+            names.forEach(n => {
+                html += `
+                <div class="prayer-card">
+                    <div class="prayer-info">
+                        <div class="prayer-icon">${n[0]}</div>
+                        <div><strong>${n}</strong></div>
+                    </div>
+                    <div>${t[n.toLowerCase()] || '--:--'}</div>
+                </div>`;
+            });
+            document.getElementById('prayerList').innerHTML = html;
+        });
+
+        [span_23](start_span)// CHAT LIVE[span_23](end_span)
+        document.getElementById('sendMsg').onclick = async () => {
+            const txt = document.getElementById('chatInput').value;
+            if(!txt.trim()) return;
+            await addDoc(collection(db, "messages"), {
+                text: txt,
+                uid: user.uid,
+                name: user.displayName,
+                timestamp: serverTimestamp()
+            });
+            document.getElementById('chatInput').value = '';
+        };
+
+        onSnapshot(query(collection(db, "messages"), orderBy("timestamp", "asc")), (snap) => {
+            const list = document.getElementById('chatList');
+            list.innerHTML = '';
+            snap.forEach(d => {
+                const m = d.data();
+                const isMe = m.uid === user.uid;
+                list.innerHTML += `<div class="msg ${isMe ? 'msg-me' : 'msg-them'}">
+                    <span class="msg-user">${m.name}</span>${m.text}
+                </div>`;
+            });
+            list.scrollTop = list.scrollHeight;
+        });
+
+        [span_24](start_span)// DEBATES[span_24](end_span)
+        document.getElementById('postDebate').onclick = async () => {
+            const topic = document.getElementById('debateTopic').value;
+            const statement = document.getElementById('debateStatement').value;
+            if(!topic) return;
+            await addDoc(collection(db, "debates"), { topic, statement, author: user.displayName, time: serverTimestamp() });
+            document.getElementById('debateTopic').value = '';
+            document.getElementById('debateStatement').value = '';
+        };
+
+        // NAVIGATION
+        window.nav = (id) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active-page');
+            document.querySelector(`[onclick="nav('${id}')"]`).classList.add('active');
+        };
+
+    </script>
+</body>
+</html>
