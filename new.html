@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Masjid Al Hamzah | Nur Islamic Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --emerald-glow: rgba(16, 185, 129, 0.3);
+            --gold: #fbbf24;
+            --gold-dark: #f59e0b;
+            --cream: #fefce8;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --light-bg: #f8fafc;
+            --light-surface: #ffffff;
+            --text-dark: #0f172a;
+            --text-light: #e2e8f0;
+            --radius-card: 28px;
+            --radius-element: 20px;
+            --shadow-soft: 0 20px 35px -12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
+            --shadow-glow: 0 8px 20px rgba(16,185,129,0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            transition: background 0.3s, color 0.2s;
+            overflow-x: hidden;
+        }
+
+        body.dark {
+            background: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        body.dark .card, body.dark .bottom-nav, body.dark .modal-content, body.dark .prayer-item, body.dark .quick-card {
+            background: var(--dark-surface);
+            color: var(--text-light);
+            border-color: #334155;
+        }
+
+        /* floating crescent */
+        .floating-crescent {
+            position: fixed;
+            bottom: 90px;
+            right: 15px;
+            font-size: 3rem;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100%{ transform: translateY(0px); }
+            50%{ transform: translateY(-15px); }
+        }
+
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 18px 85px 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Glass bottom nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 460px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 12px;
+            box-shadow: var(--shadow-soft);
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        body.dark .bottom-nav {
+            background: rgba(30,41,59,0.85);
+            backdrop-filter: blur(20px);
+            border-color: #334155;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            padding: 6px 12px;
+            border-radius: 40px;
+        }
+
+        .nav-item i { font-size: 1.35rem; display: block; margin-bottom: 3px; }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+            color: white;
+            box-shadow: 0 5px 12px var(--emerald-glow);
+            transform: scale(1.02);
+        }
+
+        .page { display: none; animation: fadeSlide 0.3s ease; }
+        .active-page { display: block; }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* cards & elements */
+        .card {
+            background: var(--light-surface);
+            border-radius: var(--radius-card);
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.2s;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #10b98115, #0f172a08);
+            border-left: 4px solid var(--gold);
+        }
+
+        .prayer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            cursor: pointer;
+            border-radius: var(--radius-element);
+        }
+
+        body.dark .prayer-row { border-color: #334155; }
+        .prayer-row:active { transform: scale(0.98); background: #f1f5f9; }
+        body.dark .prayer-row:active { background: #334155; }
+
+        .prayer-status {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .toggle-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 40px;
+            background: #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.15s;
+        }
+        .toggle-icon.prayed { background: var(--emerald); color: white; }
+        .toggle-icon.jamaat { background: var(--gold); color: #1e293b; }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: var(--emerald); width: 0%; border-radius: 10px; transition: width 0.4s ease; }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .quick-card {
+            background: #ffffffd0;
+            backdrop-filter: blur(4px);
+            padding: 12px 6px;
+            text-align: center;
+            border-radius: 24px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-card i { font-size: 1.6rem; display: block; margin-bottom: 6px; color: var(--emerald); }
+        .quick-card:active { transform: scale(0.94); background: var(--emerald); color: white; }
+        .quick-card:active i { color: white; }
+
+        /* modal */
+        .modal-overlay {
+            position: fixed;
+            top:0;left:0;width:100%;height:100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity:0;
+            transition: 0.2s;
+        }
+        .modal-overlay.active { visibility: visible; opacity:1; }
+        .modal-content {
+            background: var(--light-surface);
+            max-width: 85%;
+            width: 340px;
+            border-radius: 40px;
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+        }
+        body.dark .modal-content { background: var(--dark-surface); }
+
+        .btn {
+            background: var(--emerald);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: white;
+            transition: 0.15s;
+            cursor: pointer;
+        }
+        .btn:active { transform: scale(0.96); background: var(--emerald-dark); }
+        .btn-outline { background: transparent; border: 1px solid var(--emerald); color: var(--emerald); }
+
+        .chat-bubble {
+            background: #eef2ff;
+            padding: 10px 14px;
+            border-radius: 24px;
+            margin-bottom: 8px;
+            max-width: 85%;
+        }
+        body.dark .chat-bubble { background: #2d3a4e; }
+
+        /* toasts */
+        .toast-msg {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            z-index: 1100;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+        }
+
+        /* ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10);
+            opacity: 0;
+            transition: transform .3s, opacity .5s;
+        }
+        .ripple:active:after {
+            transform: scale(0);
+            opacity: 0.3;
+            transition: 0s;
+        }
+
+        .arabic-font { font-family: 'Amiri', serif; font-size: 1.1rem; }
+
+        input, textarea { border-radius: 40px; border: 1px solid #cbd5e1; padding: 10px 16px; width: 100%; background: white; }
+        body.dark input, body.dark textarea { background: #0f172a; border-color: #475569; color: white; }
+
+        .event-item { background: rgba(16,185,129,0.05); border-radius: 20px; padding: 10px; margin-bottom: 8px; }
+
+        @media (max-width: 480px) { .quick-grid { gap: 8px; } }
+    </style>
+</head>
+<body>
+<div class="floating-crescent"><i class="fas fa-moon"></i></div>
+<div id="toast" class="toast-msg"></div>
+
+<div class="app-container">
+    <!-- HOME SCREEN -->
+    <div id="homePage" class="page active-page">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="background: linear-gradient(135deg, #10b981, #fbbf24); -webkit-background-clip: text; background-clip: text; color: transparent;">Assalamu Alaikum</h2>
+            <i class="fas fa-mosque" style="color: var(--emerald); font-size: 1.8rem;"></i>
+        </div>
+        <div class="card hero-card" id="nextPrayerCard">
+            <div id="liveClock" style="font-size: 2rem; font-weight: 800;">--:--:--</div>
+            <div>Next Prayer: <span id="nextPrayerName">Fajr</span> in <span id="countdownTimer">--</span></div>
+        </div>
+        <div id="prayerListContainerHome" class="card"></div>
+        <div class="quick-grid">
+            <div class="quick-card ripple" data-action="azkar"><i class="fas fa-praying-hands"></i> Azkar</div>
+            <div class="quick-card ripple" data-action="tasbeeh"><i class="fas fa-star-and-crescent"></i> Tasbeeh</div>
+            <div class="quick-card ripple" data-action="debates"><i class="fas fa-gavel"></i> Debates</div>
+            <div class="quick-card ripple" data-action="donate"><i class="fas fa-hand-holding-heart"></i> Donate</div>
+        </div>
+        <div class="card"><i class="fas fa-comments"></i> Community pulse: <span id="communityPreview">Join the discussion!</span></div>
+        <div class="card"><i class="fas fa-chart-line"></i> Recent donation: <span id="donationPreview">Help build masjid extension</span></div>
+    </div>
+
+    <!-- PRAYERS TRACKING -->
+    <div id="prayersPage" class="page"><h2><i class="fas fa-check-circle"></i> Prayer Tracker</h2><div id="prayerTrackingList" class="card"></div><div class="card"><h3>📊 Your Progress</h3><div class="progress-bar"><div id="prayerProgressFill" class="progress-fill"></div></div><div id="prayerStats">0/5 prayed today</div></div></div>
+
+    <!-- COMMUNITY CHAT -->
+    <div id="communityPage" class="page"><h2><i class="fas fa-comment-dots"></i> Group Chat</h2><div class="card"><div id="chatList" style="height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div><div class="input-group" style="display:flex; gap:10px; margin-top:12px;"><input type="text" id="chatInput" placeholder="Type message..."><button class="btn" id="sendMsg">Send</button></div></div></div>
+
+    <!-- EVENTS -->
+    <div id="eventsPage" class="page"><h2><i class="fas fa-calendar-alt"></i> Events</h2><button class="btn" id="openEventModal" style="width:100%; margin-bottom:12px;"><i class="fas fa-plus"></i> Add Event</button><div id="eventsList" class="card">Loading events...</div></div>
+
+    <!-- PROFILE -->
+    <div id="profilePage" class="page"><h2><i class="fas fa-user"></i> Profile</h2><div class="card"><input type="text" id="profileName" placeholder="Your name"><button class="btn" id="saveProfileBtn" style="margin-top:12px;">Save Profile</button></div><div class="card"><h3>Community Members</h3><input type="text" id="searchMember" placeholder="Search..."><div id="membersList"></div></div><div class="card"><h3>About</h3><p>Masjid Al Hamzah — Unity, Faith, Community.</p></div></div>
+
+    <!-- DEBATES & CHALLENGES MODAL HANDLED SEPARATELY -->
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" data-page="homePage"><i class="fas fa-home"></i>Home</div>
+    <div class="nav-item" data-page="prayersPage"><i class="fas fa-mosque"></i>Prayers</div>
+    <div class="nav-item" data-page="communityPage"><i class="fas fa-comments"></i>Chat</div>
+    <div class="nav-item" data-page="eventsPage"><i class="fas fa-calendar"></i>Events</div>
+    <div class="nav-item" data-page="profilePage"><i class="fas fa-user"></i>Profile</div>
+</div>
+
+<!-- Modals -->
+<div id="debateModal" class="modal-overlay"><div class="modal-content"><h3>📜 Community Guidelines</h3><p style="margin:12px 0;">Respect, no personal attacks, constructive dialogue. By posting, you agree.</p><input type="text" id="debateTopicInput" placeholder="Topic"><textarea id="debateStatement" rows="2" placeholder="Opening statement..."></textarea><div style="display:flex; gap:12px; margin-top:16px;"><button id="acceptGuidelinesBtn" class="btn">Accept & Post</button><button class="btn-outline btn" id="closeDebateModal">Cancel</button></div></div></div>
+<div id="eventModal" class="modal-overlay"><div class="modal-content"><h3>➕ New Event</h3><input type="text" id="eventTitle" placeholder="Title"><input type="text" id="eventDate" placeholder="Date (e.g., Apr 15, 2025)"><input type="text" id="eventTime" placeholder="Time"><button id="createEventBtn" class="btn" style="margin-top:12px;">Create Event</button><button class="btn-outline btn" id="closeEventModal">Cancel</button></div></div>
+<div id="donateModal" class="modal-overlay"><div class="modal-content"><h3>💚 Donation & Sadaqah</h3><p><strong>Bank: J&K Bank</strong><br>Account: 123456789<br>IFSC: JAKA0ANCHAR</p><p><strong>Zakat:</strong> 2.5% of savings. Purify wealth.<br><strong>Sadaqah:</strong> Any amount, any time.</p><button id="shareDonationBtn" class="btn">📤 Share Details</button><button class="btn-outline btn" id="closeDonateModal">Close</button></div></div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, onSnapshot, updateDoc, collection, addDoc, query, orderBy, serverTimestamp, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = { apiKey: "AIzaSyBerRmWoXYP1eiP_zqzRU_8LhvWDH4e_iY", authDomain: "masjid-al-hamzah-bbfb6.firebaseapp.com", projectId: "masjid-al-hamzah-bbfb6", storageBucket: "masjid-al-hamzah-bbfb6.firebasestorage.app", messagingSenderId: "1067466330734", appId: "1:1067466330734:web:271047b6377b2883e18c7f" };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    let currentUser = { name: "Guest", id: "" };
+    signInAnonymously(auth).then(cred => { currentUser.id = cred.user.uid; loadLocal(); });
+    function loadLocal() { let n = localStorage.getItem('masjidUserName'); if(n) currentUser.name = n; else currentUser.name = "Guest_"+currentUser.id.slice(0,4); document.getElementById('profileName') && (document.getElementById('profileName').value = currentUser.name); }
+
+    // helper toast
+    function toast(msg) { let t = document.getElementById('toast'); t.innerText = msg; t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000); }
+
+    // PRAYER TIMES & TRACKING (LOCALSTORAGE)
+    let prayerTimes = { fajr: "5:30", zuhr: "12:30", asr: "15:45", maghrib: "18:20", isha: "19:45" };
+    let prayerState = JSON.parse(localStorage.getItem('prayerTracking') || '{"fajr":false,"zuhr":false,"asr":false,"maghrib":false,"isha":false}');
+    function updateProgressUI() { let total = Object.values(prayerState).filter(v=>v===true).length; let percent = (total/5)*100; document.getElementById('prayerProgressFill') && (document.getElementById('prayerProgressFill').style.width = percent+'%'); document.getElementById('prayerStats') && (document.getElementById('prayerStats').innerText = total+"/5 prayers completed"); }
+    function renderPrayerTracking() {
+        let container = document.getElementById('prayerTrackingList'); if(!container) return;
+        let names = ["fajr","zuhr","asr","maghrib","isha"]; let display = ["Fajr","Zuhr","Asr","Maghrib","Isha"];
+        container.innerHTML = names.map((p,i)=>`<div class="prayer-row ripple" data-prayer="${p}"><div><strong>${display[i]}</strong><div>${prayerTimes[p]}</div></div><div class="prayer-status"><div class="toggle-icon ${prayerState[p]?'prayed':''}" data-type="prayed"><i class="fas fa-check"></i></div><div class="toggle-icon ${prayerState[p+'_jamaat']?'jamaat':''}" data-jamaat="${p}"><i class="fas fa-users"></i></div></div></div>`).join('');
+        document.querySelectorAll('[data-prayer]').forEach(el=>{ el.onclick=(e)=>{ let pray=el.dataset.prayer; prayerState[pray]=!prayerState[pray]; localStorage.setItem('prayerTracking',JSON.stringify(prayerState)); renderPrayerTracking(); updateProgressUI(); toast(`${pray} marked as ${prayerState[pray]?'prayed':'not prayed'}`); }; });
+        updateProgressUI();
+    }
+
+    // LIVE PRAYER FETCH
+    onSnapshot(doc(db,"settings","prayer_times"),(snap)=>{ if(snap.exists()){ prayerTimes = snap.data(); renderPrayerTracking(); updateHomePrayerList(); } });
+    function updateHomePrayerList(){ let container = document.getElementById('prayerListContainerHome'); if(container) container.innerHTML = `<div class="prayer-grid">${Object.entries(prayerTimes).map(([k,v])=>`<div class="prayer-item" style="display:flex; justify-content:space-between"><span>${k.toUpperCase()}</span><span>${v}</span></div>`).join('')}</div>`; }
+    // next prayer & countdown & clock
+    function getNextPrayerIndex(){ let now = new Date(); let times = {fajr:prayerTimes.fajr,zuhr:prayerTimes.zuhr,asr:prayerTimes.asr,maghrib:prayerTimes.maghrib,isha:prayerTimes.isha}; let order=["fajr","zuhr","asr","maghrib","isha"]; for(let p of order){ let [hour,min]=times[p].match(/\d+/g)||["0","0"]; let pDate=new Date(); pDate.setHours(parseInt(hour),parseInt(min),0); if(now<pDate) return {name:p,time:pDate}; } let nextDay=new Date(); let [fh,fm]=times.fajr.match(/\d+/g); nextDay.setDate(nextDay.getDate()+1); nextDay.setHours(parseInt(fh),parseInt(fm),0); return {name:"fajr",time:nextDay}; }
+    function updateClockAndCountdown(){ let now=new Date(); document.getElementById('liveClock')&&(document.getElementById('liveClock').innerText=now.toLocaleTimeString()); let next=getNextPrayerIndex(); let diff=next.time-now; if(diff<0) diff+=86400000; let mins=Math.floor(diff/60000); let secs=Math.floor((diff%60000)/1000); document.getElementById('countdownTimer')&&(document.getElementById('countdownTimer').innerText=`${mins}m ${secs}s`); document.getElementById('nextPrayerName')&&(document.getElementById('nextPrayerName').innerText=next.name.toUpperCase()); }
+    setInterval(updateClockAndCountdown,1000); updateClockAndCountdown();
+
+    // CHAT
+    document.getElementById('sendMsg').onclick=async()=>{ let txt=document.getElementById('chatInput').value.trim(); if(txt){ await addDoc(collection(db,"messages"),{user:currentUser.name,text:txt,timestamp:serverTimestamp()}); document.getElementById('chatInput').value=""; } };
+    onSnapshot(query(collection(db,"messages"),orderBy("timestamp","asc")),(snap)=>{ let container=document.getElementById('chatList'); if(container){ container.innerHTML=""; snap.forEach(d=>{let m=d.data();container.innerHTML+=`<div class="chat-bubble"><strong>${escapeHtml(m.user)}</strong><br>${escapeHtml(m.text)}</div>`;}); container.scrollTop=container.scrollHeight; } });
+
+    // DEBATES WITH GUIDELINES MODAL
+    let debateModal=document.getElementById('debateModal'); let activeAction=null;
+    document.querySelectorAll('.quick-card').forEach(card=>{ card.onclick=()=>{ let act=card.dataset.action; if(act==='debates'){ debateModal.classList.add('active'); } else if(act==='donate'){ document.getElementById('donateModal').classList.add('active'); } else if(act==='azkar'){ toast("سبحان الله، الحمد لله، الله أكبر"); } else if(act==='tasbeeh'){ let count=localStorage.getItem('tasbeeh')||0; let newC=parseInt(count)+1; localStorage.setItem('tasbeeh',newC); toast(`Tasbeeh counter: ${newC}`); } }; });
+    document.getElementById('acceptGuidelinesBtn').onclick=async()=>{ let topic=document.getElementById('debateTopicInput').value.trim(); let stmt=document.getElementById('debateStatement').value.trim(); if(!topic){ toast("Topic required"); return; } await addDoc(collection(db,"debates"),{topic:topic,opening:stmt,user:currentUser.name,agreeCount:0,disagreeCount:0,timestamp:serverTimestamp()}); toast("Debate posted!"); debateModal.classList.remove('active'); document.getElementById('debateTopicInput').value=""; document.getElementById('debateStatement').value=""; };
+    document.getElementById('closeDebateModal').onclick=()=>debateModal.classList.remove('active');
+
+    // EVENTS SYSTEM
+    let eventsArray=JSON.parse(localStorage.getItem('masjidEvents')||'[]');
+    function renderEvents(){ let container=document.getElementById('eventsList'); if(container) container.innerHTML=eventsArray.map(e=>`<div class="event-item"><strong>${e.title}</strong><br>📅 ${e.date} ⏰ ${e.time}</div>`).join('')||"<i>No events yet. Add one!</i>"; }
+    document.getElementById('openEventModal').onclick=()=>document.getElementById('eventModal').classList.add('active');
+    document.getElementById('createEventBtn').onclick=()=>{ let title=document.getElementById('eventTitle').value,date=document.getElementById('eventDate').value,time=document.getElementById('eventTime').value; if(title&&date){ eventsArray.push({title,date,time}); localStorage.setItem('masjidEvents',JSON.stringify(eventsArray)); renderEvents(); toast("Event added!"); document.getElementById('eventModal').classList.remove('active'); document.getElementById('eventTitle').value=""; document.getElementById('eventDate').value=""; document.getElementById('eventTime').value=""; } };
+    document.getElementById('closeEventModal').onclick=()=>document.getElementById('eventModal').classList.remove('active');
+    renderEvents();
+
+    // DONATION MODAL SHARE
+    document.getElementById('shareDonationBtn').onclick=()=>{ navigator.clipboard.writeText("Bank: J&K Bank, Acc: 123456789, IFSC: JAKA0ANCHAR"); toast("Bank details copied!"); };
+    document.getElementById('closeDonateModal').onclick=()=>document.getElementById('donateModal').classList.remove('active');
+
+    // PROFILE & MEMBERS SEARCH
+    document.getElementById('saveProfileBtn').onclick=()=>{ let name=document.getElementById('profileName').value.trim(); if(name){ localStorage.setItem('masjidUserName',name); currentUser.name=name; toast("Profile updated"); } };
+    async function loadMembers(){ let snap=await getDocs(collection(db,"users")); let members=[]; snap.forEach(d=>{ let data=d.data(); if(data.name) members.push(data.name); }); let unique=[...new Set(members)]; document.getElementById('membersList').innerHTML=unique.map(m=>`<div>👤 ${escapeHtml(m)}</div>`).join(''); }
+    document.getElementById('searchMember').addEventListener('input',(e)=>{ let val=e.target.value.toLowerCase(); let items=document.querySelectorAll('#membersList div'); items.forEach(i=>{ if(i.innerText.toLowerCase().includes(val)) i.style.display='block'; else i.style.display='none'; }); });
+    loadMembers();
+
+    // NAVIGATION + DARK MODE TOGGLE (extra)
+    let navs=document.querySelectorAll('.nav-item');
+    let pages=['homePage','prayersPage','communityPage','eventsPage','profilePage'];
+    navs.forEach(nav=>{ nav.onclick=()=>{ let target=nav.dataset.page; pages.forEach(p=>document.getElementById(p).classList.remove('active-page')); document.getElementById(target).classList.add('active-page'); navs.forEach(n=>n.classList.remove('active')); nav.classList.add('active'); }; });
+
+    // quick community preview
+    function escapeHtml(str){ return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // Also sync donations preview, community preview
+    setInterval(()=>{ let msgDiv=document.getElementById('communityPreview'); if(msgDiv) msgDiv.innerText="Active discussions ongoing 🤝"; },5000);
+    document.querySelectorAll('.ripple').forEach(el=>el.classList.add('ripple'));
+    renderPrayerTracking(); updateHomePrayerList();
+    // load tasbeeh count initial
+    if(localStorage.getItem('tasbeeh')===null) localStorage.setItem('tasbeeh','0');
+</script>
+</body>
+</html>
