@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Al Hamzah" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     * {
@@ -20,28 +20,25 @@
       -webkit-tap-highlight-color: transparent;
     }
     :root {
-      --bg-deep: #0C0F0E;
-      --bg-surface: #141816;
-      --bg-elevated: #1C221F;
-      --bg-accent-soft: #1A2A20;
-      --text-primary: #F2F2ED;
-      --text-secondary: #A3B0A3;
-      --text-muted: #69756A;
-      --gold: #C6A15C;
-      --gold-soft: #2E281C;
-      --emerald: #2D8A5E;
-      --emerald-glow: #3AA976;
-      --coral: #D97B5C;
-      --border-dim: #262D28;
-      --radius-lux: 2.5rem;
+      --bg-body: #F9F8F6;
+      --bg-surface: #FFFFFF;
+      --bg-elevated: #F4F2EF;
+      --text-primary: #1E2422;
+      --text-secondary: #5E6B64;
+      --text-muted: #8A948C;
+      --accent-gold: #B38B4A;
+      --accent-gold-soft: #F7F2E8;
+      --accent-emerald: #1F6E45;
+      --accent-emerald-soft: #E6F2EC;
+      --border-light: #E8E4DE;
+      --shadow-elevated: 0 20px 35px -12px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.02);
+      --radius-xl: 2.2rem;
       --radius-card: 2rem;
       --radius-pill: 999px;
-      --shadow-elevated: 0 25px 45px -12px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
-      --backdrop-blur: blur(18px);
     }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg-deep);
+      background: var(--bg-body);
       color: var(--text-primary);
       line-height: 1.4;
       min-height: 100vh;
@@ -54,30 +51,28 @@
       padding: 1.5rem 1.25rem 6rem;
       position: relative;
     }
-    /* loading screen - dark premium */
+    /* loading screen – white premium */
     .loading-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 30% 30%, #1B231E, #090C0A);
+      background: #F9F8F6;
       z-index: 9999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-      backdrop-filter: blur(4px);
+      transition: opacity 0.65s cubic-bezier(0.23, 1, 0.32, 1);
     }
     .logo-circle {
       width: 110px;
       height: 110px;
-      background: rgba(20, 26, 22, 0.8);
-      backdrop-filter: blur(12px);
+      background: white;
+      box-shadow: 0 25px 40px -10px rgba(0,0,0,0.08), 0 0 0 1px rgba(179,139,74,0.25);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.7), 0 0 0 1px rgba(198,161,92,0.4);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       animation: gentlePop 0.7s ease-out;
     }
     .logo-circle img {
@@ -93,40 +88,36 @@
     .loading-title {
       font-size: 2rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #C6A15C 0%, #E2C88A 70%);
+      background: linear-gradient(135deg, #1F6E45, #B38B4A);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: -0.3px;
       opacity: 0;
-      animation: fadeSlideUp 0.7s 0.25s forwards;
+      animation: fadeSlideUp 0.7s 0.2s forwards;
     }
     .loading-sub {
       font-size: 0.85rem;
-      color: #8B9A8E;
-      margin-top: 10px;
+      color: #8A948C;
+      margin-top: 8px;
       font-weight: 500;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       opacity: 0;
-      animation: fadeSlideUp 0.7s 0.55s forwards;
+      animation: fadeSlideUp 0.7s 0.5s forwards;
     }
     @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* header */
     .header-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
     .greeting h2 {
       font-size: 1.9rem;
       font-weight: 600;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
-      background: linear-gradient(180deg, #F2F2ED 0%, #C6A15C 90%);
+      background: linear-gradient(135deg, #1E2422, #B38B4A);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -140,27 +131,25 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(28, 34, 31, 0.8);
-      backdrop-filter: blur(10px);
-      padding: 0.55rem 1.2rem;
+      background: white;
+      padding: 0.5rem 1.2rem;
       border-radius: var(--radius-pill);
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--text-secondary);
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
       width: fit-content;
-      margin: 0.8rem 0 1.4rem;
-      letter-spacing: 0.2px;
+      margin: 0.6rem 0 1.4rem;
     }
     .masjid-name {
-      margin: 1.3rem 0 1.8rem;
+      margin: 1rem 0 1.6rem;
       text-align: left;
     }
     .masjid-name h1 {
       font-size: 2.3rem;
       font-weight: 700;
-      letter-spacing: -0.8px;
-      background: linear-gradient(135deg, #E2C88A, #C6A15C);
+      background: linear-gradient(135deg, #1F6E45, #B38B4A);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -168,30 +157,26 @@
     .masjid-name span {
       font-family: 'Amiri', serif;
       font-size: 1.1rem;
-      color: var(--gold);
+      color: var(--accent-gold);
       opacity: 0.9;
       display: inline-block;
       margin-top: 6px;
     }
-    /* date card */
     .datetime-card {
       background: var(--bg-surface);
       border-radius: var(--radius-card);
       padding: 1.5rem 1.6rem;
-      margin: 1.6rem 0 1.8rem;
+      margin: 1.5rem 0 1.8rem;
       box-shadow: var(--shadow-elevated);
-      border: 1px solid var(--border-dim);
-      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--border-light);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .current-time {
-      font-size: 2.9rem;
+      font-size: 2.8rem;
       font-weight: 700;
-      font-feature-settings: 'tnum';
-      color: white;
-      letter-spacing: 1px;
+      color: #1F6E45;
     }
     .date-stack {
       text-align: right;
@@ -202,44 +187,40 @@
     }
     .hijri-date {
       font-size: 0.75rem;
-      color: var(--gold);
-      background: rgba(198,161,92,0.12);
-      padding: 0.35rem 1rem;
+      color: var(--accent-gold);
+      background: var(--accent-gold-soft);
+      padding: 0.3rem 1rem;
       border-radius: 40px;
       margin-top: 8px;
       display: inline-block;
-      border: 1px solid rgba(198,161,92,0.2);
     }
-    /* hero next prayer */
     .next-prayer-hero {
-      background: linear-gradient(145deg, #1C2A22 0%, #121915 100%);
-      border-radius: var(--radius-lux);
+      background: linear-gradient(135deg, #1F6E45 0%, #134A2C 100%);
+      border-radius: var(--radius-xl);
       padding: 1.8rem 1.8rem;
       margin: 1.5rem 0 2rem;
-      border: 1px solid rgba(198,161,92,0.25);
-      box-shadow: 0 25px 40px -15px rgba(0,0,0,0.8);
+      color: white;
+      box-shadow: 0 20px 30px -10px rgba(31,110,69,0.3);
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(12px);
     }
     .next-prayer-hero::after {
       content: "☪";
       position: absolute;
       right: -5px;
-      bottom: -25px;
-      font-size: 105px;
-      opacity: 0.06;
-      color: var(--gold);
+      bottom: -20px;
+      font-size: 100px;
+      opacity: 0.08;
+      color: white;
     }
     .next-label {
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 3px;
-      color: var(--gold);
+      opacity: 0.85;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-weight: 500;
     }
     .next-main {
       display: flex;
@@ -248,20 +229,18 @@
       margin: 14px 0 8px;
     }
     .next-name {
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 700;
-      color: white;
     }
     .next-time {
-      font-size: 2rem;
+      font-size: 1.9rem;
       font-weight: 700;
-      background: rgba(198,161,92,0.2);
+      background: rgba(255,255,240,0.2);
       padding: 0.2rem 1.2rem;
       border-radius: 40px;
-      color: #F5E7C6;
     }
     .countdown-badge {
-      background: rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.2);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -269,9 +248,7 @@
       border-radius: 40px;
       font-size: 0.8rem;
       margin-top: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
     }
-    /* prayer grid refined */
     .prayer-section-title {
       display: flex;
       justify-content: space-between;
@@ -281,16 +258,14 @@
     .prayer-section-title h3 {
       font-weight: 600;
       font-size: 1.2rem;
-      color: var(--text-primary);
     }
     .iqamah-badge {
-      background: rgba(45,138,94,0.18);
+      background: var(--accent-emerald-soft);
       padding: 0.3rem 1rem;
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 600;
-      color: var(--emerald-glow);
-      border: 1px solid rgba(45,138,94,0.3);
+      color: var(--accent-emerald);
     }
     .prayer-grid {
       display: flex;
@@ -304,14 +279,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid var(--border-dim);
-      transition: all 0.25s;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.02);
+      transition: all 0.2s;
     }
     .prayer-row.active-prayer {
-      border-left: 5px solid var(--gold);
-      background: linear-gradient(90deg, #1E2720 0%, var(--bg-surface) 100%);
-      box-shadow: 0 10px 20px -8px rgba(198,161,92,0.2);
+      border-left: 5px solid var(--accent-gold);
+      background: #FCFAF7;
+      box-shadow: 0 12px 22px -8px rgba(179,139,74,0.12);
     }
     .prayer-icon {
       width: 46px;
@@ -321,26 +296,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold);
+      color: var(--accent-gold);
       font-size: 1.2rem;
     }
     .prayer-info { flex: 1; margin-left: 16px; }
     .prayer-name { font-weight: 700; font-size: 1rem; }
-    .prayer-arabic { font-family: 'Amiri', serif; font-size: 0.75rem; color: var(--gold); }
+    .prayer-arabic { font-family: 'Amiri', serif; font-size: 0.75rem; color: var(--accent-gold); }
     .prayer-timings { text-align: right; }
-    .jamaat-time { font-weight: 700; font-size: 1.1rem; color: white; }
+    .jamaat-time { font-weight: 700; font-size: 1.1rem; color: var(--accent-emerald); }
     .azaan-time { font-size: 0.7rem; color: var(--text-muted); }
     .jummah-badge {
-      background: rgba(198,161,92,0.15);
-      color: var(--gold);
+      background: var(--accent-gold-soft);
+      color: var(--accent-gold);
       font-size: 0.6rem;
       font-weight: 600;
       padding: 2px 10px;
       border-radius: 30px;
       margin-left: 6px;
-      border: 1px solid rgba(198,161,92,0.3);
     }
-    /* bottom nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -348,12 +321,12 @@
       width: 100%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(20, 26, 22, 0.9);
-      backdrop-filter: blur(25px);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
       display: flex;
       justify-content: space-around;
       padding: 0.6rem 1rem 1.8rem;
-      border-top: 1px solid rgba(198,161,92,0.2);
+      border-top: 1px solid var(--border-light);
       z-index: 100;
     }
     .nav-icon-btn {
@@ -363,15 +336,15 @@
       gap: 3px;
       color: var(--text-secondary);
       font-size: 0.7rem;
-      transition: 0.2s;
       cursor: pointer;
       padding: 6px 14px;
       border-radius: 40px;
+      transition: 0.2s;
     }
     .nav-icon-btn i { font-size: 1.4rem; }
     .nav-icon-btn.active {
-      background: rgba(198,161,92,0.15);
-      color: var(--gold);
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
       font-weight: 500;
     }
     .page { display: none; animation: fadeSlide 0.3s ease; }
@@ -381,46 +354,43 @@
       background: var(--bg-surface);
       border-radius: var(--radius-card);
       padding: 1.8rem;
-      border: 1px solid var(--border-dim);
+      border: 1px solid var(--border-light);
       box-shadow: var(--shadow-elevated);
       margin-bottom: 2rem;
     }
     .donation-icon {
-      width: 70px; height: 70px; background: rgba(198,161,92,0.1);
+      width: 70px; height: 70px; background: var(--accent-gold-soft);
       border-radius: 40px; display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; color: var(--gold); margin: 0 auto 1rem;
+      font-size: 2rem; color: var(--accent-gold); margin: 0 auto 1rem;
     }
     .bank-row { background: var(--bg-elevated); border-radius: 1.5rem; padding: 1rem; margin: 1rem 0; }
     .copy-btn {
-      width: 100%; background: var(--emerald); border: none; padding: 0.9rem;
+      width: 100%; background: var(--accent-emerald); border: none; padding: 0.9rem;
       border-radius: 3rem; font-weight: 600; color: white; display: flex;
       align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: 0.8rem;
     }
-    .tasbeeh-number { font-size: 5rem; font-weight: 700; color: var(--gold); }
-    .grid-calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 1rem; }
-    .cal-day { background: var(--bg-elevated); padding: 0.7rem 0; border-radius: 18px; }
-    .cal-day.today { background: var(--gold); color: #0C0F0E; font-weight: 700; }
+    .tasbeeh-number { font-size: 5rem; font-weight: 700; color: var(--accent-emerald); }
     .toast-msg {
       position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%);
-      background: #1C221F; color: #F2F2ED; padding: 0.6rem 1.8rem;
-      border-radius: 40px; font-size: 0.8rem; z-index: 200; border: 1px solid var(--gold);
+      background: #1E2422; color: white; padding: 0.6rem 1.8rem;
+      border-radius: 40px; font-size: 0.8rem; z-index: 200;
     }
   </style>
 </head>
 <body>
 <div class="loading-overlay" id="loadingOverlay">
   <div class="logo-circle">
-    <img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Logo" />
+    <img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Masjid Al Hamzah Logo" />
   </div>
   <div class="loading-title">MASJID AL-HAMZAH</div>
-  <div class="loading-sub">CRAFTED BY ATEEB ZARGAR</div>
+  <div class="loading-sub">DEVELOPED BY ATEEB ZARGAR</div>
 </div>
 
 <div class="app-container" id="appRoot">
   <div class="header-row">
     <div class="greeting">
-      <h2>السلام عليكم</h2>
-      <p>Blessed timings</p>
+      <h2>السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
+      <p>Blessed prayer times</p>
     </div>
   </div>
   <div class="location-chip"><i class="fas fa-map-pin"></i> HajiBagh, Buchpora</div>
@@ -434,7 +404,7 @@
       <div class="current-time" id="liveClock">--:--</div>
       <div class="date-stack">
         <div class="gregorian-date" id="gregDate">…</div>
-        <div class="hijri-date" id="hijriDate">Dhu'l Qaidah 1447</div>
+        <div class="hijri-date" id="hijriDate">Dhu'l Qaidah - 1447</div>
       </div>
     </div>
     <div class="next-prayer-hero">
@@ -456,30 +426,30 @@
     <div class="glass-card">
       <div class="donation-icon"><i class="fas fa-hand-holding-heart"></i></div>
       <h2 style="text-align:center; margin-bottom:0.3rem;">Support the Masjid</h2>
-      <p style="color:var(--text-muted); text-align:center;">Zakat · Sadaqah</p>
+      <p style="color:var(--text-muted); text-align:center;">Zakat · Sadaqah · Lillah</p>
       <div class="bank-row">
-        <div style="display:flex; justify-content:space-between;"><span>Account</span><strong>Masjid Al Hamzah</strong></div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>Number</span><strong>0173040100013447</strong></div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>IFSC</span><strong>JAKA0ANCHAR</strong></div>
+        <div style="display:flex; justify-content:space-between;"><span>Account Holder</span><strong>Masjid Al Hamzah</strong></div>
+        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>Account Number</span><strong>0173040100013447</strong></div>
+        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>IFSC Code</span><strong>JAKA0ANCHAR</strong></div>
       </div>
-      <button class="copy-btn" id="copyAccBtn"><i class="fas fa-copy"></i> Copy Account</button>
-      <button class="copy-btn" id="copyAllBtn" style="background:var(--gold);"><i class="fas fa-copy"></i> Copy All Details</button>
+      <button class="copy-btn" id="copyAccBtn"><i class="fas fa-copy"></i> Copy Account Number</button>
+      <button class="copy-btn" id="copyAllBtn" style="background:var(--accent-gold);"><i class="fas fa-copy"></i> Copy All Details</button>
     </div>
   </div>
-  
+
   <div id="tasbeehPage" class="page">
     <div class="glass-card" style="text-align:center;">
       <div class="tasbeeh-number" id="tasbeehCountDisplay">0</div>
       <div style="font-size:1.6rem; font-family:'Amiri',serif; margin:8px 0;" id="dhikrText">سُبْحَانَ اللَّهِ</div>
-      <div style="height:6px; background:var(--border-dim); border-radius:8px; margin:18px 0;">
-        <div id="tasbeehProgressFill" style="height:100%; width:0%; background:var(--gold); border-radius:8px; transition:0.2s;"></div>
+      <div style="height:6px; background:var(--border-light); border-radius:8px; margin:18px 0;">
+        <div id="tasbeehProgressFill" style="height:100%; width:0%; background:var(--accent-gold); border-radius:8px; transition:0.2s;"></div>
       </div>
       <div style="display:flex; gap:12px; margin:20px 0;">
-        <button id="incrementTasbeeh" style="flex:1; background:var(--emerald); border:none; padding:12px; border-radius:40px; color:white; font-weight:600;">Count</button>
-        <button id="resetTasbeeh" style="flex:1; background:var(--bg-elevated); border:1px solid var(--border-dim); padding:12px; border-radius:40px; color:white;">Reset</button>
+        <button id="incrementTasbeeh" style="flex:1; background:var(--accent-emerald); border:none; padding:12px; border-radius:40px; color:white; font-weight:600;">Count</button>
+        <button id="resetTasbeeh" style="flex:1; background:var(--bg-elevated); border:1px solid var(--border-light); padding:12px; border-radius:40px; color:var(--text-primary);">Reset</button>
       </div>
       <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-        <span class="preset-dhikr active" data-target="33" data-dhikr="subhanallah" style="background:rgba(198,161,92,0.2); padding:6px 18px; border-radius:30px; cursor:pointer;">33</span>
+        <span class="preset-dhikr active" data-target="33" data-dhikr="subhanallah" style="background:var(--accent-emerald-soft); padding:6px 18px; border-radius:30px; cursor:pointer;">33</span>
         <span class="preset-dhikr" data-target="33" data-dhikr="alhamdulillah" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">33</span>
         <span class="preset-dhikr" data-target="34" data-dhikr="allahuakbar" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">34</span>
         <span class="preset-dhikr" data-target="100" data-dhikr="100" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">100</span>
@@ -490,7 +460,6 @@
   <div class="bottom-nav">
     <div class="nav-icon-btn active" data-nav="home"><i class="fas fa-home"></i><span>Home</span></div>
     <div class="nav-icon-btn" data-nav="donation"><i class="fas fa-hand-holding-heart"></i><span>Donate</span></div>
-    <div class="nav-icon-btn" data-nav="calendar"><i class="fas fa-calendar-alt"></i><span>Calendar</span></div>
     <div class="nav-icon-btn" data-nav="tasbeeh"><i class="fas fa-praying-hands"></i><span>Tasbeeh</span></div>
   </div>
 </div>
@@ -569,18 +538,6 @@
       }
     }
 
-    function buildAprilCalendar() {
-      const grid = document.getElementById('aprilCalendarGrid'); if(!grid) return;
-      const firstDay = new Date(2026,3,1).getDay(); let offset = firstDay===0?6:firstDay-1;
-      let html=''; for(let i=0;i<offset;i++) html+='<div class="cal-day" style="background:transparent;"></div>';
-      const today = new Date();
-      for(let d=1;d<=30;d++){
-        let isToday = (d===today.getDate() && today.getMonth()===3 && today.getFullYear()===2026);
-        html+=`<div class="cal-day${isToday?' today':''}">${d}</div>`;
-      }
-      grid.innerHTML=html;
-    }
-
     let tasbeehCount=0, target=33, dhikrKey='subhanallah';
     const dhikrMap={subhanallah:'سُبْحَانَ اللَّهِ', alhamdulillah:'الْحَمْدُ لِلَّهِ', allahuakbar:'الله أَكْبَر', 100:'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ'};
     function updateTasbeehUI(){
@@ -589,14 +546,13 @@
       document.getElementById('dhikrText').innerText=dhikrMap[dhikrKey]||'سُبْحَانَ اللَّهِ';
     }
 
-    const pages={home:document.getElementById('homePage'),donation:document.getElementById('donationPage'),calendar:document.getElementById('calendarPage'),tasbeeh:document.getElementById('tasbeehPage')};
+    const pages={home:document.getElementById('homePage'),donation:document.getElementById('donationPage'),tasbeeh:document.getElementById('tasbeehPage')};
     document.querySelectorAll('.nav-icon-btn').forEach(b=>b.addEventListener('click',()=>{
       const page=b.dataset.nav;
       Object.values(pages).forEach(p=>p.classList.remove('active-page'));
-      pages[page].classList.add('active-page');
+      if(pages[page]) pages[page].classList.add('active-page');
       document.querySelectorAll('.nav-icon-btn').forEach(n=>n.classList.remove('active'));
       b.classList.add('active');
-      if(page==='calendar') buildAprilCalendar();
       window.showToastMessage(page.charAt(0).toUpperCase()+page.slice(1));
     }));
 
@@ -611,11 +567,11 @@
     document.getElementById('resetTasbeeh')?.addEventListener('click',()=>{ tasbeehCount=0; updateTasbeehUI(); });
     document.querySelectorAll('.preset-dhikr').forEach(b=>b.addEventListener('click',function(){
       document.querySelectorAll('.preset-dhikr').forEach(x=>x.style.background='var(--bg-elevated)');
-      this.style.background='rgba(198,161,92,0.2)';
+      this.style.background='var(--accent-emerald-soft)';
       target=parseInt(this.dataset.target); dhikrKey=this.dataset.dhikr; tasbeehCount=0; updateTasbeehUI();
     }));
 
-    renderPrayers(); updateClockAndNext(); buildAprilCalendar(); updateTasbeehUI();
+    renderPrayers(); updateClockAndNext(); updateTasbeehUI();
     setInterval(()=>{ updateClockAndNext(); updateActivePrayer(); renderPrayers(); }, 1000);
   })();
 </script>
