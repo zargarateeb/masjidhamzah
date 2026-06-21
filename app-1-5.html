@@ -1,579 +1,1084 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
-  <title>Masjid Al Hamzah · Prayer Times</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Al Hamzah" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-    :root {
-      --bg-body: #F9F8F6;
-      --bg-surface: #FFFFFF;
-      --bg-elevated: #F4F2EF;
-      --text-primary: #1E2422;
-      --text-secondary: #5E6B64;
-      --text-muted: #8A948C;
-      --accent-gold: #B38B4A;
-      --accent-gold-soft: #F7F2E8;
-      --accent-emerald: #1F6E45;
-      --accent-emerald-soft: #E6F2EC;
-      --border-light: #E8E4DE;
-      --shadow-elevated: 0 20px 35px -12px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.02);
-      --radius-xl: 2.2rem;
-      --radius-card: 2rem;
-      --radius-pill: 999px;
-    }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg-body);
-      color: var(--text-primary);
-      line-height: 1.4;
-      min-height: 100vh;
-      padding-bottom: 5rem;
-      letter-spacing: -0.01em;
-    }
-    .app-container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 6rem;
-      position: relative;
-    }
-    /* loading screen – white premium */
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: #F9F8F6;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.65s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .logo-circle {
-      width: 110px;
-      height: 110px;
-      background: white;
-      box-shadow: 0 25px 40px -10px rgba(0,0,0,0.08), 0 0 0 1px rgba(179,139,74,0.25);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      animation: gentlePop 0.7s ease-out;
-    }
-    .logo-circle img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-    @keyframes gentlePop {
-      0% { transform: scale(0.85); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .loading-title {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1F6E45, #B38B4A);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      opacity: 0;
-      animation: fadeSlideUp 0.7s 0.2s forwards;
-    }
-    .loading-sub {
-      font-size: 0.85rem;
-      color: #8A948C;
-      margin-top: 8px;
-      font-weight: 500;
-      letter-spacing: 0.8px;
-      opacity: 0;
-      animation: fadeSlideUp 0.7s 0.5s forwards;
-    }
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.2rem;
-    }
-    .greeting h2 {
-      font-size: 1.9rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #1E2422, #B38B4A);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .greeting p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-    .location-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      padding: 0.5rem 1.2rem;
-      border-radius: var(--radius-pill);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-light);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-      width: fit-content;
-      margin: 0.6rem 0 1.4rem;
-    }
-    .masjid-name {
-      margin: 1rem 0 1.6rem;
-      text-align: left;
-    }
-    .masjid-name h1 {
-      font-size: 2.3rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1F6E45, #B38B4A);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .masjid-name span {
-      font-family: 'Amiri', serif;
-      font-size: 1.1rem;
-      color: var(--accent-gold);
-      opacity: 0.9;
-      display: inline-block;
-      margin-top: 6px;
-    }
-    .datetime-card {
-      background: var(--bg-surface);
-      border-radius: var(--radius-card);
-      padding: 1.5rem 1.6rem;
-      margin: 1.5rem 0 1.8rem;
-      box-shadow: var(--shadow-elevated);
-      border: 1px solid var(--border-light);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .current-time {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #1F6E45;
-    }
-    .date-stack {
-      text-align: right;
-    }
-    .gregorian-date {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .hijri-date {
-      font-size: 0.75rem;
-      color: var(--accent-gold);
-      background: var(--accent-gold-soft);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      margin-top: 8px;
-      display: inline-block;
-    }
-    .next-prayer-hero {
-      background: linear-gradient(135deg, #1F6E45 0%, #134A2C 100%);
-      border-radius: var(--radius-xl);
-      padding: 1.8rem 1.8rem;
-      margin: 1.5rem 0 2rem;
-      color: white;
-      box-shadow: 0 20px 30px -10px rgba(31,110,69,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    .next-prayer-hero::after {
-      content: "☪";
-      position: absolute;
-      right: -5px;
-      bottom: -20px;
-      font-size: 100px;
-      opacity: 0.08;
-      color: white;
-    }
-    .next-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      opacity: 0.85;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .next-main {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin: 14px 0 8px;
-    }
-    .next-name {
-      font-size: 2.1rem;
-      font-weight: 700;
-    }
-    .next-time {
-      font-size: 1.9rem;
-      font-weight: 700;
-      background: rgba(255,255,240,0.2);
-      padding: 0.2rem 1.2rem;
-      border-radius: 40px;
-    }
-    .countdown-badge {
-      background: rgba(0,0,0,0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      margin-top: 12px;
-    }
-    .prayer-section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 1.8rem 0 1.2rem;
-    }
-    .prayer-section-title h3 {
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .iqamah-badge {
-      background: var(--accent-emerald-soft);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--accent-emerald);
-    }
-    .prayer-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .prayer-row {
-      background: var(--bg-surface);
-      border-radius: 1.8rem;
-      padding: 0.9rem 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid var(--border-light);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.02);
-      transition: all 0.2s;
-    }
-    .prayer-row.active-prayer {
-      border-left: 5px solid var(--accent-gold);
-      background: #FCFAF7;
-      box-shadow: 0 12px 22px -8px rgba(179,139,74,0.12);
-    }
-    .prayer-icon {
-      width: 46px;
-      height: 46px;
-      background: var(--bg-elevated);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-gold);
-      font-size: 1.2rem;
-    }
-    .prayer-info { flex: 1; margin-left: 16px; }
-    .prayer-name { font-weight: 700; font-size: 1rem; }
-    .prayer-arabic { font-family: 'Amiri', serif; font-size: 0.75rem; color: var(--accent-gold); }
-    .prayer-timings { text-align: right; }
-    .jamaat-time { font-weight: 700; font-size: 1.1rem; color: var(--accent-emerald); }
-    .azaan-time { font-size: 0.7rem; color: var(--text-muted); }
-    .jummah-badge {
-      background: var(--accent-gold-soft);
-      color: var(--accent-gold);
-      font-size: 0.6rem;
-      font-weight: 600;
-      padding: 2px 10px;
-      border-radius: 30px;
-      margin-left: 6px;
-    }
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      max-width: 480px;
-      width: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(20px);
-      display: flex;
-      justify-content: space-around;
-      padding: 0.6rem 1rem 1.8rem;
-      border-top: 1px solid var(--border-light);
-      z-index: 100;
-    }
-    .nav-icon-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      color: var(--text-secondary);
-      font-size: 0.7rem;
-      cursor: pointer;
-      padding: 6px 14px;
-      border-radius: 40px;
-      transition: 0.2s;
-    }
-    .nav-icon-btn i { font-size: 1.4rem; }
-    .nav-icon-btn.active {
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
-      font-weight: 500;
-    }
-    .page { display: none; animation: fadeSlide 0.3s ease; }
-    .page.active-page { display: block; }
-    @keyframes fadeSlide { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-    .glass-card {
-      background: var(--bg-surface);
-      border-radius: var(--radius-card);
-      padding: 1.8rem;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-elevated);
-      margin-bottom: 2rem;
-    }
-    .donation-icon {
-      width: 70px; height: 70px; background: var(--accent-gold-soft);
-      border-radius: 40px; display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; color: var(--accent-gold); margin: 0 auto 1rem;
-    }
-    .bank-row { background: var(--bg-elevated); border-radius: 1.5rem; padding: 1rem; margin: 1rem 0; }
-    .copy-btn {
-      width: 100%; background: var(--accent-emerald); border: none; padding: 0.9rem;
-      border-radius: 3rem; font-weight: 600; color: white; display: flex;
-      align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: 0.8rem;
-    }
-    .tasbeeh-number { font-size: 5rem; font-weight: 700; color: var(--accent-emerald); }
-    .toast-msg {
-      position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%);
-      background: #1E2422; color: white; padding: 0.6rem 1.8rem;
-      border-radius: 40px; font-size: 0.8rem; z-index: 200;
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+<title>Masjid Al Hamzah</title>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --ink:#0D1210;
+  --ink2:#1C2B24;
+  --jade:#0F5C36;
+  --jade-light:#1A7A4A;
+  --jade-glow:rgba(15,92,54,0.35);
+  --gold:#C4963A;
+  --gold-pale:#F5EDD8;
+  --gold-glow:rgba(196,150,58,0.3);
+  --cream:#F7F4EE;
+  --cream2:#EEE9DF;
+  --glass:rgba(255,255,255,0.07);
+  --glass-border:rgba(255,255,255,0.13);
+  --r-card:1.6rem;
+  --r-pill:999px;
+}
+html{height:100%;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ink);
+  color:var(--cream);
+  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
+  letter-spacing:-0.015em;
+}
+
+/* ── LOADING ── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  transition:opacity 0.8s cubic-bezier(0.23,1,0.32,1);
+}
+.loader-ring{
+  width:90px;height:90px;border-radius:50%;
+  border:1.5px solid rgba(196,150,58,0.3);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;margin-bottom:28px;
+  animation:ringPulse 2s ease-in-out infinite;
+}
+.loader-ring::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:1px solid rgba(196,150,58,0.12);
+  animation:ringPulse 2s ease-in-out infinite 0.3s;
+}
+.loader-logo{width:72px;height:72px;border-radius:50%;object-fit:cover;}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.06);opacity:0.7;}}
+.loader-name{
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;
+  letter-spacing:0.18em;color:var(--gold);
+  opacity:0;animation:fadeUp 0.7s 0.4s forwards;
+}
+.loader-sub{
+  font-size:0.65rem;letter-spacing:0.3em;color:rgba(196,150,58,0.5);
+  margin-top:10px;text-transform:uppercase;
+  opacity:0;animation:fadeUp 0.7s 0.7s forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── CANVAS BG ── */
+#domeCanvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;opacity:0.9;
+}
+
+/* ── LAYOUT ── */
+.app{
+  position:relative;z-index:1;
+  max-width:430px;margin:0 auto;
+  padding:env(safe-area-inset-top, 20px) 1.2rem 7rem;
+  padding-top:max(env(safe-area-inset-top), 20px);
+}
+
+/* ── HEADER ── */
+.top-bar{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding-top:16px;margin-bottom:6px;
+}
+.salam-text{
+  font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);
+  opacity:0.85;line-height:1.4;max-width:220px;
+}
+.logo-pill{
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(196,150,58,0.4);overflow:hidden;
+  box-shadow:0 0 20px var(--gold-glow);
+  flex-shrink:0;
+}
+.logo-pill img{width:100%;height:100%;object-fit:cover;}
+
+.loc-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(196,150,58,0.6);margin:8px 0 4px;
+}
+.loc-tag svg{width:10px;height:10px;fill:currentColor;}
+
+.masjid-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:700;line-height:1;
+  background:linear-gradient(140deg,#fff 0%,var(--gold) 60%,#C4963A 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin:4px 0 2px;
+}
+.masjid-arabic{
+  font-family:'Amiri',serif;font-size:1.1rem;
+  color:rgba(196,150,58,0.7);letter-spacing:0.05em;
+}
+
+/* ── CLOCK CARD ── */
+.clock-card{
+  margin:1.4rem 0 1.2rem;
+  background:linear-gradient(135deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.02) 100%);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-card);
+  padding:1.3rem 1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.08);
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+  cursor:default;
+}
+.clock-card:active{transform:scale(0.98);}
+.clock-main{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.4rem;font-weight:700;line-height:1;
+  color:#fff;
+  text-shadow:0 0 30px rgba(196,150,58,0.4);
+}
+.clock-ampm{font-size:1.2rem;color:var(--gold);margin-left:4px;vertical-align:top;margin-top:8px;display:inline-block;}
+.date-col{text-align:right;}
+.greg-date{font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.7);}
+.hijri-pill{
+  display:inline-block;margin-top:8px;
+  font-family:'Amiri',serif;font-size:0.72rem;
+  color:var(--gold);background:rgba(196,150,58,0.12);
+  border:1px solid rgba(196,150,58,0.25);
+  padding:4px 14px;border-radius:40px;
+}
+
+/* ── NEXT PRAYER HERO ── */
+.hero-card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--jade) 0%,#0A3D22 100%);
+  border-radius:2rem;
+  padding:1.6rem 1.6rem 1.5rem;
+  margin:0 0 1.4rem;
+  box-shadow:0 24px 48px -10px var(--jade-glow),inset 0 1px 0 rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;
+  transition:transform 0.25s cubic-bezier(0.23,1,0.32,1),box-shadow 0.25s ease;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.hero-card:active{transform:scale(0.975);}
+.hero-orb{
+  position:absolute;right:-30px;top:-30px;
+  width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,150,58,0.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-crescent{
+  position:absolute;right:20px;bottom:10px;
+  font-size:80px;opacity:0.07;color:white;
+  pointer-events:none;line-height:1;
+  font-family:'Amiri',serif;
+}
+.hero-label{
+  font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;
+}
+.hero-label::before{content:'';width:20px;height:1px;background:rgba(255,255,255,0.3);}
+.hero-main{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin:14px 0 12px;
+}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.6rem;font-weight:700;color:#fff;line-height:1;
+}
+.hero-time{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:600;color:var(--gold);
+  background:rgba(196,150,58,0.12);border:1px solid rgba(196,150,58,0.25);
+  padding:4px 16px;border-radius:40px;
+}
+.hero-countdown{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.25);
+  padding:6px 16px;border-radius:40px;
+  font-size:0.78rem;color:rgba(255,255,255,0.8);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.pulse-dot{
+  width:6px;height:6px;border-radius:50%;background:#4ADE80;
+  animation:pulseDot 1.5s ease-in-out infinite;
+}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+
+/* ── PRAYER LIST ── */
+.section-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin:1.8rem 0 1rem;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:600;color:#fff;
+}
+.iq-tag{
+  font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(196,150,58,0.7);border:1px solid rgba(196,150,58,0.2);
+  padding:4px 12px;border-radius:40px;
+  background:rgba(196,150,58,0.07);
+}
+
+.prayer-list{display:flex;flex-direction:column;gap:10px;}
+
+.prayer-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:1.4rem;
+  padding:1rem 1.2rem;
+  display:flex;align-items:center;gap:14px;
+  transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transform-origin:center;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.prayer-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:transparent;border-radius:0 2px 2px 0;
+  transition:background 0.3s;
+}
+.prayer-card.active::before{background:var(--gold);}
+.prayer-card.active{
+  background:rgba(196,150,58,0.08);
+  border-color:rgba(196,150,58,0.22);
+  box-shadow:0 8px 24px rgba(196,150,58,0.1);
+}
+.prayer-card:active{transform:scale(0.97);}
+.prayer-card.tap-flash{animation:tapFlash 0.4s ease;}
+@keyframes tapFlash{0%{background:rgba(196,150,58,0.2);}100%{background:rgba(196,150,58,0.08);}}
+
+.p-icon{
+  width:44px;height:44px;flex-shrink:0;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  font-size:1.1rem;
+  transition:all 0.3s;
+}
+.prayer-card.active .p-icon{
+  background:rgba(196,150,58,0.15);
+  border-color:rgba(196,150,58,0.3);
+  box-shadow:0 0 16px rgba(196,150,58,0.2);
+}
+.p-info{flex:1;}
+.p-name{
+  font-weight:600;font-size:0.95rem;color:#fff;
+  display:flex;align-items:center;gap:8px;
+}
+.p-arabic{
+  font-family:'Amiri',serif;font-size:0.72rem;
+  color:rgba(196,150,58,0.65);margin-top:2px;
+}
+.jum-badge{
+  font-size:0.55rem;letter-spacing:0.1em;
+  background:var(--gold);color:var(--ink);
+  padding:2px 8px;border-radius:20px;font-weight:700;
+  text-transform:uppercase;
+}
+.p-times{text-align:right;flex-shrink:0;}
+.jamaat{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;font-weight:700;
+  color:var(--gold);line-height:1;
+}
+.azaan-t{font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:4px;}
+
+/* ── PAGES ── */
+.page{display:none;animation:pageIn 0.35s cubic-bezier(0.23,1,0.32,1);}
+.page.active-page{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── DONATION PAGE ── */
+.donate-hero{
+  background:linear-gradient(135deg,rgba(196,150,58,0.15) 0%,rgba(196,150,58,0.05) 100%);
+  border:1px solid rgba(196,150,58,0.2);
+  border-radius:2rem;padding:2rem 1.6rem;
+  text-align:center;margin-bottom:1.2rem;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.donate-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(196,150,58,0.15);border:1px solid rgba(196,150,58,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;margin:0 auto 1rem;
+  box-shadow:0 0 30px rgba(196,150,58,0.2);
+}
+.donate-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:700;color:#fff;margin-bottom:4px;
+}
+.donate-sub{font-size:0.8rem;color:rgba(196,150,58,0.7);letter-spacing:0.1em;}
+.bank-card{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:1.4rem;padding:1.2rem 1.4rem;margin:1.2rem 0;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.bank-row-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.bank-row-item:last-child{border-bottom:none;}
+.bank-label{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.06em;}
+.bank-val{font-size:0.88rem;font-weight:600;color:#fff;}
+.donate-btn{
+  width:100%;border:none;padding:1rem;border-radius:50px;
+  font-size:0.88rem;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;margin-top:10px;letter-spacing:0.05em;
+  transition:all 0.25s cubic-bezier(0.23,1,0.32,1);
+}
+.donate-btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--jade);color:#fff;border:1px solid rgba(255,255,255,0.1);}
+.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,#A07C2F 100%);color:var(--ink);}
+
+/* ── TASBEEH PAGE ── */
+.tasbeeh-wrap{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  border-radius:2rem;padding:2rem 1.6rem;
+  text-align:center;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.tasbeeh-circle{
+  width:180px;height:180px;border-radius:50%;
+  border:2px solid rgba(196,150,58,0.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 1.6rem;
+  position:relative;cursor:pointer;
+  transition:all 0.15s ease;
+  background:radial-gradient(circle,rgba(196,150,58,0.08) 0%,transparent 70%);
+  box-shadow:0 0 0 0 rgba(196,150,58,0);
+}
+.tasbeeh-circle:active{transform:scale(0.93);box-shadow:0 0 30px rgba(196,150,58,0.3);}
+.tasbeeh-circle.bump{animation:bump 0.2s ease;}
+@keyframes bump{0%{transform:scale(1);}50%{transform:scale(0.9);}100%{transform:scale(1);}}
+.tc-outer{
+  position:absolute;inset:-12px;border-radius:50%;
+  border:1px solid rgba(196,150,58,0.1);
+  animation:slowSpin 20s linear infinite;
+}
+@keyframes slowSpin{to{transform:rotate(360deg);}}
+.tc-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.5rem;font-weight:700;color:#fff;line-height:1;
+}
+.tc-of{font-size:0.7rem;color:rgba(196,150,58,0.6);letter-spacing:0.1em;}
+.dhikr-text{
+  font-family:'Amiri',serif;font-size:1.8rem;
+  color:var(--gold);margin:0 0 1.4rem;line-height:1.6;
+}
+.progress-track{
+  height:4px;background:rgba(255,255,255,0.08);
+  border-radius:4px;margin:0 0 1.4rem;overflow:hidden;
+}
+.progress-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,var(--jade-light),var(--gold));
+  transition:width 0.25s cubic-bezier(0.23,1,0.32,1);
+}
+.tas-btns{display:flex;gap:10px;margin:0 0 1.2rem;}
+.tas-btn{
+  flex:1;border:none;padding:12px;border-radius:40px;
+  font-size:0.88rem;font-weight:600;cursor:pointer;
+  transition:all 0.2s ease;
+}
+.tas-btn:active{transform:scale(0.95);}
+.tas-count{background:var(--jade);color:#fff;}
+.tas-reset{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);}
+.dhikr-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.dhikr-preset{
+  padding:6px 16px;border-radius:30px;font-size:0.78rem;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);
+  transition:all 0.2s;
+}
+.dhikr-preset:active{transform:scale(0.93);}
+.dhikr-preset.sel{
+  background:rgba(196,150,58,0.15);border-color:rgba(196,150,58,0.4);
+  color:var(--gold);
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  max-width:430px;width:100%;
+  background:rgba(13,18,16,0.88);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding:0.5rem 2rem max(env(safe-area-inset-bottom),1.2rem);
+  display:flex;justify-content:space-around;align-items:center;
+  z-index:100;
+}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;padding:8px 16px;border-radius:40px;
+  transition:all 0.25s cubic-bezier(0.23,1,0.32,1);
+  position:relative;
+}
+.nav-btn:active{transform:scale(0.9);}
+.nav-icon{font-size:1.3rem;filter:grayscale(1);opacity:0.45;transition:all 0.25s;}
+.nav-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);transition:all 0.25s;}
+.nav-btn.active .nav-icon{filter:none;opacity:1;}
+.nav-btn.active .nav-label{color:var(--gold);}
+.nav-btn.active::after{
+  content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:20px;height:2px;background:var(--gold);border-radius:2px;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(10px);
+  background:rgba(28,43,36,0.95);color:#fff;
+  padding:10px 24px;border-radius:40px;
+  font-size:0.8rem;border:1px solid rgba(196,150,58,0.25);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  z-index:300;opacity:0;transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
+  pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── RIPPLE ── */
+.ripple-container{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;}
+.ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(196,150,58,0.25);
+  transform:scale(0);animation:rippleOut 0.6s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes rippleOut{to{transform:scale(4);opacity:0;}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
+}
+</style>
 </head>
 <body>
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="logo-circle">
-    <img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Masjid Al Hamzah Logo" />
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-ring">
+    <img class="loader-logo" src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Logo"/>
   </div>
-  <div class="loading-title">MASJID AL-HAMZAH</div>
-  <div class="loading-sub">DEVELOPED BY ATEEB ZARGAR</div>
+  <div class="loader-name">MASJID AL-HAMZAH</div>
+  <div class="loader-sub">Established in Faith · HajiBagh, Buchpora</div>
 </div>
 
-<div class="app-container" id="appRoot">
-  <div class="header-row">
-    <div class="greeting">
-      <h2>السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</h2>
-      <p>Blessed prayer times</p>
-    </div>
-  </div>
-  <div class="location-chip"><i class="fas fa-map-pin"></i> HajiBagh, Buchpora</div>
-  <div class="masjid-name">
-    <h1>Masjid Al Hamzah</h1>
-    <span>مَسْجِدِ الْحَمْزَۃ</span>
-  </div>
+<!-- 3D CANVAS -->
+<canvas id="domeCanvas"></canvas>
 
+<div class="app" id="appRoot">
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="salam-text">السَّلاَمُ عَلَيْكُمْ<br>وَرَحْمَةُ اللهِ</div>
+    <div class="logo-pill"><img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Logo"/></div>
+  </div>
+  <div class="loc-tag">
+    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    HajiBagh, Buchpora
+  </div>
+  <div class="masjid-title">Masjid<br>Al Hamzah</div>
+  <div class="masjid-arabic">مَسْجِدِ الْحَمْزَۃ</div>
+
+  <!-- HOME PAGE -->
   <div id="homePage" class="page active-page">
-    <div class="datetime-card">
-      <div class="current-time" id="liveClock">--:--</div>
-      <div class="date-stack">
-        <div class="gregorian-date" id="gregDate">…</div>
-        <div class="hijri-date" id="hijriDate">Dhu'l Qaidah - 1447</div>
+    <div class="clock-card" id="clockCard">
+      <div>
+        <div class="clock-main" id="clockTime">--<span class="clock-ampm" id="clockAmpm">--</span></div>
+      </div>
+      <div class="date-col">
+        <div class="greg-date" id="gregDate">—</div>
+        <div class="hijri-pill">Dhu'l Qaidah 1447</div>
       </div>
     </div>
-    <div class="next-prayer-hero">
-      <div class="next-label"><i class="fas fa-bell"></i> NEXT JAMA'AH</div>
-      <div class="next-main">
-        <span class="next-name" id="nextPrayerName">Zuhr</span>
-        <span class="next-time" id="nextPrayerTime">1:00 PM</span>
+
+    <div class="hero-card" id="heroCard">
+      <div class="hero-orb"></div>
+      <div class="hero-crescent">☪</div>
+      <div class="hero-label">Next Jamā'ah</div>
+      <div class="hero-main">
+        <div class="hero-name" id="nextName">—</div>
+        <div class="hero-time" id="nextTime">—</div>
       </div>
-      <div class="countdown-badge"><i class="fas fa-hourglass-half"></i> <span id="nextCountdown">--</span></div>
+      <div class="hero-countdown">
+        <div class="pulse-dot"></div>
+        <span id="nextCountdown">calculating…</span>
+      </div>
     </div>
-    <div class="prayer-section-title">
-      <h3><i class="fas fa-mosque"></i> Daily Salah</h3>
-      <span class="iqamah-badge">Iqaamah</span>
+
+    <div class="section-row">
+      <div class="section-title">Daily Ṣalāh</div>
+      <div class="iq-tag">Iqāmah</div>
     </div>
-    <div class="prayer-grid" id="prayerListContainer"></div>
+    <div class="prayer-list" id="prayerList"></div>
   </div>
 
+  <!-- DONATION PAGE -->
   <div id="donationPage" class="page">
-    <div class="glass-card">
-      <div class="donation-icon"><i class="fas fa-hand-holding-heart"></i></div>
-      <h2 style="text-align:center; margin-bottom:0.3rem;">Support the Masjid</h2>
-      <p style="color:var(--text-muted); text-align:center;">Zakat · Sadaqah · Lillah</p>
-      <div class="bank-row">
-        <div style="display:flex; justify-content:space-between;"><span>Account Holder</span><strong>Masjid Al Hamzah</strong></div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>Account Number</span><strong>0173040100013447</strong></div>
-        <div style="display:flex; justify-content:space-between; margin-top:10px;"><span>IFSC Code</span><strong>JAKA0ANCHAR</strong></div>
-      </div>
-      <button class="copy-btn" id="copyAccBtn"><i class="fas fa-copy"></i> Copy Account Number</button>
-      <button class="copy-btn" id="copyAllBtn" style="background:var(--accent-gold);"><i class="fas fa-copy"></i> Copy All Details</button>
+    <div class="donate-hero">
+      <div class="donate-icon">🤲</div>
+      <div class="donate-title">Support the Masjid</div>
+      <div class="donate-sub">Zakāt · Ṣadaqah · Lillāh</div>
     </div>
+    <div class="bank-card">
+      <div class="bank-row-item">
+        <span class="bank-label">Account Holder</span>
+        <span class="bank-val">Masjid Al Hamzah</span>
+      </div>
+      <div class="bank-row-item">
+        <span class="bank-label">Account Number</span>
+        <span class="bank-val">0173040100013447</span>
+      </div>
+      <div class="bank-row-item">
+        <span class="bank-label">IFSC Code</span>
+        <span class="bank-val">JAKA0ANCHAR</span>
+      </div>
+      <div class="bank-row-item">
+        <span class="bank-label">Bank</span>
+        <span class="bank-val">J&K Bank</span>
+      </div>
+    </div>
+    <button class="donate-btn btn-primary" id="copyAccBtn">
+      <span>📋</span> Copy Account Number
+    </button>
+    <button class="donate-btn btn-gold" id="copyAllBtn" style="margin-top:10px;">
+      <span>✨</span> Copy All Details
+    </button>
   </div>
 
+  <!-- TASBEEH PAGE -->
   <div id="tasbeehPage" class="page">
-    <div class="glass-card" style="text-align:center;">
-      <div class="tasbeeh-number" id="tasbeehCountDisplay">0</div>
-      <div style="font-size:1.6rem; font-family:'Amiri',serif; margin:8px 0;" id="dhikrText">سُبْحَانَ اللَّهِ</div>
-      <div style="height:6px; background:var(--border-light); border-radius:8px; margin:18px 0;">
-        <div id="tasbeehProgressFill" style="height:100%; width:0%; background:var(--accent-gold); border-radius:8px; transition:0.2s;"></div>
+    <div class="tasbeeh-wrap">
+      <div class="tasbeeh-circle" id="tasbeehCircle">
+        <div class="tc-outer"></div>
+        <div class="tc-num" id="tcNum">0</div>
+        <div class="tc-of" id="tcOf">of 33</div>
+        <div class="ripple-container" id="tasbeehRipple"></div>
       </div>
-      <div style="display:flex; gap:12px; margin:20px 0;">
-        <button id="incrementTasbeeh" style="flex:1; background:var(--accent-emerald); border:none; padding:12px; border-radius:40px; color:white; font-weight:600;">Count</button>
-        <button id="resetTasbeeh" style="flex:1; background:var(--bg-elevated); border:1px solid var(--border-light); padding:12px; border-radius:40px; color:var(--text-primary);">Reset</button>
+      <div class="dhikr-text" id="dhikrText">سُبْحَانَ اللَّهِ</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
       </div>
-      <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-        <span class="preset-dhikr active" data-target="33" data-dhikr="subhanallah" style="background:var(--accent-emerald-soft); padding:6px 18px; border-radius:30px; cursor:pointer;">33</span>
-        <span class="preset-dhikr" data-target="33" data-dhikr="alhamdulillah" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">33</span>
-        <span class="preset-dhikr" data-target="34" data-dhikr="allahuakbar" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">34</span>
-        <span class="preset-dhikr" data-target="100" data-dhikr="100" style="background:var(--bg-elevated); padding:6px 18px; border-radius:30px; cursor:pointer;">100</span>
+      <div class="tas-btns">
+        <button class="tas-btn tas-count" id="incrementBtn">Count</button>
+        <button class="tas-btn tas-reset" id="resetBtn">Reset</button>
+      </div>
+      <div class="dhikr-presets">
+        <span class="dhikr-preset sel" data-target="33" data-dhikr="subhanallah" data-label="سُبْحَانَ اللَّهِ">SubhānAllāh · 33</span>
+        <span class="dhikr-preset" data-target="33" data-dhikr="alhamdulillah" data-label="الْحَمْدُ لِلَّهِ">AlḥamdulIllāh · 33</span>
+        <span class="dhikr-preset" data-target="34" data-dhikr="allahuakbar" data-label="اللَّهُ أَكْبَر">Allāhu Akbar · 34</span>
+        <span class="dhikr-preset" data-target="100" data-dhikr="lailaha" data-label="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ">Lā ilāha · 100</span>
       </div>
     </div>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-icon-btn active" data-nav="home"><i class="fas fa-home"></i><span>Home</span></div>
-    <div class="nav-icon-btn" data-nav="donation"><i class="fas fa-hand-holding-heart"></i><span>Donate</span></div>
-    <div class="nav-icon-btn" data-nav="tasbeeh"><i class="fas fa-praying-hands"></i><span>Tasbeeh</span></div>
   </div>
 </div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-btn active" data-nav="home">
+    <span class="nav-icon">🕌</span>
+    <span class="nav-label">Home</span>
+  </div>
+  <div class="nav-btn" data-nav="donation">
+    <span class="nav-icon">🤲</span>
+    <span class="nav-label">Donate</span>
+  </div>
+  <div class="nav-btn" data-nav="tasbeeh">
+    <span class="nav-icon">📿</span>
+    <span class="nav-label">Tasbeeh</span>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-  (function() {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const loader = document.getElementById('loadingOverlay');
-        if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 700); }
-      }, 2000);
-    });
+// ── 3D WebGL Dome Scene ──────────────────────────────────────────────────────
+(function initWebGL() {
+  const canvas = document.getElementById('domeCanvas');
+  const gl = canvas.getContext('webgl', { alpha: true, antialias: true });
+  if (!gl) return;
 
-    const basePrayers = {
-      fajr: { name:"Fajr", arabic:"الْفَجْر", icon:"fa-star", azaanOffset:40, jamaat:"4:40 AM" },
-      zuhr: { name:"Zuhr", arabic:"الظُّهْر", icon:"fa-sun", azaanOffset:15, jamaat:"1:00 PM" },
-      jummah: { name:"Jummah", arabic:"صَلَاة الْجُمُعَة", icon:"fa-mosque", azaanOffset:20, jamaat:"1:15 PM" },
-      asr: { name:"Asr", arabic:"الْعَصْر", icon:"fa-cloud-sun", azaanOffset:15, jamaat:"5:50 PM" },
-      maghrib: { name:"Maghrib", arabic:"الْمَغْرِب", icon:"fa-sun", azaanOffset:5, jamaat:"7:56 PM" },
-      isha: { name:"Isha", arabic:"الْعِشَاء", icon:"fa-moon", azaanOffset:15, jamaat:"9:50 PM" }
-    };
+  function resize() {
+    canvas.width = window.innerWidth * devicePixelRatio;
+    canvas.height = window.innerHeight * devicePixelRatio;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-    function getTodaysPrayers() {
-      const isFriday = new Date().getDay() === 5;
-      if (isFriday) return [
-        {...basePrayers.fajr, key:'fajr'}, {...basePrayers.jummah, key:'jummah'},
-        {...basePrayers.asr, key:'asr'}, {...basePrayers.maghrib, key:'maghrib'}, {...basePrayers.isha, key:'isha'}
-      ];
-      return [
-        {...basePrayers.fajr, key:'fajr'}, {...basePrayers.zuhr, key:'zuhr'},
-        {...basePrayers.asr, key:'asr'}, {...basePrayers.maghrib, key:'maghrib'}, {...basePrayers.isha, key:'isha'}
-      ];
-    }
+  const vs = `
+    attribute vec3 aPos;
+    attribute vec3 aNorm;
+    uniform mat4 uMVP;
+    uniform mat4 uModel;
+    varying vec3 vNorm;
+    varying vec3 vPos;
+    void main(){
+      vec4 wp = uModel * vec4(aPos,1.0);
+      vPos = wp.xyz;
+      vNorm = mat3(uModel) * aNorm;
+      gl_Position = uMVP * vec4(aPos,1.0);
+    }`;
+  const fs = `
+    precision mediump float;
+    varying vec3 vNorm;
+    varying vec3 vPos;
+    uniform float uTime;
+    uniform vec3 uColor;
+    void main(){
+      vec3 n = normalize(vNorm);
+      vec3 light1 = normalize(vec3(1.0,2.0,1.5));
+      vec3 light2 = normalize(vec3(-1.0,1.0,-1.0));
+      float d1 = max(dot(n,light1),0.0);
+      float d2 = max(dot(n,light2),0.0)*0.3;
+      float rim = pow(1.0 - abs(dot(n, vec3(0.0,0.0,1.0))),2.0)*0.4;
+      float gold_shimmer = sin(vPos.y*8.0 + uTime)*0.06;
+      vec3 col = uColor*(0.15 + d1*0.55 + d2) + vec3(0.3,0.22,0.05)*rim + gold_shimmer;
+      float alpha = 0.55 + d1*0.3;
+      gl_FragColor = vec4(col, alpha);
+    }`;
 
-    function timeToMin(t){ let [tPart,m]=t.split(' '); let [h,min]=tPart.split(':').map(Number); if(m==='PM'&&h!==12)h+=12; if(m==='AM'&&h===12)h=0; return h*60+min; }
-    function formatMin(m){ let h=Math.floor(m/60), min=m%60, mod=h>=12?'PM':'AM'; let h12=h%12||12; return `${h12}:${min.toString().padStart(2,'0')} ${mod}`; }
-    function azaanTime(jamaat,off){ return formatMin(timeToMin(jamaat)-off); }
+  function compileShader(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s); return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compileShader(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog); gl.useProgram(prog);
 
-    function renderPrayers() {
-      const container = document.getElementById('prayerListContainer');
-      if(!container) return;
-      const prayers = getTodaysPrayers();
-      container.innerHTML = prayers.map(p=>{
-        const azaan = azaanTime(p.jamaat, p.azaanOffset);
-        return `<div class="prayer-row" onclick="showToastMessage('${p.name} | Azaan ${azaan}')">
-          <div class="prayer-icon"><i class="fas ${p.icon}"></i></div>
-          <div class="prayer-info"><div class="prayer-name">${p.name} ${p.key==='jummah'?'<span class="jummah-badge">Khutbah</span>':''}</div><div class="prayer-arabic">${p.arabic}</div></div>
-          <div class="prayer-timings"><div class="jamaat-time">${p.jamaat}</div><div class="azaan-time">Azaan ${azaan}</div></div>
-        </div>`;
-      }).join('');
-      updateActivePrayer();
-    }
+  const aPos = gl.getAttribLocation(prog, 'aPos');
+  const aNorm = gl.getAttribLocation(prog, 'aNorm');
+  const uMVP = gl.getUniformLocation(prog, 'uMVP');
+  const uModel = gl.getUniformLocation(prog, 'uModel');
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uColor = gl.getUniformLocation(prog, 'uColor');
 
-    function updateActivePrayer() {
-      const now = new Date(); const cur = now.getHours()*60+now.getMinutes();
-      const prayers = getTodaysPrayers(); const rows = document.querySelectorAll('.prayer-row');
-      let idx = -1;
-      for(let i=0;i<prayers.length;i++) if(cur < timeToMin(prayers[i].jamaat)) { idx=i-1; break; }
-      if(idx===-1) idx=prayers.length-1;
-      rows.forEach((r,i)=> r.classList.toggle('active-prayer', i===idx));
-    }
-
-    function updateClockAndNext() {
-      const now = new Date();
-      document.getElementById('liveClock').innerText = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      document.getElementById('gregDate').innerText = now.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-      const prayers = getTodaysPrayers(); const cur = now.getHours()*60+now.getMinutes();
-      let next=null, diff=Infinity;
-      for(let p of prayers){ let m=timeToMin(p.jamaat); if(m>cur && (m-cur)<diff){ diff=m-cur; next=p; } }
-      if(!next && prayers.length){ next=prayers[0]; diff=(1440-cur)+timeToMin(next.jamaat); }
-      if(next){
-        document.getElementById('nextPrayerName').innerText=next.name;
-        document.getElementById('nextPrayerTime').innerText=next.jamaat;
-        let h=Math.floor(diff/60), m=diff%60;
-        document.getElementById('nextCountdown').innerText=h?`${h}h ${m}m`:`${m}m`;
+  // Build dome (hemisphere + cylinder + finial)
+  function buildDome(rings, segs) {
+    const verts = [], norms = [], idxs = [];
+    // Hemisphere
+    for (let r = 0; r <= rings; r++) {
+      const phi = (r / rings) * Math.PI * 0.5;
+      for (let s = 0; s <= segs; s++) {
+        const theta = (s / segs) * Math.PI * 2;
+        const x = Math.sin(phi) * Math.cos(theta);
+        const y = Math.cos(phi);
+        const z = Math.sin(phi) * Math.sin(theta);
+        verts.push(x, y, z); norms.push(x, y, z);
       }
     }
-
-    let tasbeehCount=0, target=33, dhikrKey='subhanallah';
-    const dhikrMap={subhanallah:'سُبْحَانَ اللَّهِ', alhamdulillah:'الْحَمْدُ لِلَّهِ', allahuakbar:'الله أَكْبَر', 100:'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ'};
-    function updateTasbeehUI(){
-      document.getElementById('tasbeehCountDisplay').innerText=tasbeehCount;
-      document.getElementById('tasbeehProgressFill').style.width=`${Math.min((tasbeehCount/target)*100,100)}%`;
-      document.getElementById('dhikrText').innerText=dhikrMap[dhikrKey]||'سُبْحَانَ اللَّهِ';
+    for (let r = 0; r < rings; r++) {
+      for (let s = 0; s < segs; s++) {
+        const a = r * (segs + 1) + s, b = a + 1;
+        const c = (r + 1) * (segs + 1) + s, d = c + 1;
+        idxs.push(a, c, b, b, c, d);
+      }
     }
+    // Cylinder drum
+    const base = verts.length / 3;
+    const cy = 20, cr = 6;
+    for (let i = 0; i <= cy; i++) {
+      const yy = -i / cy * 0.6;
+      for (let s = 0; s <= segs; s++) {
+        const theta = (s / segs) * Math.PI * 2;
+        const x = Math.cos(theta), z = Math.sin(theta);
+        verts.push(x, yy, z); norms.push(x, 0, z);
+      }
+    }
+    for (let i = 0; i < cy; i++) {
+      for (let s = 0; s < segs; s++) {
+        const a = base + i * (segs + 1) + s;
+        const b = a + 1, c = a + (segs + 1), d = c + 1;
+        idxs.push(a, c, b, b, c, d);
+      }
+    }
+    // Finial spire
+    const fbase = verts.length / 3;
+    const fh = 10;
+    for (let i = 0; i <= fh; i++) {
+      const yy = 1.0 + (i / fh) * 0.7;
+      const r2 = (1 - i / fh) * 0.12;
+      for (let s = 0; s <= segs; s++) {
+        const theta = (s / segs) * Math.PI * 2;
+        const x = Math.cos(theta) * r2, z = Math.sin(theta) * r2;
+        verts.push(x, yy, z); norms.push(x, 0.3, z);
+      }
+    }
+    for (let i = 0; i < fh; i++) {
+      for (let s = 0; s < segs; s++) {
+        const a = fbase + i * (segs + 1) + s;
+        const b = a + 1, c = a + (segs + 1), d = c + 1;
+        idxs.push(a, c, b, b, c, d);
+      }
+    }
+    return { verts: new Float32Array(verts), norms: new Float32Array(norms), idxs: new Uint16Array(idxs) };
+  }
 
-    const pages={home:document.getElementById('homePage'),donation:document.getElementById('donationPage'),tasbeeh:document.getElementById('tasbeehPage')};
-    document.querySelectorAll('.nav-icon-btn').forEach(b=>b.addEventListener('click',()=>{
-      const page=b.dataset.nav;
-      Object.values(pages).forEach(p=>p.classList.remove('active-page'));
-      if(pages[page]) pages[page].classList.add('active-page');
-      document.querySelectorAll('.nav-icon-btn').forEach(n=>n.classList.remove('active'));
-      b.classList.add('active');
-      window.showToastMessage(page.charAt(0).toUpperCase()+page.slice(1));
-    }));
+  const dome = buildDome(24, 36);
+  const vBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, dome.verts, gl.STATIC_DRAW);
+  const nBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, nBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, dome.norms, gl.STATIC_DRAW);
+  const iBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuf);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, dome.idxs, gl.STATIC_DRAW);
 
-    window.showToastMessage = (msg) => {
-      let t=document.createElement('div'); t.className='toast-msg'; t.innerText=msg;
-      document.body.appendChild(t); setTimeout(()=>t.remove(),2000);
-    };
+  // Matrix utils
+  function mat4Identity() { const m=new Float32Array(16); m[0]=m[5]=m[10]=m[15]=1; return m; }
+  function mat4Multiply(a,b){ const r=new Float32Array(16); for(let i=0;i<4;i++) for(let j=0;j<4;j++) { let s=0; for(let k=0;k<4;k++) s+=a[i+k*4]*b[k+j*4]; r[i+j*4]=s; } return r; }
+  function mat4Perspective(fov,asp,near,far){ const f=1/Math.tan(fov/2),r=new Float32Array(16); r[0]=f/asp;r[5]=f;r[10]=(far+near)/(near-far);r[11]=-1;r[14]=(2*far*near)/(near-far);return r; }
+  function mat4Translate(x,y,z){ const m=mat4Identity();m[12]=x;m[13]=y;m[14]=z;return m; }
+  function mat4RotateY(a){ const m=mat4Identity(),c=Math.cos(a),s=Math.sin(a);m[0]=c;m[2]=s;m[8]=-s;m[10]=c;return m; }
+  function mat4Scale(s){ const m=mat4Identity();m[0]=m[5]=m[10]=s;return m; }
 
-    document.getElementById('copyAccBtn')?.addEventListener('click',()=>{ navigator.clipboard.writeText("0173040100013447"); showToastMessage("Account copied"); });
-    document.getElementById('copyAllBtn')?.addEventListener('click',()=>{ navigator.clipboard.writeText("Masjid Al Hamzah\n0173040100013447\nIFSC:JAKA0ANCHAR"); showToastMessage("Details copied"); });
-    document.getElementById('incrementTasbeeh')?.addEventListener('click',()=>{ tasbeehCount++; updateTasbeehUI(); });
-    document.getElementById('resetTasbeeh')?.addEventListener('click',()=>{ tasbeehCount=0; updateTasbeehUI(); });
-    document.querySelectorAll('.preset-dhikr').forEach(b=>b.addEventListener('click',function(){
-      document.querySelectorAll('.preset-dhikr').forEach(x=>x.style.background='var(--bg-elevated)');
-      this.style.background='var(--accent-emerald-soft)';
-      target=parseInt(this.dataset.target); dhikrKey=this.dataset.dhikr; tasbeehCount=0; updateTasbeehUI();
-    }));
+  let pointerX = 0, pointerY = 0, targetRotY = 0, currentRotY = 0;
+  document.addEventListener('pointermove', e => {
+    pointerX = (e.clientX / window.innerWidth - 0.5) * 2;
+    pointerY = (e.clientY / window.innerHeight - 0.5) * 2;
+    targetRotY = pointerX * 0.4;
+  });
+  document.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    pointerX = (t.clientX / window.innerWidth - 0.5) * 2;
+    targetRotY = pointerX * 0.4;
+  }, { passive: true });
 
-    renderPrayers(); updateClockAndNext(); updateTasbeehUI();
-    setInterval(()=>{ updateClockAndNext(); updateActivePrayer(); renderPrayers(); }, 1000);
-  })();
+  gl.enable(gl.DEPTH_TEST);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  const start = performance.now();
+  function render(now) {
+    requestAnimationFrame(render);
+    const t = (now - start) / 1000;
+    currentRotY += (targetRotY - currentRotY) * 0.04;
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    const asp = canvas.width / canvas.height;
+    const proj = mat4Perspective(0.7, asp, 0.1, 100);
+
+    // Draw main large dome (top-right)
+    {
+      const bob = Math.sin(t * 0.5) * 0.04;
+      const sc = Math.min(canvas.width, 700) / 700;
+      const model = mat4Multiply(
+        mat4Translate(0.55, 0.1 + bob, -4.5),
+        mat4Multiply(mat4RotateY(t * 0.12 + currentRotY), mat4Scale(0.85 * sc))
+      );
+      const mvp = mat4Multiply(proj, model);
+      gl.uniformMatrix4fv(uMVP, false, mvp);
+      gl.uniformMatrix4fv(uModel, false, model);
+      gl.uniform1f(uTime, t);
+      gl.uniform3f(uColor, 0.12, 0.45, 0.28);
+      bindAndDraw();
+    }
+    // Draw small accent dome (left, lower)
+    {
+      const bob = Math.sin(t * 0.5 + 1) * 0.03;
+      const model = mat4Multiply(
+        mat4Translate(-1.3, -0.6 + bob, -5.5),
+        mat4Multiply(mat4RotateY(-t * 0.08 + currentRotY * 0.7), mat4Scale(0.38))
+      );
+      const mvp = mat4Multiply(proj, model);
+      gl.uniformMatrix4fv(uMVP, false, mvp);
+      gl.uniformMatrix4fv(uModel, false, model);
+      gl.uniform3f(uColor, 0.45, 0.32, 0.08);
+      bindAndDraw();
+    }
+  }
+
+  function bindAndDraw() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, nBuf);
+    gl.enableVertexAttribArray(aNorm);
+    gl.vertexAttribPointer(aNorm, 3, gl.FLOAT, false, 0, 0);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuf);
+    gl.drawElements(gl.TRIANGLES, dome.idxs.length, gl.UNSIGNED_SHORT, 0);
+  }
+
+  requestAnimationFrame(render);
+})();
+
+// ── App Logic ────────────────────────────────────────────────────────────────
+(function() {
+  // Loader
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const L = document.getElementById('loader');
+      L.style.opacity = '0';
+      setTimeout(() => L.style.display = 'none', 800);
+    }, 2400);
+  });
+
+  // Prayer data
+  const prayers = {
+    fajr:   { name:'Fajr',    arabic:'الْفَجْر',          icon:'🌙', offset:40, jamaat:'4:40 AM' },
+    zuhr:   { name:'Ẓuhr',    arabic:'الظُّهْر',          icon:'☀️', offset:15, jamaat:'1:00 PM' },
+    jummah: { name:'Jumu\'ah',arabic:'صَلَاة الْجُمُعَة', icon:'🕌', offset:20, jamaat:'1:15 PM' },
+    asr:    { name:'ʿAṣr',    arabic:'الْعَصْر',          icon:'🌤', offset:15, jamaat:'5:50 PM' },
+    maghrib:{ name:'Maghrib', arabic:'الْمَغْرِب',         icon:'🌇', offset:5,  jamaat:'7:56 PM' },
+    isha:   { name:'ʿIshāʾ',  arabic:'الْعِشَاء',         icon:'🌃', offset:15, jamaat:'9:50 PM' },
+  };
+
+  function getTodayList() {
+    const fri = new Date().getDay() === 5;
+    const keys = fri
+      ? ['fajr','jummah','asr','maghrib','isha']
+      : ['fajr','zuhr','asr','maghrib','isha'];
+    return keys.map(k => ({ ...prayers[k], key: k }));
+  }
+
+  function toMin(t) {
+    const [tp, m] = t.split(' ');
+    let [h, mn] = tp.split(':').map(Number);
+    if (m === 'PM' && h !== 12) h += 12;
+    if (m === 'AM' && h === 12) h = 0;
+    return h * 60 + mn;
+  }
+  function fmtMin(m) {
+    const h = Math.floor(m / 60), mn = m % 60, mod = h >= 12 ? 'PM' : 'AM';
+    return `${h % 12 || 12}:${mn.toString().padStart(2,'0')} ${mod}`;
+  }
+
+  // Render prayer cards
+  function renderPrayers() {
+    const list = getTodayList();
+    const now = new Date(), cur = now.getHours() * 60 + now.getMinutes();
+    let activeIdx = -1;
+    for (let i = 0; i < list.length; i++) {
+      if (cur < toMin(list[i].jamaat)) { activeIdx = i - 1; break; }
+    }
+    if (activeIdx === -1) activeIdx = list.length - 1;
+
+    const container = document.getElementById('prayerList');
+    if (!container) return;
+    container.innerHTML = list.map((p, i) => {
+      const azaan = fmtMin(toMin(p.jamaat) - p.offset);
+      const isActive = i === activeIdx;
+      return `<div class="prayer-card ${isActive ? 'active' : ''}" data-name="${p.name}" data-azaan="${azaan}">
+        <div class="ripple-container"></div>
+        <div class="p-icon">${p.icon}</div>
+        <div class="p-info">
+          <div class="p-name">${p.name}${p.key==='jummah'?'<span class="jum-badge">Khuṭbah</span>':''}</div>
+          <div class="p-arabic">${p.arabic}</div>
+        </div>
+        <div class="p-times">
+          <div class="jamaat">${p.jamaat}</div>
+          <div class="azaan-t">Azān ${azaan}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Touch ripple + tap flash on prayer cards
+    container.querySelectorAll('.prayer-card').forEach(card => {
+      card.addEventListener('pointerdown', e => {
+        createRipple(card.querySelector('.ripple-container'), e);
+        card.classList.add('tap-flash');
+        setTimeout(() => card.classList.remove('tap-flash'), 400);
+        showToast(`${card.dataset.name} · Azān ${card.dataset.azaan}`);
+      });
+    });
+  }
+
+  // Clock + next prayer
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+    const h12 = h % 12 || 12, mod = h >= 12 ? 'PM' : 'AM';
+    const timeEl = document.getElementById('clockTime');
+    const ampmEl = document.getElementById('clockAmpm');
+    if (timeEl) {
+      timeEl.childNodes[0].textContent = `${h12}:${m.toString().padStart(2,'0')}`;
+    }
+    if (ampmEl) ampmEl.textContent = mod;
+
+    const gd = document.getElementById('gregDate');
+    if (gd) gd.textContent = now.toLocaleDateString('en-US', { weekday:'short', month:'long', day:'numeric' });
+
+    const list = getTodayList();
+    const cur = h * 60 + m;
+    let next = null, diff = Infinity;
+    for (const p of list) {
+      const pm = toMin(p.jamaat);
+      if (pm > cur && (pm - cur) < diff) { diff = pm - cur; next = p; }
+    }
+    if (!next && list.length) { next = list[0]; diff = (1440 - cur) + toMin(next.jamaat); }
+    if (next) {
+      const nn = document.getElementById('nextName');
+      const nt = document.getElementById('nextTime');
+      const nc = document.getElementById('nextCountdown');
+      if (nn) nn.textContent = next.name;
+      if (nt) nt.textContent = next.jamaat;
+      if (nc) {
+        const hh = Math.floor(diff / 60), mm = diff % 60;
+        nc.textContent = hh ? `${hh}h ${mm}m remaining` : `${mm} minutes`;
+      }
+    }
+  }
+
+  // 3D tilt on hero card
+  const hero = document.getElementById('heroCard');
+  if (hero) {
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      hero.style.transform = `perspective(600px) rotateX(${-y*8}deg) rotateY(${x*10}deg) scale(1.02)`;
+      hero.style.boxShadow = `${-x*20}px ${-y*20+24}px 48px -10px rgba(15,92,54,0.45)`;
+    });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.transform = '';
+      hero.style.boxShadow = '';
+    });
+    hero.addEventListener('pointerdown', e => {
+      createRipple(hero.querySelector('.ripple-container') || (() => {
+        const rc = document.createElement('div'); rc.className='ripple-container'; hero.appendChild(rc); return rc;
+      })(), e);
+    });
+  }
+
+  // Clock card tilt
+  const clockCard = document.getElementById('clockCard');
+  if (clockCard) {
+    clockCard.addEventListener('pointermove', e => {
+      const r = clockCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      clockCard.style.transform = `perspective(400px) rotateX(${-y*5}deg) rotateY(${x*6}deg)`;
+    });
+    clockCard.addEventListener('pointerleave', () => { clockCard.style.transform = ''; });
+  }
+
+  // Navigation
+  const pages = {
+    home: document.getElementById('homePage'),
+    donation: document.getElementById('donationPage'),
+    tasbeeh: document.getElementById('tasbeehPage'),
+  };
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.dataset.nav;
+      Object.values(pages).forEach(pg => pg?.classList.remove('active-page'));
+      pages[p]?.classList.add('active-page');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Haptic if supported
+      if (navigator.vibrate) navigator.vibrate(8);
+    });
+  });
+
+  // Donation
+  document.getElementById('copyAccBtn')?.addEventListener('pointerdown', e => {
+    navigator.clipboard.writeText('0173040100013447').catch(()=>{});
+    showToast('Account number copied ✓');
+    createRipple(e.currentTarget.parentElement, e);
+  });
+  document.getElementById('copyAllBtn')?.addEventListener('pointerdown', e => {
+    navigator.clipboard.writeText('Masjid Al Hamzah\n0173040100013447\nIFSC: JAKA0ANCHAR\nJ&K Bank').catch(()=>{});
+    showToast('All details copied ✓');
+  });
+
+  // Tasbeeh
+  let count = 0, target = 33, dhikrKey = 'subhanallah';
+  const dhikrMap = {
+    subhanallah: 'سُبْحَانَ اللَّهِ',
+    alhamdulillah: 'الْحَمْدُ لِلَّهِ',
+    allahuakbar: 'اللَّهُ أَكْبَر',
+    lailaha: 'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ',
+  };
+
+  function updateTasbeeh() {
+    const pct = Math.min((count / target) * 100, 100);
+    document.getElementById('tcNum').textContent = count;
+    document.getElementById('tcOf').textContent = `of ${target}`;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('dhikrText').textContent = dhikrMap[dhikrKey] || dhikrMap.subhanallah;
+    if (count === target) {
+      showToast('MāshāAllāh! 🌟 Completed!');
+      if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+    }
+  }
+
+  const tasbeehCircle = document.getElementById('tasbeehCircle');
+  function bumpCount(e) {
+    count++;
+    tasbeehCircle.classList.remove('bump');
+    void tasbeehCircle.offsetWidth;
+    tasbeehCircle.classList.add('bump');
+    createRipple(document.getElementById('tasbeehRipple'), e);
+    if (navigator.vibrate) navigator.vibrate(12);
+    updateTasbeeh();
+  }
+
+  tasbeehCircle?.addEventListener('pointerdown', bumpCount);
+  document.getElementById('incrementBtn')?.addEventListener('pointerdown', bumpCount);
+  document.getElementById('resetBtn')?.addEventListener('pointerdown', () => {
+    count = 0; updateTasbeeh();
+    if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
+  });
+
+  document.querySelectorAll('.dhikr-preset').forEach(el => {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.dhikr-preset').forEach(x => x.classList.remove('sel'));
+      this.classList.add('sel');
+      target = parseInt(this.dataset.target);
+      dhikrKey = this.dataset.dhikr;
+      count = 0;
+      updateTasbeeh();
+    });
+  });
+
+  // Toast
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // Ripple
+  function createRipple(container, e) {
+    if (!container) return;
+    const r = container.getBoundingClientRect();
+    const x = (e.clientX - r.left) || r.width / 2;
+    const y = (e.clientY - r.top) || r.height / 2;
+    const size = Math.max(r.width, r.height) * 1.5;
+    const rpl = document.createElement('div');
+    rpl.className = 'ripple';
+    rpl.style.cssText = `width:${size}px;height:${size}px;left:${x - size/2}px;top:${y - size/2}px;`;
+    container.appendChild(rpl);
+    setTimeout(() => rpl.remove(), 700);
+  }
+
+  window.showToast = showToast;
+
+  // Init & interval
+  renderPrayers();
+  updateClock();
+  updateTasbeeh();
+  setInterval(() => { updateClock(); renderPrayers(); }, 1000);
+})();
 </script>
 </body>
 </html>
