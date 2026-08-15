@@ -5,33 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 <title>Masjid Al Hamzah</title>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --ink:#0D1210;
+  --ink:#14201A;
   --ink2:#1C2B24;
   --jade:#0F5C36;
   --jade-light:#1A7A4A;
-  --jade-glow:rgba(15,92,54,0.35);
-  --gold:#C4963A;
+  --jade-glow:rgba(15,92,54,0.22);
+  --gold:#A87B24;
   --gold-pale:#F5EDD8;
-  --gold-glow:rgba(196,150,58,0.3);
-  --cream:#F7F4EE;
-  --cream2:#EEE9DF;
-  --glass:rgba(255,255,255,0.07);
-  --glass-border:rgba(255,255,255,0.13);
+  --gold-glow:rgba(168,123,36,0.22);
+  --paper:#FBFAF6;
+  --paper2:#F3EFE4;
+  --glass:rgba(20,32,26,0.035);
+  --glass-border:rgba(20,32,26,0.09);
   --r-card:1.6rem;
   --r-pill:999px;
 }
 html{height:100%;}
 body{
   font-family:'Inter',system-ui,sans-serif;
-  background:var(--ink);
-  color:var(--cream);
+  background:var(--paper);
+  color:var(--ink);
   min-height:100vh;
   min-height:100dvh;
   overflow-x:hidden;
@@ -41,31 +41,31 @@ body{
 /* ── LOADING ── */
 #loader{
   position:fixed;inset:0;z-index:9999;
-  background:var(--ink);
+  background:var(--paper);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
   transition:opacity 0.8s cubic-bezier(0.23,1,0.32,1);
 }
 .loader-ring{
   width:90px;height:90px;border-radius:50%;
-  border:1.5px solid rgba(196,150,58,0.3);
+  border:1.5px solid rgba(168,123,36,0.35);
   display:flex;align-items:center;justify-content:center;
   position:relative;margin-bottom:28px;
   animation:ringPulse 2s ease-in-out infinite;
 }
 .loader-ring::before{
   content:'';position:absolute;inset:-8px;border-radius:50%;
-  border:1px solid rgba(196,150,58,0.12);
+  border:1px solid rgba(168,123,36,0.15);
   animation:ringPulse 2s ease-in-out infinite 0.3s;
 }
 .loader-logo{width:72px;height:72px;border-radius:50%;object-fit:cover;}
 @keyframes ringPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.06);opacity:0.7;}}
 .loader-name{
   font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;
-  letter-spacing:0.18em;color:var(--gold);
+  letter-spacing:0.18em;color:var(--jade);
   opacity:0;animation:fadeUp 0.7s 0.4s forwards;
 }
 .loader-sub{
-  font-size:0.65rem;letter-spacing:0.3em;color:rgba(196,150,58,0.5);
+  font-size:0.65rem;letter-spacing:0.3em;color:rgba(168,123,36,0.75);
   margin-top:10px;text-transform:uppercase;
   opacity:0;animation:fadeUp 0.7s 0.7s forwards;
 }
@@ -74,7 +74,7 @@ body{
 /* ── CANVAS BG ── */
 #domeCanvas{
   position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:0.9;
+  pointer-events:none;z-index:0;opacity:0.55;
 }
 
 /* ── LAYOUT ── */
@@ -92,11 +92,11 @@ body{
 }
 .salam-text{
   font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);
-  opacity:0.85;line-height:1.4;max-width:220px;
+  opacity:0.9;line-height:1.4;max-width:220px;
 }
 .logo-pill{
   width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(196,150,58,0.4);overflow:hidden;
+  border:1px solid rgba(168,123,36,0.4);overflow:hidden;
   box-shadow:0 0 20px var(--gold-glow);
   flex-shrink:0;
 }
@@ -105,33 +105,33 @@ body{
 .loc-tag{
   display:inline-flex;align-items:center;gap:6px;
   font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(196,150,58,0.6);margin:8px 0 4px;
+  color:rgba(168,123,36,0.85);margin:8px 0 4px;
 }
 .loc-tag svg{width:10px;height:10px;fill:currentColor;}
 
 .masjid-title{
   font-family:'Cormorant Garamond',serif;
   font-size:3rem;font-weight:700;line-height:1;
-  background:linear-gradient(140deg,#fff 0%,var(--gold) 60%,#C4963A 100%);
+  background:linear-gradient(140deg,var(--jade) 0%,var(--gold) 60%,#A87B24 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   margin:4px 0 2px;
 }
 .masjid-arabic{
   font-family:'Amiri',serif;font-size:1.1rem;
-  color:rgba(196,150,58,0.7);letter-spacing:0.05em;
+  color:rgba(168,123,36,0.85);letter-spacing:0.05em;
 }
 
 /* ── CLOCK CARD ── */
 .clock-card{
   margin:1.4rem 0 1.2rem;
-  background:linear-gradient(135deg,rgba(255,255,255,0.05) 0%,rgba(255,255,255,0.02) 100%);
+  background:linear-gradient(135deg,#FFFFFF 0%,#FAF7EF 100%);
   border:1px solid var(--glass-border);
   border-radius:var(--r-card);
   padding:1.3rem 1.5rem;
   display:flex;justify-content:space-between;align-items:center;
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow:0 20px 40px rgba(20,32,26,0.08),inset 0 1px 0 rgba(255,255,255,0.9);
   transition:transform 0.3s ease,box-shadow 0.3s ease;
   cursor:default;
 }
@@ -139,17 +139,17 @@ body{
 .clock-main{
   font-family:'Cormorant Garamond',serif;
   font-size:3.4rem;font-weight:700;line-height:1;
-  color:#fff;
-  text-shadow:0 0 30px rgba(196,150,58,0.4);
+  color:var(--ink);
+  text-shadow:none;
 }
 .clock-ampm{font-size:1.2rem;color:var(--gold);margin-left:4px;vertical-align:top;margin-top:8px;display:inline-block;}
 .date-col{text-align:right;}
-.greg-date{font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.7);}
+.greg-date{font-size:0.82rem;font-weight:500;color:rgba(20,32,26,0.65);}
 .hijri-pill{
   display:inline-block;margin-top:8px;
   font-family:'Amiri',serif;font-size:0.72rem;
-  color:var(--gold);background:rgba(196,150,58,0.12);
-  border:1px solid rgba(196,150,58,0.25);
+  color:var(--gold);background:rgba(168,123,36,0.1);
+  border:1px solid rgba(168,123,36,0.3);
   padding:4px 14px;border-radius:40px;
 }
 
@@ -171,20 +171,20 @@ body{
 .hero-orb{
   position:absolute;right:-30px;top:-30px;
   width:140px;height:140px;border-radius:50%;
-  background:radial-gradient(circle,rgba(196,150,58,0.2) 0%,transparent 70%);
+  background:radial-gradient(circle,rgba(196,150,58,0.25) 0%,transparent 70%);
   pointer-events:none;
 }
 .hero-crescent{
   position:absolute;right:20px;bottom:10px;
-  font-size:80px;opacity:0.07;color:white;
+  font-size:80px;opacity:0.08;color:white;
   pointer-events:none;line-height:1;
   font-family:'Amiri',serif;
 }
 .hero-label{
   font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;
-  color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:8px;
 }
-.hero-label::before{content:'';width:20px;height:1px;background:rgba(255,255,255,0.3);}
+.hero-label::before{content:'';width:20px;height:1px;background:rgba(255,255,255,0.35);}
 .hero-main{
   display:flex;justify-content:space-between;align-items:flex-end;
   margin:14px 0 12px;
@@ -195,16 +195,16 @@ body{
 }
 .hero-time{
   font-family:'Cormorant Garamond',serif;
-  font-size:2rem;font-weight:600;color:var(--gold);
-  background:rgba(196,150,58,0.12);border:1px solid rgba(196,150,58,0.25);
+  font-size:2rem;font-weight:600;color:#F5D98A;
+  background:rgba(196,150,58,0.16);border:1px solid rgba(196,150,58,0.3);
   padding:4px 16px;border-radius:40px;
 }
 .hero-countdown{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,0,0,0.25);
+  background:rgba(0,0,0,0.2);
   padding:6px 16px;border-radius:40px;
-  font-size:0.78rem;color:rgba(255,255,255,0.8);
-  border:1px solid rgba(255,255,255,0.08);
+  font-size:0.78rem;color:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.1);
 }
 .pulse-dot{
   width:6px;height:6px;border-radius:50%;background:#4ADE80;
@@ -219,20 +219,20 @@ body{
 }
 .section-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;font-weight:600;color:#fff;
+  font-size:1.4rem;font-weight:600;color:var(--ink);
 }
 .iq-tag{
   font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:rgba(196,150,58,0.7);border:1px solid rgba(196,150,58,0.2);
+  color:var(--gold);border:1px solid rgba(168,123,36,0.3);
   padding:4px 12px;border-radius:40px;
-  background:rgba(196,150,58,0.07);
+  background:rgba(168,123,36,0.08);
 }
 
 .prayer-list{display:flex;flex-direction:column;gap:10px;}
 
 .prayer-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
+  background:#FFFFFF;
+  border:1px solid var(--glass-border);
   border-radius:1.4rem;
   padding:1rem 1.2rem;
   display:flex;align-items:center;gap:14px;
@@ -240,8 +240,7 @@ body{
   cursor:pointer;
   position:relative;overflow:hidden;
   transform-origin:center;
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 6px 16px rgba(20,32,26,0.05);
 }
 .prayer-card::before{
   content:'';position:absolute;left:0;top:0;bottom:0;
@@ -250,39 +249,39 @@ body{
 }
 .prayer-card.active::before{background:var(--gold);}
 .prayer-card.active{
-  background:rgba(196,150,58,0.08);
-  border-color:rgba(196,150,58,0.22);
-  box-shadow:0 8px 24px rgba(196,150,58,0.1);
+  background:rgba(168,123,36,0.06);
+  border-color:rgba(168,123,36,0.3);
+  box-shadow:0 8px 24px rgba(168,123,36,0.12);
 }
 .prayer-card:active{transform:scale(0.97);}
 .prayer-card.tap-flash{animation:tapFlash 0.4s ease;}
-@keyframes tapFlash{0%{background:rgba(196,150,58,0.2);}100%{background:rgba(196,150,58,0.08);}}
+@keyframes tapFlash{0%{background:rgba(168,123,36,0.18);}100%{background:rgba(168,123,36,0.06);}}
 
 .p-icon{
   width:44px;height:44px;flex-shrink:0;
   border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
+  background:var(--paper2);
+  border:1px solid var(--glass-border);
   font-size:1.1rem;
   transition:all 0.3s;
 }
 .prayer-card.active .p-icon{
-  background:rgba(196,150,58,0.15);
-  border-color:rgba(196,150,58,0.3);
-  box-shadow:0 0 16px rgba(196,150,58,0.2);
+  background:rgba(168,123,36,0.14);
+  border-color:rgba(168,123,36,0.35);
+  box-shadow:0 0 16px rgba(168,123,36,0.15);
 }
 .p-info{flex:1;}
 .p-name{
-  font-weight:600;font-size:0.95rem;color:#fff;
+  font-weight:600;font-size:0.95rem;color:var(--ink);
   display:flex;align-items:center;gap:8px;
 }
 .p-arabic{
   font-family:'Amiri',serif;font-size:0.72rem;
-  color:rgba(196,150,58,0.65);margin-top:2px;
+  color:rgba(168,123,36,0.8);margin-top:2px;
 }
 .jum-badge{
   font-size:0.55rem;letter-spacing:0.1em;
-  background:var(--gold);color:var(--ink);
+  background:var(--gold);color:#fff;
   padding:2px 8px;border-radius:20px;font-weight:700;
   text-transform:uppercase;
 }
@@ -290,9 +289,9 @@ body{
 .jamaat{
   font-family:'Cormorant Garamond',serif;
   font-size:1.3rem;font-weight:700;
-  color:var(--gold);line-height:1;
+  color:var(--jade);line-height:1;
 }
-.azaan-t{font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:4px;}
+.azaan-t{font-size:0.65rem;color:rgba(20,32,26,0.4);margin-top:4px;}
 
 /* ── PAGES ── */
 .page{display:none;animation:pageIn 0.35s cubic-bezier(0.23,1,0.32,1);}
@@ -301,36 +300,35 @@ body{
 
 /* ── DONATION PAGE ── */
 .donate-hero{
-  background:linear-gradient(135deg,rgba(196,150,58,0.15) 0%,rgba(196,150,58,0.05) 100%);
-  border:1px solid rgba(196,150,58,0.2);
+  background:linear-gradient(135deg,rgba(168,123,36,0.12) 0%,rgba(168,123,36,0.03) 100%);
+  border:1px solid rgba(168,123,36,0.25);
   border-radius:2rem;padding:2rem 1.6rem;
   text-align:center;margin-bottom:1.2rem;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
 }
 .donate-icon{
   width:72px;height:72px;border-radius:50%;
-  background:rgba(196,150,58,0.15);border:1px solid rgba(196,150,58,0.3);
+  background:rgba(168,123,36,0.12);border:1px solid rgba(168,123,36,0.35);
   display:flex;align-items:center;justify-content:center;
   font-size:1.8rem;margin:0 auto 1rem;
-  box-shadow:0 0 30px rgba(196,150,58,0.2);
+  box-shadow:0 0 30px rgba(168,123,36,0.15);
 }
 .donate-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:2rem;font-weight:700;color:#fff;margin-bottom:4px;
+  font-size:2rem;font-weight:700;color:var(--ink);margin-bottom:4px;
 }
-.donate-sub{font-size:0.8rem;color:rgba(196,150,58,0.7);letter-spacing:0.1em;}
+.donate-sub{font-size:0.8rem;color:var(--gold);letter-spacing:0.1em;}
 .bank-card{
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  background:#FFFFFF;border:1px solid var(--glass-border);
   border-radius:1.4rem;padding:1.2rem 1.4rem;margin:1.2rem 0;
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 6px 16px rgba(20,32,26,0.05);
 }
 .bank-row-item{
   display:flex;justify-content:space-between;align-items:center;
-  padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:0.6rem 0;border-bottom:1px solid rgba(20,32,26,0.07);
 }
 .bank-row-item:last-child{border-bottom:none;}
-.bank-label{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.06em;}
-.bank-val{font-size:0.88rem;font-weight:600;color:#fff;}
+.bank-label{font-size:0.72rem;color:rgba(20,32,26,0.45);letter-spacing:0.06em;}
+.bank-val{font-size:0.88rem;font-weight:600;color:var(--ink);}
 .donate-btn{
   width:100%;border:none;padding:1rem;border-radius:50px;
   font-size:0.88rem;font-weight:600;
@@ -340,45 +338,45 @@ body{
 }
 .donate-btn:active{transform:scale(0.97);}
 .btn-primary{background:var(--jade);color:#fff;border:1px solid rgba(255,255,255,0.1);}
-.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,#A07C2F 100%);color:var(--ink);}
+.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,#8A6420 100%);color:#fff;}
 
 /* ── TASBEEH PAGE ── */
 .tasbeeh-wrap{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  background:#FFFFFF;border:1px solid var(--glass-border);
   border-radius:2rem;padding:2rem 1.6rem;
   text-align:center;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 10px 28px rgba(20,32,26,0.06);
 }
 .tasbeeh-circle{
   width:180px;height:180px;border-radius:50%;
-  border:2px solid rgba(196,150,58,0.25);
+  border:2px solid rgba(168,123,36,0.3);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   margin:0 auto 1.6rem;
   position:relative;cursor:pointer;
   transition:all 0.15s ease;
-  background:radial-gradient(circle,rgba(196,150,58,0.08) 0%,transparent 70%);
-  box-shadow:0 0 0 0 rgba(196,150,58,0);
+  background:radial-gradient(circle,rgba(168,123,36,0.06) 0%,transparent 70%);
+  box-shadow:0 0 0 0 rgba(168,123,36,0);
 }
-.tasbeeh-circle:active{transform:scale(0.93);box-shadow:0 0 30px rgba(196,150,58,0.3);}
+.tasbeeh-circle:active{transform:scale(0.93);box-shadow:0 0 30px rgba(168,123,36,0.25);}
 .tasbeeh-circle.bump{animation:bump 0.2s ease;}
 @keyframes bump{0%{transform:scale(1);}50%{transform:scale(0.9);}100%{transform:scale(1);}}
 .tc-outer{
   position:absolute;inset:-12px;border-radius:50%;
-  border:1px solid rgba(196,150,58,0.1);
+  border:1px solid rgba(168,123,36,0.15);
   animation:slowSpin 20s linear infinite;
 }
 @keyframes slowSpin{to{transform:rotate(360deg);}}
 .tc-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:4.5rem;font-weight:700;color:#fff;line-height:1;
+  font-size:4.5rem;font-weight:700;color:var(--ink);line-height:1;
 }
-.tc-of{font-size:0.7rem;color:rgba(196,150,58,0.6);letter-spacing:0.1em;}
+.tc-of{font-size:0.7rem;color:rgba(168,123,36,0.75);letter-spacing:0.1em;}
 .dhikr-text{
   font-family:'Amiri',serif;font-size:1.8rem;
   color:var(--gold);margin:0 0 1.4rem;line-height:1.6;
 }
 .progress-track{
-  height:4px;background:rgba(255,255,255,0.08);
+  height:4px;background:rgba(20,32,26,0.08);
   border-radius:4px;margin:0 0 1.4rem;overflow:hidden;
 }
 .progress-fill{
@@ -394,17 +392,17 @@ body{
 }
 .tas-btn:active{transform:scale(0.95);}
 .tas-count{background:var(--jade);color:#fff;}
-.tas-reset{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);}
+.tas-reset{background:var(--paper2);color:rgba(20,32,26,0.7);border:1px solid var(--glass-border);}
 .dhikr-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
 .dhikr-preset{
   padding:6px 16px;border-radius:30px;font-size:0.78rem;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6);
+  border:1px solid var(--glass-border);
+  background:var(--paper2);color:rgba(20,32,26,0.6);
   transition:all 0.2s;
 }
 .dhikr-preset:active{transform:scale(0.93);}
 .dhikr-preset.sel{
-  background:rgba(196,150,58,0.15);border-color:rgba(196,150,58,0.4);
+  background:rgba(168,123,36,0.12);border-color:rgba(168,123,36,0.45);
   color:var(--gold);
 }
 
@@ -412,9 +410,9 @@ body{
 .bottom-nav{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%);
   max-width:430px;width:100%;
-  background:rgba(13,18,16,0.88);
+  background:rgba(255,255,255,0.9);
   backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-  border-top:1px solid rgba(255,255,255,0.07);
+  border-top:1px solid rgba(20,32,26,0.08);
   padding:0.5rem 2rem max(env(safe-area-inset-bottom),1.2rem);
   display:flex;justify-content:space-around;align-items:center;
   z-index:100;
@@ -427,7 +425,7 @@ body{
 }
 .nav-btn:active{transform:scale(0.9);}
 .nav-icon{font-size:1.3rem;filter:grayscale(1);opacity:0.45;transition:all 0.25s;}
-.nav-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);transition:all 0.25s;}
+.nav-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(20,32,26,0.4);transition:all 0.25s;}
 .nav-btn.active .nav-icon{filter:none;opacity:1;}
 .nav-btn.active .nav-label{color:var(--gold);}
 .nav-btn.active::after{
@@ -438,9 +436,9 @@ body{
 /* ── TOAST ── */
 .toast{
   position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(10px);
-  background:rgba(28,43,36,0.95);color:#fff;
+  background:rgba(20,32,26,0.92);color:#fff;
   padding:10px 24px;border-radius:40px;
-  font-size:0.8rem;border:1px solid rgba(196,150,58,0.25);
+  font-size:0.8rem;border:1px solid rgba(168,123,36,0.3);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   z-index:300;opacity:0;transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
   pointer-events:none;white-space:nowrap;
@@ -451,7 +449,7 @@ body{
 .ripple-container{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;}
 .ripple{
   position:absolute;border-radius:50%;
-  background:rgba(196,150,58,0.25);
+  background:rgba(168,123,36,0.22);
   transform:scale(0);animation:rippleOut 0.6s ease-out forwards;
   pointer-events:none;
 }
@@ -644,8 +642,8 @@ body{
       float d2 = max(dot(n,light2),0.0)*0.3;
       float rim = pow(1.0 - abs(dot(n, vec3(0.0,0.0,1.0))),2.0)*0.4;
       float gold_shimmer = sin(vPos.y*8.0 + uTime)*0.06;
-      vec3 col = uColor*(0.15 + d1*0.55 + d2) + vec3(0.3,0.22,0.05)*rim + gold_shimmer;
-      float alpha = 0.55 + d1*0.3;
+      vec3 col = uColor*(0.35 + d1*0.5 + d2) + vec3(0.25,0.18,0.05)*rim + gold_shimmer;
+      float alpha = 0.28 + d1*0.18;
       gl_FragColor = vec4(col, alpha);
     }`;
 
@@ -798,7 +796,7 @@ body{
       const mvp = mat4Multiply(proj, model);
       gl.uniformMatrix4fv(uMVP, false, mvp);
       gl.uniformMatrix4fv(uModel, false, model);
-      gl.uniform3f(uColor, 0.45, 0.32, 0.08);
+      gl.uniform3f(uColor, 0.55, 0.4, 0.1);
       bindAndDraw();
     }
   }
@@ -830,12 +828,12 @@ body{
 
   // Prayer data
   const prayers = {
-    fajr:   { name:'Fajr',    arabic:'الْفَجْر',          icon:'🌙', offset:40, jamaat:'05:00 AM' },
+    fajr:   { name:'Fajr',    arabic:'الْفَجْر',          icon:'🌙', offset:40, jamaat:'05:10 AM' },
     zuhr:   { name:'Ẓuhr',    arabic:'الظُّهْر',          icon:'☀️', offset:15, jamaat:'01:00 PM' },
     jummah: { name:'Jumu\'ah',arabic:'صَلَاة الْجُمُعَة', icon:'🕌', offset:20, jamaat:'01:15 PM' },
-    asr:    { name:'ʿAṣr',    arabic:'الْعَصْر',          icon:'🌤', offset:15, jamaat:'05:50 PM' },
-    maghrib:{ name:'Maghrib', arabic:'الْمَغْرِب',         icon:'🌇', offset:5,  jamaat:'07:41 PM' },
-    isha:   { name:'ʿIshāʾ',  arabic:'الْعِشَاء',         icon:'🌃', offset:15, jamaat:'09:30 PM' },
+    asr:    { name:'ʿAṣr',    arabic:'الْعَصْر',          icon:'🌤', offset:15, jamaat:'05:40 PM' },
+    maghrib:{ name:'Maghrib', arabic:'الْمَغْرِب',         icon:'🌇', offset:5,  jamaat:'07:31 PM' },
+    isha:   { name:'ʿIshāʾ',  arabic:'الْعِشَاء',         icon:'🌃', offset:15, jamaat:'09:15 PM' },
   };
 
   function getTodayList() {
@@ -942,7 +940,7 @@ body{
       const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top) / r.height - 0.5;
       hero.style.transform = `perspective(600px) rotateX(${-y*8}deg) rotateY(${x*10}deg) scale(1.02)`;
-      hero.style.boxShadow = `${-x*20}px ${-y*20+24}px 48px -10px rgba(15,92,54,0.45)`;
+      hero.style.boxShadow = `${-x*20}px ${-y*20+24}px 48px -10px rgba(15,92,54,0.35)`;
     });
     hero.addEventListener('pointerleave', () => {
       hero.style.transform = '';
