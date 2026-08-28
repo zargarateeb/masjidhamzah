@@ -1,597 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
-<title>Masjid Al Hamzah</title>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{
-  --ink:#14201A;
-  --ink2:#1C2B24;
-  --jade:#0F5C36;
-  --jade-light:#1A7A4A;
-  --jade-glow:rgba(15,92,54,0.22);
-  --gold:#A87B24;
-  --gold-pale:#F5EDD8;
-  --gold-glow:rgba(168,123,36,0.22);
-  --paper:#FBFAF6;
-  --paper2:#F3EFE4;
-  --glass:rgba(20,32,26,0.035);
-  --glass-border:rgba(20,32,26,0.09);
-  --r-card:1.6rem;
-  --r-pill:999px;
-}
-html{height:100%;}
-body{
-  font-family:'Inter',system-ui,sans-serif;
-  background:var(--paper);
-  color:var(--ink);
-  min-height:100vh;
-  min-height:100dvh;
-  overflow-x:hidden;
-  letter-spacing:-0.015em;
-}
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <title>Masjid Al Hamzah · White & Green</title>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Reem+Kufi:wght@400;500;700&family=Amiri:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    :root{
+      --bg:#F6F8F5;
+      --surface:#FFFFFF;
+      --ink:#1E2A1E;
+      --ink-dim:#3A4E3A;
+      --ink-faint:#6A7F6A;
+      --green:#2C7A4D;
+      --green-bright:#3A9B66;
+      --green-dim:rgba(44,122,77,0.20);
+      --green-glass:rgba(44,122,77,0.08);
+      --line:rgba(30,42,30,0.08);
+      --line-strong:rgba(30,42,30,0.15);
+      --shadow:0 12px 28px -8px rgba(0,20,8,0.08);
+    }
+    html{height:100%;}
+    body{
+      font-family:'Inter',system-ui,sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      min-height:100vh;min-height:100dvh;
+      overflow-x:hidden;
+    }
 
-/* ── LOADING ── */
-#loader{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--paper);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
-  transition:opacity 0.8s cubic-bezier(0.23,1,0.32,1);
-}
-.loader-ring{
-  width:90px;height:90px;border-radius:50%;
-  border:1.5px solid rgba(168,123,36,0.35);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;margin-bottom:28px;
-  animation:ringPulse 2s ease-in-out infinite;
-}
-.loader-ring::before{
-  content:'';position:absolute;inset:-8px;border-radius:50%;
-  border:1px solid rgba(168,123,36,0.15);
-  animation:ringPulse 2s ease-in-out infinite 0.3s;
-}
-.loader-logo{width:72px;height:72px;border-radius:50%;object-fit:cover;}
-@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.06);opacity:0.7;}}
-.loader-name{
-  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;
-  letter-spacing:0.18em;color:var(--jade);
-  opacity:0;animation:fadeUp 0.7s 0.4s forwards;
-}
-.loader-sub{
-  font-size:0.65rem;letter-spacing:0.3em;color:rgba(168,123,36,0.75);
-  margin-top:10px;text-transform:uppercase;
-  opacity:0;animation:fadeUp 0.7s 0.7s forwards;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    /* Loader */
+    #loader{
+      position:fixed;inset:0;z-index:9999;background:var(--bg);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      transition:opacity .9s cubic-bezier(.23,1,.32,1);
+    }
+    .loader-star{width:64px;height:64px;margin-bottom:22px;animation:loaderSpin 3s linear infinite;color:var(--green);}
+    @keyframes loaderSpin{to{transform:rotate(360deg);}}
+    .loader-name{font-family:'Reem Kufi',sans-serif;font-size:.85rem;letter-spacing:.32em;text-transform:uppercase;color:var(--green);opacity:0;animation:fadeUp .7s .35s forwards;}
+    .loader-sub{font-size:.65rem;letter-spacing:.2em;color:var(--ink-faint);margin-top:10px;opacity:0;animation:fadeUp .7s .6s forwards;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── CANVAS BG ── */
-#domeCanvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:0.55;
-}
+    /* App */
+    .app{position:relative;z-index:1;max-width:430px;margin:0 auto;padding:0 1.25rem 6.5rem;padding-top:max(env(safe-area-inset-top),18px);}
 
-/* ── LAYOUT ── */
-.app{
-  position:relative;z-index:1;
-  max-width:430px;margin:0 auto;
-  padding:env(safe-area-inset-top, 20px) 1.2rem 7rem;
-  padding-top:max(env(safe-area-inset-top), 20px);
-}
+    /* top strip */
+    .top-strip{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0;}
+    .wordmark{font-family:'Reem Kufi',sans-serif;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);}
+    .loc-tag{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--green-glass);padding:4px 12px;border-radius:40px;}
 
-/* ── HEADER ── */
-.top-bar{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding-top:16px;margin-bottom:6px;
-}
-.salam-text{
-  font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);
-  opacity:0.9;line-height:1.4;max-width:220px;
-}
-.logo-pill{
-  width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(168,123,36,0.4);overflow:hidden;
-  box-shadow:0 0 20px var(--gold-glow);
-  flex-shrink:0;
-}
-.logo-pill img{width:100%;height:100%;object-fit:cover;}
+    .date-strip{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 4px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+    .greg-date{font-size:.78rem;color:var(--ink-faint);}
+    .hijri-date{font-family:'Amiri',serif;font-size:.82rem;color:var(--green);}
 
-.loc-tag{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(168,123,36,0.85);margin:8px 0 4px;
-}
-.loc-tag svg{width:10px;height:10px;fill:currentColor;}
+    /* Pages */
+    .page{display:none;animation:pageIn .4s cubic-bezier(.23,1,.32,1);}
+    .page.active-page{display:block;}
+    @keyframes pageIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-.masjid-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3rem;font-weight:700;line-height:1;
-  background:linear-gradient(140deg,var(--jade) 0%,var(--gold) 60%,#A87B24 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin:4px 0 2px;
-}
-.masjid-arabic{
-  font-family:'Amiri',serif;font-size:1.1rem;
-  color:rgba(168,123,36,0.85);letter-spacing:0.05em;
-}
+    /* Dial */
+    .dial-wrap{position:relative;width:254px;height:254px;margin:1.2rem auto 0.2rem;}
+    .dial-wrap canvas{position:absolute;inset:0;width:100%;height:100%;}
+    .dial-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;}
+    .dial-eyebrow{font-family:'Reem Kufi',sans-serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+    .dial-arabic{font-family:'Amiri',serif;font-size:1rem;color:var(--ink-faint);margin-bottom:2px;}
+    .dial-name{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:var(--ink);line-height:1;margin-bottom:8px;}
+    .dial-time{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:500;font-style:italic;color:var(--green);line-height:1;}
 
-/* ── CLOCK CARD ── */
-.clock-card{
-  margin:1.4rem 0 1.2rem;
-  background:linear-gradient(135deg,#FFFFFF 0%,#FAF7EF 100%);
-  border:1px solid var(--glass-border);
-  border-radius:var(--r-card);
-  padding:1.3rem 1.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  box-shadow:0 20px 40px rgba(20,32,26,0.08),inset 0 1px 0 rgba(255,255,255,0.9);
-  transition:transform 0.3s ease,box-shadow 0.3s ease;
-  cursor:default;
-}
-.clock-card:active{transform:scale(0.98);}
-.clock-main{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.4rem;font-weight:700;line-height:1;
-  color:var(--ink);
-  text-shadow:none;
-}
-.clock-ampm{font-size:1.2rem;color:var(--gold);margin-left:4px;vertical-align:top;margin-top:8px;display:inline-block;}
-.date-col{text-align:right;}
-.greg-date{font-size:0.82rem;font-weight:500;color:rgba(20,32,26,0.65);}
-.hijri-pill{
-  display:inline-block;margin-top:8px;
-  font-family:'Amiri',serif;font-size:0.72rem;
-  color:var(--gold);background:rgba(168,123,36,0.1);
-  border:1px solid rgba(168,123,36,0.3);
-  padding:4px 14px;border-radius:40px;
-}
+    .countdown-pill{
+      display:block;text-align:center;margin:1rem auto 0;width:max-content;
+      font-size:.7rem;letter-spacing:.06em;color:var(--ink-dim);
+      padding:7px 22px;border:1px solid var(--line-strong);border-radius:60px;background:var(--surface);
+      display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);
+    }
+    .pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulseDot 1.6s ease-in-out infinite;}
+    @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-/* ── NEXT PRAYER HERO ── */
-.hero-card{
-  position:relative;overflow:hidden;
-  background:linear-gradient(135deg,var(--jade) 0%,#0A3D22 100%);
-  border-radius:2rem;
-  padding:1.6rem 1.6rem 1.5rem;
-  margin:0 0 1.4rem;
-  box-shadow:0 24px 48px -10px var(--jade-glow),inset 0 1px 0 rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.08);
-  cursor:pointer;
-  transition:transform 0.25s cubic-bezier(0.23,1,0.32,1),box-shadow 0.25s ease;
-  transform-style:preserve-3d;
-  will-change:transform;
-}
-.hero-card:active{transform:scale(0.975);}
-.hero-orb{
-  position:absolute;right:-30px;top:-30px;
-  width:140px;height:140px;border-radius:50%;
-  background:radial-gradient(circle,rgba(196,150,58,0.25) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-crescent{
-  position:absolute;right:20px;bottom:10px;
-  font-size:80px;opacity:0.08;color:white;
-  pointer-events:none;line-height:1;
-  font-family:'Amiri',serif;
-}
-.hero-label{
-  font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;
-  color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:8px;
-}
-.hero-label::before{content:'';width:20px;height:1px;background:rgba(255,255,255,0.35);}
-.hero-main{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin:14px 0 12px;
-}
-.hero-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:2.6rem;font-weight:700;color:#fff;line-height:1;
-}
-.hero-time{
-  font-family:'Cormorant Garamond',serif;
-  font-size:2rem;font-weight:600;color:#F5D98A;
-  background:rgba(196,150,58,0.16);border:1px solid rgba(196,150,58,0.3);
-  padding:4px 16px;border-radius:40px;
-}
-.hero-countdown{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,0,0,0.2);
-  padding:6px 16px;border-radius:40px;
-  font-size:0.78rem;color:rgba(255,255,255,0.85);
-  border:1px solid rgba(255,255,255,0.1);
-}
-.pulse-dot{
-  width:6px;height:6px;border-radius:50%;background:#4ADE80;
-  animation:pulseDot 1.5s ease-in-out infinite;
-}
-@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+    .clock-line{text-align:center;margin:1.2rem 0 0.2rem;font-size:.72rem;letter-spacing:.1em;color:var(--ink-faint);}
+    .clock-line b{color:var(--ink);font-weight:500;}
 
-/* ── PRAYER LIST ── */
-.section-row{
-  display:flex;justify-content:space-between;align-items:center;
-  margin:1.8rem 0 1rem;
-}
-.section-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;font-weight:600;color:var(--ink);
-}
-.iq-tag{
-  font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--gold);border:1px solid rgba(168,123,36,0.3);
-  padding:4px 12px;border-radius:40px;
-  background:rgba(168,123,36,0.08);
-}
+    /* section */
+    .section-row{display:flex;justify-content:space-between;align-items:baseline;margin:1.8rem 0 .9rem;}
+    .section-title{font-family:'Reem Kufi',sans-serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);}
+    .section-tag{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);background:var(--green-glass);padding:3px 10px;border-radius:30px;}
 
-.prayer-list{display:flex;flex-direction:column;gap:10px;}
+    /* ledger */
+    .ledger{border-top:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);}
+    .p-row{
+      display:flex;align-items:center;gap:14px;
+      padding:.9rem 1rem;border-bottom:1px solid var(--line);
+      cursor:pointer;transition:background .2s;
+    }
+    .p-row:last-child{border-bottom:0;}
+    .p-row:active{background:var(--green-glass);}
+    .p-mark{width:6px;height:6px;border-radius:50%;background:var(--line-strong);flex-shrink:0;transition:all .3s;}
+    .p-row.active .p-mark{background:var(--green);box-shadow:0 0 0 4px var(--green-dim);}
+    .p-info{flex:1;min-width:0;}
+    .p-name{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:8px;}
+    .p-row.active .p-name{color:var(--green);}
+    .jum-badge{font-family:'Inter',sans-serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:white;background:var(--green);padding:2px 9px;border-radius:20px;font-weight:600;}
+    .p-arabic{font-family:'Amiri',serif;font-size:.7rem;color:var(--ink-faint);margin-top:2px;}
+    .p-times{text-align:right;flex-shrink:0;}
+    .jamaat{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;color:var(--ink);line-height:1;}
+    .azaan-t{font-size:.6rem;color:var(--ink-faint);margin-top:4px;letter-spacing:.02em;}
 
-.prayer-card{
-  background:#FFFFFF;
-  border:1px solid var(--glass-border);
-  border-radius:1.4rem;
-  padding:1rem 1.2rem;
-  display:flex;align-items:center;gap:14px;
-  transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
-  cursor:pointer;
-  position:relative;overflow:hidden;
-  transform-origin:center;
-  box-shadow:0 6px 16px rgba(20,32,26,0.05);
-}
-.prayer-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:3px;background:transparent;border-radius:0 2px 2px 0;
-  transition:background 0.3s;
-}
-.prayer-card.active::before{background:var(--gold);}
-.prayer-card.active{
-  background:rgba(168,123,36,0.06);
-  border-color:rgba(168,123,36,0.3);
-  box-shadow:0 8px 24px rgba(168,123,36,0.12);
-}
-.prayer-card:active{transform:scale(0.97);}
-.prayer-card.tap-flash{animation:tapFlash 0.4s ease;}
-@keyframes tapFlash{0%{background:rgba(168,123,36,0.18);}100%{background:rgba(168,123,36,0.06);}}
+    /* donation */
+    .donate-head{padding:1.4rem 0 1.2rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem;}
+    .donate-icon{width:38px;height:38px;color:var(--green);margin-bottom:.8rem;}
+    .donate-title{font-family:'Fraunces',serif;font-size:2rem;font-weight:500;font-style:italic;color:var(--ink);margin-bottom:4px;}
+    .donate-sub{font-family:'Amiri',serif;font-size:.9rem;color:var(--green);}
 
-.p-icon{
-  width:44px;height:44px;flex-shrink:0;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--paper2);
-  border:1px solid var(--glass-border);
-  font-size:1.1rem;
-  transition:all 0.3s;
-}
-.prayer-card.active .p-icon{
-  background:rgba(168,123,36,0.14);
-  border-color:rgba(168,123,36,0.35);
-  box-shadow:0 0 16px rgba(168,123,36,0.15);
-}
-.p-info{flex:1;}
-.p-name{
-  font-weight:600;font-size:0.95rem;color:var(--ink);
-  display:flex;align-items:center;gap:8px;
-}
-.p-arabic{
-  font-family:'Amiri',serif;font-size:0.72rem;
-  color:rgba(168,123,36,0.8);margin-top:2px;
-}
-.jum-badge{
-  font-size:0.55rem;letter-spacing:0.1em;
-  background:var(--gold);color:#fff;
-  padding:2px 8px;border-radius:20px;font-weight:700;
-  text-transform:uppercase;
-}
-.p-times{text-align:right;flex-shrink:0;}
-.jamaat{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.3rem;font-weight:700;
-  color:var(--jade);line-height:1;
-}
-.azaan-t{font-size:0.65rem;color:rgba(20,32,26,0.4);margin-top:4px;}
+    .ledger-box{background:var(--surface);border-radius:20px;padding:0 1.2rem;box-shadow:var(--shadow);margin-bottom:1.8rem;}
+    .bank-row{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--line);}
+    .bank-row:last-child{border-bottom:0;}
+    .bank-label{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+    .bank-val{font-family:'Fraunces',serif;font-size:.95rem;color:var(--ink);letter-spacing:.02em;}
 
-/* ── PAGES ── */
-.page{display:none;animation:pageIn 0.35s cubic-bezier(0.23,1,0.32,1);}
-.page.active-page{display:block;}
-@keyframes pageIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+    .btn-row{display:flex;flex-direction:column;gap:10px;}
+    .gbtn{
+      width:100%;padding:.95rem;border-radius:60px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+      display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;
+      transition:all .2s ease;font-family:'Inter',sans-serif;font-weight:500;
+    }
+    .gbtn:active{transform:scale(.97);}
+    .gbtn-solid{background:var(--green);color:white;border:none;box-shadow:0 6px 14px var(--green-dim);}
+    .gbtn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong);}
 
-/* ── DONATION PAGE ── */
-.donate-hero{
-  background:linear-gradient(135deg,rgba(168,123,36,0.12) 0%,rgba(168,123,36,0.03) 100%);
-  border:1px solid rgba(168,123,36,0.25);
-  border-radius:2rem;padding:2rem 1.6rem;
-  text-align:center;margin-bottom:1.2rem;
-}
-.donate-icon{
-  width:72px;height:72px;border-radius:50%;
-  background:rgba(168,123,36,0.12);border:1px solid rgba(168,123,36,0.35);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.8rem;margin:0 auto 1rem;
-  box-shadow:0 0 30px rgba(168,123,36,0.15);
-}
-.donate-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:2rem;font-weight:700;color:var(--ink);margin-bottom:4px;
-}
-.donate-sub{font-size:0.8rem;color:var(--gold);letter-spacing:0.1em;}
-.bank-card{
-  background:#FFFFFF;border:1px solid var(--glass-border);
-  border-radius:1.4rem;padding:1.2rem 1.4rem;margin:1.2rem 0;
-  box-shadow:0 6px 16px rgba(20,32,26,0.05);
-}
-.bank-row-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:0.6rem 0;border-bottom:1px solid rgba(20,32,26,0.07);
-}
-.bank-row-item:last-child{border-bottom:none;}
-.bank-label{font-size:0.72rem;color:rgba(20,32,26,0.45);letter-spacing:0.06em;}
-.bank-val{font-size:0.88rem;font-weight:600;color:var(--ink);}
-.donate-btn{
-  width:100%;border:none;padding:1rem;border-radius:50px;
-  font-size:0.88rem;font-weight:600;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  cursor:pointer;margin-top:10px;letter-spacing:0.05em;
-  transition:all 0.25s cubic-bezier(0.23,1,0.32,1);
-}
-.donate-btn:active{transform:scale(0.97);}
-.btn-primary{background:var(--jade);color:#fff;border:1px solid rgba(255,255,255,0.1);}
-.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,#8A6420 100%);color:#fff;}
+    /* tasbeeh */
+    .tas-wrap{padding-top:1rem;text-align:center;}
+    .bead-ring-wrap{position:relative;width:220px;height:220px;margin:0 auto 1.4rem;}
+    .bead-ring-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+    .bead-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;}
+    .tc-num{font-family:'Fraunces',serif;font-size:3.2rem;font-weight:500;color:var(--ink);line-height:1;transition:transform .15s ease;}
+    .tc-num.bump{transform:scale(0.88);}
+    .tc-of{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px;}
+    .dhikr-text{font-family:'Amiri',serif;font-size:1.6rem;color:var(--green);margin:0 0 1.2rem;}
+    .tas-btns{display:flex;gap:12px;margin-bottom:1.2rem;}
+    .tas-btn{flex:1;border:none;padding:.8rem;border-radius:60px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;font-weight:500;}
+    .tas-btn:active{transform:scale(.96);}
+    .tas-count{background:var(--green);color:white;box-shadow:0 6px 14px var(--green-dim);}
+    .tas-reset{background:transparent;color:var(--ink-faint);border:1px solid var(--line-strong);}
 
-/* ── TASBEEH PAGE ── */
-.tasbeeh-wrap{
-  background:#FFFFFF;border:1px solid var(--glass-border);
-  border-radius:2rem;padding:2rem 1.6rem;
-  text-align:center;
-  box-shadow:0 10px 28px rgba(20,32,26,0.06);
-}
-.tasbeeh-circle{
-  width:180px;height:180px;border-radius:50%;
-  border:2px solid rgba(168,123,36,0.3);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  margin:0 auto 1.6rem;
-  position:relative;cursor:pointer;
-  transition:all 0.15s ease;
-  background:radial-gradient(circle,rgba(168,123,36,0.06) 0%,transparent 70%);
-  box-shadow:0 0 0 0 rgba(168,123,36,0);
-}
-.tasbeeh-circle:active{transform:scale(0.93);box-shadow:0 0 30px rgba(168,123,36,0.25);}
-.tasbeeh-circle.bump{animation:bump 0.2s ease;}
-@keyframes bump{0%{transform:scale(1);}50%{transform:scale(0.9);}100%{transform:scale(1);}}
-.tc-outer{
-  position:absolute;inset:-12px;border-radius:50%;
-  border:1px solid rgba(168,123,36,0.15);
-  animation:slowSpin 20s linear infinite;
-}
-@keyframes slowSpin{to{transform:rotate(360deg);}}
-.tc-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:4.5rem;font-weight:700;color:var(--ink);line-height:1;
-}
-.tc-of{font-size:0.7rem;color:rgba(168,123,36,0.75);letter-spacing:0.1em;}
-.dhikr-text{
-  font-family:'Amiri',serif;font-size:1.8rem;
-  color:var(--gold);margin:0 0 1.4rem;line-height:1.6;
-}
-.progress-track{
-  height:4px;background:rgba(20,32,26,0.08);
-  border-radius:4px;margin:0 0 1.4rem;overflow:hidden;
-}
-.progress-fill{
-  height:100%;border-radius:4px;
-  background:linear-gradient(90deg,var(--jade-light),var(--gold));
-  transition:width 0.25s cubic-bezier(0.23,1,0.32,1);
-}
-.tas-btns{display:flex;gap:10px;margin:0 0 1.2rem;}
-.tas-btn{
-  flex:1;border:none;padding:12px;border-radius:40px;
-  font-size:0.88rem;font-weight:600;cursor:pointer;
-  transition:all 0.2s ease;
-}
-.tas-btn:active{transform:scale(0.95);}
-.tas-count{background:var(--jade);color:#fff;}
-.tas-reset{background:var(--paper2);color:rgba(20,32,26,0.7);border:1px solid var(--glass-border);}
-.dhikr-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
-.dhikr-preset{
-  padding:6px 16px;border-radius:30px;font-size:0.78rem;cursor:pointer;
-  border:1px solid var(--glass-border);
-  background:var(--paper2);color:rgba(20,32,26,0.6);
-  transition:all 0.2s;
-}
-.dhikr-preset:active{transform:scale(0.93);}
-.dhikr-preset.sel{
-  background:rgba(168,123,36,0.12);border-color:rgba(168,123,36,0.45);
-  color:var(--gold);
-}
+    .dhikr-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+    .dhikr-preset{padding:6px 16px;border-radius:40px;font-size:.7rem;cursor:pointer;border:1px solid var(--line);color:var(--ink-faint);transition:all .2s;background:var(--surface);}
+    .dhikr-preset.sel{border-color:var(--green);color:var(--green);background:var(--green-glass);}
 
-/* ── BOTTOM NAV ── */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  max-width:430px;width:100%;
-  background:rgba(255,255,255,0.9);
-  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-  border-top:1px solid rgba(20,32,26,0.08);
-  padding:0.5rem 2rem max(env(safe-area-inset-bottom),1.2rem);
-  display:flex;justify-content:space-around;align-items:center;
-  z-index:100;
-}
-.nav-btn{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  cursor:pointer;padding:8px 16px;border-radius:40px;
-  transition:all 0.25s cubic-bezier(0.23,1,0.32,1);
-  position:relative;
-}
-.nav-btn:active{transform:scale(0.9);}
-.nav-icon{font-size:1.3rem;filter:grayscale(1);opacity:0.45;transition:all 0.25s;}
-.nav-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(20,32,26,0.4);transition:all 0.25s;}
-.nav-btn.active .nav-icon{filter:none;opacity:1;}
-.nav-btn.active .nav-label{color:var(--gold);}
-.nav-btn.active::after{
-  content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
-  width:20px;height:2px;background:var(--gold);border-radius:2px;
-}
+    /* bottom nav */
+    .bottom-nav{
+      position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:430px;width:100%;
+      background:rgba(255,255,255,0.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border-top:1px solid var(--line);padding:.5rem 1.2rem max(env(safe-area-inset-bottom),1rem);
+      display:flex;justify-content:space-around;align-items:center;z-index:100;
+      box-shadow:0 -4px 20px rgba(0,20,8,0.04);
+    }
+    .nav-btn{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:6px 14px;position:relative;transition:all .2s;}
+    .nav-btn:active{transform:scale(.92);}
+    .nav-icon{width:20px;height:20px;color:var(--ink-faint);transition:color .25s;}
+    .nav-label{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);transition:color .25s;}
+    .nav-btn.active .nav-icon,.nav-btn.active .nav-label{color:var(--green);}
+    .nav-btn.active::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:16px;height:2.5px;background:var(--green);border-radius:6px;}
 
-/* ── TOAST ── */
-.toast{
-  position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(10px);
-  background:rgba(20,32,26,0.92);color:#fff;
-  padding:10px 24px;border-radius:40px;
-  font-size:0.8rem;border:1px solid rgba(168,123,36,0.3);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  z-index:300;opacity:0;transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
-  pointer-events:none;white-space:nowrap;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast{
+      position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(8px);
+      background:var(--surface);color:var(--ink);padding:10px 24px;border-radius:60px;
+      font-size:.75rem;letter-spacing:.04em;border:1px solid var(--line-strong);
+      z-index:300;opacity:0;transition:all .3s cubic-bezier(.23,1,.32,1);pointer-events:none;white-space:nowrap;
+      box-shadow:var(--shadow);
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ── RIPPLE ── */
-.ripple-container{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;}
-.ripple{
-  position:absolute;border-radius:50%;
-  background:rgba(168,123,36,0.22);
-  transform:scale(0);animation:rippleOut 0.6s ease-out forwards;
-  pointer-events:none;
-}
-@keyframes rippleOut{to{transform:scale(4);opacity:0;}}
-
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
-}
-</style>
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important;}}
+  </style>
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
-  <div class="loader-ring">
-    <img class="loader-logo" src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Logo"/>
-  </div>
-  <div class="loader-name">MASJID AL-HAMZAH</div>
-  <div class="loader-sub">Established in Faith · HajiBagh, Buchpora</div>
+  <svg class="loader-star" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path d="M50 4 L61 39 L98 39 L68 60 L79 96 L50 74 L21 96 L32 60 L2 39 L39 39 Z"/>
+  </svg>
+  <div class="loader-name">Masjid Al Hamzah</div>
+  <div class="loader-sub">HajiBagh · Buchpora</div>
 </div>
 
-<!-- 3D CANVAS -->
-<canvas id="domeCanvas"></canvas>
-
 <div class="app" id="appRoot">
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="salam-text">السَّلاَمُ عَلَيْكُمْ<br>وَرَحْمَةُ اللهِ</div>
-    <div class="logo-pill"><img src="https://ik.imagekit.io/ironclad/masjidlogo.png?updatedAt=1772093706316" alt="Logo"/></div>
+  <div class="top-strip">
+    <div class="wordmark">Al Hamzah</div>
+    <div class="loc-tag">HajiBagh, Buchpora</div>
   </div>
-  <div class="loc-tag">
-    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-    HajiBagh, Buchpora
+  <div class="date-strip">
+    <div class="greg-date" id="gregDate">—</div>
+    <div class="hijri-date">Rabi' al-Awwal · 1448 AH</div>
   </div>
-  <div class="masjid-title">Masjid<br>Al Hamzah</div>
-  <div class="masjid-arabic">مَسْجِدِ الْحَمْزَۃ</div>
 
-  <!-- HOME PAGE -->
+  <!-- HOME -->
   <div id="homePage" class="page active-page">
-    <div class="clock-card" id="clockCard">
-      <div>
-        <div class="clock-main" id="clockTime">--<span class="clock-ampm" id="clockAmpm">--</span></div>
-      </div>
-      <div class="date-col">
-        <div class="greg-date" id="gregDate">—</div>
-        <div class="hijri-pill">Rabi' al-Awwal 1448 AH</div>
-      </div>
-    </div>
-
-    <div class="hero-card" id="heroCard">
-      <div class="hero-orb"></div>
-      <div class="hero-crescent">☪</div>
-      <div class="hero-label">Next Jamā'ah</div>
-      <div class="hero-main">
-        <div class="hero-name" id="nextName">—</div>
-        <div class="hero-time" id="nextTime">—</div>
-      </div>
-      <div class="hero-countdown">
-        <div class="pulse-dot"></div>
-        <span id="nextCountdown">calculating…</span>
+    <div class="dial-wrap" id="dialWrap">
+      <canvas id="dialCanvas"></canvas>
+      <div class="dial-center">
+        <div class="dial-eyebrow">Next Jamā'ah</div>
+        <div class="dial-arabic" id="nextArabic">—</div>
+        <div class="dial-name" id="nextName">—</div>
+        <div class="dial-time" id="nextTime">—</div>
       </div>
     </div>
+    <div class="countdown-pill"><div class="pulse-dot"></div><span id="nextCountdown">calculating…</span></div>
+    <div class="clock-line">Now · <b id="clockNow">--:--</b></div>
 
     <div class="section-row">
       <div class="section-title">Daily Ṣalāh</div>
-      <div class="iq-tag">Iqāmah</div>
+      <div class="section-tag">Iqāmah times</div>
     </div>
-    <div class="prayer-list" id="prayerList"></div>
+    <div class="ledger" id="prayerList"></div>
   </div>
 
-  <!-- DONATION PAGE -->
+  <!-- DONATION -->
   <div id="donationPage" class="page">
-    <div class="donate-hero">
-      <div class="donate-icon">🤲</div>
+    <div class="donate-head">
+      <svg class="donate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <path d="M6 21V11a6 6 0 0 1 12 0v10"/><path d="M6 21h12"/><path d="M12 3v3"/>
+      </svg>
       <div class="donate-title">Support the Masjid</div>
       <div class="donate-sub">Zakāt · Ṣadaqah · Lillāh</div>
     </div>
-    <div class="bank-card">
-      <div class="bank-row-item">
-        <span class="bank-label">Account Holder</span>
-        <span class="bank-val">Masjid Al Hamzah</span>
-      </div>
-      <div class="bank-row-item">
-        <span class="bank-label">Account Number</span>
-        <span class="bank-val">0173040100013447</span>
-      </div>
-      <div class="bank-row-item">
-        <span class="bank-label">IFSC Code</span>
-        <span class="bank-val">JAKA0ANCHAR</span>
-      </div>
-      <div class="bank-row-item">
-        <span class="bank-label">Bank</span>
-        <span class="bank-val">J&K Bank</span>
-      </div>
+    <div class="ledger-box">
+      <div class="bank-row"><span class="bank-label">Account Holder</span><span class="bank-val">Masjid Al Hamzah</span></div>
+      <div class="bank-row"><span class="bank-label">Account Number</span><span class="bank-val">0173040100013447</span></div>
+      <div class="bank-row"><span class="bank-label">IFSC Code</span><span class="bank-val">JAKA0ANCHAR</span></div>
+      <div class="bank-row"><span class="bank-label">Bank</span><span class="bank-val">J&amp;K Bank</span></div>
     </div>
-    <button class="donate-btn btn-primary" id="copyAccBtn">
-      <span>📋</span> Copy Account Number
-    </button>
-    <button class="donate-btn btn-gold" id="copyAllBtn" style="margin-top:10px;">
-      <span>✨</span> Copy All Details
-    </button>
+    <div class="btn-row">
+      <button class="gbtn gbtn-solid" id="copyAccBtn">Copy Account Number</button>
+      <button class="gbtn gbtn-ghost" id="copyAllBtn">Copy All Details</button>
+    </div>
   </div>
 
-  <!-- TASBEEH PAGE -->
+  <!-- TASBEEH -->
   <div id="tasbeehPage" class="page">
-    <div class="tasbeeh-wrap">
-      <div class="tasbeeh-circle" id="tasbeehCircle">
-        <div class="tc-outer"></div>
-        <div class="tc-num" id="tcNum">0</div>
-        <div class="tc-of" id="tcOf">of 33</div>
-        <div class="ripple-container" id="tasbeehRipple"></div>
+    <div class="tas-wrap">
+      <div class="bead-ring-wrap">
+        <svg id="beadSvg" viewBox="0 0 230 230"></svg>
+        <div class="bead-center" id="beadCenter">
+          <div class="tc-num" id="tcNum">0</div>
+          <div class="tc-of" id="tcOf">of 33</div>
+        </div>
       </div>
       <div class="dhikr-text" id="dhikrText">سُبْحَانَ اللَّهِ</div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width:0%"></div>
-      </div>
       <div class="tas-btns">
         <button class="tas-btn tas-count" id="incrementBtn">Count</button>
         <button class="tas-btn tas-reset" id="resetBtn">Reset</button>
       </div>
       <div class="dhikr-presets">
-        <span class="dhikr-preset sel" data-target="33" data-dhikr="subhanallah" data-label="سُبْحَانَ اللَّهِ">SubhānAllāh · 33</span>
-        <span class="dhikr-preset" data-target="33" data-dhikr="alhamdulillah" data-label="الْحَمْدُ لِلَّهِ">AlḥamdulIllāh · 33</span>
-        <span class="dhikr-preset" data-target="34" data-dhikr="allahuakbar" data-label="اللَّهُ أَكْبَر">Allāhu Akbar · 34</span>
-        <span class="dhikr-preset" data-target="100" data-dhikr="lailaha" data-label="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ">Lā ilāha · 100</span>
+        <span class="dhikr-preset sel" data-target="33" data-dhikr="subhanallah">SubhānAllāh · 33</span>
+        <span class="dhikr-preset" data-target="33" data-dhikr="alhamdulillah">AlḥamdulIllāh · 33</span>
+        <span class="dhikr-preset" data-target="34" data-dhikr="allahuakbar">Allāhu Akbar · 34</span>
+        <span class="dhikr-preset" data-target="100" data-dhikr="lailaha">Lā ilāha · 100</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <div class="nav-btn active" data-nav="home">
-    <span class="nav-icon">🕌</span>
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 3a9 9 0 1 0 0 18 7.2 7.2 0 0 1 0-18Z"/></svg>
     <span class="nav-label">Home</span>
   </div>
   <div class="nav-btn" data-nav="donation">
-    <span class="nav-icon">🤲</span>
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 21V11a6 6 0 0 1 12 0v10"/><path d="M6 21h12"/></svg>
     <span class="nav-label">Donate</span>
   </div>
   <div class="nav-btn" data-nav="tasbeeh">
-    <span class="nav-icon">📿</span>
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
     <span class="nav-label">Tasbeeh</span>
   </div>
 </div>
@@ -599,281 +282,37 @@ body{
 <div class="toast" id="toast"></div>
 
 <script>
-// ── 3D WebGL Dome Scene ──────────────────────────────────────────────────────
-(function initWebGL() {
-  const canvas = document.getElementById('domeCanvas');
-  const gl = canvas.getContext('webgl', { alpha: true, antialias: true });
-  if (!gl) return;
-
-  function resize() {
-    canvas.width = window.innerWidth * devicePixelRatio;
-    canvas.height = window.innerHeight * devicePixelRatio;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    gl.viewport(0, 0, canvas.width, canvas.height);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const vs = `
-    attribute vec3 aPos;
-    attribute vec3 aNorm;
-    uniform mat4 uMVP;
-    uniform mat4 uModel;
-    varying vec3 vNorm;
-    varying vec3 vPos;
-    void main(){
-      vec4 wp = uModel * vec4(aPos,1.0);
-      vPos = wp.xyz;
-      vNorm = mat3(uModel) * aNorm;
-      gl_Position = uMVP * vec4(aPos,1.0);
-    }`;
-  const fs = `
-    precision mediump float;
-    varying vec3 vNorm;
-    varying vec3 vPos;
-    uniform float uTime;
-    uniform vec3 uColor;
-    void main(){
-      vec3 n = normalize(vNorm);
-      vec3 light1 = normalize(vec3(1.0,2.0,1.5));
-      vec3 light2 = normalize(vec3(-1.0,1.0,-1.0));
-      float d1 = max(dot(n,light1),0.0);
-      float d2 = max(dot(n,light2),0.0)*0.3;
-      float rim = pow(1.0 - abs(dot(n, vec3(0.0,0.0,1.0))),2.0)*0.4;
-      float gold_shimmer = sin(vPos.y*8.0 + uTime)*0.06;
-      vec3 col = uColor*(0.35 + d1*0.5 + d2) + vec3(0.25,0.18,0.05)*rim + gold_shimmer;
-      float alpha = 0.28 + d1*0.18;
-      gl_FragColor = vec4(col, alpha);
-    }`;
-
-  function compileShader(type, src) {
-    const s = gl.createShader(type);
-    gl.shaderSource(s, src); gl.compileShader(s); return s;
-  }
-  const prog = gl.createProgram();
-  gl.attachShader(prog, compileShader(gl.VERTEX_SHADER, vs));
-  gl.attachShader(prog, compileShader(gl.FRAGMENT_SHADER, fs));
-  gl.linkProgram(prog); gl.useProgram(prog);
-
-  const aPos = gl.getAttribLocation(prog, 'aPos');
-  const aNorm = gl.getAttribLocation(prog, 'aNorm');
-  const uMVP = gl.getUniformLocation(prog, 'uMVP');
-  const uModel = gl.getUniformLocation(prog, 'uModel');
-  const uTime = gl.getUniformLocation(prog, 'uTime');
-  const uColor = gl.getUniformLocation(prog, 'uColor');
-
-  // Build dome (hemisphere + cylinder + finial)
-  function buildDome(rings, segs) {
-    const verts = [], norms = [], idxs = [];
-    // Hemisphere
-    for (let r = 0; r <= rings; r++) {
-      const phi = (r / rings) * Math.PI * 0.5;
-      for (let s = 0; s <= segs; s++) {
-        const theta = (s / segs) * Math.PI * 2;
-        const x = Math.sin(phi) * Math.cos(theta);
-        const y = Math.cos(phi);
-        const z = Math.sin(phi) * Math.sin(theta);
-        verts.push(x, y, z); norms.push(x, y, z);
-      }
-    }
-    for (let r = 0; r < rings; r++) {
-      for (let s = 0; s < segs; s++) {
-        const a = r * (segs + 1) + s, b = a + 1;
-        const c = (r + 1) * (segs + 1) + s, d = c + 1;
-        idxs.push(a, c, b, b, c, d);
-      }
-    }
-    // Cylinder drum
-    const base = verts.length / 3;
-    const cy = 20, cr = 6;
-    for (let i = 0; i <= cy; i++) {
-      const yy = -i / cy * 0.6;
-      for (let s = 0; s <= segs; s++) {
-        const theta = (s / segs) * Math.PI * 2;
-        const x = Math.cos(theta), z = Math.sin(theta);
-        verts.push(x, yy, z); norms.push(x, 0, z);
-      }
-    }
-    for (let i = 0; i < cy; i++) {
-      for (let s = 0; s < segs; s++) {
-        const a = base + i * (segs + 1) + s;
-        const b = a + 1, c = a + (segs + 1), d = c + 1;
-        idxs.push(a, c, b, b, c, d);
-      }
-    }
-    // Finial spire
-    const fbase = verts.length / 3;
-    const fh = 10;
-    for (let i = 0; i <= fh; i++) {
-      const yy = 1.0 + (i / fh) * 0.7;
-      const r2 = (1 - i / fh) * 0.12;
-      for (let s = 0; s <= segs; s++) {
-        const theta = (s / segs) * Math.PI * 2;
-        const x = Math.cos(theta) * r2, z = Math.sin(theta) * r2;
-        verts.push(x, yy, z); norms.push(x, 0.3, z);
-      }
-    }
-    for (let i = 0; i < fh; i++) {
-      for (let s = 0; s < segs; s++) {
-        const a = fbase + i * (segs + 1) + s;
-        const b = a + 1, c = a + (segs + 1), d = c + 1;
-        idxs.push(a, c, b, b, c, d);
-      }
-    }
-    return { verts: new Float32Array(verts), norms: new Float32Array(norms), idxs: new Uint16Array(idxs) };
-  }
-
-  const dome = buildDome(24, 36);
-  const vBuf = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
-  gl.bufferData(gl.ARRAY_BUFFER, dome.verts, gl.STATIC_DRAW);
-  const nBuf = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, nBuf);
-  gl.bufferData(gl.ARRAY_BUFFER, dome.norms, gl.STATIC_DRAW);
-  const iBuf = gl.createBuffer();
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuf);
-  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, dome.idxs, gl.STATIC_DRAW);
-
-  // Matrix utils
-  function mat4Identity() { const m=new Float32Array(16); m[0]=m[5]=m[10]=m[15]=1; return m; }
-  function mat4Multiply(a,b){ const r=new Float32Array(16); for(let i=0;i<4;i++) for(let j=0;j<4;j++) { let s=0; for(let k=0;k<4;k++) s+=a[i+k*4]*b[k+j*4]; r[i+j*4]=s; } return r; }
-  function mat4Perspective(fov,asp,near,far){ const f=1/Math.tan(fov/2),r=new Float32Array(16); r[0]=f/asp;r[5]=f;r[10]=(far+near)/(near-far);r[11]=-1;r[14]=(2*far*near)/(near-far);return r; }
-  function mat4Translate(x,y,z){ const m=mat4Identity();m[12]=x;m[13]=y;m[14]=z;return m; }
-  function mat4RotateY(a){ const m=mat4Identity(),c=Math.cos(a),s=Math.sin(a);m[0]=c;m[2]=s;m[8]=-s;m[10]=c;return m; }
-  function mat4Scale(s){ const m=mat4Identity();m[0]=m[5]=m[10]=s;return m; }
-
-  let pointerX = 0, pointerY = 0, targetRotY = 0, currentRotY = 0;
-  document.addEventListener('pointermove', e => {
-    pointerX = (e.clientX / window.innerWidth - 0.5) * 2;
-    pointerY = (e.clientY / window.innerHeight - 0.5) * 2;
-    targetRotY = pointerX * 0.4;
-  });
-  document.addEventListener('touchmove', e => {
-    const t = e.touches[0];
-    pointerX = (t.clientX / window.innerWidth - 0.5) * 2;
-    targetRotY = pointerX * 0.4;
-  }, { passive: true });
-
-  gl.enable(gl.DEPTH_TEST);
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-  const start = performance.now();
-  function render(now) {
-    requestAnimationFrame(render);
-    const t = (now - start) / 1000;
-    currentRotY += (targetRotY - currentRotY) * 0.04;
-
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    const asp = canvas.width / canvas.height;
-    const proj = mat4Perspective(0.7, asp, 0.1, 100);
-
-    // Draw main large dome (top-right)
-    {
-      const bob = Math.sin(t * 0.5) * 0.04;
-      const sc = Math.min(canvas.width, 700) / 700;
-      const model = mat4Multiply(
-        mat4Translate(0.55, 0.1 + bob, -4.5),
-        mat4Multiply(mat4RotateY(t * 0.12 + currentRotY), mat4Scale(0.85 * sc))
-      );
-      const mvp = mat4Multiply(proj, model);
-      gl.uniformMatrix4fv(uMVP, false, mvp);
-      gl.uniformMatrix4fv(uModel, false, model);
-      gl.uniform1f(uTime, t);
-      gl.uniform3f(uColor, 0.12, 0.45, 0.28);
-      bindAndDraw();
-    }
-    // Draw small accent dome (left, lower)
-    {
-      const bob = Math.sin(t * 0.5 + 1) * 0.03;
-      const model = mat4Multiply(
-        mat4Translate(-1.3, -0.6 + bob, -5.5),
-        mat4Multiply(mat4RotateY(-t * 0.08 + currentRotY * 0.7), mat4Scale(0.38))
-      );
-      const mvp = mat4Multiply(proj, model);
-      gl.uniformMatrix4fv(uMVP, false, mvp);
-      gl.uniformMatrix4fv(uModel, false, model);
-      gl.uniform3f(uColor, 0.55, 0.4, 0.1);
-      bindAndDraw();
-    }
-  }
-
-  function bindAndDraw() {
-    gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, nBuf);
-    gl.enableVertexAttribArray(aNorm);
-    gl.vertexAttribPointer(aNorm, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuf);
-    gl.drawElements(gl.TRIANGLES, dome.idxs.length, gl.UNSIGNED_SHORT, 0);
-  }
-
-  requestAnimationFrame(render);
-})();
-
-// ── App Logic ────────────────────────────────────────────────────────────────
-(function() {
-  // Loader
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const L = document.getElementById('loader');
-      L.style.opacity = '0';
-      setTimeout(() => L.style.display = 'none', 800);
-    }, 2400);
-  });
-
-  // Prayer data
+  // ── Prayer data ──────────────────────────────────────────────────────────
   const prayers = {
-    fajr:   { name:'Fajr',    arabic:'الْفَجْر',          icon:'🌙', offset:40, jamaat:'05:2o AM' },
-    zuhr:   { name:'Ẓuhr',    arabic:'الظُّهْر',          icon:'☀️', offset:15, jamaat:'01:00 PM' },
-    jummah: { name:'Jumu\'ah',arabic:'صَلَاة الْجُمُعَة', icon:'🕌', offset:20, jamaat:'01:15 PM' },
-    asr:    { name:'ʿAṣr',    arabic:'الْعَصْر',          icon:'🌤', offset:15, jamaat:'05:35 PM' },
-    maghrib:{ name:'Maghrib', arabic:'الْمَغْرِب',         icon:'🌇', offset:5,  jamaat:'07:20 PM' },
-    isha:   { name:'ʿIshāʾ',  arabic:'الْعِشَاء',         icon:'🌃', offset:15, jamaat:'08:50 PM' },
+    fajr:   { name:'Fajr',    arabic:'الْفَجْر',          offset:40, jamaat:'05:20 AM' },
+    zuhr:   { name:'Ẓuhr',    arabic:'الظُّهْر',          offset:15, jamaat:'01:00 PM' },
+    jummah: { name:"Jumu'ah", arabic:'صَلَاة الْجُمُعَة', offset:20, jamaat:'01:15 PM' },
+    asr:    { name:'ʿAṣr',    arabic:'الْعَصْر',          offset:15, jamaat:'05:35 PM' },
+    maghrib:{ name:'Maghrib', arabic:'الْمَغْرِب',         offset:5,  jamaat:'07:20 PM' },
+    isha:   { name:'ʿIshāʾ',  arabic:'الْعِشَاء',         offset:15, jamaat:'08:50 PM' },
   };
-
-  function getTodayList() {
+  function getTodayList(){
     const fri = new Date().getDay() === 5;
-    const keys = fri
-      ? ['fajr','jummah','asr','maghrib','isha']
-      : ['fajr','zuhr','asr','maghrib','isha'];
-    return keys.map(k => ({ ...prayers[k], key: k }));
+    const keys = fri ? ['fajr','jummah','asr','maghrib','isha'] : ['fajr','zuhr','asr','maghrib','isha'];
+    return keys.map(k => ({ ...prayers[k], key:k }));
   }
+  function toMin(t){ const [tp,m]=t.split(' '); let [h,mn]=tp.split(':').map(Number); if(m==='PM'&&h!==12)h+=12; if(m==='AM'&&h===12)h=0; return h*60+mn; }
+  function fmtMin(m){ m=((m%1440)+1440)%1440; const h=Math.floor(m/60),mn=m%60,mod=h>=12?'PM':'AM'; return `${h%12||12}:${mn.toString().padStart(2,'0')} ${mod}`; }
 
-  function toMin(t) {
-    const [tp, m] = t.split(' ');
-    let [h, mn] = tp.split(':').map(Number);
-    if (m === 'PM' && h !== 12) h += 12;
-    if (m === 'AM' && h === 12) h = 0;
-    return h * 60 + mn;
-  }
-  function fmtMin(m) {
-    const h = Math.floor(m / 60), mn = m % 60, mod = h >= 12 ? 'PM' : 'AM';
-    return `${h % 12 || 12}:${mn.toString().padStart(2,'0')} ${mod}`;
-  }
-
-  // Render prayer cards
-  function renderPrayers() {
+  // ── Render ledger ────────────────────────────────────────────────────────
+  function renderPrayers(){
     const list = getTodayList();
-    const now = new Date(), cur = now.getHours() * 60 + now.getMinutes();
+    const now = new Date(), cur = now.getHours()*60+now.getMinutes();
     let activeIdx = -1;
-    for (let i = 0; i < list.length; i++) {
-      if (cur < toMin(list[i].jamaat)) { activeIdx = i - 1; break; }
-    }
-    if (activeIdx === -1) activeIdx = list.length - 1;
+    for(let i=0;i<list.length;i++){ if(cur < toMin(list[i].jamaat)){ activeIdx = i-1; break; } }
+    if(activeIdx === -1) activeIdx = list.length-1;
 
     const container = document.getElementById('prayerList');
-    if (!container) return;
-    container.innerHTML = list.map((p, i) => {
-      const azaan = fmtMin(toMin(p.jamaat) - p.offset);
-      const isActive = i === activeIdx;
-      return `<div class="prayer-card ${isActive ? 'active' : ''}" data-name="${p.name}" data-azaan="${azaan}">
-        <div class="ripple-container"></div>
-        <div class="p-icon">${p.icon}</div>
+    container.innerHTML = list.map((p,i)=>{
+      const azaan = fmtMin(toMin(p.jamaat)-p.offset);
+      const isActive = i===activeIdx;
+      return `<div class="p-row ${isActive?'active':''}" data-name="${p.name}" data-azaan="${azaan}">
+        <div class="p-mark"></div>
         <div class="p-info">
           <div class="p-name">${p.name}${p.key==='jummah'?'<span class="jum-badge">Khuṭbah</span>':''}</div>
           <div class="p-arabic">${p.arabic}</div>
@@ -884,199 +323,192 @@ body{
         </div>
       </div>`;
     }).join('');
-
-    // Touch ripple + tap flash on prayer cards
-    container.querySelectorAll('.prayer-card').forEach(card => {
-      card.addEventListener('pointerdown', e => {
-        createRipple(card.querySelector('.ripple-container'), e);
-        card.classList.add('tap-flash');
-        setTimeout(() => card.classList.remove('tap-flash'), 400);
-        showToast(`${card.dataset.name} · Azān ${card.dataset.azaan}`);
-      });
+    container.querySelectorAll('.p-row').forEach(row=>{
+      row.addEventListener('pointerdown', ()=> showToast(`${row.dataset.name} · Azān ${row.dataset.azaan}`));
     });
   }
 
-  // Clock + next prayer
-  function updateClock() {
+  // ── Clock + next prayer + dial ──────────────────────────────────────────
+  let dialProgress = 0, dialTargetProgress = 0;
+  function updateClock(){
     const now = new Date();
-    const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-    const h12 = h % 12 || 12, mod = h >= 12 ? 'PM' : 'AM';
-    const timeEl = document.getElementById('clockTime');
-    const ampmEl = document.getElementById('clockAmpm');
-    if (timeEl) {
-      timeEl.childNodes[0].textContent = `${h12}:${m.toString().padStart(2,'0')}`;
-    }
-    if (ampmEl) ampmEl.textContent = mod;
-
+    const h=now.getHours(), m=now.getMinutes();
+    const h12=h%12||12, mod=h>=12?'PM':'AM';
+    const cn = document.getElementById('clockNow');
+    if(cn) cn.textContent = `${h12}:${m.toString().padStart(2,'0')} ${mod}`;
     const gd = document.getElementById('gregDate');
-    if (gd) gd.textContent = now.toLocaleDateString('en-US', { weekday:'short', month:'long', day:'numeric' });
+    if(gd) gd.textContent = now.toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric'});
 
     const list = getTodayList();
-    const cur = h * 60 + m;
-    let next = null, diff = Infinity;
-    for (const p of list) {
-      const pm = toMin(p.jamaat);
-      if (pm > cur && (pm - cur) < diff) { diff = pm - cur; next = p; }
+    const cur = h*60+m;
+    let nextIdx = list.findIndex(p => toMin(p.jamaat) > cur);
+    let prevMin, nextMin, next;
+    if(nextIdx === -1){ next = list[0]; nextMin = toMin(next.jamaat)+1440; prevMin = toMin(list[list.length-1].jamaat); }
+    else { next = list[nextIdx]; nextMin = toMin(next.jamaat); prevMin = nextIdx>0 ? toMin(list[nextIdx-1].jamaat) : toMin(list[list.length-1].jamaat)-1440; }
+    const diff = nextMin - cur;
+    const frac = Math.min(Math.max((cur - prevMin) / (nextMin - prevMin), 0), 1);
+    dialTargetProgress = frac;
+
+    const nn=document.getElementById('nextName'), na=document.getElementById('nextArabic'), nt=document.getElementById('nextTime'), nc=document.getElementById('nextCountdown');
+    if(nn) nn.textContent = next.name;
+    if(na) na.textContent = next.arabic;
+    if(nt) nt.textContent = next.jamaat;
+    if(nc){ const hh=Math.floor(diff/60), mm=diff%60; nc.textContent = hh ? `${hh}h ${mm}m remaining` : `${mm} minutes remaining`; }
+  }
+
+  // ── Canvas rosette dial ──────────────────────────────────────────────────
+  (function(){
+    const canvas = document.getElementById('dialCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){
+      const wrap = document.getElementById('dialWrap');
+      const size = wrap.clientWidth * devicePixelRatio;
+      canvas.width = size; canvas.height = size;
     }
-    if (!next && list.length) { next = list[0]; diff = (1440 - cur) + toMin(next.jamaat); }
-    if (next) {
-      const nn = document.getElementById('nextName');
-      const nt = document.getElementById('nextTime');
-      const nc = document.getElementById('nextCountdown');
-      if (nn) nn.textContent = next.name;
-      if (nt) nt.textContent = next.jamaat;
-      if (nc) {
-        const hh = Math.floor(diff / 60), mm = diff % 60;
-        nc.textContent = hh ? `${hh}h ${mm}m remaining` : `${mm} minutes`;
+    resize();
+    window.addEventListener('resize', resize);
+
+    function drawStar(cx, cy, r, points, rot, color, width){
+      ctx.beginPath();
+      for(let i=0;i<=points*2;i++){
+        const ang = rot + (i * Math.PI / points);
+        const rad = i % 2 === 0 ? r : r*0.6;
+        const x = cx + Math.cos(ang)*rad, y = cy + Math.sin(ang)*rad;
+        i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+    }
+
+    let t0 = performance.now();
+    function render(now){
+      requestAnimationFrame(render);
+      const t = (now - t0)/1000;
+      dialProgress += (dialTargetProgress - dialProgress) * 0.06;
+
+      const size = canvas.width, cx = size/2, cy = size/2;
+      ctx.clearRect(0,0,size,size);
+      const R = size*0.46;
+
+      // soft background ring
+      ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
+      ctx.strokeStyle='rgba(30,42,30,0.06)'; ctx.lineWidth=1.2; ctx.stroke();
+
+      drawStar(cx,cy,R*0.86,8, t*0.06, 'rgba(44,122,77,0.15)', 1.2);
+      drawStar(cx,cy,R*0.86,8, t*0.06 + Math.PI/8, 'rgba(44,122,77,0.08)', 1);
+      drawStar(cx,cy,R*0.62,8, -t*0.045, 'rgba(30,42,30,0.05)', 1);
+
+      // progress arc
+      ctx.beginPath();
+      ctx.arc(cx,cy,R, -Math.PI/2, -Math.PI/2 + dialProgress*Math.PI*2);
+      ctx.strokeStyle = '#2C7A4D'; ctx.lineWidth = 2.5; ctx.lineCap='round'; ctx.stroke();
+
+      // ticks
+      for(let i=0;i<48;i++){
+        const ang = (i/48)*Math.PI*2;
+        const r1 = R*1.04, r2 = R*(i%4===0 ? 1.1 : 1.07);
+        ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(ang)*r1, cy+Math.sin(ang)*r1);
+        ctx.lineTo(cx+Math.cos(ang)*r2, cy+Math.sin(ang)*r2);
+        ctx.strokeStyle = i%4===0 ? 'rgba(30,42,30,0.2)' : 'rgba(30,42,30,0.07)';
+        ctx.lineWidth = 1; ctx.stroke();
       }
     }
-  }
+    requestAnimationFrame(render);
+  })();
 
-  // 3D tilt on hero card
-  const hero = document.getElementById('heroCard');
-  if (hero) {
-    hero.addEventListener('pointermove', e => {
-      const r = hero.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      hero.style.transform = `perspective(600px) rotateX(${-y*8}deg) rotateY(${x*10}deg) scale(1.02)`;
-      hero.style.boxShadow = `${-x*20}px ${-y*20+24}px 48px -10px rgba(15,92,54,0.35)`;
-    });
-    hero.addEventListener('pointerleave', () => {
-      hero.style.transform = '';
-      hero.style.boxShadow = '';
-    });
-    hero.addEventListener('pointerdown', e => {
-      createRipple(hero.querySelector('.ripple-container') || (() => {
-        const rc = document.createElement('div'); rc.className='ripple-container'; hero.appendChild(rc); return rc;
-      })(), e);
-    });
-  }
-
-  // Clock card tilt
-  const clockCard = document.getElementById('clockCard');
-  if (clockCard) {
-    clockCard.addEventListener('pointermove', e => {
-      const r = clockCard.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      clockCard.style.transform = `perspective(400px) rotateX(${-y*5}deg) rotateY(${x*6}deg)`;
-    });
-    clockCard.addEventListener('pointerleave', () => { clockCard.style.transform = ''; });
-  }
-
-  // Navigation
-  const pages = {
-    home: document.getElementById('homePage'),
-    donation: document.getElementById('donationPage'),
-    tasbeeh: document.getElementById('tasbeehPage'),
-  };
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  // ── Nav ──────────────────────────────────────────────────────────────────
+  const pages = { home:document.getElementById('homePage'), donation:document.getElementById('donationPage'), tasbeeh:document.getElementById('tasbeehPage') };
+  document.querySelectorAll('.nav-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
       const p = btn.dataset.nav;
-      Object.values(pages).forEach(pg => pg?.classList.remove('active-page'));
-      pages[p]?.classList.add('active-page');
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      Object.values(pages).forEach(pg=>pg.classList.remove('active-page'));
+      pages[p].classList.add('active-page');
+      document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      // Haptic if supported
-      if (navigator.vibrate) navigator.vibrate(8);
+      if(navigator.vibrate) navigator.vibrate(8);
     });
   });
 
-  // Donation
-  document.getElementById('copyAccBtn')?.addEventListener('pointerdown', e => {
+  // ── Donation ─────────────────────────────────────────────────────────────
+  document.getElementById('copyAccBtn').addEventListener('click', ()=>{
     navigator.clipboard.writeText('0173040100013447').catch(()=>{});
-    showToast('Account number copied ✓');
-    createRipple(e.currentTarget.parentElement, e);
+    showToast('Account number copied');
   });
-  document.getElementById('copyAllBtn')?.addEventListener('pointerdown', e => {
+  document.getElementById('copyAllBtn').addEventListener('click', ()=>{
     navigator.clipboard.writeText('Masjid Al Hamzah\n0173040100013447\nIFSC: JAKA0ANCHAR\nJ&K Bank').catch(()=>{});
-    showToast('All details copied ✓');
+    showToast('All details copied');
   });
 
-  // Tasbeeh
-  let count = 0, target = 33, dhikrKey = 'subhanallah';
-  const dhikrMap = {
-    subhanallah: 'سُبْحَانَ اللَّهِ',
-    alhamdulillah: 'الْحَمْدُ لِلَّهِ',
-    allahuakbar: 'اللَّهُ أَكْبَر',
-    lailaha: 'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ',
-  };
+  // ── Tasbeeh (bead ring) ──────────────────────────────────────────────────
+  let count=0, target=33, dhikrKey='subhanallah';
+  const dhikrMap = { subhanallah:'سُبْحَانَ اللَّهِ', alhamdulillah:'الْحَمْدُ لِلَّهِ', allahuakbar:'اللَّهُ أَكْبَر', lailaha:'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ' };
+  const beadSvg = document.getElementById('beadSvg');
+  const CX=115, CY=115, RR=98;
 
-  function updateTasbeeh() {
-    const pct = Math.min((count / target) * 100, 100);
+  function renderBeads(){
+    const n = target;
+    let html = '';
+    for(let i=0;i<n;i++){
+      const ang = -Math.PI/2 + (i/n)*Math.PI*2;
+      const x = CX + Math.cos(ang)*RR, y = CY + Math.sin(ang)*RR;
+      const lit = i < count;
+      const r = lit ? 4.8 : 3.6;
+      html += `<circle cx="${x}" cy="${y}" r="${r}" fill="${lit ? '#2C7A4D' : 'none'}" stroke="${lit ? '#2C7A4D' : 'rgba(30,42,30,0.2)'}" stroke-width="1.4"/>`;
+    }
+    beadSvg.innerHTML = html;
+  }
+
+  function updateTasbeeh(){
     document.getElementById('tcNum').textContent = count;
     document.getElementById('tcOf').textContent = `of ${target}`;
-    document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('dhikrText').textContent = dhikrMap[dhikrKey] || dhikrMap.subhanallah;
-    if (count === target) {
-      showToast('MāshāAllāh! 🌟 Completed!');
-      if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+    renderBeads();
+    if(count === target){
+      showToast("MāshāAllāh — completed");
+      if(navigator.vibrate) navigator.vibrate([30,50,30]);
     }
   }
-
-  const tasbeehCircle = document.getElementById('tasbeehCircle');
-  function bumpCount(e) {
+  function bumpCount(){
     count++;
-    tasbeehCircle.classList.remove('bump');
-    void tasbeehCircle.offsetWidth;
-    tasbeehCircle.classList.add('bump');
-    createRipple(document.getElementById('tasbeehRipple'), e);
-    if (navigator.vibrate) navigator.vibrate(12);
+    const el = document.getElementById('tcNum');
+    el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+    if(navigator.vibrate) navigator.vibrate(12);
     updateTasbeeh();
   }
-
-  tasbeehCircle?.addEventListener('pointerdown', bumpCount);
-  document.getElementById('incrementBtn')?.addEventListener('pointerdown', bumpCount);
-  document.getElementById('resetBtn')?.addEventListener('pointerdown', () => {
-    count = 0; updateTasbeeh();
-    if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
-  });
-
-  document.querySelectorAll('.dhikr-preset').forEach(el => {
-    el.addEventListener('click', function() {
-      document.querySelectorAll('.dhikr-preset').forEach(x => x.classList.remove('sel'));
+  document.getElementById('beadCenter').addEventListener('pointerdown', bumpCount);
+  document.getElementById('incrementBtn').addEventListener('click', bumpCount);
+  document.getElementById('resetBtn').addEventListener('click', ()=>{ count=0; updateTasbeeh(); if(navigator.vibrate) navigator.vibrate([10,30,10]); });
+  document.querySelectorAll('.dhikr-preset').forEach(el=>{
+    el.addEventListener('click', function(){
+      document.querySelectorAll('.dhikr-preset').forEach(x=>x.classList.remove('sel'));
       this.classList.add('sel');
-      target = parseInt(this.dataset.target);
-      dhikrKey = this.dataset.dhikr;
-      count = 0;
+      target = parseInt(this.dataset.target); dhikrKey = this.dataset.dhikr; count = 0;
       updateTasbeeh();
     });
   });
 
-  // Toast
+  // ── Toast ────────────────────────────────────────────────────────────────
   let toastTimer;
-  function showToast(msg) {
+  function showToast(msg){
     const t = document.getElementById('toast');
-    if (!t) return;
-    t.textContent = msg;
-    t.classList.add('show');
+    t.textContent = msg; t.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    toastTimer = setTimeout(()=> t.classList.remove('show'), 2200);
   }
 
-  // Ripple
-  function createRipple(container, e) {
-    if (!container) return;
-    const r = container.getBoundingClientRect();
-    const x = (e.clientX - r.left) || r.width / 2;
-    const y = (e.clientY - r.top) || r.height / 2;
-    const size = Math.max(r.width, r.height) * 1.5;
-    const rpl = document.createElement('div');
-    rpl.className = 'ripple';
-    rpl.style.cssText = `width:${size}px;height:${size}px;left:${x - size/2}px;top:${y - size/2}px;`;
-    container.appendChild(rpl);
-    setTimeout(() => rpl.remove(), 700);
-  }
-
-  window.showToast = showToast;
-
-  // Init & interval
+  // ── Init ─────────────────────────────────────────────────────────────────
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      const L = document.getElementById('loader');
+      L.style.opacity='0';
+      setTimeout(()=> L.style.display='none', 900);
+    }, 1500);
+  });
   renderPrayers();
   updateClock();
   updateTasbeeh();
-  setInterval(() => { updateClock(); renderPrayers(); }, 1000);
-})();
+  setInterval(()=>{ updateClock(); renderPrayers(); }, 1000);
 </script>
 </body>
 </html>
