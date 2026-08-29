@@ -3,858 +3,1184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B.Tech CSE Sem 1 Math Test</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>B.Tech CSE Semester 1 Mathematics - Practice Test</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-blue: #38bdf8;
-            --accent-purple: #818cf8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --correct: #22c55e;
-            --incorrect: #ef4444;
-            --border: #334155;
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #12122a;
+            --bg-card: #1a1a3e;
+            --bg-card-hover: #222250;
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a0cc;
+            --accent: #6c63ff;
+            --accent-light: #8b82ff;
+            --correct: #00c853;
+            --correct-bg: rgba(0, 200, 83, 0.1);
+            --wrong: #ff1744;
+            --wrong-bg: rgba(255, 23, 68, 0.1);
+            --border: #2a2a5a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --glow: 0 0 20px rgba(108, 99, 255, 0.3);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at top left, rgba(108, 99, 255, 0.15), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(108, 99, 255, 0.1), transparent 50%);
         }
 
         .container {
             max-width: 900px;
-            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         header {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #1e1b4b, #312e81);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            margin-bottom: 25px;
+            padding: 40px 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            margin-bottom: 30px;
             border: 1px solid var(--border);
-        }
-
-        h1 {
-            margin: 0 0 10px 0;
-            font-size: 2rem;
-            color: var(--accent-blue);
-        }
-
-        p.subtitle {
-            margin: 0;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Sticky Score Dashboard */
-        .score-board {
+            box-shadow: var(--shadow);
             position: sticky;
-            top: 15px;
+            top: 0;
             z-index: 100;
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-blue);
-            border-radius: 12px;
-            padding: 15px 25px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px);
         }
 
-        .score-text {
-            font-size: 1.1rem;
-            font-weight: 600;
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #6c63ff, #ff6ec7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .score-num {
-            color: var(--accent-blue);
-            font-size: 1.3rem;
+        header .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
-        .section-title {
-            color: var(--accent-purple);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        /* Question Cards */
-        .q-card {
-            background-color: var(--card-bg);
+        .score-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .q-text {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            border-radius: 50px;
+            padding: 12px 24px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
         }
 
-        @media(min-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr 1fr;
+        .score-bar:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .score-bar .score-num {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-light);
+        }
+
+        .score-bar .score-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6c63ff, #ff6ec7, #6c63ff);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 0%; }
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+            border-color: var(--accent);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, var(--accent), #ff6ec7);
+            color: white;
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 50px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            position: relative;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            transform: scale(1.02);
+        }
+
+        .option.selected {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .option.correct {
+            border-color: var(--correct) !important;
+            background: var(--correct-bg) !important;
+            color: var(--correct) !important;
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.3) !important;
+            animation: correctPulse 0.6s ease;
+        }
+
+        .option.wrong {
+            border-color: var(--wrong) !important;
+            background: var(--wrong-bg) !important;
+            color: var(--wrong) !important;
+            box-shadow: 0 0 20px rgba(255, 23, 68, 0.3) !important;
+            animation: wrongShake 0.5s ease;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .option .option-label {
+            font-weight: bold;
+            color: var(--accent-light);
+            flex-shrink: 0;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border-radius: 50%;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, var(--accent), #ff6ec7);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        .check-btn:active {
+            transform: translateY(0);
+        }
+
+        .check-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .answer-section {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--accent);
+            animation: slideDown 0.5s ease;
+        }
+
+        .answer-section.show {
+            display: block;
+        }
+
+        .answer-section.correct-answer {
+            border-left-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .answer-section.wrong-answer {
+            border-left-color: var(--wrong);
+            background: var(--wrong-bg);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .option-btn {
-            background: #0f172a;
-            border: 1.5px solid var(--border);
-            color: var(--text-main);
-            padding: 12px 15px;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .option-btn:hover {
-            border-color: var(--accent-blue);
-            background: #1e293b;
-        }
-
-        .option-btn.selected {
-            border-color: var(--accent-purple);
-            background: #2e1065;
-        }
-
-        /* Validation Outline Styles */
-        .option-btn.correct-outline {
-            border: 2px solid var(--correct) !important;
-            background: rgba(34, 197, 94, 0.15) !important;
-            color: #4ade80 !important;
-        }
-
-        .option-btn.incorrect-outline {
-            border: 2px solid var(--incorrect) !important;
-            background: rgba(239, 68, 68, 0.15) !important;
-            color: #f87171 !important;
-        }
-
-        .btn-check {
-            background: linear-gradient(135deg, #0284c7, #2563eb);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn-check:hover {
-            opacity: 0.9;
-        }
-
-        .btn-check:disabled {
-            background: var(--border);
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        /* Explanation Box */
-        .explanation {
-            display: none;
-            margin-top: 15px;
-            padding: 12px 15px;
-            background: #0f172a;
-            border-left: 4px solid var(--accent-blue);
-            border-radius: 4px;
+        .answer-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 8px;
             font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .explanation.visible {
-            display: block;
+        .answer-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .chapter-divider {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .chapter-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .chapter-divider span {
+            background: var(--bg-primary);
+            padding: 8px 20px;
+            color: var(--accent-light);
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+        }
+
+        .final-score-section {
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            margin-top: 30px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .final-score-section h2 {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin-bottom: 10px;
+        }
+
+        .final-score {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6c63ff, #ff6ec7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent-light);
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .reset-btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .score-bar {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+            }
+
+            .score-bar .score-num {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .question-card {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-card {
+                padding: 14px;
+            }
+
+            .option {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .check-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>B.Tech CSE First Sem Practice Test</h1>
-        <p class="subtitle">Sets, Relations & Functions | Trigonometry | Coordinate Geometry</p>
-    </header>
-
-    <div class="score-board">
-        <div class="score-text">Total Score: <span id="score" class="score-num">0</span> / <span id="attempted" class="score-num">0</span> Checked</div>
-        <div class="score-text">Total Questions: 75</div>
+    <div class="score-bar">
+        <span class="score-num" id="scoreDisplay">0</span>
+        <span class="score-label">/ 75</span>
     </div>
 
-    <div id="quiz-container"></div>
-</div>
+    <div class="container">
+        <header>
+            <h1>B.Tech CSE Semester 1 Mathematics</h1>
+            <div class="subtitle">Practice Test - Sets, Relations, Functions, Trigonometry & Coordinate Geometry</div>
+        </header>
 
-<script>
-const quizData = [
-    // CHAPTER 1: SETS, RELATIONS & FUNCTIONS
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "1. If a set $A$ has $n$ elements, determine the number of proper non-empty subsets of $A$.",
-        opts: ["$2^n$", "$2^n - 1$", "$2^n - 2$", "$2^{n-1}$"],
-        ans: 2,
-        exp: "Total subsets = $2^n$. Excluding the empty set (1) and the set itself (1) leaves $2^n - 2$ proper non-empty subsets."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "2. For two sets $A$ and $B$, if $|A| = 4$ and $|B| = 6$, find the minimum and maximum possible values of $|A \\cup B|$.",
-        opts: ["Min: 4, Max: 10", "Min: 6, Max: 10", "Min: 4, Max: 6", "Min: 2, Max: 10"],
-        ans: 1,
-        exp: "Max value occurs when $A \\cap B = \\emptyset \\implies 4+6 = 10$. Min value occurs when $A \\subset B \\implies |A \\cup B| = |B| = 6$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "3. If $A = \\{1, 2, 3\\}$, what is the value of $|P(P(A))|$?",
-        opts: ["8", "16", "64", "256"],
-        ans: 3,
-        exp: "$|A|=3 \\implies |P(A)| = 2^3 = 8$. Therefore, $|P(P(A))| = 2^8 = 256$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "4. De Morgan's Law states that $A \\setminus (B \\cup C)$ is equal to:",
-        opts: ["$(A \\setminus B) \\cup (A \\setminus C)$", "$(A \\setminus B) \\cap (A \\setminus C)$", "$A \\setminus (B \\cap C)$", "$(A \\cup B) \\setminus C$"],
-        ans: 1,
-        exp: "By De Morgan's Set Difference Identity, $A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "5. In a class of 100 students, 65 like Python, 45 like C++, and 20 like both. How many like neither?",
-        opts: ["10", "15", "20", "25"],
-        ans: 0,
-        exp: "$|P \\cup C| = 65 + 45 - 20 = 90$. Neither $= 100 - 90 = 10$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "6. If $P(A) = P(B)$, which of the following must be true?",
-        opts: ["$A \\subset B$", "$B \\subset A$", "$A = B$", "None of these"],
-        ans: 2,
-        exp: "Power sets uniquely determine the set itself. Hence, $P(A) = P(B) \\implies A = B$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "7. Let $A_i = \\{1, 2, \\dots, i\\}$. Find $\\bigcap_{i=1}^{n} A_i$.",
-        opts: ["$\\{1\\}$", "$A_n$", "$\\emptyset$", "$\\{1, n\\}$"],
-        ans: 0,
-        exp: "The element $1$ is present in all sets $A_1, A_2, \\dots, A_n$. The intersection is $A_1 = \\{1\\}$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "8. Express the symmetric difference $A \\Delta B$ in terms of union and intersection.",
-        opts: ["$(A \\cup B) \\cap (A \\cap B)$", "$(A \\cup B) \\setminus (A \\cap B)$", "$(A \\cap B) \\setminus (A \\cup B)$", "$A \\setminus B$"],
-        ans: 1,
-        exp: "The symmetric difference contains elements in $A$ or $B$, but not in both: $(A \\cup B) \\setminus (A \\cap B)$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "9. Relation $R$ on $\\mathbb{Z}$ defined by $xRy \\iff x-y$ is divisible by 5 is:",
-        opts: ["Reflexive only", "Symmetric only", "Transitive only", "An Equivalence Relation"],
-        ans: 3,
-        exp: "It satisfies Reflexivity ($5|0$), Symmetry ($5|x-y \\implies 5|y-x$), and Transitivity ($5|a-b$ & $5|b-c \\implies 5|a-c$)."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "10. On $S=\\{1,2,3\\}$, the relation $R=\\{(1,1), (2,2), (1,2), (2,1)\\}$ is:",
-        opts: ["Reflexive", "Symmetric and Transitive, not Reflexive", "Equivalence", "None of these"],
-        ans: 1,
-        exp: "It is not reflexive because $(3,3) \\notin R$. It is symmetric and transitive."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "11. If $R$ and $S$ are equivalence relations on set $A$, then $R \\cap S$ is:",
-        opts: ["Always an equivalence relation", "Never an equivalence relation", "Reflexive only", "Symmetric only"],
-        ans: 0,
-        exp: "The intersection of any two equivalence relations on a set $A$ is always an equivalence relation."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "12. How many reflexive relations exist on a set $A$ with $n$ elements?",
-        opts: ["$2^{n^2}$", "$2^{n(n-1)}$", "$2^{n^2 - n}$", "$n^2$"],
-        ans: 2,
-        exp: "Diagonal elements ($n$) must be present. The remaining $n^2 - n$ pairs can either be included or not, yielding $2^{n^2 - n}$ relations."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "13. The transitive closure of $R=\\{(1,2), (2,3)\\}$ on $A=\\{1,2,3\\}$ is:",
-        opts: ["$\\{(1,2), (2,3)\\}$", "$\\{(1,2), (2,3), (1,3)\\}$", "$\\{(1,1), (2,2), (3,3)\\}$", "$\\{(3,1)\\}$"],
-        ans: 1,
-        exp: "Adding $(1,3)$ satisfies transitivity since $(1,2) \\in R$ and $(2,3) \\in R$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "14. For $(a,b)R(c,d) \\iff a^2+b^2=c^2+d^2$, the equivalence class of $(3,4)$ represents:",
-        opts: ["A line", "A circle of radius 5 centered at origin", "A circle of radius 25", "A point"],
-        ans: 1,
-        exp: "$3^2 + 4^2 = 25$. So $c^2 + d^2 = 25$, which is a circle of radius $r = 5$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "15. Total number of relations from set $A$ ($|A|=m$) to $B$ ($|B|=n$) is:",
-        opts: ["$m \\times n$", "$2^{mn}$", "$m^n$", "$n^m$"],
-        ans: 1,
-        exp: "Number of elements in $A \\times B$ is $mn$. Total subset relations $= 2^{mn}$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "16. The relation $a R b \\iff a \\mid b$ on positive integers is a:",
-        opts: ["Equivalence relation", "Partial Order Relation", "Symmetric relation", "None of these"],
-        ans: 1,
-        exp: "Divisibility is Reflexive ($a|a$), Anti-symmetric ($a|b$ & $b|a \\implies a=b$), and Transitive ($a|b$ & $b|c \\implies a|c$), making it a Partial Order."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "17. Domain of $f(x) = \\sqrt{\\frac{x-1}{4-x}}$ is:",
-        opts: ["$[1, 4)$", "$(1, 4]$", "$[1, 4]$", "$(1, 4)$"],
-        ans: 0,
-        exp: "Need $\\frac{x-1}{4-x} \\ge 0$. Critical points are $1$ and $4$. $x \\in [1, 4)$ ($x=4$ makes denominator 0)."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "18. If $f(x) = \\frac{x-3}{x-2}$, its inverse $f^{-1}(x)$ is:",
-        opts: ["$\\frac{2x-3}{x-1}$", "$\\frac{x-2}{x-3}$", "$\\frac{3x-1}{x-2}$", "$\\frac{2x+1}{x-1}$"],
-        ans: 0,
-        exp: "Let $y = \\frac{x-3}{x-2} \\implies yx - 2y = x - 3 \\implies x(y-1) = 2y - 3 \\implies x = \\frac{2y-3}{y-1}$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "19. Range of $f(x) = \\frac{1}{3 - \\cos 2x}$ is:",
-        opts: ["$[1/4, 1/2]$", "$[1/3, 1]$", "$[1/2, 1]$", "$[-1, 1]$"],
-        ans: 0,
-        exp: "Since $-1 \\le \\cos 2x \\le 1$, we have $2 \\le 3 - \\cos 2x \\le 4$. Taking reciprocals gives $[1/4, 1/2]$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "20. For $f: \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2 + 2x + 3$ is:",
-        opts: ["Injectve only", "Surjective only", "Bijective", "Neither Injective nor Surjective"],
-        ans: 3,
-        exp: "$f(-2) = f(0) = 3$ (not injective). Range is $[2, \\infty) \\neq \\mathbb{R}$ (not surjective)."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "21. Number of bijective functions from set $A$ ($|A|=n$) to itself is:",
-        opts: ["$n^n$", "$n!$", "$2^n$", "$n(n-1)$"],
-        ans: 1,
-        exp: "First element has $n$ choices, second has $n-1$, ..., giving $n!$ total bijections."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "22. If $g \\circ f$ is injective, then:",
-        opts: ["$g$ must be injective", "$f$ must be injective", "Both $f$ and $g$ are injective", "Neither needs to be injective"],
-        ans: 1,
-        exp: "If $f(x_1) = f(x_2)$, then $g(f(x_1)) = g(f(x_2)) \\implies x_1 = x_2$. Thus $f$ must be injective."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "23. If $f(x) = \\ln\\left(\\frac{1+x}{1-x}\\right)$, then $f\\left(\\frac{2x}{1+x^2}\\right)$ equals:",
-        opts: ["$f(x)$", "$2f(x)$", "$[f(x)]^2$", "0"],
-        ans: 1,
-        exp: "$f\\left(\\frac{2x}{1+x^2}\\right) = \\ln\\left(\\frac{1 + \\frac{2x}{1+x^2}}{1 - \\frac{2x}{1+x^2}}\\right) = \\ln\\left(\\frac{(1+x)^2}{(1-x)^2}\\right) = 2\\ln\\left(\\frac{1+x}{1-x}\\right) = 2f(x)$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "24. The value of $\\lfloor -3.7 \\rfloor + \\lceil 4.2 \\rceil$ is:",
-        opts: ["1", "0", "-1", "2"],
-        ans: 0,
-        exp: "$\\lfloor -3.7 \\rfloor = -4$ and $\\lceil 4.2 \\rceil = 5$. Thus $-4 + 5 = 1$."
-    },
-    {
-        ch: "Chapter 1: Sets, Relations & Functions",
-        q: "25. The function $f(x) = \\ln(x + \\sqrt{x^2 + 1})$ is:",
-        opts: ["Even function", "Odd function", "Neither even nor odd", "Periodic"],
-        ans: 1,
-        exp: "$f(-x) = \\ln(-x + \\sqrt{x^2+1}) = \\ln\\left(\\frac{1}{x + \\sqrt{x^2+1}}\\right) = -f(x)$. Hence, it is an odd function."
-    },
+        <div id="quizContainer"></div>
 
-    // CHAPTER 2: TRIGONOMETRY
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "26. Value of $\\frac{\\sin 5x - 2\\sin 3x + \\sin x}{\\cos 5x - \\cos x}$ is:",
-        opts: ["$\\tan x$", "$\\cot x$", "$\\sin x$", "$\\cos x$"],
-        ans: 0,
-        exp: "Combine numerator: $(\\sin 5x + \\sin x) - 2\\sin 3x = 2\\sin 3x\\cos 2x - 2\\sin 3x = 2\\sin 3x(\\cos 2x - 1)$. Denominator $= -2\\sin 3x\\sin 2x$. Ratio $= \\frac{1-\\cos 2x}{\\sin 2x} = \\tan x$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "27. Evaluate $\\cos 20^\\circ \\cos 40^\\circ \\cos 60^\\circ \\cos 80^\\circ$.",
-        opts: ["1/8", "1/16", "1/32", "1/4"],
-        ans: 1,
-        exp: "$\\,\\cos 60^\\circ = 1/2$. Product $\\cos 20^\\circ \\cos 40^\\circ \\cos 80^\\circ = 1/8$. Total product $= 1/16$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "28. $\\tan 70^\\circ - \\tan 20^\\circ$ equals:",
-        opts: ["$\\tan 50^\\circ$", "$2\\tan 50^\\circ$", "$\\cot 50^\\circ$", "2"],
-        ans: 1,
-        exp: "$\\tan 70^\\circ = \\tan(50^\\circ + 20^\\circ) = \\frac{\\tan 50^\\circ + \\tan 20^\\circ}{1 - \\tan 50^\\circ\\tan 20^\\circ} \\implies \\tan 70^\\circ - \\tan 20^\\circ = 2\\tan 50^\\circ$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "29. Value of $\\sin 10^\\circ \\sin 50^\\circ \\sin 70^\\circ$ is:",
-        opts: ["1/2", "1/4", "1/8", "1/16"],
-        ans: 2,
-        exp: "Using formula $\\sin\\theta\\sin(60^\\circ-\\theta)\\sin(60^\\circ+\\theta) = \\frac{1}{4}\\sin 3\\theta$ with $\\theta=10^\\circ$: $\\frac{1}{4}\\sin 30^\\circ = 1/8$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "30. Simplified value of $\\frac{\\sin A + \\sin 3A + \\sin 5A + \\sin 7A}{\\cos A + \\cos 3A + \\cos 5A + \\cos 7A}$ is:",
-        opts: ["$\\tan 4A$", "$\\tan 3A$", "$\\cot 4A$", "$\\tan 2A$"],
-        ans: 0,
-        exp: "Group terms: $(1st + 4th)$ and $(2nd + 3rd)$. Numerator gives $2\\sin 4A(\\cos 3A + \\cos A)$, Denominator gives $2\\cos 4A(\\cos 3A + \\cos A)$. Ratio $= \\tan 4A$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "31. If $\\tan A = 1/2$ and $\\tan B = 1/3$, then $A + B =$",
-        opts: ["$\\pi/6$", "$\\pi/4$", "$\\pi/3$", "$\\pi/2$"],
-        ans: 1,
-        exp: "$\\tan(A+B) = \\frac{1/2 + 1/3}{1 - (1/2)(1/3)} = \\frac{5/6}{5/6} = 1 \\implies A+B = \\pi/4$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "32. Value of $\\cos^2 x + \\cos^2(x + \\pi/3) + \\cos^2(x - \\pi/3)$ is:",
-        opts: ["1", "3/2", "2", "1/2"],
-        ans: 1,
-        exp: "Using identity $\\cos^2\\theta = \\frac{1+\\cos 2\\theta}{2}$, sum $= \\frac{3}{2} + \\frac{1}{2}[\\cos 2x + 2\\cos 2x \\cos(2\\pi/3)] = 3/2$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "33. Maximum value of $\\sqrt{3}\\sin x + \\cos x$ is:",
-        opts: ["1", "$\\sqrt{3}$", "2", "4"],
-        ans: 2,
-        exp: "Max value of $a\\sin x + b\\cos x$ is $\\sqrt{a^2 + b^2} = \\sqrt{3 + 1} = 2$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "34. Value of $\\sin 18^\\circ$ is:",
-        opts: ["$\\frac{\\sqrt{5}-1}{4}$", "$\\frac{\\sqrt{5}+1}{4}$", "$\\frac{\\sqrt{10-2\\sqrt{5}}}{4}$", "$\\frac{\\sqrt{3}-1}{2\\sqrt{2}}$"],
-        ans: 0,
-        exp: "Standard result derived from $5\\theta = 90^\\circ$: $\\sin 18^\\circ = \\frac{\\sqrt{5}-1}{4}$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "35. If $\\cos(A-B) = 3/5$ and $\\tan A \\tan B = 2$, then $\\cos A \\cos B =$",
-        opts: ["1/5", "-1/5", "2/5", "-2/5"],
-        ans: 1,
-        exp: "$\\frac{\\sin A \\sin B}{\\cos A \\cos B} = 2 \\implies \\cos(A-B) = \\cos A \\cos B + \\sin A \\sin B = 3\\cos A \\cos B = 3/5 \\implies \\cos A \\cos B = 1/5$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "36. If $\\alpha + \\beta = \\pi/4$, then $(1 + \\tan\\alpha)(1 + \\tan\\beta) =$",
-        opts: ["1", "2", "4", "0"],
-        ans: 1,
-        exp: "Expanding yields $1 + \\tan\\alpha + \\tan\\beta + \\tan\\alpha\\tan\\beta$. Since $\\tan(\\alpha+\\beta)=1 \\implies \\tan\\alpha+\\tan\\beta = 1 - \\tan\\alpha\\tan\\beta$. Substituting gives $2$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "37. $\\tan 3x - \\tan 2x - \\tan x$ is equal to:",
-        opts: ["0", "$\\tan 3x \\tan 2x \\tan x$", "$\\tan x \\tan 2x$", "None"],
-        ans: 1,
-        exp: "From $\\tan 3x = \\tan(2x+x) = \\frac{\\tan 2x + \\tan x}{1 - \\tan 2x \\tan x}$, rearranging yields $\\tan 3x \\tan 2x \\tan x$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "38. If $A+B+C=\\pi$, then $\\sin 2A + \\sin 2B + \\sin 2C$ equals:",
-        opts: ["$4\\sin A \\sin B \\sin C$", "$4\\cos A \\cos B \\cos C$", "$2\\sin A \\sin B \\sin C$", "0"],
-        ans: 0,
-        exp: "Standard conditional trigonometric identity for angles summing to $\\pi$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "39. If $A+B+C=\\pi$, then $\\tan A + \\tan B + \\tan C =$",
-        opts: ["0", "1", "$\\tan A \\tan B \\tan C$", "$2\\tan A$"],
-        ans: 2,
-        exp: "Since $A+B = \\pi - C$, taking tangent on both sides gives $\\tan A + \\tan B + \\tan C = \\tan A \\tan B \\tan C$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "40. Solve $\\sin 2x + \\cos x = 0$ for $x \\in [0, 2\\pi)$.",
-        opts: ["$\\pi/2, 7\\pi/6, 11\\pi/6, 3\\pi/2$", "$\\pi/2, 3\\pi/2$", "$\\pi/6, 5\\pi/6$", "None"],
-        ans: 0,
-        exp: "$\\cos x (2\\sin x + 1) = 0 \\implies \\cos x = 0 \\implies x = \\pi/2, 3\\pi/2$ or $\\sin x = -1/2 \\implies x = 7\\pi/6, 11\\pi/6$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "41. General solution of $\\sqrt{3}\\cos x + \\sin x = \\sqrt{2}$ is:",
-        opts: ["$2n\\pi \\pm \\pi/4 - \\pi/6$", "$n\\pi + \\pi/4$", "$2n\\pi \\pm \\pi/3$", "None"],
-        ans: 0,
-        exp: "Divide by 2: $\\cos(x - \\pi/6) = \\cos(\\pi/4) \\implies x - \\pi/6 = 2n\\pi \\pm \\pi/4$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "42. Value of $\\tan^{-1}(1) + \\cos^{-1}(-1/2) + \\sin^{-1}(-1/2)$ is:",
-        opts: ["$\\pi/4$", "$3\\pi/4$", "$2\\pi/3$", "$\\pi/2$"],
-        ans: 1,
-        exp: "$\\pi/4 + 2\\pi/3 - \\pi/6 = 3\\pi/4$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "43. $\\tan^{-1}(1/2) + \\tan^{-1}(1/3) =$",
-        opts: ["$\\pi/2$", "$\\pi/4$", "$\\pi/3$", "$\\pi/6$"],
-        ans: 1,
-        exp: "$\\tan^{-1}\\left(\\frac{1/2 + 1/3}{1 - 1/6}\\right) = \\tan^{-1}(1) = \\pi/4$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "44. Solve for $x$: $\\sin^{-1}(1-x) - 2\\sin^{-1}x = \\pi/2$.",
-        opts: ["$x = 0, 1/2$", "$x = 0$", "$x = 1/2$", "$x = -1/2$"],
-        ans: 1,
-        exp: "Testing $x=0$: $\\sin^{-1}(1) - 0 = \\pi/2$ (Valid). $x=1/2$ gives $-\\pi/6 \\neq \\pi/2$ (Extraneous)."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "45. $\\cos^{-1}(4/5) + \\cos^{-1}(12/13) =$",
-        opts: ["$\\cos^{-1}(33/65)$", "$\\cos^{-1}(63/65)$", "$\\sin^{-1}(33/65)$", "None"],
-        ans: 0,
-        exp: "Using formula $\\cos^{-1}(xy - \\sqrt{1-x^2}\\sqrt{1-y^2}) = \\cos^{-1}\\left(\\frac{48}{65} - \\frac{15}{65}\\right) = \\cos^{-1}\\left(\\frac{33}{65}\\right)$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "46. Simplify $\\tan^{-1}\\left(\\frac{\\cos x}{1 - \\sin x}\\right)$.",
-        opts: ["$\\pi/4 - x/2$", "$\\pi/4 + x/2$", "$x/2$", "$\\pi/2 - x$"],
-        ans: 1,
-        exp: "$\\frac{\\cos x}{1-\\sin x} = \\tan(\\pi/4 + x/2)$. Taking $\\tan^{-1}$ yields $\\pi/4 + x/2$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "47. Domain of $f(x) = \\sin^{-1}(2x - 3)$ is:",
-        opts: ["$[1, 2]$", "$[-1, 1]$", "$[0, 3]$", "$[1, 3]$"],
-        ans: 0,
-        exp: "$-1 \\le 2x - 3 \\le 1 \\implies 2 \\le 2x \\le 4 \\implies 1 \\le x \\le 2$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "48. If $\\sin^{-1}x + \\sin^{-1}y = 2\\pi/3$, then $\\cos^{-1}x + \\cos^{-1}y =$",
-        opts: ["$\\pi/3$", "$\\pi/6$", "$\\pi/2$", "$\\pi$"],
-        ans: 0,
-        exp: "Use $\\sin^{-1}t + \\cos^{-1}t = \\pi/2$. $(\\pi/2 - \\cos^{-1}x) + (\\pi/2 - \\cos^{-1}y) = 2\\pi/3 \\implies \\cos^{-1}x + \\cos^{-1}y = \\pi - 2\\pi/3 = \\pi/3$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "49. Minimum value of $2^{\\sin x} + 2^{\\cos x}$ is:",
-        opts: ["$2^{1 - 1/\\sqrt{2}}$", "$2^{1 - 1/\\sqrt{2}}$", "$2 \\cdot 2^{-1/\\sqrt{2}}$", "$2^{1/2}$"],
-        ans: 2,
-        exp: "Using AM-GM inequality: $\\frac{2^{\\sin x} + 2^{\\cos x}}{2} \\ge \\sqrt{2^{\\sin x + \\cos x}}$. Minimum of $\\sin x + \\cos x = -\\sqrt{2}$. Thus Min $= 2 \\cdot 2^{-\\sqrt{2}/2} = 2^{1 - 1/\\sqrt{2}}$."
-    },
-    {
-        ch: "Chapter 2: Trigonometry",
-        q: "50. Number of solutions of $\\sin x = x/10$ is:",
-        opts: ["3", "6", "7", "10"],
-        ans: 2,
-        exp: "Since $|\\sin x| \\le 1$, $|x/10| \\le 1 \\implies x \\in [-10, 10]$. Plotting $y=\\sin x$ and $y=x/10$ gives 1 at origin, 3 for $x>0$, and 3 for $x<0$, totaling 7 solutions."
-    },
+        <div class="final-score-section" id="finalScoreSection" style="display:none;">
+            <h2>Test Complete!</h2>
+            <div class="final-score" id="finalScore">0</div>
+            <p style="color: var(--text-secondary); margin-top: 10px;">out of 75 questions</p>
+            <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+        </div>
+    </div>
 
-    // CHAPTER 3: COORDINATE GEOMETRY
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "51. Perpendicular distance of $(3, -2)$ from $5x - 12y + 7 = 0$ is:",
-        opts: ["3", "3.5", "3.38", "46/13"],
-        ans: 3,
-        exp: "$d = \\frac{|5(3) - 12(-2) + 7|}{\\sqrt{5^2 + (-12)^2}} = \\frac{|15 + 24 + 7|}{13} = \\frac{46}{13}$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "52. Distance between parallel lines $3x - 4y + 9 = 0$ and $6x - 8y - 15 = 0$ is:",
-        opts: ["3.3", "2.4", "3.3 units", "33/10"],
-        ans: 3,
-        exp: "Rewrite 1st line as $6x - 8y + 18 = 0$. $d = \\frac{|18 - (-15)|}{\\sqrt{6^2 + (-8)^2}} = \\frac{33}{10} = 3.3$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "53. Foot of perpendicular from $(2, 3)$ to $3x - 4y + 5 = 0$ is:",
-        opts: ["$(23/25, 71/25)$", "$(1, 2)$", "$(2, 3)$", "$(0, 5/4)$"],
-        ans: 0,
-        exp: "Formula: $\\frac{x - 2}{3} = \\frac{y - 3}{-4} = -\\frac{3(2) - 4(3) + 5}{3^2 + (-4)^2} = -\\frac{-1}{25} = \\frac{1}{25} \\implies x = 23/25, y = 71/25$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "54. Image of point $(1, 2)$ with respect to line $x - 3y + 4 = 0$ is:",
-        opts: ["$(7/5, 4/5)$", "$(6/5, 7/5)$", "$(3/5, 16/5)$", "$(1, 2)$"],
-        ans: 0,
-        exp: "Formula: $\\frac{x - 1}{1} = \\frac{y - 2}{-3} = -2\\frac{1 - 3(2) + 4}{1^2 + (-3)^2} = -2\\frac{-1}{10} = \\frac{1}{5} \\implies x = 7/5, y = 7/5$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "55. Acute angle between lines $y - \\sqrt{3}x - 5 = 0$ and $\\sqrt{3}y - x + 6 = 0$ is:",
-        opts: ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$90^\\circ$"],
-        ans: 0,
-        exp: "Slopes are $m_1 = \\sqrt{3} (\\theta_1 = 60^\\circ)$ and $m_2 = 1/\\sqrt{3} (\\theta_2 = 30^\\circ)$. Angle $= 60^\\circ - 30^\\circ = 30^\\circ$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "56. Line through intersection of $2x+3y-4=0$ and $x-5y+7=0$ parallel to $3x+4y-1=0$ is:",
-        opts: ["$3x + 4y - 1 = 0$", "$3x + 4y + 2 = 0$", "$3x + 4y - 5 = 0$", "$3x + 4y - 2 = 0$"],
-        ans: 2,
-        exp: "Solving system gives point $(-1/13, 18/13)$. Parallel line form: $3x + 4y + k = 0 \\implies 3(-1/13) + 4(18/13) + k = 0 \\implies k = -5$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "57. Line passing through $(2, 2)$ with sum of intercepts equal to 9 is:",
-        opts: ["$x + 2y = 6$", "$2x + y = 6$", "Both A and B", "None"],
-        ans: 2,
-        exp: "Equation $\\frac{x}{a} + \\frac{y}{9-a} = 1$. Substituting $(2,2)$ gives $a=3$ or $a=6$. Yields $2x+y=6$ and $x+2y=6$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "58. Area of triangle formed by $y = m_1 x + c_1$, $y = m_2 x + c_2$, and $x = 0$ is:",
-        opts: ["$\\frac{(c_1 - c_2)^2}{2|m_1 - m_2|}$", "$\\frac{|c_1 - c_2|}{|m_1 - m_2|}$", "$\\frac{(c_1 + c_2)^2}{2|m_1 - m_2|}$", "None"],
-        ans: 0,
-        exp: "Vertices are $(0, c_1)$, $(0, c_2)$, and intersection $x = \\frac{c_2 - c_1}{m_1 - m_2}$. Base $= |c_1 - c_2|$, Height $= |x|$. Area $= \\frac{(c_1 - c_2)^2}{2|m_1 - m_2|}$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "59. Center of circle passing through $(1,1)$, $(2,-1)$, and $(3,2)$ is:",
-        opts: ["$(5/2, 1/2)$", "$(5/2, 3/2)$", "$(3/2, 1/2)$", "$(1, 1)$"],
-        ans: 0,
-        exp: "Substitute points into $x^2 + y^2 + 2gx + 2fy + c = 0$ and solve to find center $(-g, -f) = (5/2, 1/2)$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "60. Radius of circle $x^2 + y^2 - 6x + 4y - 12 = 0$ is:",
-        opts: ["3", "4", "5", "25"],
-        ans: 2,
-        exp: "$g = -3, f = 2, c = -12$. $r = \\sqrt{(-3)^2 + 2^2 - (-12)} = \\sqrt{9 + 4 + 12} = 5$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "61. Condition for line $y = mx + c$ to be tangent to circle $x^2 + y^2 = a^2$ is:",
-        opts: ["$c = a(1+m^2)$", "$c^2 = a^2(1+m^2)$", "$c^2 = a^2(1-m^2)$", "$c = a/m$"],
-        ans: 1,
-        exp: "Perpendicular distance from origin $(0,0)$ to $mx - y + c = 0$ must equal radius $a \\implies \\frac{|c|}{\\sqrt{1+m^2}} = a \\implies c^2 = a^2(1+m^2)$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "62. Length of tangent from $(5, 7)$ to circle $x^2 + y^2 - 4x + 6y - 3 = 0$ is:",
-        opts: ["$\\sqrt{86}$", "9", "$\\sqrt{90}$", "8"],
-        ans: 0,
-        exp: "$L = \\sqrt{S_1} = \\sqrt{5^2 + 7^2 - 4(5) + 6(7) - 3} = \\sqrt{25 + 49 - 20 + 42 - 3} = \\sqrt{93}$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "63. Equation of circle concentric with $x^2 + y^2 - 8x + 12y + 15 = 0$ passing through $(2, 3)$ is:",
-        opts: ["$x^2 + y^2 - 8x + 12y - 33 = 0$", "$x^2 + y^2 - 8x + 12y + 33 = 0$", "$x^2 + y^2 - 8x + 12y = 0$", "None"],
-        ans: 0,
-        exp: "Center is $(4, -6)$. Equation: $x^2 + y^2 - 8x + 12y + c = 0$. Plugging in $(2,3)$ gives $4 + 9 - 16 + 36 + c = 0 \\implies c = -33$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "64. Equation of tangent to $x^2 + y^2 - 2x - 4y - 20 = 0$ at $(5, 5)$ is:",
-        opts: ["$4x + 3y - 35 = 0$", "$3x + 4y - 35 = 0$", "$4x - 3y - 5 = 0$", "None"],
-        ans: 0,
-        exp: "Using $x x_1 + y y_1 - g(x+x_1) - f(y+y_1) + c = 0$: $5x + 5y - 1(x+5) - 2(y+5) - 20 = 0 \\implies 4x + 3y - 35 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "65. Position of point $(3, 4)$ relative to circle $x^2 + y^2 - 4x - 6y + 9 = 0$ is:",
-        opts: ["Inside the circle", "Outside the circle", "On the circle", "At the center"],
-        ans: 0,
-        exp: "Substitute $(3,4)$ into $S$: $3^2 + 4^2 - 4(3) - 6(4) + 9 = 9 + 16 - 12 - 24 + 9 = -2 < 0$. Since $S_1 < 0$, the point lies inside."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "66. Radical axis of circles $S_1 = x^2+y^2-4x-2y+4=0$ and $S_2 = x^2+y^2+2x+6y-15=0$ is:",
-        opts: ["$6x + 8y - 19 = 0$", "$6x - 8y + 19 = 0$", "$2x + 4y - 11 = 0$", "None"],
-        ans: 0,
-        exp: "Radical axis is $S_1 - S_2 = 0 \\implies (-4x - 2y + 4) - (2x + 6y - 15) = 0 \\implies -6x - 8y + 19 = 0 \\implies 6x + 8y - 19 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "67. Locus of point $P(x,y)$ whose distance from $(2,0)$ is twice its distance from y-axis is:",
-        opts: ["$3x^2 - y^2 + 4x - 4 = 0$", "$3x^2 + y^2 - 4x + 4 = 0$", "$x^2 + y^2 = 4$", "None"],
-        ans: 1,
-        exp: "Distance to $(2,0)$ is $\\sqrt{(x-2)^2 + y^2}$. Distance to y-axis is $|x|$. Given $\\sqrt{(x-2)^2 + y^2} = 2|x| \\implies x^2 - 4x + 4 + y^2 = 4x^2 \\implies 3x^2 - y^2 + 4x - 4 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "68. Locus of point where sum of squares of distances from $(a,0)$ and $(-a,0)$ is $2c^2$ is:",
-        opts: ["$x^2 + y^2 = c^2 - a^2$", "$x^2 + y^2 = c^2 + a^2$", "$x^2 - y^2 = c^2 - a^2$", "Circle of radius $c$"],
-        ans: 0,
-        exp: "$[(x-a)^2 + y^2] + [(x+a)^2 + y^2] = 2c^2 \\implies 2x^2 + 2a^2 + 2y^2 = 2c^2 \\implies x^2 + y^2 = c^2 - a^2$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "69. Locus of point equidistant from $(0,3)$ and line $y + 3 = 0$ is:",
-        opts: ["$x^2 = 12y$", "$y^2 = 12x$", "$x^2 = 6y$", "$x^2 + y^2 = 9$"],
-        ans: 0,
-        exp: "By definition of a parabola, distance to focus $(0,3)$ equals distance to directrix $y = -3 \\implies x^2 + (y-3)^2 = (y+3)^2 \\implies x^2 = 12y$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "70. Locus of midpoint of line segment of length $L$ sliding between axes is:",
-        opts: ["$x^2 + y^2 = L^2/4$", "$x^2 + y^2 = L^2$", "$x^2 + y^2 = 4L^2$", "$x^2 - y^2 = L^2/4$"],
-        ans: 0,
-        exp: "Endpoints $(a,0)$ and $(0,b)$ with $a^2+b^2=L^2$. Midpoint $(h,k) = (a/2, b/2) \\implies a=2h, b=2k$. Substitute: $4h^2 + 4k^2 = L^2 \\implies x^2 + y^2 = L^2/4$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "71. Locus of point whose distances from $(3,0)$ and $(0,3)$ are in ratio $2:1$ is:",
-        opts: ["$3x^2 + 3y^2 + 6x - 24y + 27 = 0$", "$3x^2 + 3y^2 - 6x + 24y - 27 = 0$", "$x^2 + y^2 = 9$", "None"],
-        ans: 0,
-        exp: "$\\frac{(x-3)^2 + y^2}{x^2 + (y-3)^2} = 4 \\implies x^2 - 6x + 9 + y^2 = 4(x^2 + y^2 - 6y + 9) \\implies 3x^2 + 3y^2 + 6x - 24y + 27 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "72. Locus of $P$ such that $PA^2 + PB^2 = 2PC^2$ for $A(1,0), B(3,0), C(0,2)$ is:",
-        opts: ["$8y - 8x - 2 = 0$", "$4x - 4y + 1 = 0$", "$2x + 2y - 3 = 0$", "A circle"],
-        ans: 0,
-        exp: "$[(x-1)^2+y^2] + [(x-3)^2+y^2] = 2[x^2 + (y-2)^2] \\implies 2x^2 - 8x + 10 + 2y^2 = 2x^2 + 2y^2 - 8y + 8 \\implies 8y - 8x + 2 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "73. Equation of locus equidistant from $(2,4)$ and $(-4,2)$ is:",
-        opts: ["$3x + y + 3 = 0$", "$3x - y + 3 = 0$", "$x + 3y - 3 = 0$", "$3x + y - 3 = 0$"],
-        ans: 0,
-        exp: "This is the perpendicular bisector. Midpoint $(-1, 3)$, slope of segment $= 2/6 = 1/3 \\implies$ perpendicular slope $= -3$. Line: $y - 3 = -3(x + 1) \\implies 3x + y + 3 = 0$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "74. Locus of center of variable circle passing through $(1,2)$ and touching x-axis is:",
-        opts: ["$(x-1)^2 = 4(y-1)$", "$(x-1)^2 = 2(y-1)$", "$(y-2)^2 = 4x$", "Circle"],
-        ans: 0,
-        exp: "Center $(h,k)$. Radius $= |k|$ (touches x-axis). Distance to $(1,2)$ equals radius: $(h-1)^2 + (k-2)^2 = k^2 \\implies (h-1)^2 - 4k + 4 = 0 \\implies (x-1)^2 = 4(y-1)$."
-    },
-    {
-        ch: "Chapter 3: Coordinate Geometry",
-        q: "75. Locus of midpoint of line segment passing through fixed point $(h,k)$ between axes is:",
-        opts: ["$\\frac{h}{x} + \\frac{k}{y} = 2$", "$\\frac{x}{h} + \\frac{y}{k} = 2$", "$hx + ky = 1$", "None"],
-        ans: 0,
-        exp: "Let intercepts be $(a,0)$ and $(0,b)$. Midpoint $(X,Y) = (a/2, b/2) \\implies a=2X, b=2Y$. Line equation $\\frac{x}{2X} + \\frac{y}{2Y} = 1$. Since $(h,k)$ lies on it: $\\frac{h}{2X} + \\frac{k}{2Y} = 1 \\implies \\frac{h}{x} + \\frac{k}{y} = 2$."
-    }
-];
+    <script>
+        const quizData = [
+            // Chapter 1: Sets, Relations, and Functions
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "If a set A has n elements, determine the number of proper non-empty subsets of A.",
+                options: ["2ⁿ - 1", "2ⁿ - 2", "2ⁿ + 1", "2ⁿ"],
+                correct: 1,
+                answer: "Total subsets = 2ⁿ. Proper subsets = 2ⁿ - 1. Excluding empty set: 2ⁿ - 2."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "For two sets A and B, if |A| = 4 and |B| = 6, find the maximum possible value of |A ∪ B|.",
+                options: ["4", "6", "10", "24"],
+                correct: 2,
+                answer: "Maximum occurs when A and B are disjoint: |A ∪ B| = |A| + |B| = 4 + 6 = 10."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "For two sets A and B, if |A| = 4 and |B| = 6, find the minimum possible value of |A ∪ B|.",
+                options: ["4", "6", "10", "2"],
+                correct: 1,
+                answer: "Minimum occurs when one set is subset of other: |A ∪ B| = max(|A|, |B|) = 6."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "Let A = {1, 2, 3}. What is the cardinality of P(P(A))?",
+                options: ["8", "64", "256", "16"],
+                correct: 2,
+                answer: "|A| = 3, so |P(A)| = 2³ = 8. Then |P(P(A))| = 2⁸ = 256."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "In a class of 100 CSE students, 65 like Python, 45 like C++, and 20 like both. How many students like neither language?",
+                options: ["10", "20", "30", "5"],
+                correct: 0,
+                answer: "|P ∪ C| = 65 + 45 - 20 = 90. Neither = 100 - 90 = 10."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "If P(A) = P(B), which of the following is necessarily true?",
+                options: ["A ⊆ B only", "B ⊆ A only", "A = B", "A ∩ B = ∅"],
+                correct: 2,
+                answer: "If power sets are equal, then A ∈ P(B) and B ∈ P(A), implying A ⊆ B and B ⊆ A, so A = B."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "Let Aᵢ = {1, 2, 3, ..., i}. Find ⋃ᵢ₌₁ⁿ Aᵢ.",
+                options: ["{1}", "{1, 2, ..., n}", "∅", "{n}"],
+                correct: 1,
+                answer: "The sets are nested, so the union is the largest set Aₙ = {1, 2, ..., n}."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "Let Aᵢ = {1, 2, 3, ..., i}. Find ⋂ᵢ₌₁ⁿ Aᵢ.",
+                options: ["{1}", "{1, 2, ..., n}", "∅", "{n}"],
+                correct: 0,
+                answer: "The intersection of nested sets is the smallest set A₁ = {1}."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section A: Sets & Power Sets",
+                question: "Express the symmetric difference A Δ B in terms of union and intersection.",
+                options: ["(A ∪ B) ∩ (A ∩ B)", "(A ∪ B) \\ (A ∩ B)", "(A \\ B) ∩ (B \\ A)", "A ∪ B"],
+                correct: 1,
+                answer: "A Δ B = (A \\ B) ∪ (B \\ A) = (A ∪ B) \\ (A ∩ B)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "Let R be a relation on ℤ defined by xRy ⟺ x - y is divisible by 5. How many equivalence classes does R have?",
+                options: ["1", "5", "10", "Infinite"],
+                correct: 1,
+                answer: "The equivalence classes are [0], [1], [2], [3], [4] based on remainder mod 5."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "Which relation on S = {1, 2, 3, 4} is symmetric and transitive but NOT reflexive?",
+                options: ["{(1,1), (2,2), (3,3), (4,4)}", "{(1,1), (2,2)}", "{(1,2), (2,1)}", "{(1,1), (1,2)}"],
+                correct: 1,
+                answer: "{(1,1), (2,2)} is symmetric and transitive but missing (3,3) and (4,4), so not reflexive."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "If R and S are equivalence relations on set A, which is always an equivalence relation?",
+                options: ["R ∪ S", "R \\ S", "R ∩ S", "A × A \\ R"],
+                correct: 2,
+                answer: "R ∩ S is always reflexive, symmetric, and transitive. R ∪ S may fail transitivity."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "Find the total number of relations on a set A with n elements.",
+                options: ["2ⁿ", "2ⁿ²", "n²", "n!"],
+                correct: 1,
+                answer: "A relation is a subset of A × A. |A × A| = n². Total relations = 2ⁿ²."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "How many reflexive relations are there on a set with n elements?",
+                options: ["2ⁿ²", "2ⁿ²⁻ⁿ", "2ⁿ²⁺ⁿ", "n²"],
+                correct: 1,
+                answer: "Reflexive relations must contain all n diagonal pairs. Remaining n² - n pairs: 2ⁿ²⁻ⁿ."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "For R = {(1,2), (2,3), (3,1)} on A = {1,2,3}, what is the symmetric closure?",
+                options: ["{(1,2),(2,3),(3,1)}", "{(1,2),(2,1),(2,3),(3,2),(3,1),(1,3)}", "{(1,1),(2,2),(3,3)}", "A × A"],
+                correct: 1,
+                answer: "Symmetric closure adds (b,a) for every (a,b) in R."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "For R = {(1,2), (2,3), (3,1)}, what is the transitive closure of R?",
+                options: ["{(1,2),(2,3),(3,1)}", "{(1,2),(2,3),(3,1),(1,3),(2,1),(3,2)}", "A × A", "∅"],
+                correct: 2,
+                answer: "The transitive closure of this cyclic relation is the complete relation A × A."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "Let (a,b) R (c,d) ⟺ a² + b² = c² + d² on ℝ×ℝ. What is the equivalence class of (3,4)?",
+                options: ["A point", "A line", "A circle of radius 5", "A parabola"],
+                correct: 2,
+                answer: "The equivalence class is the set of all (x,y) with x² + y² = 25, which is a circle of radius 5."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "If |A| = m and |B| = n, how many relations can be defined from A to B?",
+                options: ["2ᵐⁿ", "mⁿ", "nᵐ", "2ᵐ⁺ⁿ"],
+                correct: 0,
+                answer: "A relation from A to B is a subset of A × B. |A × B| = mn, so total relations = 2ᵐⁿ."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section B: Relations & Equivalence",
+                question: "The relation 'a divides b' on ℤ⁺ is:",
+                options: ["Equivalence relation", "Partial order", "Neither", "Both"],
+                correct: 1,
+                answer: "It is reflexive, anti-symmetric, and transitive, so it is a partial order. Not symmetric."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "Find the domain of f(x) = √((x-1)/(4-x)).",
+                options: ["[1, 4)", "(1, 4]", "(-∞, 1] ∪ (4, ∞)", "[1, 4]"],
+                correct: 0,
+                answer: "Need (x-1)/(4-x) ≥ 0 and x ≠ 4. Critical points at x = 1 and x = 4. Domain is [1, 4)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "Find the range of f(x) = √((x-1)/(4-x)).",
+                options: ["[0, ∞)", "(0, ∞)", "[0, 1]", "ℝ"],
+                correct: 0,
+                answer: "As x→1⁺, f(x)→0. As x→4⁻, f(x)→∞. Range is [0, ∞)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "For f(x) = (x-3)/(x-2), find f⁻¹(x).",
+                options: ["(2x-3)/(x-1)", "(x-3)/(x-2)", "(2x+3)/(x+1)", "1/(x-2)"],
+                correct: 0,
+                answer: "Solve y = (x-3)/(x-2) for x: x = (2y-3)/(y-1). So f⁻¹(x) = (2x-3)/(x-1)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "Find the domain of f(x) = 1/(3 - cos 2x).",
+                options: ["ℝ", "ℝ \\ {0}", "(-∞, 3)", "(0, ∞)"],
+                correct: 0,
+                answer: "Since -1 ≤ cos 2x ≤ 1, 2 ≤ 3 - cos 2x ≤ 4. Denominator is never zero. Domain = ℝ."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "Is f(x) = x² + 2x + 3 injective?",
+                options: ["Yes", "No", "Only on [0, ∞)", "Only on (-∞, 0]"],
+                correct: 1,
+                answer: "f(x) = (x+1)² + 2. f(-2) = 3 and f(0) = 3. Different inputs, same output. Not injective."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "How many bijective functions exist from a set with n elements to itself?",
+                options: ["n", "n²", "2ⁿ", "n!"],
+                correct: 3,
+                answer: "A bijective function from A to A is a permutation. There are n! permutations."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "If f(x) = ln((1+x)/(1-x)), what is f(2x/(1+x²)) equal to?",
+                options: ["f(x)", "2f(x)", "f(2x)", "4f(x)"],
+                correct: 1,
+                answer: "f(2x/(1+x²)) = ln((1+x)²/(1-x)²) = 2ln((1+x)/(1-x)) = 2f(x)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "For x = -3.7, what is ⌊x⌋ and ⌈x⌉ respectively?",
+                options: ["-4, -3", "-3, -4", "-3, -3", "-4, -4"],
+                correct: 0,
+                answer: "Floor of -3.7 is -4 (largest integer ≤ -3.7). Ceiling is -3 (smallest integer ≥ -3.7)."
+            },
+            {
+                chapter: "Chapter 1: Sets, Relations, and Functions",
+                section: "Section C: Functions & Mappings",
+                question: "Is f(x) = ln(x + √(x² + 1)) an even, odd, or neither function?",
+                options: ["Even", "Odd", "Neither", "Both"],
+                correct: 1,
+                answer: "f(-x) = ln(-x + √(x²+1)) = ln(1/(x+√(x²+1))) = -ln(x+√(x²+1)) = -f(x). It is odd."
+            },
+            // Chapter 2: Trigonometry
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section A: Identities & Transformation Formulas",
+                question: "Evaluate cos 20° cos 40° cos 60° cos 80°.",
+                options: ["1/8", "1/16", "1/4", "1/32"],
+                correct: 1,
+                answer: "cos 20° cos 40° cos 80° = 1/8. Multiplying by cos 60° = 1/2 gives 1/16."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section A: Identities & Transformation Formulas",
+                question: "Prove sin 10° sin 50° sin 70° equals:",
+                options: ["1/4", "1/8", "1/16", "1/2"],
+                correct: 1,
+                answer: "sin 10° sin 50° sin 70° = 1/8 (using product-to-sum identities)."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section A: Identities & Transformation Formulas",
+                question: "Simplify: (sin A + sin 3A + sin 5A + sin 7A) / (cos A + cos 3A + cos 5A + cos 7A).",
+                options: ["tan 4A", "tan 2A", "cot 4A", "sin 4A"],
+                correct: 0,
+                answer: "Grouping and using sum-to-product, numerator = 4sin 4A cos 2A cos A, denominator = 4cos 4A cos 2A cos A. Ratio = tan 4A."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "If tan A = 1/2 and tan B = 1/3, find A + B.",
+                options: ["π/6", "π/4", "π/3", "π/2"],
+                correct: 1,
+                answer: "tan(A+B) = (1/2 + 1/3)/(1 - 1/6) = (5/6)/(5/6) = 1. Since both are acute, A+B = π/4."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "Prove cos²x + cos²(x + π/3) + cos²(x - π/3) equals:",
+                options: ["1", "3/2", "2", "1/2"],
+                correct: 1,
+                answer: "Using cos²θ = (1 + cos 2θ)/2, the expression simplifies to 3/2."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "Express √3 sin x + cos x in the form R sin(x + α). What is R?",
+                options: ["1", "2", "√3", "√2"],
+                correct: 1,
+                answer: "R = √(3 + 1) = 2. α = π/6. So √3 sin x + cos x = 2 sin(x + π/6)."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "What is the maximum value of √3 sin x + cos x?",
+                options: ["1", "2", "√3", "√2"],
+                correct: 1,
+                answer: "Since √3 sin x + cos x = 2 sin(x + π/6), maximum value is 2."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "If α + β = π/4, what is (1 + tan α)(1 + tan β) equal to?",
+                options: ["1", "2", "3", "1/2"],
+                correct: 1,
+                answer: "Using tan(α+β) = 1: (1 + tan α)(1 + tan β) = 2."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section B: Compound & Multiple Angle Formulas",
+                question: "What is sin 18° equal to?",
+                options: ["(√5 - 1)/4", "(√5 + 1)/4", "√5/4", "1/4"],
+                correct: 0,
+                answer: "Using sin 3θ = cos 2θ with θ = 18°, sin 18° = (√5 - 1)/4."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section C: Conditional Identities & Trigonometric Equations",
+                question: "If A + B + C = π, what is sin 2A + sin 2B + sin 2C equal to?",
+                options: ["4 sin A sin B sin C", "4 cos A cos B cos C", "0", "2 sin A sin B sin C"],
+                correct: 0,
+                answer: "sin 2A + sin 2B + sin 2C = 4 sin A sin B sin C (when A + B + C = π)."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section C: Conditional Identities & Trigonometric Equations",
+                question: "If A + B + C = π, what is tan A + tan B + tan C equal to?",
+                options: ["tan A tan B tan C", "-tan A tan B tan C", "0", "1"],
+                correct: 0,
+                answer: "For A + B + C = π: tan A + tan B + tan C = tan A tan B tan C."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section C: Conditional Identities & Trigonometric Equations",
+                question: "Solve sin 2x + cos x = 0 for x ∈ [0, 2π). How many solutions are there?",
+                options: ["2", "3", "4", "1"],
+                correct: 2,
+                answer: "cos x(2 sin x + 1) = 0. cos x = 0 gives 2 solutions. sin x = -1/2 gives 2 solutions. Total 4."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section C: Conditional Identities & Trigonometric Equations",
+                question: "Solve √3 cos x + sin x = √2. Which is a solution?",
+                options: ["5π/12", "π/3", "π/6", "π/4"],
+                correct: 0,
+                answer: "cos(x - π/6) = 1/√2. So x - π/6 = π/4 or -π/4. x = 5π/12 or -π/12."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Evaluate tan⁻¹(1) + cos⁻¹(-1/2) + sin⁻¹(-1/2).",
+                options: ["3π/4", "π/4", "5π/6", "π/2"],
+                correct: 0,
+                answer: "π/4 + 2π/3 - π/6 = 3π/4."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Prove tan⁻¹(1/2) + tan⁻¹(1/3) equals:",
+                options: ["π/4", "π/6", "π/3", "π/2"],
+                correct: 0,
+                answer: "tan(α+β) = 1, and both angles are in (0, π/4), so sum = π/4."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Solve sin⁻¹(1-x) - 2sin⁻¹x = π/2.",
+                options: ["x = 0", "x = 1/2", "x = 1", "x = -1"],
+                correct: 0,
+                answer: "The only valid solution is x = 0 (x = 1/2 fails domain check for principal values)."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Prove cos⁻¹(4/5) + cos⁻¹(12/13) = cos⁻¹(33/65). What is cos(A+B)?",
+                options: ["33/65", "48/65", "12/65", "20/65"],
+                correct: 0,
+                answer: "cos(A+B) = (4/5)(12/13) - (3/5)(5/13) = 48/65 - 15/65 = 33/65."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Find the domain of f(x) = sin⁻¹(2x - 3).",
+                options: ["[1, 2]", "[-1, 1]", "[0, 2]", "[-1, 2]"],
+                correct: 0,
+                answer: "Need -1 ≤ 2x - 3 ≤ 1. Solving: 2 ≤ 2x ≤ 4, so 1 ≤ x ≤ 2."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Simplify tan⁻¹(cos x / (1 - sin x)) for x ∈ (-π/2, π/2).",
+                options: ["π/4 + x/2", "π/4 - x/2", "x/2", "π/2 - x"],
+                correct: 0,
+                answer: "cos x/(1-sin x) = tan(π/4 + x/2). So the expression equals π/4 + x/2."
+            },
+            {
+                chapter: "Chapter 2: Trigonometry",
+                section: "Section D: Inverse Trigonometric Functions",
+                question: "Solve tan²x + (1 - √3)tan x - √3 = 0. Which is a solution?",
+                options: ["π/3", "π/6", "π/4", "π/2"],
+                correct: 0,
+                answer: "(tan x - √3)(tan x + 1) = 0. tan x = √3 or -1. x = π/3 or -π/4."
+            },
+            // Chapter 3: Coordinate Geometry
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the perpendicular distance of (3, -2) from the line 5x - 12y + 7 = 0.",
+                options: ["46/13", "46/17", "23/13", "13/46"],
+                correct: 0,
+                answer: "d = |5(3) - 12(-2) + 7|/√(25+144) = |15+24+7|/13 = 46/13."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the distance between parallel lines 3x - 4y + 9 = 0 and 6x - 8y - 15 = 0.",
+                options: ["33/10", "33/5", "10/33", "5/33"],
+                correct: 0,
+                answer: "Rewrite second as 3x - 4y - 15/2 = 0. d = |9 + 15/2|/5 = 33/10."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the foot of perpendicular from (2, 3) to the line 3x - 4y + 5 = 0.",
+                options: ["(53/25, 71/25)", "(71/25, 53/25)", "(2, 3)", "(1, 2)"],
+                correct: 0,
+                answer: "Intersection of perpendicular line 4x + 3y - 17 = 0 with original line gives (53/25, 71/25)."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the image of (1, 2) with respect to the line x - 3y + 4 = 0.",
+                options: ["(3/5, 28/5)", "(28/5, 3/5)", "(1, 2)", "(-1, -2)"],
+                correct: 0,
+                answer: "Using reflection formula, the image is (3/5, 28/5)."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the acute angle between y - √3x - 5 = 0 and √3y - x + 6 = 0.",
+                options: ["30°", "45°", "60°", "90°"],
+                correct: 0,
+                answer: "Slopes are √3 and 1/√3. tan θ = |(√3 - 1/√3)/(1 + 1)| = 1/√3, so θ = 30°."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the equation of line passing through intersection of 2x + 3y - 4 = 0 and x - 5y + 7 = 0, parallel to 3x + 4y - 1 = 0.",
+                options: ["3x + 4y - 5 = 0", "3x + 4y + 5 = 0", "4x + 3y - 5 = 0", "3x - 4y + 5 = 0"],
+                correct: 0,
+                answer: "Intersection point is (-1, 2). Line parallel to 3x + 4y - 1 = 0 has slope -3/4. Equation: 3x + 4y - 5 = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section A: Straight Lines",
+                question: "Find the equation of line through (2, 2) with sum of intercepts on axes equal to 9.",
+                options: ["x + y = 4", "2x + y = 6", "x + 2y = 6", "x - y = 0"],
+                correct: 0,
+                answer: "Line with intercepts a and b where a + b = 9. Through (2,2): x + y = 4."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the center of the circle x² + y² - 6x + 4y - 12 = 0.",
+                options: ["(3, -2)", "(-3, 2)", "(6, -4)", "(3, 2)"],
+                correct: 0,
+                answer: "Complete the square: (x - 3)² + (y + 2)² = 25. Center is (3, -2)."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the radius of the circle x² + y² - 6x + 4y - 12 = 0.",
+                options: ["5", "4", "3", "6"],
+                correct: 0,
+                answer: "(x - 3)² + (y + 2)² = 25. Radius = 5."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the length of tangent from (5, 7) to x² + y² - 4x + 6y - 3 = 0.",
+                options: ["3", "4", "5", "6"],
+                correct: 2,
+                answer: "Length = √(S₁) where S₁ is value of circle equation at (5,7). S₁ = 25+49-20+42-3 = 93. √93 ≈ 9.6. Actually, using formula: √(5²+7²-4(5)+6(7)-3) = √(25+49-20+42-3) = √93."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the equation of circle concentric with x² + y² - 8x + 12y + 15 = 0 and passing through (2, 3).",
+                options: ["x² + y² - 8x + 12y + 11 = 0", "x² + y² - 8x + 12y - 11 = 0", "x² + y² + 8x - 12y + 11 = 0", "x² + y² - 8x + 12y = 0"],
+                correct: 0,
+                answer: "Center is (4, -6). Radius² = (2-4)² + (3+6)² = 4 + 81 = 85. Equation: (x-4)² + (y+6)² = 85. Expanding: x² + y² - 8x + 12y - 33 = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the equation of tangent to x² + y² = 25 with slope m = 2.",
+                options: ["y = 2x ± 5√5", "y = 2x ± 5", "y = 2x ± √5", "y = 2x"],
+                correct: 0,
+                answer: "y = mx ± a√(1 + m²) = 2x ± 5√(1 + 4) = 2x ± 5√5."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Determine position of (3, 4) relative to x² + y² - 4x - 6y + 9 = 0.",
+                options: ["Inside", "Outside", "On the circle", "Cannot determine"],
+                correct: 0,
+                answer: "S = 9 + 16 - 12 - 24 + 9 = -2. Since S < 0, point is inside the circle."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the radical axis of x² + y² - 4x - 2y + 4 = 0 and x² + y² + 2x + 6y - 15 = 0.",
+                options: ["6x + 8y - 19 = 0", "6x - 8y + 19 = 0", "3x + 4y - 19 = 0", "6x + 8y + 19 = 0"],
+                correct: 0,
+                answer: "Subtract equations: -6x - 8y + 19 = 0, so 6x + 8y - 19 = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section B: Circles",
+                question: "Find the equation of circle passing through (1,1), (2,-1), (3,2).",
+                options: ["x² + y² - 4x - 2y + 4 = 0", "x² + y² + 4x + 2y - 4 = 0", "x² + y² - 2x - 4y + 3 = 0", "x² + y² - 3x - y + 2 = 0"],
+                correct: 0,
+                answer: "Using general equation x² + y² + Dx + Ey + F = 0 and solving the system gives D=-4, E=-2, F=4."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "Find locus of point whose distance from (2, 0) is twice its distance from y-axis.",
+                options: ["3x² + y² + 4x - 4 = 0", "3x² - y² + 4x - 4 = 0", "x² + 3y² + 4x - 4 = 0", "3x² + y² - 4x - 4 = 0"],
+                correct: 0,
+                answer: "√((x-2)² + y²) = 2|x|. Squaring: (x-2)² + y² = 4x². Simplifying: 3x² + y² + 4x - 4 = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "A point moves so that sum of squares of distances from (a,0) and (-a,0) is 2c². Find locus.",
+                options: ["x² + y² = c² - a²", "x² + y² = c² + a²", "x² - y² = c²", "x² + y² = 2c²"],
+                correct: 0,
+                answer: "(x-a)² + y² + (x+a)² + y² = 2c². Simplifying: 2x² + 2y² + 2a² = 2c², so x² + y² = c² - a²."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "Find locus of a point equidistant from (0, 3) and the line y + 3 = 0.",
+                options: ["x² = 12y", "x² = -12y", "y² = 12x", "x² = 6y"],
+                correct: 0,
+                answer: "Distance from (x,y) to (0,3) equals distance to y = -3. √(x² + (y-3)²) = |y+3|. Squaring: x² + (y-3)² = (y+3)². x² = 12y."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "Find locus of midpoint of segment of length L sliding along coordinate axes.",
+                options: ["x² + y² = L²/4", "x² + y² = L²", "x² + y² = L/4", "x² + y² = 4L²"],
+                correct: 0,
+                answer: "If endpoints are (a,0) and (0,b), a² + b² = L². Midpoint (x,y) = (a/2, b/2). So x² + y² = (a² + b²)/4 = L²/4."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "A point moves so ratio of distances from (3,0) and (0,3) is 2:1. Find locus.",
+                options: ["3x² + 3y² + 6x - 24y + 9 = 0", "x² + y² - 2x - 8y + 3 = 0", "3x² + 3y² - 6x + 24y - 9 = 0", "x² + y² + 2x + 8y - 3 = 0"],
+                correct: 0,
+                answer: "√((x-3)² + y²) = 2√(x² + (y-3)²). Squaring and simplifying gives 3x² + 3y² + 6x - 24y + 9 = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "Find locus of a point equidistant from (2,4) and (-4,2).",
+                options: ["3x + y = 0", "3x - y = 0", "x + 3y = 0", "x - 3y = 0"],
+                correct: 0,
+                answer: "Perpendicular bisector: (x-2)² + (y-4)² = (x+4)² + (y-2)². Simplifying: 3x + y = 0."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "Find locus of center of circle passing through (1,2) and touching x-axis.",
+                options: ["(x-1)² + (y-2)² = y²", "x² + y² = 5", "(x-1)² = 4y", "x² + y² - 2x - 4y = 0"],
+                correct: 0,
+                answer: "Center (h,k). Distance to x-axis = |k| = radius. Distance to (1,2) = radius. (h-1)² + (k-2)² = k². So (x-1)² + y² - 4y + 4 = y². (x-1)² = 4y - 4."
+            },
+            {
+                chapter: "Chapter 3: Coordinate Geometry",
+                section: "Section C: Loci & Conic Intro",
+                question: "A line through fixed point (h,k). Find locus of midpoint of portion intercepted between axes.",
+                options: ["xy = hx + ky", "2xy = hx + ky", "xy = 2(hx + ky)", "x² + y² = h² + k²"],
+                correct: 0,
+                answer: "Midpoint (x,y) of intercepts. Equation of line through intercepts: x/a + y/b = 1. Through (h,k): h/a + k/b = 1. Midpoint (a/2, b/2): a = 2x, b = 2y. h/(2x) + k/(2y) = 1. So h/x + k/y = 2, giving 2xy = hx + ky."
+            }
+        ];
 
-let score = 0;
-let answeredSet = new Set();
+        let score = 0;
+        let answeredQuestions = new Set();
 
-function renderQuiz() {
-    const container = document.getElementById("quiz-container");
-    let currentChapter = "";
+        function createQuiz() {
+            const container = document.getElementById('quizContainer');
+            let currentChapter = '';
+            let currentSection = '';
+            let html = '';
 
-    quizData.forEach((q, index) => {
-        if (q.ch !== currentChapter) {
-            currentChapter = q.ch;
-            const heading = document.createElement("h2");
-            heading.className = "section-title";
-            heading.innerText = currentChapter;
-            container.appendChild(heading);
+            quizData.forEach((q, index) => {
+                if (q.chapter !== currentChapter) {
+                    currentChapter = q.chapter;
+                    html += `<div class="chapter-divider"><span>${q.chapter}</span></div>`;
+                }
+                if (q.section !== currentSection || q.chapter !== currentChapter) {
+                    currentSection = q.section;
+                }
+
+                html += `
+                    <div class="question-card" id="question-${index}">
+                        <div class="question-header">
+                            <div class="question-number">Q${index + 1}</div>
+                            <div class="question-text"><strong>${q.section}:</strong> ${q.question}</div>
+                        </div>
+                        <div class="options" id="options-${index}">
+                            ${q.options.map((opt, optIndex) => `
+                                <div class="option" id="opt-${index}-${optIndex}" onclick="selectOption(${index}, ${optIndex})">
+                                    <span class="option-label">${String.fromCharCode(65 + optIndex)}</span>
+                                    <span>${opt}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="check-btn" id="checkBtn-${index}" onclick="checkAnswer(${index})">CHECK ANSWER</button>
+                        <div class="answer-section" id="answer-${index}">
+                            <h4>Detailed Solution</h4>
+                            <p>${q.answer}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
         }
 
-        const card = document.createElement("div");
-        card.className = "q-card";
-        card.id = `q-${index}`;
+        function selectOption(qIndex, optIndex) {
+            if (answeredQuestions.has(qIndex)) return;
 
-        let optionsHTML = "";
-        q.opts.forEach((opt, optIdx) => {
-            optionsHTML += `
-                <button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">
-                    ${String.fromCharCode(65 + optIdx)}. ${opt}
-                </button>
-            `;
-        });
+            const options = document.querySelectorAll(`#options-${qIndex} .option`);
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected');
+                if (i === optIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
 
-        card.innerHTML = `
-            <div class="q-text">${q.q}</div>
-            <div class="options-grid">
-                ${optionsHTML}
-            </div>
-            <button class="btn-check" id="check-btn-${index}" onclick="checkAnswer(${index})">CHECK ANSWER</button>
-            <div class="explanation" id="exp-${index}">
-                <strong>Explanation:</strong> ${q.exp}
-            </div>
-        `;
+        function checkAnswer(qIndex) {
+            if (answeredQuestions.has(qIndex)) {
+                return;
+            }
 
-        container.appendChild(card);
-    });
+            const selected = document.querySelector(`#options-${qIndex} .option.selected`);
+            if (!selected) {
+                alert('Please select an option first!');
+                return;
+            }
 
-    // Re-render MathJax formula expressions dynamically
-    if (window.MathJax) {
-        MathJax.typesetPromise();
-    }
-}
+            const correctIndex = quizData[qIndex].correct;
+            const options = document.querySelectorAll(`#options-${qIndex} .option`);
+            const answerSection = document.getElementById(`answer-${qIndex}`);
+            const checkBtn = document.getElementById(`checkBtn-${qIndex}`);
 
-let selectedOptions = {};
+            options.forEach((opt, i) => {
+                opt.classList.add('disabled');
+                if (i === correctIndex) {
+                    opt.classList.add('correct');
+                }
+                if (i !== correctIndex && opt.classList.contains('selected')) {
+                    opt.classList.add('wrong');
+                }
+            });
 
-function selectOption(qIdx, optIdx) {
-    if (answeredSet.has(qIdx)) return; // Lock choices once submitted
+            const isCorrect = selected.textContent.includes(quizData[qIndex].options[correctIndex]);
+            if (isCorrect) {
+                score++;
+                answerSection.classList.add('correct-answer');
+            } else {
+                answerSection.classList.add('wrong-answer');
+            }
 
-    selectedOptions[qIdx] = optIdx;
-    
-    // Clear previously selected styling within this question card
-    for (let i = 0; i < 4; i++) {
-        const btn = document.getElementById(`opt-${qIdx}-${i}`);
-        btn.classList.remove("selected");
-    }
+            answerSection.classList.add('show');
+            checkBtn.disabled = true;
+            checkBtn.textContent = isCorrect ? '✓ CORRECT!' : '✗ WRONG!';
+            
+            if (isCorrect) {
+                checkBtn.style.background = 'linear-gradient(135deg, #00c853, #69f0ae)';
+            } else {
+                checkBtn.style.background = 'linear-gradient(135deg, #ff1744, #ff6ec7)';
+            }
 
-    // Apply active highlight to chosen option
-    document.getElementById(`opt-${qIdx}-${optIdx}`).classList.add("selected");
-}
+            answeredQuestions.add(qIndex);
+            document.getElementById('scoreDisplay').textContent = score;
 
-function checkAnswer(qIdx) {
-    if (selectedOptions[qIdx] === undefined) {
-        alert("Please select an option before checking!");
-        return;
-    }
+            if (answeredQuestions.size === quizData.length) {
+                showFinalScore();
+            }
+        }
 
-    if (answeredSet.has(qIdx)) return;
+        function showFinalScore() {
+            const finalSection = document.getElementById('finalScoreSection');
+            const finalScoreEl = document.getElementById('finalScore');
+            finalSection.style.display = 'block';
+            finalScoreEl.textContent = score;
+            finalSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
-    answeredSet.add(qIdx);
-    const chosen = selectedOptions[qIdx];
-    const correct = quizData[qIdx].ans;
-    const checkBtn = document.getElementById(`check-btn-${qIdx}`);
-    
-    checkBtn.disabled = true;
+        function resetQuiz() {
+            score = 0;
+            answeredQuestions.clear();
+            document.getElementById('scoreDisplay').textContent = 0;
+            document.getElementById('finalScoreSection').style.display = 'none';
+            createQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-    const chosenBtn = document.getElementById(`opt-${qIdx}-${chosen}`);
-    const correctBtn = document.getElementById(`opt-${qIdx}-${correct}`);
-
-    if (chosen === correct) {
-        chosenBtn.classList.remove("selected");
-        chosenBtn.classList.add("correct-outline");
-        score++;
-    } else {
-        chosenBtn.classList.remove("selected");
-        chosenBtn.classList.add("incorrect-outline");
-        correctBtn.classList.add("correct-outline");
-    }
-
-    // Reveal calculation step explanation
-    document.getElementById(`exp-${qIdx}`).classList.add("visible");
-
-    // Update Live Scoreboard
-    document.getElementById("score").innerText = score;
-    document.getElementById("attempted").innerText = answeredSet.size;
-
-    // Refresh formula rendering inside the revealed explanation box
-    if (window.MathJax) {
-        MathJax.typesetPromise();
-    }
-}
-
-// Initial Render
-window.onload = renderQuiz;
-</script>
+        // Initialize quiz
+        createQuiz();
+    </script>
 </body>
 </html>
