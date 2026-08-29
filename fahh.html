@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.Tech CSE Sem 1 Math Test</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-purple: #818cf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --correct: #22c55e;
+            --incorrect: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            color: var(--accent-blue);
+        }
+
+        p.subtitle {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Sticky Score Dashboard */
+        .score-board {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .score-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .score-num {
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+        }
+
+        .section-title {
+            color: var(--accent-purple);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Question Cards */
+        .q-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media(min-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background: #0f172a;
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-blue);
+            background: #1e293b;
+        }
+
+        .option-btn.selected {
+            border-color: var(--accent-purple);
+            background: #2e1065;
+        }
+
+        /* Validation Outline Styles */
+        .option-btn.correct-outline {
+            border: 2px solid var(--correct) !important;
+            background: rgba(34, 197, 94, 0.15) !important;
+            color: #4ade80 !important;
+        }
+
+        .option-btn.incorrect-outline {
+            border: 2px solid var(--incorrect) !important;
+            background: rgba(239, 68, 68, 0.15) !important;
+            color: #f87171 !important;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        .btn-check:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Explanation Box */
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 12px 15px;
+            background: #0f172a;
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .explanation.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>B.Tech CSE First Sem Practice Test</h1>
+        <p class="subtitle">Sets, Relations & Functions | Trigonometry | Coordinate Geometry</p>
+    </header>
+
+    <div class="score-board">
+        <div class="score-text">Total Score: <span id="score" class="score-num">0</span> / <span id="attempted" class="score-num">0</span> Checked</div>
+        <div class="score-text">Total Questions: 75</div>
+    </div>
+
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+const quizData = [
+    // CHAPTER 1: SETS, RELATIONS & FUNCTIONS
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "1. If a set $A$ has $n$ elements, determine the number of proper non-empty subsets of $A$.",
+        opts: ["$2^n$", "$2^n - 1$", "$2^n - 2$", "$2^{n-1}$"],
+        ans: 2,
+        exp: "Total subsets = $2^n$. Excluding the empty set (1) and the set itself (1) leaves $2^n - 2$ proper non-empty subsets."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "2. For two sets $A$ and $B$, if $|A| = 4$ and $|B| = 6$, find the minimum and maximum possible values of $|A \\cup B|$.",
+        opts: ["Min: 4, Max: 10", "Min: 6, Max: 10", "Min: 4, Max: 6", "Min: 2, Max: 10"],
+        ans: 1,
+        exp: "Max value occurs when $A \\cap B = \\emptyset \\implies 4+6 = 10$. Min value occurs when $A \\subset B \\implies |A \\cup B| = |B| = 6$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "3. If $A = \\{1, 2, 3\\}$, what is the value of $|P(P(A))|$?",
+        opts: ["8", "16", "64", "256"],
+        ans: 3,
+        exp: "$|A|=3 \\implies |P(A)| = 2^3 = 8$. Therefore, $|P(P(A))| = 2^8 = 256$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "4. De Morgan's Law states that $A \\setminus (B \\cup C)$ is equal to:",
+        opts: ["$(A \\setminus B) \\cup (A \\setminus C)$", "$(A \\setminus B) \\cap (A \\setminus C)$", "$A \\setminus (B \\cap C)$", "$(A \\cup B) \\setminus C$"],
+        ans: 1,
+        exp: "By De Morgan's Set Difference Identity, $A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "5. In a class of 100 students, 65 like Python, 45 like C++, and 20 like both. How many like neither?",
+        opts: ["10", "15", "20", "25"],
+        ans: 0,
+        exp: "$|P \\cup C| = 65 + 45 - 20 = 90$. Neither $= 100 - 90 = 10$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "6. If $P(A) = P(B)$, which of the following must be true?",
+        opts: ["$A \\subset B$", "$B \\subset A$", "$A = B$", "None of these"],
+        ans: 2,
+        exp: "Power sets uniquely determine the set itself. Hence, $P(A) = P(B) \\implies A = B$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "7. Let $A_i = \\{1, 2, \\dots, i\\}$. Find $\\bigcap_{i=1}^{n} A_i$.",
+        opts: ["$\\{1\\}$", "$A_n$", "$\\emptyset$", "$\\{1, n\\}$"],
+        ans: 0,
+        exp: "The element $1$ is present in all sets $A_1, A_2, \\dots, A_n$. The intersection is $A_1 = \\{1\\}$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "8. Express the symmetric difference $A \\Delta B$ in terms of union and intersection.",
+        opts: ["$(A \\cup B) \\cap (A \\cap B)$", "$(A \\cup B) \\setminus (A \\cap B)$", "$(A \\cap B) \\setminus (A \\cup B)$", "$A \\setminus B$"],
+        ans: 1,
+        exp: "The symmetric difference contains elements in $A$ or $B$, but not in both: $(A \\cup B) \\setminus (A \\cap B)$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "9. Relation $R$ on $\\mathbb{Z}$ defined by $xRy \\iff x-y$ is divisible by 5 is:",
+        opts: ["Reflexive only", "Symmetric only", "Transitive only", "An Equivalence Relation"],
+        ans: 3,
+        exp: "It satisfies Reflexivity ($5|0$), Symmetry ($5|x-y \\implies 5|y-x$), and Transitivity ($5|a-b$ & $5|b-c \\implies 5|a-c$)."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "10. On $S=\\{1,2,3\\}$, the relation $R=\\{(1,1), (2,2), (1,2), (2,1)\\}$ is:",
+        opts: ["Reflexive", "Symmetric and Transitive, not Reflexive", "Equivalence", "None of these"],
+        ans: 1,
+        exp: "It is not reflexive because $(3,3) \\notin R$. It is symmetric and transitive."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "11. If $R$ and $S$ are equivalence relations on set $A$, then $R \\cap S$ is:",
+        opts: ["Always an equivalence relation", "Never an equivalence relation", "Reflexive only", "Symmetric only"],
+        ans: 0,
+        exp: "The intersection of any two equivalence relations on a set $A$ is always an equivalence relation."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "12. How many reflexive relations exist on a set $A$ with $n$ elements?",
+        opts: ["$2^{n^2}$", "$2^{n(n-1)}$", "$2^{n^2 - n}$", "$n^2$"],
+        ans: 2,
+        exp: "Diagonal elements ($n$) must be present. The remaining $n^2 - n$ pairs can either be included or not, yielding $2^{n^2 - n}$ relations."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "13. The transitive closure of $R=\\{(1,2), (2,3)\\}$ on $A=\\{1,2,3\\}$ is:",
+        opts: ["$\\{(1,2), (2,3)\\}$", "$\\{(1,2), (2,3), (1,3)\\}$", "$\\{(1,1), (2,2), (3,3)\\}$", "$\\{(3,1)\\}$"],
+        ans: 1,
+        exp: "Adding $(1,3)$ satisfies transitivity since $(1,2) \\in R$ and $(2,3) \\in R$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "14. For $(a,b)R(c,d) \\iff a^2+b^2=c^2+d^2$, the equivalence class of $(3,4)$ represents:",
+        opts: ["A line", "A circle of radius 5 centered at origin", "A circle of radius 25", "A point"],
+        ans: 1,
+        exp: "$3^2 + 4^2 = 25$. So $c^2 + d^2 = 25$, which is a circle of radius $r = 5$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "15. Total number of relations from set $A$ ($|A|=m$) to $B$ ($|B|=n$) is:",
+        opts: ["$m \\times n$", "$2^{mn}$", "$m^n$", "$n^m$"],
+        ans: 1,
+        exp: "Number of elements in $A \\times B$ is $mn$. Total subset relations $= 2^{mn}$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "16. The relation $a R b \\iff a \\mid b$ on positive integers is a:",
+        opts: ["Equivalence relation", "Partial Order Relation", "Symmetric relation", "None of these"],
+        ans: 1,
+        exp: "Divisibility is Reflexive ($a|a$), Anti-symmetric ($a|b$ & $b|a \\implies a=b$), and Transitive ($a|b$ & $b|c \\implies a|c$), making it a Partial Order."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "17. Domain of $f(x) = \\sqrt{\\frac{x-1}{4-x}}$ is:",
+        opts: ["$[1, 4)$", "$(1, 4]$", "$[1, 4]$", "$(1, 4)$"],
+        ans: 0,
+        exp: "Need $\\frac{x-1}{4-x} \\ge 0$. Critical points are $1$ and $4$. $x \\in [1, 4)$ ($x=4$ makes denominator 0)."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "18. If $f(x) = \\frac{x-3}{x-2}$, its inverse $f^{-1}(x)$ is:",
+        opts: ["$\\frac{2x-3}{x-1}$", "$\\frac{x-2}{x-3}$", "$\\frac{3x-1}{x-2}$", "$\\frac{2x+1}{x-1}$"],
+        ans: 0,
+        exp: "Let $y = \\frac{x-3}{x-2} \\implies yx - 2y = x - 3 \\implies x(y-1) = 2y - 3 \\implies x = \\frac{2y-3}{y-1}$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "19. Range of $f(x) = \\frac{1}{3 - \\cos 2x}$ is:",
+        opts: ["$[1/4, 1/2]$", "$[1/3, 1]$", "$[1/2, 1]$", "$[-1, 1]$"],
+        ans: 0,
+        exp: "Since $-1 \\le \\cos 2x \\le 1$, we have $2 \\le 3 - \\cos 2x \\le 4$. Taking reciprocals gives $[1/4, 1/2]$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "20. For $f: \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2 + 2x + 3$ is:",
+        opts: ["Injectve only", "Surjective only", "Bijective", "Neither Injective nor Surjective"],
+        ans: 3,
+        exp: "$f(-2) = f(0) = 3$ (not injective). Range is $[2, \\infty) \\neq \\mathbb{R}$ (not surjective)."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "21. Number of bijective functions from set $A$ ($|A|=n$) to itself is:",
+        opts: ["$n^n$", "$n!$", "$2^n$", "$n(n-1)$"],
+        ans: 1,
+        exp: "First element has $n$ choices, second has $n-1$, ..., giving $n!$ total bijections."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "22. If $g \\circ f$ is injective, then:",
+        opts: ["$g$ must be injective", "$f$ must be injective", "Both $f$ and $g$ are injective", "Neither needs to be injective"],
+        ans: 1,
+        exp: "If $f(x_1) = f(x_2)$, then $g(f(x_1)) = g(f(x_2)) \\implies x_1 = x_2$. Thus $f$ must be injective."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "23. If $f(x) = \\ln\\left(\\frac{1+x}{1-x}\\right)$, then $f\\left(\\frac{2x}{1+x^2}\\right)$ equals:",
+        opts: ["$f(x)$", "$2f(x)$", "$[f(x)]^2$", "0"],
+        ans: 1,
+        exp: "$f\\left(\\frac{2x}{1+x^2}\\right) = \\ln\\left(\\frac{1 + \\frac{2x}{1+x^2}}{1 - \\frac{2x}{1+x^2}}\\right) = \\ln\\left(\\frac{(1+x)^2}{(1-x)^2}\\right) = 2\\ln\\left(\\frac{1+x}{1-x}\\right) = 2f(x)$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "24. The value of $\\lfloor -3.7 \\rfloor + \\lceil 4.2 \\rceil$ is:",
+        opts: ["1", "0", "-1", "2"],
+        ans: 0,
+        exp: "$\\lfloor -3.7 \\rfloor = -4$ and $\\lceil 4.2 \\rceil = 5$. Thus $-4 + 5 = 1$."
+    },
+    {
+        ch: "Chapter 1: Sets, Relations & Functions",
+        q: "25. The function $f(x) = \\ln(x + \\sqrt{x^2 + 1})$ is:",
+        opts: ["Even function", "Odd function", "Neither even nor odd", "Periodic"],
+        ans: 1,
+        exp: "$f(-x) = \\ln(-x + \\sqrt{x^2+1}) = \\ln\\left(\\frac{1}{x + \\sqrt{x^2+1}}\\right) = -f(x)$. Hence, it is an odd function."
+    },
+
+    // CHAPTER 2: TRIGONOMETRY
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "26. Value of $\\frac{\\sin 5x - 2\\sin 3x + \\sin x}{\\cos 5x - \\cos x}$ is:",
+        opts: ["$\\tan x$", "$\\cot x$", "$\\sin x$", "$\\cos x$"],
+        ans: 0,
+        exp: "Combine numerator: $(\\sin 5x + \\sin x) - 2\\sin 3x = 2\\sin 3x\\cos 2x - 2\\sin 3x = 2\\sin 3x(\\cos 2x - 1)$. Denominator $= -2\\sin 3x\\sin 2x$. Ratio $= \\frac{1-\\cos 2x}{\\sin 2x} = \\tan x$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "27. Evaluate $\\cos 20^\\circ \\cos 40^\\circ \\cos 60^\\circ \\cos 80^\\circ$.",
+        opts: ["1/8", "1/16", "1/32", "1/4"],
+        ans: 1,
+        exp: "$\\,\\cos 60^\\circ = 1/2$. Product $\\cos 20^\\circ \\cos 40^\\circ \\cos 80^\\circ = 1/8$. Total product $= 1/16$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "28. $\\tan 70^\\circ - \\tan 20^\\circ$ equals:",
+        opts: ["$\\tan 50^\\circ$", "$2\\tan 50^\\circ$", "$\\cot 50^\\circ$", "2"],
+        ans: 1,
+        exp: "$\\tan 70^\\circ = \\tan(50^\\circ + 20^\\circ) = \\frac{\\tan 50^\\circ + \\tan 20^\\circ}{1 - \\tan 50^\\circ\\tan 20^\\circ} \\implies \\tan 70^\\circ - \\tan 20^\\circ = 2\\tan 50^\\circ$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "29. Value of $\\sin 10^\\circ \\sin 50^\\circ \\sin 70^\\circ$ is:",
+        opts: ["1/2", "1/4", "1/8", "1/16"],
+        ans: 2,
+        exp: "Using formula $\\sin\\theta\\sin(60^\\circ-\\theta)\\sin(60^\\circ+\\theta) = \\frac{1}{4}\\sin 3\\theta$ with $\\theta=10^\\circ$: $\\frac{1}{4}\\sin 30^\\circ = 1/8$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "30. Simplified value of $\\frac{\\sin A + \\sin 3A + \\sin 5A + \\sin 7A}{\\cos A + \\cos 3A + \\cos 5A + \\cos 7A}$ is:",
+        opts: ["$\\tan 4A$", "$\\tan 3A$", "$\\cot 4A$", "$\\tan 2A$"],
+        ans: 0,
+        exp: "Group terms: $(1st + 4th)$ and $(2nd + 3rd)$. Numerator gives $2\\sin 4A(\\cos 3A + \\cos A)$, Denominator gives $2\\cos 4A(\\cos 3A + \\cos A)$. Ratio $= \\tan 4A$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "31. If $\\tan A = 1/2$ and $\\tan B = 1/3$, then $A + B =$",
+        opts: ["$\\pi/6$", "$\\pi/4$", "$\\pi/3$", "$\\pi/2$"],
+        ans: 1,
+        exp: "$\\tan(A+B) = \\frac{1/2 + 1/3}{1 - (1/2)(1/3)} = \\frac{5/6}{5/6} = 1 \\implies A+B = \\pi/4$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "32. Value of $\\cos^2 x + \\cos^2(x + \\pi/3) + \\cos^2(x - \\pi/3)$ is:",
+        opts: ["1", "3/2", "2", "1/2"],
+        ans: 1,
+        exp: "Using identity $\\cos^2\\theta = \\frac{1+\\cos 2\\theta}{2}$, sum $= \\frac{3}{2} + \\frac{1}{2}[\\cos 2x + 2\\cos 2x \\cos(2\\pi/3)] = 3/2$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "33. Maximum value of $\\sqrt{3}\\sin x + \\cos x$ is:",
+        opts: ["1", "$\\sqrt{3}$", "2", "4"],
+        ans: 2,
+        exp: "Max value of $a\\sin x + b\\cos x$ is $\\sqrt{a^2 + b^2} = \\sqrt{3 + 1} = 2$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "34. Value of $\\sin 18^\\circ$ is:",
+        opts: ["$\\frac{\\sqrt{5}-1}{4}$", "$\\frac{\\sqrt{5}+1}{4}$", "$\\frac{\\sqrt{10-2\\sqrt{5}}}{4}$", "$\\frac{\\sqrt{3}-1}{2\\sqrt{2}}$"],
+        ans: 0,
+        exp: "Standard result derived from $5\\theta = 90^\\circ$: $\\sin 18^\\circ = \\frac{\\sqrt{5}-1}{4}$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "35. If $\\cos(A-B) = 3/5$ and $\\tan A \\tan B = 2$, then $\\cos A \\cos B =$",
+        opts: ["1/5", "-1/5", "2/5", "-2/5"],
+        ans: 1,
+        exp: "$\\frac{\\sin A \\sin B}{\\cos A \\cos B} = 2 \\implies \\cos(A-B) = \\cos A \\cos B + \\sin A \\sin B = 3\\cos A \\cos B = 3/5 \\implies \\cos A \\cos B = 1/5$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "36. If $\\alpha + \\beta = \\pi/4$, then $(1 + \\tan\\alpha)(1 + \\tan\\beta) =$",
+        opts: ["1", "2", "4", "0"],
+        ans: 1,
+        exp: "Expanding yields $1 + \\tan\\alpha + \\tan\\beta + \\tan\\alpha\\tan\\beta$. Since $\\tan(\\alpha+\\beta)=1 \\implies \\tan\\alpha+\\tan\\beta = 1 - \\tan\\alpha\\tan\\beta$. Substituting gives $2$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "37. $\\tan 3x - \\tan 2x - \\tan x$ is equal to:",
+        opts: ["0", "$\\tan 3x \\tan 2x \\tan x$", "$\\tan x \\tan 2x$", "None"],
+        ans: 1,
+        exp: "From $\\tan 3x = \\tan(2x+x) = \\frac{\\tan 2x + \\tan x}{1 - \\tan 2x \\tan x}$, rearranging yields $\\tan 3x \\tan 2x \\tan x$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "38. If $A+B+C=\\pi$, then $\\sin 2A + \\sin 2B + \\sin 2C$ equals:",
+        opts: ["$4\\sin A \\sin B \\sin C$", "$4\\cos A \\cos B \\cos C$", "$2\\sin A \\sin B \\sin C$", "0"],
+        ans: 0,
+        exp: "Standard conditional trigonometric identity for angles summing to $\\pi$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "39. If $A+B+C=\\pi$, then $\\tan A + \\tan B + \\tan C =$",
+        opts: ["0", "1", "$\\tan A \\tan B \\tan C$", "$2\\tan A$"],
+        ans: 2,
+        exp: "Since $A+B = \\pi - C$, taking tangent on both sides gives $\\tan A + \\tan B + \\tan C = \\tan A \\tan B \\tan C$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "40. Solve $\\sin 2x + \\cos x = 0$ for $x \\in [0, 2\\pi)$.",
+        opts: ["$\\pi/2, 7\\pi/6, 11\\pi/6, 3\\pi/2$", "$\\pi/2, 3\\pi/2$", "$\\pi/6, 5\\pi/6$", "None"],
+        ans: 0,
+        exp: "$\\cos x (2\\sin x + 1) = 0 \\implies \\cos x = 0 \\implies x = \\pi/2, 3\\pi/2$ or $\\sin x = -1/2 \\implies x = 7\\pi/6, 11\\pi/6$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "41. General solution of $\\sqrt{3}\\cos x + \\sin x = \\sqrt{2}$ is:",
+        opts: ["$2n\\pi \\pm \\pi/4 - \\pi/6$", "$n\\pi + \\pi/4$", "$2n\\pi \\pm \\pi/3$", "None"],
+        ans: 0,
+        exp: "Divide by 2: $\\cos(x - \\pi/6) = \\cos(\\pi/4) \\implies x - \\pi/6 = 2n\\pi \\pm \\pi/4$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "42. Value of $\\tan^{-1}(1) + \\cos^{-1}(-1/2) + \\sin^{-1}(-1/2)$ is:",
+        opts: ["$\\pi/4$", "$3\\pi/4$", "$2\\pi/3$", "$\\pi/2$"],
+        ans: 1,
+        exp: "$\\pi/4 + 2\\pi/3 - \\pi/6 = 3\\pi/4$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "43. $\\tan^{-1}(1/2) + \\tan^{-1}(1/3) =$",
+        opts: ["$\\pi/2$", "$\\pi/4$", "$\\pi/3$", "$\\pi/6$"],
+        ans: 1,
+        exp: "$\\tan^{-1}\\left(\\frac{1/2 + 1/3}{1 - 1/6}\\right) = \\tan^{-1}(1) = \\pi/4$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "44. Solve for $x$: $\\sin^{-1}(1-x) - 2\\sin^{-1}x = \\pi/2$.",
+        opts: ["$x = 0, 1/2$", "$x = 0$", "$x = 1/2$", "$x = -1/2$"],
+        ans: 1,
+        exp: "Testing $x=0$: $\\sin^{-1}(1) - 0 = \\pi/2$ (Valid). $x=1/2$ gives $-\\pi/6 \\neq \\pi/2$ (Extraneous)."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "45. $\\cos^{-1}(4/5) + \\cos^{-1}(12/13) =$",
+        opts: ["$\\cos^{-1}(33/65)$", "$\\cos^{-1}(63/65)$", "$\\sin^{-1}(33/65)$", "None"],
+        ans: 0,
+        exp: "Using formula $\\cos^{-1}(xy - \\sqrt{1-x^2}\\sqrt{1-y^2}) = \\cos^{-1}\\left(\\frac{48}{65} - \\frac{15}{65}\\right) = \\cos^{-1}\\left(\\frac{33}{65}\\right)$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "46. Simplify $\\tan^{-1}\\left(\\frac{\\cos x}{1 - \\sin x}\\right)$.",
+        opts: ["$\\pi/4 - x/2$", "$\\pi/4 + x/2$", "$x/2$", "$\\pi/2 - x$"],
+        ans: 1,
+        exp: "$\\frac{\\cos x}{1-\\sin x} = \\tan(\\pi/4 + x/2)$. Taking $\\tan^{-1}$ yields $\\pi/4 + x/2$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "47. Domain of $f(x) = \\sin^{-1}(2x - 3)$ is:",
+        opts: ["$[1, 2]$", "$[-1, 1]$", "$[0, 3]$", "$[1, 3]$"],
+        ans: 0,
+        exp: "$-1 \\le 2x - 3 \\le 1 \\implies 2 \\le 2x \\le 4 \\implies 1 \\le x \\le 2$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "48. If $\\sin^{-1}x + \\sin^{-1}y = 2\\pi/3$, then $\\cos^{-1}x + \\cos^{-1}y =$",
+        opts: ["$\\pi/3$", "$\\pi/6$", "$\\pi/2$", "$\\pi$"],
+        ans: 0,
+        exp: "Use $\\sin^{-1}t + \\cos^{-1}t = \\pi/2$. $(\\pi/2 - \\cos^{-1}x) + (\\pi/2 - \\cos^{-1}y) = 2\\pi/3 \\implies \\cos^{-1}x + \\cos^{-1}y = \\pi - 2\\pi/3 = \\pi/3$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "49. Minimum value of $2^{\\sin x} + 2^{\\cos x}$ is:",
+        opts: ["$2^{1 - 1/\\sqrt{2}}$", "$2^{1 - 1/\\sqrt{2}}$", "$2 \\cdot 2^{-1/\\sqrt{2}}$", "$2^{1/2}$"],
+        ans: 2,
+        exp: "Using AM-GM inequality: $\\frac{2^{\\sin x} + 2^{\\cos x}}{2} \\ge \\sqrt{2^{\\sin x + \\cos x}}$. Minimum of $\\sin x + \\cos x = -\\sqrt{2}$. Thus Min $= 2 \\cdot 2^{-\\sqrt{2}/2} = 2^{1 - 1/\\sqrt{2}}$."
+    },
+    {
+        ch: "Chapter 2: Trigonometry",
+        q: "50. Number of solutions of $\\sin x = x/10$ is:",
+        opts: ["3", "6", "7", "10"],
+        ans: 2,
+        exp: "Since $|\\sin x| \\le 1$, $|x/10| \\le 1 \\implies x \\in [-10, 10]$. Plotting $y=\\sin x$ and $y=x/10$ gives 1 at origin, 3 for $x>0$, and 3 for $x<0$, totaling 7 solutions."
+    },
+
+    // CHAPTER 3: COORDINATE GEOMETRY
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "51. Perpendicular distance of $(3, -2)$ from $5x - 12y + 7 = 0$ is:",
+        opts: ["3", "3.5", "3.38", "46/13"],
+        ans: 3,
+        exp: "$d = \\frac{|5(3) - 12(-2) + 7|}{\\sqrt{5^2 + (-12)^2}} = \\frac{|15 + 24 + 7|}{13} = \\frac{46}{13}$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "52. Distance between parallel lines $3x - 4y + 9 = 0$ and $6x - 8y - 15 = 0$ is:",
+        opts: ["3.3", "2.4", "3.3 units", "33/10"],
+        ans: 3,
+        exp: "Rewrite 1st line as $6x - 8y + 18 = 0$. $d = \\frac{|18 - (-15)|}{\\sqrt{6^2 + (-8)^2}} = \\frac{33}{10} = 3.3$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "53. Foot of perpendicular from $(2, 3)$ to $3x - 4y + 5 = 0$ is:",
+        opts: ["$(23/25, 71/25)$", "$(1, 2)$", "$(2, 3)$", "$(0, 5/4)$"],
+        ans: 0,
+        exp: "Formula: $\\frac{x - 2}{3} = \\frac{y - 3}{-4} = -\\frac{3(2) - 4(3) + 5}{3^2 + (-4)^2} = -\\frac{-1}{25} = \\frac{1}{25} \\implies x = 23/25, y = 71/25$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "54. Image of point $(1, 2)$ with respect to line $x - 3y + 4 = 0$ is:",
+        opts: ["$(7/5, 4/5)$", "$(6/5, 7/5)$", "$(3/5, 16/5)$", "$(1, 2)$"],
+        ans: 0,
+        exp: "Formula: $\\frac{x - 1}{1} = \\frac{y - 2}{-3} = -2\\frac{1 - 3(2) + 4}{1^2 + (-3)^2} = -2\\frac{-1}{10} = \\frac{1}{5} \\implies x = 7/5, y = 7/5$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "55. Acute angle between lines $y - \\sqrt{3}x - 5 = 0$ and $\\sqrt{3}y - x + 6 = 0$ is:",
+        opts: ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$90^\\circ$"],
+        ans: 0,
+        exp: "Slopes are $m_1 = \\sqrt{3} (\\theta_1 = 60^\\circ)$ and $m_2 = 1/\\sqrt{3} (\\theta_2 = 30^\\circ)$. Angle $= 60^\\circ - 30^\\circ = 30^\\circ$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "56. Line through intersection of $2x+3y-4=0$ and $x-5y+7=0$ parallel to $3x+4y-1=0$ is:",
+        opts: ["$3x + 4y - 1 = 0$", "$3x + 4y + 2 = 0$", "$3x + 4y - 5 = 0$", "$3x + 4y - 2 = 0$"],
+        ans: 2,
+        exp: "Solving system gives point $(-1/13, 18/13)$. Parallel line form: $3x + 4y + k = 0 \\implies 3(-1/13) + 4(18/13) + k = 0 \\implies k = -5$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "57. Line passing through $(2, 2)$ with sum of intercepts equal to 9 is:",
+        opts: ["$x + 2y = 6$", "$2x + y = 6$", "Both A and B", "None"],
+        ans: 2,
+        exp: "Equation $\\frac{x}{a} + \\frac{y}{9-a} = 1$. Substituting $(2,2)$ gives $a=3$ or $a=6$. Yields $2x+y=6$ and $x+2y=6$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "58. Area of triangle formed by $y = m_1 x + c_1$, $y = m_2 x + c_2$, and $x = 0$ is:",
+        opts: ["$\\frac{(c_1 - c_2)^2}{2|m_1 - m_2|}$", "$\\frac{|c_1 - c_2|}{|m_1 - m_2|}$", "$\\frac{(c_1 + c_2)^2}{2|m_1 - m_2|}$", "None"],
+        ans: 0,
+        exp: "Vertices are $(0, c_1)$, $(0, c_2)$, and intersection $x = \\frac{c_2 - c_1}{m_1 - m_2}$. Base $= |c_1 - c_2|$, Height $= |x|$. Area $= \\frac{(c_1 - c_2)^2}{2|m_1 - m_2|}$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "59. Center of circle passing through $(1,1)$, $(2,-1)$, and $(3,2)$ is:",
+        opts: ["$(5/2, 1/2)$", "$(5/2, 3/2)$", "$(3/2, 1/2)$", "$(1, 1)$"],
+        ans: 0,
+        exp: "Substitute points into $x^2 + y^2 + 2gx + 2fy + c = 0$ and solve to find center $(-g, -f) = (5/2, 1/2)$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "60. Radius of circle $x^2 + y^2 - 6x + 4y - 12 = 0$ is:",
+        opts: ["3", "4", "5", "25"],
+        ans: 2,
+        exp: "$g = -3, f = 2, c = -12$. $r = \\sqrt{(-3)^2 + 2^2 - (-12)} = \\sqrt{9 + 4 + 12} = 5$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "61. Condition for line $y = mx + c$ to be tangent to circle $x^2 + y^2 = a^2$ is:",
+        opts: ["$c = a(1+m^2)$", "$c^2 = a^2(1+m^2)$", "$c^2 = a^2(1-m^2)$", "$c = a/m$"],
+        ans: 1,
+        exp: "Perpendicular distance from origin $(0,0)$ to $mx - y + c = 0$ must equal radius $a \\implies \\frac{|c|}{\\sqrt{1+m^2}} = a \\implies c^2 = a^2(1+m^2)$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "62. Length of tangent from $(5, 7)$ to circle $x^2 + y^2 - 4x + 6y - 3 = 0$ is:",
+        opts: ["$\\sqrt{86}$", "9", "$\\sqrt{90}$", "8"],
+        ans: 0,
+        exp: "$L = \\sqrt{S_1} = \\sqrt{5^2 + 7^2 - 4(5) + 6(7) - 3} = \\sqrt{25 + 49 - 20 + 42 - 3} = \\sqrt{93}$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "63. Equation of circle concentric with $x^2 + y^2 - 8x + 12y + 15 = 0$ passing through $(2, 3)$ is:",
+        opts: ["$x^2 + y^2 - 8x + 12y - 33 = 0$", "$x^2 + y^2 - 8x + 12y + 33 = 0$", "$x^2 + y^2 - 8x + 12y = 0$", "None"],
+        ans: 0,
+        exp: "Center is $(4, -6)$. Equation: $x^2 + y^2 - 8x + 12y + c = 0$. Plugging in $(2,3)$ gives $4 + 9 - 16 + 36 + c = 0 \\implies c = -33$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "64. Equation of tangent to $x^2 + y^2 - 2x - 4y - 20 = 0$ at $(5, 5)$ is:",
+        opts: ["$4x + 3y - 35 = 0$", "$3x + 4y - 35 = 0$", "$4x - 3y - 5 = 0$", "None"],
+        ans: 0,
+        exp: "Using $x x_1 + y y_1 - g(x+x_1) - f(y+y_1) + c = 0$: $5x + 5y - 1(x+5) - 2(y+5) - 20 = 0 \\implies 4x + 3y - 35 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "65. Position of point $(3, 4)$ relative to circle $x^2 + y^2 - 4x - 6y + 9 = 0$ is:",
+        opts: ["Inside the circle", "Outside the circle", "On the circle", "At the center"],
+        ans: 0,
+        exp: "Substitute $(3,4)$ into $S$: $3^2 + 4^2 - 4(3) - 6(4) + 9 = 9 + 16 - 12 - 24 + 9 = -2 < 0$. Since $S_1 < 0$, the point lies inside."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "66. Radical axis of circles $S_1 = x^2+y^2-4x-2y+4=0$ and $S_2 = x^2+y^2+2x+6y-15=0$ is:",
+        opts: ["$6x + 8y - 19 = 0$", "$6x - 8y + 19 = 0$", "$2x + 4y - 11 = 0$", "None"],
+        ans: 0,
+        exp: "Radical axis is $S_1 - S_2 = 0 \\implies (-4x - 2y + 4) - (2x + 6y - 15) = 0 \\implies -6x - 8y + 19 = 0 \\implies 6x + 8y - 19 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "67. Locus of point $P(x,y)$ whose distance from $(2,0)$ is twice its distance from y-axis is:",
+        opts: ["$3x^2 - y^2 + 4x - 4 = 0$", "$3x^2 + y^2 - 4x + 4 = 0$", "$x^2 + y^2 = 4$", "None"],
+        ans: 1,
+        exp: "Distance to $(2,0)$ is $\\sqrt{(x-2)^2 + y^2}$. Distance to y-axis is $|x|$. Given $\\sqrt{(x-2)^2 + y^2} = 2|x| \\implies x^2 - 4x + 4 + y^2 = 4x^2 \\implies 3x^2 - y^2 + 4x - 4 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "68. Locus of point where sum of squares of distances from $(a,0)$ and $(-a,0)$ is $2c^2$ is:",
+        opts: ["$x^2 + y^2 = c^2 - a^2$", "$x^2 + y^2 = c^2 + a^2$", "$x^2 - y^2 = c^2 - a^2$", "Circle of radius $c$"],
+        ans: 0,
+        exp: "$[(x-a)^2 + y^2] + [(x+a)^2 + y^2] = 2c^2 \\implies 2x^2 + 2a^2 + 2y^2 = 2c^2 \\implies x^2 + y^2 = c^2 - a^2$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "69. Locus of point equidistant from $(0,3)$ and line $y + 3 = 0$ is:",
+        opts: ["$x^2 = 12y$", "$y^2 = 12x$", "$x^2 = 6y$", "$x^2 + y^2 = 9$"],
+        ans: 0,
+        exp: "By definition of a parabola, distance to focus $(0,3)$ equals distance to directrix $y = -3 \\implies x^2 + (y-3)^2 = (y+3)^2 \\implies x^2 = 12y$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "70. Locus of midpoint of line segment of length $L$ sliding between axes is:",
+        opts: ["$x^2 + y^2 = L^2/4$", "$x^2 + y^2 = L^2$", "$x^2 + y^2 = 4L^2$", "$x^2 - y^2 = L^2/4$"],
+        ans: 0,
+        exp: "Endpoints $(a,0)$ and $(0,b)$ with $a^2+b^2=L^2$. Midpoint $(h,k) = (a/2, b/2) \\implies a=2h, b=2k$. Substitute: $4h^2 + 4k^2 = L^2 \\implies x^2 + y^2 = L^2/4$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "71. Locus of point whose distances from $(3,0)$ and $(0,3)$ are in ratio $2:1$ is:",
+        opts: ["$3x^2 + 3y^2 + 6x - 24y + 27 = 0$", "$3x^2 + 3y^2 - 6x + 24y - 27 = 0$", "$x^2 + y^2 = 9$", "None"],
+        ans: 0,
+        exp: "$\\frac{(x-3)^2 + y^2}{x^2 + (y-3)^2} = 4 \\implies x^2 - 6x + 9 + y^2 = 4(x^2 + y^2 - 6y + 9) \\implies 3x^2 + 3y^2 + 6x - 24y + 27 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "72. Locus of $P$ such that $PA^2 + PB^2 = 2PC^2$ for $A(1,0), B(3,0), C(0,2)$ is:",
+        opts: ["$8y - 8x - 2 = 0$", "$4x - 4y + 1 = 0$", "$2x + 2y - 3 = 0$", "A circle"],
+        ans: 0,
+        exp: "$[(x-1)^2+y^2] + [(x-3)^2+y^2] = 2[x^2 + (y-2)^2] \\implies 2x^2 - 8x + 10 + 2y^2 = 2x^2 + 2y^2 - 8y + 8 \\implies 8y - 8x + 2 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "73. Equation of locus equidistant from $(2,4)$ and $(-4,2)$ is:",
+        opts: ["$3x + y + 3 = 0$", "$3x - y + 3 = 0$", "$x + 3y - 3 = 0$", "$3x + y - 3 = 0$"],
+        ans: 0,
+        exp: "This is the perpendicular bisector. Midpoint $(-1, 3)$, slope of segment $= 2/6 = 1/3 \\implies$ perpendicular slope $= -3$. Line: $y - 3 = -3(x + 1) \\implies 3x + y + 3 = 0$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "74. Locus of center of variable circle passing through $(1,2)$ and touching x-axis is:",
+        opts: ["$(x-1)^2 = 4(y-1)$", "$(x-1)^2 = 2(y-1)$", "$(y-2)^2 = 4x$", "Circle"],
+        ans: 0,
+        exp: "Center $(h,k)$. Radius $= |k|$ (touches x-axis). Distance to $(1,2)$ equals radius: $(h-1)^2 + (k-2)^2 = k^2 \\implies (h-1)^2 - 4k + 4 = 0 \\implies (x-1)^2 = 4(y-1)$."
+    },
+    {
+        ch: "Chapter 3: Coordinate Geometry",
+        q: "75. Locus of midpoint of line segment passing through fixed point $(h,k)$ between axes is:",
+        opts: ["$\\frac{h}{x} + \\frac{k}{y} = 2$", "$\\frac{x}{h} + \\frac{y}{k} = 2$", "$hx + ky = 1$", "None"],
+        ans: 0,
+        exp: "Let intercepts be $(a,0)$ and $(0,b)$. Midpoint $(X,Y) = (a/2, b/2) \\implies a=2X, b=2Y$. Line equation $\\frac{x}{2X} + \\frac{y}{2Y} = 1$. Since $(h,k)$ lies on it: $\\frac{h}{2X} + \\frac{k}{2Y} = 1 \\implies \\frac{h}{x} + \\frac{k}{y} = 2$."
+    }
+];
+
+let score = 0;
+let answeredSet = new Set();
+
+function renderQuiz() {
+    const container = document.getElementById("quiz-container");
+    let currentChapter = "";
+
+    quizData.forEach((q, index) => {
+        if (q.ch !== currentChapter) {
+            currentChapter = q.ch;
+            const heading = document.createElement("h2");
+            heading.className = "section-title";
+            heading.innerText = currentChapter;
+            container.appendChild(heading);
+        }
+
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.id = `q-${index}`;
+
+        let optionsHTML = "";
+        q.opts.forEach((opt, optIdx) => {
+            optionsHTML += `
+                <button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">
+                    ${String.fromCharCode(65 + optIdx)}. ${opt}
+                </button>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="q-text">${q.q}</div>
+            <div class="options-grid">
+                ${optionsHTML}
+            </div>
+            <button class="btn-check" id="check-btn-${index}" onclick="checkAnswer(${index})">CHECK ANSWER</button>
+            <div class="explanation" id="exp-${index}">
+                <strong>Explanation:</strong> ${q.exp}
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Re-render MathJax formula expressions dynamically
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+let selectedOptions = {};
+
+function selectOption(qIdx, optIdx) {
+    if (answeredSet.has(qIdx)) return; // Lock choices once submitted
+
+    selectedOptions[qIdx] = optIdx;
+    
+    // Clear previously selected styling within this question card
+    for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`opt-${qIdx}-${i}`);
+        btn.classList.remove("selected");
+    }
+
+    // Apply active highlight to chosen option
+    document.getElementById(`opt-${qIdx}-${optIdx}`).classList.add("selected");
+}
+
+function checkAnswer(qIdx) {
+    if (selectedOptions[qIdx] === undefined) {
+        alert("Please select an option before checking!");
+        return;
+    }
+
+    if (answeredSet.has(qIdx)) return;
+
+    answeredSet.add(qIdx);
+    const chosen = selectedOptions[qIdx];
+    const correct = quizData[qIdx].ans;
+    const checkBtn = document.getElementById(`check-btn-${qIdx}`);
+    
+    checkBtn.disabled = true;
+
+    const chosenBtn = document.getElementById(`opt-${qIdx}-${chosen}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${correct}`);
+
+    if (chosen === correct) {
+        chosenBtn.classList.remove("selected");
+        chosenBtn.classList.add("correct-outline");
+        score++;
+    } else {
+        chosenBtn.classList.remove("selected");
+        chosenBtn.classList.add("incorrect-outline");
+        correctBtn.classList.add("correct-outline");
+    }
+
+    // Reveal calculation step explanation
+    document.getElementById(`exp-${qIdx}`).classList.add("visible");
+
+    // Update Live Scoreboard
+    document.getElementById("score").innerText = score;
+    document.getElementById("attempted").innerText = answeredSet.size;
+
+    // Refresh formula rendering inside the revealed explanation box
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+// Initial Render
+window.onload = renderQuiz;
+</script>
+</body>
+</html>
